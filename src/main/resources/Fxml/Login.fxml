@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.resort.resortapp.Controllers.LoginController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../Styles/login.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.resort.resortapp.Controllers.LoginController">
+   <PasswordField fx:id="password_field" layoutX="226.0" layoutY="260.0" />
+   <Button fx:id="login_btn" layoutX="277.0" layoutY="311.0" mnemonicParsing="false" text="Log In" />
+   <Circle fill="DODGERBLUE" layoutX="301.0" layoutY="85.0" radius="53.0" stroke="BLACK" strokeType="INSIDE" />
+   <Text layoutX="272.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="J&amp;G Resort" />
+   <Text fx:id="error_txt" layoutY="375.0" strokeType="OUTSIDE" strokeWidth="0.0" text="aaaaaaaaaaaaaaaaaaa" wrappingWidth="604.0" />
+   <Button fx:id="exit_btn" layoutX="538.0" layoutY="367.0" mnemonicParsing="false" text="Button" />
 </AnchorPane>
