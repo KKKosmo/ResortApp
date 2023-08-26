@@ -1,5 +1,6 @@
 package com.resort.resortapp.Controllers;
 
+import com.resort.resortapp.Models.Model;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -17,6 +18,6 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+//        login_btn.setOnAction(event -> Model.getInstance().getViewFactory().showLoginWindow());
     }
 }

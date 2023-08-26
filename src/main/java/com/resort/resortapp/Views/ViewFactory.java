@@ -6,34 +6,33 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class ViewFactory {
-    private AnchorPane visualsMonth;
+
+    private Scene visualsMonth;
+    private Scene login;
 
     public ViewFactory(){}
 
-    public AnchorPane getVisualsMonth() {
-        if (visualsMonth == null){
-            try{
-                visualsMonth = new FXMLLoader(getClass().getResource("/Fxml/visualsMonth.fxml")).load();
-            } catch (Exception e){
+    public Scene getSceneVisualsMonth() {
+        if (visualsMonth == null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/visualsMonth.fxml"));
+                visualsMonth = new Scene(loader.load());
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         return visualsMonth;
     }
 
-    public void showLoginWindow(){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Login.fxml"));
-        Scene scene = null;
-        try{
-            scene = new Scene(loader.load());
-        } catch (Exception e){
-            e.printStackTrace();
+    public Scene getSceneLogin() {
+        if (login == null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Login.fxml"));
+                login = new Scene(loader.load());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.setTitle("J&G Resort App");
-        stage.show();
+        return login;
     }
-
-
 }

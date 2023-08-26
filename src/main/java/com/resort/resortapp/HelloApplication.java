@@ -1,5 +1,6 @@
 package com.resort.resortapp;
 
+import com.resort.resortapp.Models.Model;
 import com.resort.resortapp.Views.ViewFactory;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,9 +11,11 @@ import java.io.IOException;
 
 public class HelloApplication extends Application {
     @Override
-    public void start(Stage stage) throws IOException {
-        ViewFactory viewFactory = new ViewFactory();
-        viewFactory.showLoginWindow();
+    public void start(Stage stage){
+        stage.setTitle("J&G Resort App");
+        stage.setScene(Model.getInstance().getViewFactory().getSceneLogin());
+        stage.show();
+        Model.getInstance().getViewFactory().getSceneLogin();
     }
 
     public static void main(String[] args) {
