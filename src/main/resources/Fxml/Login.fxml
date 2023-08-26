@@ -4,13 +4,19 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../Styles/login.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.resort.resortapp.Controllers.LoginController">
-   <PasswordField fx:id="password_field" layoutX="226.0" layoutY="260.0" />
-   <Button fx:id="login_btn" layoutX="277.0" layoutY="311.0" mnemonicParsing="false" text="Log In" />
-   <Circle fill="DODGERBLUE" layoutX="301.0" layoutY="85.0" radius="53.0" stroke="BLACK" strokeType="INSIDE" />
-   <Text layoutX="272.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="J&amp;G Resort" />
-   <Text fx:id="error_txt" layoutY="375.0" strokeType="OUTSIDE" strokeWidth="0.0" text="aaaaaaaaaaaaaaaaaaa" wrappingWidth="604.0" />
-   <Button fx:id="exit_btn" layoutX="538.0" layoutY="367.0" mnemonicParsing="false" text="Button" />
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../Styles/login.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.resort.resortapp.Controllers.LoginController">
+   <PasswordField fx:id="password_field" layoutX="768.0" layoutY="672.0" prefHeight="52.0" prefWidth="384.0" />
+   <Button fx:id="login_btn" layoutX="872.0" layoutY="791.0" minHeight="25.0" minWidth="50.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="176.0" text="Log In" AnchorPane.bottomAnchor="237.0" AnchorPane.leftAnchor="872.0" AnchorPane.rightAnchor="872.0" AnchorPane.topAnchor="791.0" />
+   <Circle fill="DODGERBLUE" layoutX="960.0" layoutY="284.0" radius="192.0" stroke="BLACK" strokeType="INSIDE" />
+   <Text layoutX="839.0" layoutY="560.0" strokeType="OUTSIDE" strokeWidth="0.0" text="J&amp;G Resort">
+      <font>
+         <Font size="49.0" />
+      </font>
+   </Text>
+   <Text fx:id="error_txt" layoutX="658.0" layoutY="932.0" strokeType="OUTSIDE" strokeWidth="0.0" text="aaaaaaaaaaaaaaaaaaa" textAlignment="CENTER" wrappingWidth="604.0" />
+   <Button fx:id="exit_btn" layoutX="1794.0" layoutY="1022.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="112.0" text="Exit" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" />
 </AnchorPane>
