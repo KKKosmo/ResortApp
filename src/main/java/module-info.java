@@ -9,5 +9,5 @@ module com.resort.resortapp {
     exports com.resort.resortapp;
     exports com.resort.resortapp.Controllers;
     exports com.resort.resortapp.Models;
-    exports com.resort.resortapp.Views;
+//    exports com.resort.resortapp.Views;
 }
