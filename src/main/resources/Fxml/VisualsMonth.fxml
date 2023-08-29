@@ -8,11 +8,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="642.0" prefWidth="744.0" style="-fx-background-color: #f2fafc;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.resort.resortapp.Controllers.VisualsMonthController">
-    <FlowPane fx:id="calendar" hgap="10.0" layoutX="14.0" layoutY="116.0" prefHeight="498.0" prefWidth="716.0" vgap="5.0" />
+<AnchorPane prefHeight="642.0" prefWidth="744.0" style="-fx-background-color: #f2fafc;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.resort.resortapp.Controllers.VisualsMonthController">
+    <FlowPane fx:id="flowPane" hgap="10.0" layoutX="14.0" layoutY="116.0" prefHeight="498.0" prefWidth="716.0" vgap="5.0" />
     <HBox alignment="CENTER" layoutX="163.0" layoutY="14.0" prefHeight="44.0" prefWidth="419.0" spacing="5.0">
         <children>
-            <Button mnemonicParsing="false"  text="&lt;" />
+            <Button fx:id="prev_btn" mnemonicParsing="false" onAction="#prevMonth" text="&lt;" />
             <Text fx:id="year" strokeType="OUTSIDE" strokeWidth="0.0" text="####">
                 <font>
                     <Font size="22.0" />
@@ -23,7 +23,7 @@
                     <Font size="22.0" />
                 </font>
             </Text>
-            <Button mnemonicParsing="false"  text="&gt;" />
+            <Button fx:id="next_btn" mnemonicParsing="false" onAction="#nextMonth" text="&gt;" />
         </children>
     </HBox>
     <HBox alignment="CENTER" layoutX="14.0" layoutY="78.0" prefHeight="44.0" prefWidth="716.0" spacing="88.75">
