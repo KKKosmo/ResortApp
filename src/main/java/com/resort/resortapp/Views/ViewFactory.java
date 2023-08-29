@@ -2,14 +2,6 @@ package com.resort.resortapp.Views;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
-import javafx.scene.text.Text;
-import java.time.ZonedDateTime;
 
 public class ViewFactory {
 
@@ -50,8 +42,4 @@ public class ViewFactory {
         }
         return login;
     }
-
-
-
-
 }

@@ -33,8 +33,22 @@ public class Calendar {
         double spacingH = flowPane.getHgap();
         double spacingV = flowPane.getVgap();
 
+
+
+        int monthMaxDate = dateFocus.getMonth().maxLength();
+        //Check for leap year
+        if(dateFocus.getYear() % 4 != 0 && monthMaxDate == 29){
+            monthMaxDate = 28;
+        }
+        int dateOffset = ZonedDateTime.of(dateFocus.getYear(), dateFocus.getMonthValue(), 1,0,0,0,0,dateFocus.getZone()).getDayOfWeek().getValue();
+
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 7; j++) {
+                int calculatedDate = (j+1)+(7*i);
+                //Date date = new Date(dateFocus, calculatedDate);
+
+
+
                 StackPane stackPane = new StackPane();
                 Rectangle rectangle = new Rectangle();
                 rectangle.setFill(Color.TRANSPARENT);
@@ -45,6 +59,20 @@ public class Calendar {
                 double rectangleHeight = (calendarHeight/6) - strokeWidth - spacingV;
                 rectangle.setHeight(rectangleHeight);
                 stackPane.getChildren().add(rectangle);
+
+
+                if(calculatedDate > dateOffset){
+                    int currentDate = calculatedDate - dateOffset;
+                    if(currentDate <= monthMaxDate){
+                        Text dateText = new Text(String.valueOf(currentDate));
+                        double textTranslationY = - (rectangleHeight / 2) * 0.75;
+                        dateText.setTranslateY(textTranslationY);
+                        stackPane.getChildren().add(dateText);
+                    }
+                }
+
+
+
                 flowPane.getChildren().add(stackPane);
             }
         }
