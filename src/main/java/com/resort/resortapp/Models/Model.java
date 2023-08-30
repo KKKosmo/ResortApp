@@ -5,6 +5,9 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+
+import java.time.ZonedDateTime;
 
 public class Model {
     private static Model model;
@@ -24,4 +27,11 @@ public class Model {
         return  viewFactory;
     }
 
+
+    public void setCalendarVariables(FlowPane flowPane, Text year, Text month) {
+        viewFactory.setCalendarVariables(flowPane, year, month);
+    }
+    public void fillFlowPane(){
+        viewFactory.fillFlowPane();
+    }
 }

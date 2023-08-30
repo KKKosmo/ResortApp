@@ -1,5 +1,6 @@
 package com.resort.resortapp.Views;
 
+import com.resort.resortapp.Models.DateModel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.FlowPane;
@@ -8,6 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
+import java.time.Month;
 import java.time.ZonedDateTime;
 
 public class ViewFactory {
@@ -17,14 +19,15 @@ public class ViewFactory {
 
     private ZonedDateTime dateFocus;
     private ZonedDateTime today;
-    private Text year;
-    private Text month;
+    private Text yearText;
+    private Text monthText;
     private FlowPane flowPane;
 
-    public void setCalendarVariables(FlowPane flowPane, Text year, Text month) {
+    public void setCalendarVariables(FlowPane flowPane, Text yearText, Text monthText) {
         this.flowPane = flowPane;
-        this.year = year;
-        this.month = month;
+        this.yearText = yearText;
+        this.monthText = monthText;
+        dateFocus = ZonedDateTime.now();
     }
 
     public Scene getSceneVisualsMonth() {
@@ -52,9 +55,13 @@ public class ViewFactory {
     }
 
     public void fillFlowPane(){
-        dateFocus = ZonedDateTime.now();
-        year.setText(String.valueOf(dateFocus.getYear()));
-        month.setText(String.valueOf(dateFocus.getMonth()));
+        int year = dateFocus.getYear();
+        Month month = dateFocus.getMonth();
+        int monthValue = dateFocus.getMonthValue();
+        int monthMaxDate = month.maxLength();
+
+        yearText.setText(String.valueOf(year));
+        monthText.setText(String.valueOf(month));
 
         double calendarWidth = flowPane.getPrefWidth();
         double calendarHeight = flowPane.getPrefHeight();
@@ -64,19 +71,10 @@ public class ViewFactory {
 
 
 
-        int monthMaxDate = dateFocus.getMonth().maxLength();
-        //Check for leap year
-        if(dateFocus.getYear() % 4 != 0 && monthMaxDate == 29){
-            monthMaxDate = 28;
-        }
-        int dateOffset = ZonedDateTime.of(dateFocus.getYear(), dateFocus.getMonthValue(), 1,0,0,0,0,dateFocus.getZone()).getDayOfWeek().getValue();
-
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 7; j++) {
-                int calculatedDate = (j+1)+(7*i);
-                //Date date = new Date(dateFocus, calculatedDate);
 
-
+                DateModel date = new DateModel(dateFocus, i, j, year, monthMaxDate, monthValue);
 
                 StackPane stackPane = new StackPane();
                 Rectangle rectangle = new Rectangle();
@@ -90,22 +88,31 @@ public class ViewFactory {
                 stackPane.getChildren().add(rectangle);
 
 
-                if(calculatedDate > dateOffset){
-                    int currentDate = calculatedDate - dateOffset;
-                    if(currentDate <= monthMaxDate){
-                        Text dateText = new Text(String.valueOf(currentDate));
-                        double textTranslationY = - (rectangleHeight / 2) * 0.75;
-                        dateText.setTranslateY(textTranslationY);
-                        stackPane.getChildren().add(dateText);
-                    }
+                if(date.isWithinMonth()){
+                    Text dateText = new Text(String.valueOf(date.getGridDate()));
+                    double dateTextTranslationY = - (rectangleHeight / 2) * 0.75;
+                    dateText.setTranslateY(dateTextTranslationY);
+                    stackPane.getChildren().add(dateText);
+                    Text totalText = new Text(String.valueOf(date.getTotal()) + " Slots");
+                    double totalTextTranslationY =  rectangleHeight * 0.25;
+                    totalText.setTranslateY(totalTextTranslationY);
+                    stackPane.getChildren().add(totalText);
                 }
-
-
-
                 flowPane.getChildren().add(stackPane);
             }
         }
     }
 
 
+    public void nextMonth() {
+        dateFocus = dateFocus.plusMonths(1);
+        flowPane.getChildren().clear();
+        fillFlowPane();
+    }
+
+    public void prevMonth() {
+        dateFocus = dateFocus.minusMonths(1);
+        flowPane.getChildren().clear();
+        fillFlowPane();
+    }
 }
