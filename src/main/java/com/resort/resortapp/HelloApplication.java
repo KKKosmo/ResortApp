@@ -16,9 +16,19 @@ public class HelloApplication extends Application {
         stage.setScene(Model.getInstance().getViewFactory().getSceneLogin());
         stage.setResizable(false);
         stage.show();
+
+
+        if(SqliteConnection.openDB() != null){
+            System.out.println("Connected!");
+            SqliteConnection.closeDB();
+        }
+        else{
+            System.out.println("CNAT CONNETC");
+        }
     }
 
     public static void main(String[] args) {
+
         launch();
     }
 }

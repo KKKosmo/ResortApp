@@ -1,6 +1,7 @@
 package com.resort.resortapp.Views;
 
 import com.resort.resortapp.Models.DateModel;
+import com.resort.resortapp.SqliteConnection;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.FlowPane;
@@ -9,6 +10,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Month;
 import java.time.ZonedDateTime;
 
@@ -101,7 +108,54 @@ public class ViewFactory {
                 flowPane.getChildren().add(stackPane);
             }
         }
+
+//        Text temp = (Text)((StackPane)flowPane.getChildren().get(10)).getChildren().get(2);
+//        System.out.println(temp);
+//        temp.setText("test");
+//        System.out.println(temp);
+
+
+        String sql = "SELECT * FROM main";
+        try {
+            PreparedStatement pStmt = SqliteConnection.openDB().prepareStatement(sql);
+            ResultSet resultSet = pStmt.executeQuery();
+            while(resultSet.next()){
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                int pax = resultSet.getInt("pax");
+                boolean vehicle = resultSet.getBoolean("vehicle");
+                boolean pets = resultSet.getBoolean("pets");
+                boolean videoke = resultSet.getBoolean("videoke");
+                double partial_payment = resultSet.getDouble("partial_payment");
+                java.util.Date checkInDate;
+                java.util.Date checkOutDate;
+                String checkInString;
+                String checkOutString;
+                String room = resultSet.getString("room");
+                try {
+                    checkInDate = dateFormat.parse(resultSet.getString("checkIn"));
+                    checkOutDate = dateFormat.parse(resultSet.getString("checkOut"));
+                    checkInString = dateFormat.format(checkInDate);
+                    checkOutString = dateFormat.format(checkOutDate);
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
+
+                System.out.println();
+                System.out.println(id + ", " + name + ", " + pax + ", " + vehicle + ", " +
+                        pets + ", " + videoke + ", " + partial_payment + ", "
+                        + checkInString + ", " + checkOutString + ", " + room);
+
+            }
+            resultSet.close();
+            SqliteConnection.closeDB();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
+
 
 
     public void nextMonth() {

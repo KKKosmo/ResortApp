@@ -15,7 +15,6 @@ public class VisualsMonthController implements Initializable {
     public Text month;
     public Button prev_btn;
     public Button next_btn;
-
     private void fillFlowPane(){
         Model.getInstance().getViewFactory().fillFlowPane();
     }
