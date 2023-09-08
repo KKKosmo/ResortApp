@@ -1,7 +1,7 @@
 package com.resort.resortapp.Views;
 
-import com.resort.resortapp.Models.DateModel;
-import com.resort.resortapp.SqliteConnection;
+import com.resort.resortapp.Models.DayModel;
+import com.resort.resortapp.Models.sqliteModel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.FlowPane;
@@ -10,7 +10,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -76,12 +75,10 @@ public class ViewFactory {
         double spacingH = flowPane.getHgap();
         double spacingV = flowPane.getVgap();
 
-
-
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 7; j++) {
 
-                DateModel date = new DateModel(dateFocus, i, j, year, monthMaxDate, monthValue);
+                DayModel date = new DayModel(dateFocus, i, j, year, monthMaxDate, monthValue);
 
                 StackPane stackPane = new StackPane();
                 Rectangle rectangle = new Rectangle();
@@ -109,51 +106,15 @@ public class ViewFactory {
             }
         }
 
+        //foreach stackpane, change text
+
 //        Text temp = (Text)((StackPane)flowPane.getChildren().get(10)).getChildren().get(2);
 //        System.out.println(temp);
 //        temp.setText("test");
 //        System.out.println(temp);
 
 
-        String sql = "SELECT * FROM main";
-        try {
-            PreparedStatement pStmt = SqliteConnection.openDB().prepareStatement(sql);
-            ResultSet resultSet = pStmt.executeQuery();
-            while(resultSet.next()){
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                int pax = resultSet.getInt("pax");
-                boolean vehicle = resultSet.getBoolean("vehicle");
-                boolean pets = resultSet.getBoolean("pets");
-                boolean videoke = resultSet.getBoolean("videoke");
-                double partial_payment = resultSet.getDouble("partial_payment");
-                java.util.Date checkInDate;
-                java.util.Date checkOutDate;
-                String checkInString;
-                String checkOutString;
-                String room = resultSet.getString("room");
-                try {
-                    checkInDate = dateFormat.parse(resultSet.getString("checkIn"));
-                    checkOutDate = dateFormat.parse(resultSet.getString("checkOut"));
-                    checkInString = dateFormat.format(checkInDate);
-                    checkOutString = dateFormat.format(checkOutDate);
-                } catch (ParseException e) {
-                    throw new RuntimeException(e);
-                }
 
-                System.out.println();
-                System.out.println(id + ", " + name + ", " + pax + ", " + vehicle + ", " +
-                        pets + ", " + videoke + ", " + partial_payment + ", "
-                        + checkInString + ", " + checkOutString + ", " + room);
-
-            }
-            resultSet.close();
-            SqliteConnection.closeDB();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
 

@@ -10,4 +10,5 @@ module com.resort.resortapp {
     exports com.resort.resortapp.Controllers;
     exports com.resort.resortapp.Models;
     exports com.resort.resortapp.Views;
+    opens com.resort.resortapp.Models to javafx.fxml;
 }

@@ -44,5 +44,4 @@ public class VisualsMonthController implements Initializable {
     public void prevMonth() {
         Model.getInstance().getViewFactory().prevMonth();
     }
-
 }

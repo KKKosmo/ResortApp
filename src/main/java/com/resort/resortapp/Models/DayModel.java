@@ -1,17 +1,16 @@
 package com.resort.resortapp.Models;
 
-import java.time.Month;
 import java.time.ZonedDateTime;
 import java.util.Random;
 
-public class DateModel {
+public class DayModel {
     int total = 0;
     int gridSlot;
     int dateOffset;
     boolean withinMonth;
     int gridDate;
 
-    public DateModel(ZonedDateTime dateFocus, int i, int j, int year, int monthMaxDate, int monthValue){
+    public DayModel(ZonedDateTime dateFocus, int i, int j, int year, int monthMaxDate, int monthValue){
         gridSlot = (7*i)+(j+1);
         dateOffset = ZonedDateTime.of(year, monthValue, 1,0,0,0,0,dateFocus.getZone()).getDayOfWeek().getValue();
         if(dateOffset >= 7){
