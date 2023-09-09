@@ -3,6 +3,13 @@ package com.resort.resortapp.Models;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class sqliteModel {
 
@@ -27,9 +34,60 @@ public class sqliteModel {
             }
         }
     }
+    public static List<Integer> getMonthSlots(ZonedDateTime dateFocus, int monthMaxDate, int year, int monthValue){
+        List<Integer> result = new ArrayList<>();
+        int dateOffset = ZonedDateTime.of(year, monthValue, 1,0,0,0,0,dateFocus.getZone()).getDayOfWeek().getValue();
+        if(dateOffset >= 7){
+            dateOffset = 0;
+        }
+        result.add(dateOffset);
+//        System.out.println(dateOffset);
 
+        for (int i = 0; i < monthMaxDate; i++) {
+            result.add(32);
+        }
+        DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MM");
+        String twoDigitMonth = dateFocus.format(monthFormatter);
 
+        String monthStart = dateFocus.getYear() + "-" + twoDigitMonth + "-01";
+        String monthEnd = dateFocus.getYear() + "-" + twoDigitMonth + "-" + monthMaxDate;
+        String sql = "SELECT checkIn, checkOut, room FROM main where checkIn <= '" + monthEnd + "' AND checkOut >= '" + monthStart + "';";
+//        System.out.println("sql = " + sql);
+        try {
+            PreparedStatement pStmt = openDB().prepareStatement(sql);
+            ResultSet resultSet = pStmt.executeQuery();
+            while(resultSet.next()){
+                String checkInString = resultSet.getString("checkIn");
+                String checkOutString = resultSet.getString("checkOut");
+                String room = resultSet.getString("room");
 
+                int startDate = Integer.parseInt(checkInString.substring(8));
+                int daysCount = Integer.parseInt(checkOutString.substring(8)) - startDate + 1;
+                int paxDerived = switch (room) {
+                    case "j" -> 6;
+                    case "g" -> 9;
+                    case "attic" -> 7;
+                    case "k1", "k2" -> 5;
+                    default -> 0;
+                };
+
+                for(int i = startDate; i < daysCount + startDate; i++){
+                    result.set(i, result.get(i) - paxDerived);
+                }
+
+//                System.out.println("startDate = " + startDate);
+//                System.out.println("daysCount = " + daysCount);
+//                System.out.println(checkInString + ", " + checkOutString + ", " + room);
+//                System.out.println(result);
+            }
+            resultSet.close();
+            closeDB();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return  result;
+    }
     public void selectAll(){
 
         String sql = "SELECT * FROM main";
@@ -72,8 +130,4 @@ public class sqliteModel {
             e.printStackTrace();
         }
     }
-
-
-
-
 }

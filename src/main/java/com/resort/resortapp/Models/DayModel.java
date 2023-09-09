@@ -37,15 +37,11 @@ public class DayModel {
 
         //if(sql.dateString.roomJ){total+=6}
 
-        Random rand = new Random();
-        total = rand.nextInt(32);
     }
 
-
-    public int getTotal() {
-        return total;
+    public int getDateOffset() {
+        return dateOffset;
     }
-
 
     public boolean isWithinMonth() {
         return withinMonth;

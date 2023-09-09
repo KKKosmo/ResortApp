@@ -17,6 +17,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Month;
 import java.time.ZonedDateTime;
+import java.util.List;
 
 public class ViewFactory {
 
@@ -28,6 +29,7 @@ public class ViewFactory {
     private Text yearText;
     private Text monthText;
     private FlowPane flowPane;
+    private List<Integer> slotsList;
 
     public void setCalendarVariables(FlowPane flowPane, Text yearText, Text monthText) {
         this.flowPane = flowPane;
@@ -97,7 +99,7 @@ public class ViewFactory {
                     double dateTextTranslationY = - (rectangleHeight / 2) * 0.75;
                     dateText.setTranslateY(dateTextTranslationY);
                     stackPane.getChildren().add(dateText);
-                    Text totalText = new Text(String.valueOf(date.getTotal()) + " Slots");
+                    Text totalText = new Text("10");
                     double totalTextTranslationY =  rectangleHeight * 0.25;
                     totalText.setTranslateY(totalTextTranslationY);
                     stackPane.getChildren().add(totalText);
@@ -105,16 +107,12 @@ public class ViewFactory {
                 flowPane.getChildren().add(stackPane);
             }
         }
+        slotsList =  sqliteModel.getMonthSlots(dateFocus, monthMaxDate, year, monthValue);
 
-        //foreach stackpane, change text
-
-//        Text temp = (Text)((StackPane)flowPane.getChildren().get(10)).getChildren().get(2);
-//        System.out.println(temp);
-//        temp.setText("test");
-//        System.out.println(temp);
-
-
-
+        for(int i = 0; i < monthMaxDate; i++){
+            Text temp = (Text)((StackPane)flowPane.getChildren().get(i + slotsList.get(0))).getChildren().get(2);
+            temp.setText(slotsList.get(1 + i).toString() + " Slots Free");
+        }
     }
 
 
