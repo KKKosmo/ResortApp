@@ -1,6 +1,7 @@
 package com.resort.resortapp.Views;
 
 import com.resort.resortapp.Models.DayModel;
+import com.resort.resortapp.Models.Rooms;
 import com.resort.resortapp.Models.sqliteModel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -28,13 +29,16 @@ public class ViewFactory {
     private ZonedDateTime today;
     private Text yearText;
     private Text monthText;
+    private Text roomText;
     private FlowPane flowPane;
-    private List<Integer> slotsList;
+    Rooms rooms = Rooms.ROOM_J;
 
-    public void setCalendarVariables(FlowPane flowPane, Text yearText, Text monthText) {
+
+    public void setCalendarVariables(FlowPane flowPane, Text yearText, Text monthText, Text roomText) {
         this.flowPane = flowPane;
         this.yearText = yearText;
         this.monthText = monthText;
+        this.roomText = roomText;
         dateFocus = ZonedDateTime.now();
     }
 
@@ -70,6 +74,7 @@ public class ViewFactory {
 
         yearText.setText(String.valueOf(year));
         monthText.setText(String.valueOf(month));
+        roomText.setText(rooms.getDisplayName());
 
         double calendarWidth = flowPane.getPrefWidth();
         double calendarHeight = flowPane.getPrefHeight();
@@ -107,7 +112,7 @@ public class ViewFactory {
                 flowPane.getChildren().add(stackPane);
             }
         }
-        slotsList =  sqliteModel.getMonthSlots(dateFocus, monthMaxDate, year, monthValue);
+        List<Integer> slotsList = sqliteModel.getMonthSlots(dateFocus, monthMaxDate, year, monthValue);
 
         for(int i = 0; i < monthMaxDate; i++){
             Text temp = (Text)((StackPane)flowPane.getChildren().get(i + slotsList.get(0))).getChildren().get(2);
@@ -128,4 +133,16 @@ public class ViewFactory {
         flowPane.getChildren().clear();
         fillFlowPane();
     }
+    public void prevRoom() {
+        rooms = rooms.prev();
+        flowPane.getChildren().clear();
+        fillFlowPane();
+    }
+    public void nextRoom() {
+        rooms = rooms.next();
+        flowPane.getChildren().clear();
+        fillFlowPane();
+    }
+
+
 }

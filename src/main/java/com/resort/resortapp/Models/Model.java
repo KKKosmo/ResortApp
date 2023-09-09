@@ -28,8 +28,8 @@ public class Model {
     }
 
 
-    public void setCalendarVariables(FlowPane flowPane, Text year, Text month) {
-        viewFactory.setCalendarVariables(flowPane, year, month);
+    public void setCalendarVariables(FlowPane flowPane, Text year, Text month, Text roomText) {
+        viewFactory.setCalendarVariables(flowPane, year, month, roomText);
     }
     public void fillFlowPane(){
         viewFactory.fillFlowPane();

@@ -1,6 +1,7 @@
 package com.resort.resortapp.Controllers;
 
 import com.resort.resortapp.Models.Model;
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.FlowPane;
@@ -13,26 +14,36 @@ public class VisualsMonthController implements Initializable {
     public FlowPane flowPane;
     public Text year;
     public Text month;
-    public Button prev_btn;
-    public Button next_btn;
+    public Button prev_month_btn;
+    public Button next_month_btn;
+    public Button next_room_btn;
+    public Button prev_room_btn;
+    public Text room;
+
     private void fillFlowPane(){
         Model.getInstance().getViewFactory().fillFlowPane();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Model.getInstance().setCalendarVariables(flowPane, year, month);
+        Model.getInstance().setCalendarVariables(flowPane, year, month, room);
         fillFlowPane();
-        next_btn.setOnAction(event ->
+        next_month_btn.setOnAction(event ->
                 {
                     nextMonth();
                 }
         );
-        prev_btn.setOnAction(event ->
+        prev_month_btn.setOnAction(event ->
                 {
                     prevMonth();
                 }
         );
+        next_room_btn.setOnAction(event ->{
+            nextRoom();
+        });
+        prev_room_btn.setOnAction(event ->{
+            prevRoom();
+        });
     }
 
 
@@ -43,5 +54,13 @@ public class VisualsMonthController implements Initializable {
 
     public void prevMonth() {
         Model.getInstance().getViewFactory().prevMonth();
+    }
+
+    public void nextRoom() {
+        Model.getInstance().getViewFactory().nextRoom();
+    }
+
+    public void prevRoom() {
+        Model.getInstance().getViewFactory().prevRoom();
     }
 }
