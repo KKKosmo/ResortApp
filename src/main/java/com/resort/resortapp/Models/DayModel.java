@@ -1,46 +1,47 @@
 package com.resort.resortapp.Models;
 
+import java.time.Month;
 import java.time.ZonedDateTime;
-import java.util.Random;
 
 public class DayModel {
-    int total = 0;
     int gridSlot;
-    int dateOffset;
     boolean withinMonth;
     int gridDate;
+    static int dateOffset;
+    static int monthMaxDate;
+    static int year;
+    static int monthValue;
+    static Month month;
 
-    public DayModel(ZonedDateTime dateFocus, int i, int j, int year, int monthMaxDate, int monthValue){
+    static ZonedDateTime dateFocus;
+
+    public DayModel(int i, int j){
         gridSlot = (7*i)+(j+1);
+        gridDate = gridSlot - dateOffset;
+        withinMonth = gridSlot > dateOffset && gridDate <= monthMaxDate;
+    }
+
+    public static int getDateOffset() {
+        return dateOffset;
+    }
+
+    public static void DayModelSetters(){
+        year = dateFocus.getYear();
+        monthValue = dateFocus.getMonthValue();
+        month =  dateFocus.getMonth();
+        monthMaxDate = month.maxLength();
+        if(year % 4 != 0 && monthMaxDate == 29){
+            monthMaxDate = 28;
+        }
         dateOffset = ZonedDateTime.of(year, monthValue, 1,0,0,0,0,dateFocus.getZone()).getDayOfWeek().getValue();
         if(dateOffset >= 7){
             dateOffset = 0;
         }
-
-        //Check for leap year
-        if(year % 4 != 0 && monthMaxDate == 29){
-            monthMaxDate = 28;
-        }
-
-
-        gridDate = gridSlot - dateOffset;
-        withinMonth = gridSlot > dateOffset && gridDate <= monthMaxDate;
-
-        String dateString;
-
-
-        String formattedMonth = (monthValue < 10) ? "0" + monthValue : String.valueOf(monthValue);
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(year).append("-").append(formattedMonth).append("-").append(gridSlot);
-
-        dateString = stringBuilder.toString();
-
-        //if(sql.dateString.roomJ){total+=6}
-
     }
 
-    public int getDateOffset() {
-        return dateOffset;
+
+    public static int getMonthMaxDate() {
+        return monthMaxDate;
     }
 
     public boolean isWithinMonth() {
@@ -49,5 +50,29 @@ public class DayModel {
 
     public int getGridDate() {
         return gridDate;
+    }
+
+
+    public static int getYear() {
+        return year;
+    }
+
+    public static Month getMonth() {
+        return month;
+    }
+
+    public static ZonedDateTime getDateFocus() {
+        return dateFocus;
+    }
+
+    public static void setDateFocus() {
+        DayModel.dateFocus = ZonedDateTime.now();
+    }
+
+    public static void nextMonth() {
+        dateFocus = dateFocus.plusMonths(1);
+    }
+    public static void prevMonth() {
+        dateFocus = dateFocus.minusMonths(1);
     }
 }

@@ -11,12 +11,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Month;
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -24,8 +18,6 @@ public class ViewFactory {
 
     private Scene visualsMonth;
     private Scene login;
-
-    private ZonedDateTime dateFocus;
     private ZonedDateTime today;
     private Text yearText;
     private Text monthText;
@@ -39,7 +31,7 @@ public class ViewFactory {
         this.yearText = yearText;
         this.monthText = monthText;
         this.roomText = roomText;
-        dateFocus = ZonedDateTime.now();
+        DayModel.setDateFocus();
     }
 
     public Scene getSceneVisualsMonth() {
@@ -67,13 +59,10 @@ public class ViewFactory {
     }
 
     public void fillFlowPane(){
-        int year = dateFocus.getYear();
-        Month month = dateFocus.getMonth();
-        int monthValue = dateFocus.getMonthValue();
-        int monthMaxDate = month.maxLength();
+        DayModel.DayModelSetters();
 
-        yearText.setText(String.valueOf(year));
-        monthText.setText(String.valueOf(month));
+        yearText.setText(String.valueOf(DayModel.getYear()));
+        monthText.setText(String.valueOf(DayModel.getMonth()));
         roomText.setText(rooms.getDisplayName());
 
         double calendarWidth = flowPane.getPrefWidth();
@@ -84,8 +73,7 @@ public class ViewFactory {
 
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 7; j++) {
-
-                DayModel date = new DayModel(dateFocus, i, j, year, monthMaxDate, monthValue);
+                DayModel date = new DayModel(i, j);
 
                 StackPane stackPane = new StackPane();
                 Rectangle rectangle = new Rectangle();
@@ -97,7 +85,6 @@ public class ViewFactory {
                 double rectangleHeight = (calendarHeight/6) - strokeWidth - spacingV;
                 rectangle.setHeight(rectangleHeight);
                 stackPane.getChildren().add(rectangle);
-
 
                 if(date.isWithinMonth()){
                     Text dateText = new Text(String.valueOf(date.getGridDate()));
@@ -112,24 +99,25 @@ public class ViewFactory {
                 flowPane.getChildren().add(stackPane);
             }
         }
-        List<Integer> slotsList = sqliteModel.getMonthSlots(dateFocus, monthMaxDate, year, monthValue);
 
-        for(int i = 0; i < monthMaxDate; i++){
-            Text temp = (Text)((StackPane)flowPane.getChildren().get(i + slotsList.get(0))).getChildren().get(2);
-            temp.setText(slotsList.get(1 + i).toString() + " Slots Free");
+        List<Integer> slotsList = sqliteModel.getMonthSlots();
+
+        for(int i = 0; i < DayModel.getMonthMaxDate(); i++){
+            Text temp = (Text)((StackPane)flowPane.getChildren().get(i + DayModel.getDateOffset())).getChildren().get(2);
+            temp.setText(slotsList.get(i).toString() + " Slots Free");
         }
     }
 
 
 
     public void nextMonth() {
-        dateFocus = dateFocus.plusMonths(1);
+        DayModel.nextMonth();
         flowPane.getChildren().clear();
         fillFlowPane();
     }
 
     public void prevMonth() {
-        dateFocus = dateFocus.minusMonths(1);
+        DayModel.prevMonth();
         flowPane.getChildren().clear();
         fillFlowPane();
     }
@@ -143,6 +131,4 @@ public class ViewFactory {
         flowPane.getChildren().clear();
         fillFlowPane();
     }
-
-
 }

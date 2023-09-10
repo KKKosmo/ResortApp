@@ -3,21 +3,15 @@ package com.resort.resortapp.Models;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class sqliteModel {
-
-    private static String url = "jdbc:sqlite:src/sqlite.db";
     private static Connection con = null;
-
     public static Connection openDB() {
         try {
+            String url = "jdbc:sqlite:src/sqlite.db";
             con = DriverManager.getConnection(url);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -34,23 +28,19 @@ public class sqliteModel {
             }
         }
     }
-    public static List<Integer> getMonthSlots(ZonedDateTime dateFocus, int monthMaxDate, int year, int monthValue){
+    public static List<Integer> getMonthSlots(){
         List<Integer> result = new ArrayList<>();
-        int dateOffset = ZonedDateTime.of(year, monthValue, 1,0,0,0,0,dateFocus.getZone()).getDayOfWeek().getValue();
-        if(dateOffset >= 7){
-            dateOffset = 0;
-        }
-        result.add(dateOffset);
 //        System.out.println(dateOffset);
 
-        for (int i = 0; i < monthMaxDate; i++) {
+
+        for (int i = 0; i < DayModel.getMonthMaxDate(); i++) {
             result.add(32);
         }
         DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MM");
-        String twoDigitMonth = dateFocus.format(monthFormatter);
+        String twoDigitMonth = DayModel.getDateFocus().format(monthFormatter);
 
-        String monthStart = dateFocus.getYear() + "-" + twoDigitMonth + "-01";
-        String monthEnd = dateFocus.getYear() + "-" + twoDigitMonth + "-" + monthMaxDate;
+        String monthStart = DayModel.getDateFocus().getYear() + "-" + twoDigitMonth + "-01";
+        String monthEnd = DayModel.getDateFocus().getYear() + "-" + twoDigitMonth + "-" + DayModel.getMonthMaxDate();
         String sql = "SELECT checkIn, checkOut, room FROM main where checkIn <= '" + monthEnd + "' AND checkOut >= '" + monthStart + "';";
 //        System.out.println("sql = " + sql);
         try {
@@ -71,14 +61,14 @@ public class sqliteModel {
                     default -> 0;
                 };
 
-                for(int i = startDate; i < daysCount + startDate; i++){
+                for(int i = startDate - 1; i < daysCount + startDate - 1; i++){
                     result.set(i, result.get(i) - paxDerived);
                 }
 
-//                System.out.println("startDate = " + startDate);
-//                System.out.println("daysCount = " + daysCount);
-//                System.out.println(checkInString + ", " + checkOutString + ", " + room);
-//                System.out.println(result);
+                System.out.println("startDate = " + startDate);
+                System.out.println("daysCount = " + daysCount);
+                System.out.println(result);
+                System.out.println(checkInString + ", " + checkOutString + ", " + room);
             }
             resultSet.close();
             closeDB();
