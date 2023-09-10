@@ -1,6 +1,7 @@
 package com.resort.resortapp.Views;
 
 import com.resort.resortapp.Models.DayModel;
+import com.resort.resortapp.Models.RoomedDateModel;
 import com.resort.resortapp.Models.Rooms;
 import com.resort.resortapp.Models.sqliteModel;
 import javafx.fxml.FXMLLoader;
@@ -23,7 +24,6 @@ public class ViewFactory {
     private Text monthText;
     private Text roomText;
     private FlowPane flowPane;
-    Rooms rooms = Rooms.ROOM_J;
 
 
     public void setCalendarVariables(FlowPane flowPane, Text yearText, Text monthText, Text roomText) {
@@ -31,7 +31,6 @@ public class ViewFactory {
         this.yearText = yearText;
         this.monthText = monthText;
         this.roomText = roomText;
-        DayModel.setDateFocus();
     }
 
     public Scene getSceneVisualsMonth() {
@@ -58,9 +57,7 @@ public class ViewFactory {
         return login;
     }
 
-    public void fillFlowPane(){
-        DayModel.DayModelSetters();
-
+    public void fillFlowPaneMonths(Rooms rooms){
         yearText.setText(String.valueOf(DayModel.getYear()));
         monthText.setText(String.valueOf(DayModel.getMonth()));
         roomText.setText(rooms.getDisplayName());
@@ -108,27 +105,56 @@ public class ViewFactory {
         }
     }
 
+    public void fillFlowPaneRooms(Rooms rooms){
+        yearText.setText(String.valueOf(DayModel.getYear()));
+        monthText.setText(String.valueOf(DayModel.getMonth()));
+        roomText.setText(rooms.getDisplayName());
 
+        double calendarWidth = flowPane.getPrefWidth();
+        double calendarHeight = flowPane.getPrefHeight();
+        double strokeWidth = 1;
+        double spacingH = flowPane.getHgap();
+        double spacingV = flowPane.getVgap();
 
-    public void nextMonth() {
-        DayModel.nextMonth();
-        flowPane.getChildren().clear();
-        fillFlowPane();
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 7; j++) {
+                RoomedDateModel roomedDateModel = new RoomedDateModel(i, j);
+
+                StackPane stackPane = new StackPane();
+                Rectangle rectangle = new Rectangle();
+                rectangle.setFill(Color.TRANSPARENT);
+                rectangle.setStroke(Color.BLACK);
+                rectangle.setStrokeWidth(strokeWidth);
+                double rectangleWidth =(calendarWidth/7) - strokeWidth - spacingH;
+                rectangle.setWidth(rectangleWidth);
+                double rectangleHeight = (calendarHeight/6) - strokeWidth - spacingV;
+                rectangle.setHeight(rectangleHeight);
+                stackPane.getChildren().add(rectangle);
+
+                if(roomedDateModel.isWithinMonth()){
+                    Text dateText = new Text(String.valueOf(roomedDateModel.getGridDate()));
+                    double dateTextTranslationY = - (rectangleHeight / 2) * 0.75;
+                    dateText.setTranslateY(dateTextTranslationY);
+                    stackPane.getChildren().add(dateText);
+                    Text totalText = new Text("AVAILABLE");
+                    double totalTextTranslationY =  rectangleHeight * 0.25;
+                    totalText.setTranslateY(totalTextTranslationY);
+                    stackPane.getChildren().add(totalText);
+                }
+                flowPane.getChildren().add(stackPane);
+            }
+        }
+
+        List<String> slotsList = sqliteModel.getMonthSlots(rooms);
+
+        for(int i = 0; i < DayModel.getMonthMaxDate(); i++){
+            Text temp = (Text)((StackPane)flowPane.getChildren().get(i + DayModel.getDateOffset())).getChildren().get(2);
+            temp.setText(slotsList.get(i).toString());
+        }
     }
 
-    public void prevMonth() {
-        DayModel.prevMonth();
+    public void clearFlowPane() {
         flowPane.getChildren().clear();
-        fillFlowPane();
     }
-    public void prevRoom() {
-        rooms = rooms.prev();
-        flowPane.getChildren().clear();
-        fillFlowPane();
-    }
-    public void nextRoom() {
-        rooms = rooms.next();
-        flowPane.getChildren().clear();
-        fillFlowPane();
-    }
+
 }

@@ -49,20 +49,73 @@ public class sqliteModel {
             while(resultSet.next()){
                 String checkInString = resultSet.getString("checkIn");
                 String checkOutString = resultSet.getString("checkOut");
+
+                String roomValue = resultSet.getString("room");
+                Rooms rooms = Rooms.ALL_ROOMS;
+
+                if ("g".equals(roomValue)) {
+                    rooms = Rooms.ROOM_G;
+                } else if ("j".equals(roomValue)) {
+                    rooms = Rooms.ROOM_J;
+                } else if ("attic".equals(roomValue)) {
+                    rooms = Rooms.ATTIC;
+                } else if ("k1".equals(roomValue)) {
+                    rooms = Rooms.KUBO_1;
+                } else if ("k2".equals(roomValue)) {
+                    rooms = Rooms.KUBO_2;
+                }
+
+                int startDate = Integer.parseInt(checkInString.substring(8));
+                int daysCount = Integer.parseInt(checkOutString.substring(8)) - startDate + 1;
+
+
+                for(int i = startDate - 1; i < daysCount + startDate - 1; i++){
+                    result.set(i, result.get(i) - rooms.getPax());
+                }
+
+                System.out.println("startDate = " + startDate);
+                System.out.println("daysCount = " + daysCount);
+                System.out.println(result);
+                System.out.println(checkInString + ", " + checkOutString + ", " + rooms.getDisplayName());
+            }
+            resultSet.close();
+            closeDB();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return  result;
+    }
+    public static List<String> getMonthSlots(Rooms rooms){
+        List<String> result = new ArrayList<>();
+//        System.out.println(dateOffset);
+
+        for (int i = 0; i < DayModel.getMonthMaxDate(); i++) {
+            result.add("AVAILABLE");
+        }
+
+        DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MM");
+        String twoDigitMonth = DayModel.getDateFocus().format(monthFormatter);
+
+        String monthStart = DayModel.getDateFocus().getYear() + "-" + twoDigitMonth + "-01";
+        String monthEnd = DayModel.getDateFocus().getYear() + "-" + twoDigitMonth + "-" + DayModel.getMonthMaxDate();
+        String sql = "SELECT checkIn, checkOut, room FROM main where checkIn <= '" + monthEnd + "' AND checkOut >= '" + monthStart + "' AND room = '" + rooms.getAbbreviatedName() + "';";
+
+        System.out.println("sql = " + sql);
+        try {
+            PreparedStatement pStmt = openDB().prepareStatement(sql);
+            ResultSet resultSet = pStmt.executeQuery();
+            while(resultSet.next()){
+                String checkInString = resultSet.getString("checkIn");
+                String checkOutString = resultSet.getString("checkOut");
                 String room = resultSet.getString("room");
 
                 int startDate = Integer.parseInt(checkInString.substring(8));
                 int daysCount = Integer.parseInt(checkOutString.substring(8)) - startDate + 1;
-                int paxDerived = switch (room) {
-                    case "j" -> 6;
-                    case "g" -> 9;
-                    case "attic" -> 7;
-                    case "k1", "k2" -> 5;
-                    default -> 0;
-                };
 
                 for(int i = startDate - 1; i < daysCount + startDate - 1; i++){
-                    result.set(i, result.get(i) - paxDerived);
+                    if(!result.get(i).equals("NOT AVAILABLE"))
+                        result.set(i, "NOT AVAILABLE");
                 }
 
                 System.out.println("startDate = " + startDate);

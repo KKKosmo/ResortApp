@@ -39,7 +39,6 @@ public class DayModel {
         }
     }
 
-
     public static int getMonthMaxDate() {
         return monthMaxDate;
     }
@@ -75,4 +74,5 @@ public class DayModel {
     public static void prevMonth() {
         dateFocus = dateFocus.minusMonths(1);
     }
+
 }
