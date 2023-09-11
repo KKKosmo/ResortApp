@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,6 +19,7 @@ public class VisualsMonthController implements Initializable {
     public Button next_room_btn;
     public Button prev_room_btn;
     public Text room;
+    public Button add_btn;
 
     private void fillFlowPaneMonths(){
         Model.getInstance().fillFlowPaneMonths();
@@ -43,23 +45,23 @@ public class VisualsMonthController implements Initializable {
         prev_room_btn.setOnAction(event ->{
             prevRoom();
         });
+        add_btn.setOnAction(actionEvent -> {
+            Stage stage = (Stage)add_btn.getScene().getWindow();
+            stage.setScene(Model.getInstance().getViewFactory().getSceneCreate());
+        });
     }
-
-
 
     public void nextMonth() {
         Model.getInstance().nextMonth();
     }
-
     public void prevMonth() {
         Model.getInstance().prevMonth();
     }
-
     public void nextRoom() {
         Model.getInstance().nextRoom();
     }
-
     public void prevRoom() {
         Model.getInstance().prevRoom();
     }
+
 }

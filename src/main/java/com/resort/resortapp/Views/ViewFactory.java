@@ -15,6 +15,7 @@ import java.util.List;
 public class ViewFactory {
 
     private Scene visualsMonth;
+    private Scene create;
     private Scene login;
     private ZonedDateTime today;
     private Text yearText;
@@ -39,6 +40,17 @@ public class ViewFactory {
             }
         }
         return visualsMonth;
+    }
+    public Scene getSceneCreate() {
+        if (create == null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Create.fxml"));
+                create = new Scene(loader.load());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return create;
     }
 
     public Scene getSceneLogin() {
@@ -87,6 +99,9 @@ public class ViewFactory {
         double spacingH = flowPane.getHgap();
         double spacingV = flowPane.getVgap();
 
+        double boxWidth = (calendarWidth/7) - strokeWidth - spacingH;
+        double boxHeight = (calendarHeight/6) - strokeWidth - spacingV;
+
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 7; j++) {
                 DayModel dayModel = new DayModel(i, j);
@@ -96,19 +111,17 @@ public class ViewFactory {
                 rectangle.setFill(Color.TRANSPARENT);
                 rectangle.setStroke(Color.BLACK);
                 rectangle.setStrokeWidth(strokeWidth);
-                double rectangleWidth =(calendarWidth/7) - strokeWidth - spacingH;
-                rectangle.setWidth(rectangleWidth);
-                double rectangleHeight = (calendarHeight/6) - strokeWidth - spacingV;
-                rectangle.setHeight(rectangleHeight);
+                rectangle.setWidth(boxWidth);
+                rectangle.setHeight(boxHeight);
                 stackPane.getChildren().add(rectangle);
 
                 if(dayModel.isWithinMonth()){
                     Text dateText = new Text(String.valueOf(dayModel.getGridDate()));
-                    double dateTextTranslationY = - (rectangleHeight / 2) * 0.75;
+                    double dateTextTranslationY = - (boxHeight / 2) * 0.75;
                     dateText.setTranslateY(dateTextTranslationY);
                     stackPane.getChildren().add(dateText);
                     Text totalText = new Text("AVAILABLE");
-                    double totalTextTranslationY =  rectangleHeight * 0.25;
+                    double totalTextTranslationY =  boxHeight * 0.25;
                     totalText.setTranslateY(totalTextTranslationY);
                     stackPane.getChildren().add(totalText);
                 }

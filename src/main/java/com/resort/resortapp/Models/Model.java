@@ -11,8 +11,6 @@ public class Model {
     private static Model model;
     private final ViewFactory viewFactory;
     Rooms rooms = Rooms.ALL_ROOMS;
-
-
     static int dateOffset;
     static int monthMaxDate;
     static int year;

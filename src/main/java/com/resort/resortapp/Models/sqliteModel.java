@@ -9,7 +9,7 @@ import java.util.List;
 
 public class sqliteModel {
     private static Connection con = null;
-    public static Connection openDB() {
+    private static Connection openDB() {
         try {
             String url = "jdbc:sqlite:src/sqlite.db";
             con = DriverManager.getConnection(url);
@@ -18,8 +18,7 @@ public class sqliteModel {
         }
         return con;
     }
-
-    public static void closeDB(){
+    private static void closeDB(){
         if(con != null){
             try{
                 con.close();
@@ -31,7 +30,6 @@ public class sqliteModel {
     public static List<Integer> getMonthSlots(){
         List<Integer> result = new ArrayList<>();
 //        System.out.println(dateOffset);
-
 
         for (int i = 0; i < Model.getMonthMaxDate(); i++) {
             result.add(32);
@@ -130,6 +128,23 @@ public class sqliteModel {
             e.printStackTrace();
         }
         return  result;
+    }
+    public static void insertRecord(String name, int pax, boolean vehicle, boolean pets, boolean videoke, double partial_payment, String checkIn, String checkOut, String room){
+
+        String sql = String.format("INSERT INTO main (name, pax, vehicle, pets, videoke, partial_payment, checkIn, checkOut, room) " +
+                        "VALUES ('%s', %d, %b, %b, %b, %.2f, '%s', '%s', '%s');",
+            name, pax, vehicle, pets, videoke, partial_payment, checkIn, checkOut, room);
+
+            System.out.println("sql = " + sql);
+        try {
+            //open db
+            PreparedStatement pStmt = openDB().prepareStatement(sql);
+            pStmt.executeUpdate();
+
+            closeDB();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     public void selectAll(){
 

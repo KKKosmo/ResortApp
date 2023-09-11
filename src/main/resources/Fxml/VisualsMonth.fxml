@@ -11,8 +11,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="642.0" prefWidth="744.0" style="-fx-background-color: #f2fafc;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.resort.resortapp.Controllers.VisualsMonthController">
-   <GridPane layoutX="239.0" layoutY="21.0" prefHeight="30.0" prefWidth="266.0">
+<AnchorPane prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #f2fafc;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.resort.resortapp.Controllers.VisualsMonthController">
+   <GridPane layoutX="507.0" layoutY="14.0" prefHeight="30.0" prefWidth="266.0">
       <columnConstraints>
          <ColumnConstraints hgrow="SOMETIMES" maxWidth="46.0" minWidth="10.0" prefWidth="32.0" />
          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="206.0" />
@@ -40,7 +40,7 @@
          </HBox>
       </children>
    </GridPane>
-   <GridPane layoutX="274.0" layoutY="51.0" prefHeight="30.0" prefWidth="197.0">
+   <GridPane layoutX="542.0" layoutY="51.0" prefHeight="30.0" prefWidth="197.0">
      <columnConstraints>
        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -59,8 +59,8 @@
          <Button fx:id="next_room_btn" mnemonicParsing="false" onAction="#nextRoom" text="&gt;" GridPane.columnIndex="2" />
       </children>
    </GridPane>
-    <FlowPane fx:id="flowPane" hgap="10.0" layoutX="14.0" layoutY="116.0" prefHeight="498.0" prefWidth="716.0" vgap="5.0" />
-    <HBox alignment="CENTER" layoutX="14.0" layoutY="78.0" prefHeight="44.0" prefWidth="716.0" spacing="88.75">
+    <FlowPane fx:id="flowPane" alignment="CENTER" columnHalignment="CENTER" hgap="10.0" layoutX="176.0" layoutY="123.0" prefHeight="669.0" prefWidth="922.0" style="-fx-background-color: #FFFFFF;" vgap="5.0" />
+    <HBox alignment="CENTER" layoutX="174.0" layoutY="78.0" prefHeight="44.0" prefWidth="922.0" spacing="120.0">
         <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Su" textAlignment="CENTER" />
             <Text layoutX="213.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mo" textAlignment="CENTER" />
@@ -74,5 +74,6 @@
             <Insets right="9.0" />
         </padding>
     </HBox>
+   <Button fx:id="add_btn" layoutX="1131.0" layoutY="728.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="135.0" text="ADD" />
 
 </AnchorPane>
