@@ -33,14 +33,14 @@ public class sqliteModel {
 //        System.out.println(dateOffset);
 
 
-        for (int i = 0; i < DayModel.getMonthMaxDate(); i++) {
+        for (int i = 0; i < Model.getMonthMaxDate(); i++) {
             result.add(32);
         }
         DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MM");
-        String twoDigitMonth = DayModel.getDateFocus().format(monthFormatter);
+        String twoDigitMonth = Model.getDateFocus().format(monthFormatter);
 
-        String monthStart = DayModel.getDateFocus().getYear() + "-" + twoDigitMonth + "-01";
-        String monthEnd = DayModel.getDateFocus().getYear() + "-" + twoDigitMonth + "-" + DayModel.getMonthMaxDate();
+        String monthStart = Model.getDateFocus().getYear() + "-" + twoDigitMonth + "-01";
+        String monthEnd = Model.getDateFocus().getYear() + "-" + twoDigitMonth + "-" + Model.getMonthMaxDate();
         String sql = "SELECT checkIn, checkOut, room FROM main where checkIn <= '" + monthEnd + "' AND checkOut >= '" + monthStart + "';";
 //        System.out.println("sql = " + sql);
         try {
@@ -90,15 +90,15 @@ public class sqliteModel {
         List<String> result = new ArrayList<>();
 //        System.out.println(dateOffset);
 
-        for (int i = 0; i < DayModel.getMonthMaxDate(); i++) {
+        for (int i = 0; i < Model.getMonthMaxDate(); i++) {
             result.add("AVAILABLE");
         }
 
         DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MM");
-        String twoDigitMonth = DayModel.getDateFocus().format(monthFormatter);
+        String twoDigitMonth = Model.getDateFocus().format(monthFormatter);
 
-        String monthStart = DayModel.getDateFocus().getYear() + "-" + twoDigitMonth + "-01";
-        String monthEnd = DayModel.getDateFocus().getYear() + "-" + twoDigitMonth + "-" + DayModel.getMonthMaxDate();
+        String monthStart = Model.getDateFocus().getYear() + "-" + twoDigitMonth + "-01";
+        String monthEnd = Model.getDateFocus().getYear() + "-" + twoDigitMonth + "-" + Model.getMonthMaxDate();
         String sql = "SELECT checkIn, checkOut, room FROM main where checkIn <= '" + monthEnd + "' AND checkOut >= '" + monthStart + "' AND room = '" + rooms.getAbbreviatedName() + "';";
 
         System.out.println("sql = " + sql);

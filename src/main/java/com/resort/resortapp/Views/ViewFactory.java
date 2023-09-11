@@ -1,9 +1,6 @@
 package com.resort.resortapp.Views;
 
-import com.resort.resortapp.Models.DayModel;
-import com.resort.resortapp.Models.RoomedDateModel;
-import com.resort.resortapp.Models.Rooms;
-import com.resort.resortapp.Models.sqliteModel;
+import com.resort.resortapp.Models.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.FlowPane;
@@ -24,7 +21,6 @@ public class ViewFactory {
     private Text monthText;
     private Text roomText;
     private FlowPane flowPane;
-
 
     public void setCalendarVariables(FlowPane flowPane, Text yearText, Text monthText, Text roomText) {
         this.flowPane = flowPane;
@@ -58,56 +54,31 @@ public class ViewFactory {
     }
 
     public void fillFlowPaneMonths(Rooms rooms){
-        yearText.setText(String.valueOf(DayModel.getYear()));
-        monthText.setText(String.valueOf(DayModel.getMonth()));
-        roomText.setText(rooms.getDisplayName());
+        flowPane.getChildren().clear();
+        setCalendarGrid(rooms);
 
-        double calendarWidth = flowPane.getPrefWidth();
-        double calendarHeight = flowPane.getPrefHeight();
-        double strokeWidth = 1;
-        double spacingH = flowPane.getHgap();
-        double spacingV = flowPane.getVgap();
+        if(rooms == Rooms.ALL_ROOMS){
+            List<Integer> slotsList = sqliteModel.getMonthSlots();
 
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 7; j++) {
-                DayModel date = new DayModel(i, j);
-
-                StackPane stackPane = new StackPane();
-                Rectangle rectangle = new Rectangle();
-                rectangle.setFill(Color.TRANSPARENT);
-                rectangle.setStroke(Color.BLACK);
-                rectangle.setStrokeWidth(strokeWidth);
-                double rectangleWidth =(calendarWidth/7) - strokeWidth - spacingH;
-                rectangle.setWidth(rectangleWidth);
-                double rectangleHeight = (calendarHeight/6) - strokeWidth - spacingV;
-                rectangle.setHeight(rectangleHeight);
-                stackPane.getChildren().add(rectangle);
-
-                if(date.isWithinMonth()){
-                    Text dateText = new Text(String.valueOf(date.getGridDate()));
-                    double dateTextTranslationY = - (rectangleHeight / 2) * 0.75;
-                    dateText.setTranslateY(dateTextTranslationY);
-                    stackPane.getChildren().add(dateText);
-                    Text totalText = new Text("10");
-                    double totalTextTranslationY =  rectangleHeight * 0.25;
-                    totalText.setTranslateY(totalTextTranslationY);
-                    stackPane.getChildren().add(totalText);
-                }
-                flowPane.getChildren().add(stackPane);
+            for(int i = 0; i < Model.getMonthMaxDate(); i++){
+                Text temp = (Text)((StackPane)flowPane.getChildren().get(i + Model.getDateOffset())).getChildren().get(2);
+                temp.setText(slotsList.get(i).toString() + " Slots Free");
             }
         }
+        else{
+            List<String> slotsList = sqliteModel.getMonthSlots(rooms);
 
-        List<Integer> slotsList = sqliteModel.getMonthSlots();
-
-        for(int i = 0; i < DayModel.getMonthMaxDate(); i++){
-            Text temp = (Text)((StackPane)flowPane.getChildren().get(i + DayModel.getDateOffset())).getChildren().get(2);
-            temp.setText(slotsList.get(i).toString() + " Slots Free");
+            for(int i = 0; i < Model.getMonthMaxDate(); i++){
+                Text temp = (Text)((StackPane)flowPane.getChildren().get(i + Model.getDateOffset())).getChildren().get(2);
+                temp.setText(slotsList.get(i));
+            }
         }
     }
 
-    public void fillFlowPaneRooms(Rooms rooms){
-        yearText.setText(String.valueOf(DayModel.getYear()));
-        monthText.setText(String.valueOf(DayModel.getMonth()));
+
+    private void setCalendarGrid(Rooms rooms){
+        yearText.setText(String.valueOf(Model.getYear()));
+        monthText.setText(String.valueOf(Model.getMonth()));
         roomText.setText(rooms.getDisplayName());
 
         double calendarWidth = flowPane.getPrefWidth();
@@ -118,7 +89,7 @@ public class ViewFactory {
 
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 7; j++) {
-                RoomedDateModel roomedDateModel = new RoomedDateModel(i, j);
+                DayModel dayModel = new DayModel(i, j);
 
                 StackPane stackPane = new StackPane();
                 Rectangle rectangle = new Rectangle();
@@ -131,8 +102,8 @@ public class ViewFactory {
                 rectangle.setHeight(rectangleHeight);
                 stackPane.getChildren().add(rectangle);
 
-                if(roomedDateModel.isWithinMonth()){
-                    Text dateText = new Text(String.valueOf(roomedDateModel.getGridDate()));
+                if(dayModel.isWithinMonth()){
+                    Text dateText = new Text(String.valueOf(dayModel.getGridDate()));
                     double dateTextTranslationY = - (rectangleHeight / 2) * 0.75;
                     dateText.setTranslateY(dateTextTranslationY);
                     stackPane.getChildren().add(dateText);
@@ -144,17 +115,7 @@ public class ViewFactory {
                 flowPane.getChildren().add(stackPane);
             }
         }
-
-        List<String> slotsList = sqliteModel.getMonthSlots(rooms);
-
-        for(int i = 0; i < DayModel.getMonthMaxDate(); i++){
-            Text temp = (Text)((StackPane)flowPane.getChildren().get(i + DayModel.getDateOffset())).getChildren().get(2);
-            temp.setText(slotsList.get(i).toString());
-        }
     }
 
-    public void clearFlowPane() {
-        flowPane.getChildren().clear();
-    }
 
 }
