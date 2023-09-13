@@ -1,3 +1,8 @@
 index my table?
-implement adding, clear button, go to main when clicked done, calendar in there, error proof it, dont put string into int, checkin should be later than checkOut, cant submit when no space, look at previous resort to do list
+
+implement adding, back button function add it button and to done, calendar in there, error proof it, dont put string into int, checkin should be later than checkOut, cant submit when no space, cant insert more pax than space in room, cant submit when no space, look at previous resort to do list
 implement seeing by list
+
+3 sleep
+2 talk
+130 stop

@@ -129,11 +129,11 @@ public class sqliteModel {
         }
         return  result;
     }
-    public static void insertRecord(String name, int pax, boolean vehicle, boolean pets, boolean videoke, double partial_payment, String checkIn, String checkOut, String room){
+    public static void insertRecord(String currentDate, String name, int pax, boolean vehicle, boolean pets, boolean videoke, double partial_payment, String checkIn, String checkOut, String room){
 
-        String sql = String.format("INSERT INTO main (name, pax, vehicle, pets, videoke, partial_payment, checkIn, checkOut, room) " +
-                        "VALUES ('%s', %d, %b, %b, %b, %.2f, '%s', '%s', '%s');",
-            name, pax, vehicle, pets, videoke, partial_payment, checkIn, checkOut, room);
+        String sql = String.format("INSERT INTO main (dateInserted, name, pax, vehicle, pets, videoke, partial_payment, checkIn, checkOut, room) " +
+                        "VALUES ('%s','%s', %d, %b, %b, %b, %.2f, '%s', '%s', '%s');",
+            currentDate, name, pax, vehicle, pets, videoke, partial_payment, checkIn, checkOut, room);
 
             System.out.println("sql = " + sql);
         try {

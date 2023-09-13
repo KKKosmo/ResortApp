@@ -52,7 +52,6 @@ public class ViewFactory {
         }
         return create;
     }
-
     public Scene getSceneLogin() {
         if (login == null) {
             try {
@@ -64,7 +63,6 @@ public class ViewFactory {
         }
         return login;
     }
-
     public void fillFlowPaneMonths(Rooms rooms){
         flowPane.getChildren().clear();
         setCalendarGrid(rooms);
@@ -86,8 +84,6 @@ public class ViewFactory {
             }
         }
     }
-
-
     private void setCalendarGrid(Rooms rooms){
         yearText.setText(String.valueOf(Model.getYear()));
         monthText.setText(String.valueOf(Model.getMonth()));
