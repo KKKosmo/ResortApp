@@ -1,0 +1,3 @@
+index my table?
+implement adding, clear button, go to main when clicked done, calendar in there, error proof it, dont put string into int, checkin should be later than checkOut, cant submit when no space, look at previous resort to do list
+implement seeing by list
