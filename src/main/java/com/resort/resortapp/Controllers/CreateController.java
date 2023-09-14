@@ -5,10 +5,12 @@ import com.resort.resortapp.Models.Rooms;
 import com.resort.resortapp.Models.sqliteModel;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
+import javafx.scene.layout.AnchorPane;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -21,13 +23,7 @@ public class CreateController  implements Initializable{
     public RadioButton vehicleYes_radio;
     public RadioButton vehicleNo_radio;
     public Button back_btn;
-    private String[] rooms = {
-            Rooms.ROOM_G.getDisplayName(),
-            Rooms.ROOM_J.getDisplayName(),
-            Rooms.ATTIC.getDisplayName(),
-            Rooms.KUBO_1.getDisplayName(),
-            Rooms.KUBO_2.getDisplayName()
-    };
+    public AnchorPane month_anchorPane;
     public Button done_btn;
     public Button clr_btn;
     public TextField name_fld;
@@ -43,6 +39,15 @@ public class CreateController  implements Initializable{
 //        currentDate_datePicker.setValue(LocalDate);
 
         currentDate_datePicker.setValue(LocalDate.now());
+
+
+        String[] rooms = {
+                Rooms.ROOM_G.getDisplayName(),
+                Rooms.ROOM_J.getDisplayName(),
+                Rooms.ATTIC.getDisplayName(),
+                Rooms.KUBO_1.getDisplayName(),
+                Rooms.KUBO_2.getDisplayName()
+        };
         room_choiceBox.getItems().addAll(rooms);
         done_btn.setOnAction(actionEvent -> {
             insertRecord();
@@ -58,64 +63,26 @@ public class CreateController  implements Initializable{
 
         textFieldAddListener(pax_fld);
         textFieldAddListener(payment_fld);
+
+
+
+        try {
+            AnchorPane pane = FXMLLoader.load(getClass().getResource("/Fxml/Calendar.fxml"));
+            month_anchorPane.getChildren().setAll(pane);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void insertRecord(){
-
-        LocalDate currentDateLocalDate = currentDate_datePicker.getValue();
-        String name = name_fld.getText();
-        String paxString = pax_fld.getText();
-        boolean vehicle = vehicleYes_radio.isSelected();
-        boolean pets = petsYes_radio.isSelected();
-        boolean videoke = videokeYes_radio.isSelected();
-        String partial_paymentString = payment_fld.getText();
-        LocalDate checkInLocalDate = checkIn_datePicker.getValue();
-        LocalDate checkOutLocalDate = checkOut_datePicker.getValue();
-        String roomUnformatted = room_choiceBox.getValue();
-
-
-        if(currentDateLocalDate == null)
-            System.out.println("current date empty");
-        else if (name.isEmpty())
-            System.out.println("name empty");
-        else if (paxString.isEmpty())
-            System.out.println("pax empty");
-        else if(vehicleYes_radio.getToggleGroup().getSelectedToggle() == null)
-            System.out.println("vehicle empty");
-        else if(petsYes_radio.getToggleGroup().getSelectedToggle() == null)
-            System.out.println("pets empty");
-        else if(videokeYes_radio.getToggleGroup().getSelectedToggle() == null)
-            System.out.println("videoke empty");
-        else if(partial_paymentString.isEmpty())
-            System.out.println("payment empty");
-        else if(checkInLocalDate == null)
-            System.out.println("checkin empty");
-        else if(checkOutLocalDate == null)
-            System.out.println("checkout empty");
-        else if(roomUnformatted == null)
-            System.out.println("room empty");
-        else{
-            String currentDate = currentDateLocalDate.toString();
-            int paxInt = Integer.parseInt(paxString);
-            double partial_paymentDouble = Double.parseDouble(partial_paymentString);
-            String checkInString = checkIn_datePicker.getValue().toString();
-            String checkOutString = checkOut_datePicker.getValue().toString();
-            String roomFormatted = roomUnformatted.replace(" ", "_");
-            roomFormatted = Rooms.valueOf(roomFormatted).getAbbreviatedName();
-            sqliteModel.insertRecord(currentDate, name, paxInt, vehicle, pets, videoke, partial_paymentDouble, checkInString, checkOutString, roomFormatted);
-//            System.out.println(currentDate);
-//            System.out.println(name);
-//            System.out.println(paxInt);
-//            System.out.println(vehicle);
-//            System.out.println(pets);
-//            System.out.println(videoke);
-//            System.out.println(partial_paymentDouble);
-//            System.out.println(checkInString);
-//            System.out.println(checkOutString);
-//            System.out.println(roomFormatted);
-//            System.out.println("CLEAR");
+        if(sqliteModel.insertRecord(currentDate_datePicker, name_fld, pax_fld, vehicleYes_radio, petsYes_radio, videokeYes_radio, payment_fld, checkIn_datePicker, checkOut_datePicker, room_choiceBox)){
             Model.getInstance().getViewFactory().setSceneVisualsMonth();
         }
+        else{
+            //TODO error window
+            System.out.println("ERROR");
+        }
+
     }
     private void clearForm(){
         currentDate_datePicker.setValue(LocalDate.now());

@@ -192,7 +192,7 @@
             <Button fx:id="back_btn" layoutX="2.0" layoutY="2.0" mnemonicParsing="false" text="&lt;-" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="280.0" prefHeight="591.0" prefWidth="1000.0" style="-fx-background-color: #00FF00;" stylesheets="@../Styles/create.css" />
+      <AnchorPane fx:id="month_anchorPane" layoutX="280.0" prefHeight="591.0" prefWidth="1000.0" style="-fx-background-color: #00FF00;" stylesheets="@../Styles/create.css" />
       <AnchorPane layoutX="280.0" layoutY="637.0" prefHeight="163.0" prefWidth="1000.0" />
    </children>
 </AnchorPane>

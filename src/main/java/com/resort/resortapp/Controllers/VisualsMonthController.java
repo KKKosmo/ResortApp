@@ -27,7 +27,7 @@ public class VisualsMonthController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Model.getInstance().setCalendarVariables(flowPane, year, month, room);
+        setCalendarVariables();
         fillFlowPaneMonths();
         next_month_btn.setOnAction(event ->
                 {
@@ -50,6 +50,9 @@ public class VisualsMonthController implements Initializable {
         });
     }
 
+    public void setCalendarVariables(){
+        Model.getInstance().setCalendarVariables(flowPane, year, month, room);
+    }
     public void nextMonth() {
         Model.getInstance().nextMonth();
     }

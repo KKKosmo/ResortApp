@@ -56,14 +56,14 @@ public class ViewFactory {
         stage.setScene(create);
     }
     public void setSceneVisualsMonth(){
-        if (visualsMonth == null) {
+//        if (visualsMonth == null) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/VisualsMonth.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Calendar.fxml"));
                 visualsMonth = new Scene(loader.load());
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
+//        }
         stage.setScene(visualsMonth);
     }
 
@@ -87,6 +87,17 @@ public class ViewFactory {
                 Text temp = (Text)((StackPane)flowPane.getChildren().get(i + Model.getDateOffset())).getChildren().get(2);
                 temp.setText(slotsList.get(i));
             }
+        }
+        setClickable();
+    }
+    public void setClickable(){
+        for(int i = 0; i < Model.getMonthMaxDate(); i++){
+            StackPane temp = (StackPane) flowPane.getChildren().get(i + Model.getDateOffset());
+            temp.setOnMouseClicked(event -> {
+                Text temp2 = (Text)(temp.getChildren().get(2));
+                System.out.println(temp2.getText());
+            });
+
         }
     }
     private void setCalendarGrid(Rooms rooms){

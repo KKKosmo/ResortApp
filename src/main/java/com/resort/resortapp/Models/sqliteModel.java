@@ -1,8 +1,14 @@
 package com.resort.resortapp.Models;
 
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
+
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -129,22 +135,78 @@ public class sqliteModel {
         }
         return  result;
     }
-    public static void insertRecord(String currentDate, String name, int pax, boolean vehicle, boolean pets, boolean videoke, double partial_payment, String checkIn, String checkOut, String room){
+    public static boolean insertRecord(DatePicker currentDate_datePicker, TextField name_fld,
+                                       TextField pax_fld, RadioButton vehicleYes_radio, RadioButton petsYes_radio,
+                                       RadioButton videokeYes_radio,
+                                       TextField payment_fld, DatePicker checkIn_datePicker,
+                                       DatePicker checkOut_datePicker, ChoiceBox<String> room_choiceBox){
 
-        String sql = String.format("INSERT INTO main (dateInserted, name, pax, vehicle, pets, videoke, partial_payment, checkIn, checkOut, room) " +
-                        "VALUES ('%s','%s', %d, %b, %b, %b, %.2f, '%s', '%s', '%s');",
-            currentDate, name, pax, vehicle, pets, videoke, partial_payment, checkIn, checkOut, room);
+
+        LocalDate currentDateLocalDate = currentDate_datePicker.getValue();
+        String name = name_fld.getText();
+        String paxString = pax_fld.getText();
+        boolean vehicle = vehicleYes_radio.isSelected();
+        boolean pets = petsYes_radio.isSelected();
+        boolean videoke = videokeYes_radio.isSelected();
+        String partial_paymentString = payment_fld.getText();
+        LocalDate checkInLocalDate = checkIn_datePicker.getValue();
+        LocalDate checkOutLocalDate = checkOut_datePicker.getValue();
+        String roomUnformatted = room_choiceBox.getValue();
+
+
+        if(currentDateLocalDate == null)
+            System.out.println("current date empty");
+        else if (name.isEmpty())
+            System.out.println("name empty");
+        else if (paxString.isEmpty())
+            System.out.println("pax empty");
+        else if(vehicleYes_radio.getToggleGroup().getSelectedToggle() == null)
+            System.out.println("vehicle empty");
+        else if(petsYes_radio.getToggleGroup().getSelectedToggle() == null)
+            System.out.println("pets empty");
+        else if(videokeYes_radio.getToggleGroup().getSelectedToggle() == null)
+            System.out.println("videoke empty");
+        else if(partial_paymentString.isEmpty())
+            System.out.println("payment empty");
+        else if(checkInLocalDate == null)
+            System.out.println("checkin empty");
+        else if(checkOutLocalDate == null)
+            System.out.println("checkout empty");
+        else if(roomUnformatted == null)
+            System.out.println("room empty");
+        else{
+            String currentDate = currentDateLocalDate.toString();
+            int paxInt = Integer.parseInt(paxString);
+            double partial_paymentDouble = Double.parseDouble(partial_paymentString);
+            String checkInString = checkIn_datePicker.getValue().toString();
+            String checkOutString = checkOut_datePicker.getValue().toString();
+            String roomFormatted = roomUnformatted.replace(" ", "_");
+            roomFormatted = Rooms.valueOf(roomFormatted).getAbbreviatedName();
+
+
+
+            String sql = String.format("INSERT INTO main (dateInserted, name, pax, vehicle, pets, videoke, partial_payment, checkIn, checkOut, room) " +
+                            "VALUES ('%s','%s', %d, %b, %b, %b, %.2f, '%s', '%s', '%s');",
+                    currentDate, name, paxInt, vehicle, pets, videoke, partial_paymentDouble, checkInString, checkOutString, roomFormatted);
 
             System.out.println("sql = " + sql);
-        try {
-            //open db
-            PreparedStatement pStmt = openDB().prepareStatement(sql);
-            pStmt.executeUpdate();
+            try {
+                //open db
+                PreparedStatement pStmt = openDB().prepareStatement(sql);
+                pStmt.executeUpdate();
 
-            closeDB();
-        } catch (SQLException e) {
-            e.printStackTrace();
+                closeDB();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            return true;
         }
+        return false;
+
+
+
+
     }
     public void selectAll(){
 
