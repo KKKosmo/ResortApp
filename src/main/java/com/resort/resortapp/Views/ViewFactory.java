@@ -1,11 +1,10 @@
 package com.resort.resortapp.Views;
 
 import com.resort.resortapp.Models.*;
+import com.resort.resortapp.Rooms;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -27,6 +26,8 @@ public class ViewFactory {
     private Text roomText;
     private FlowPane flowPane;
     private Stage stage;
+
+    public CalendarModel calendarModel = new CalendarModel();
 
     public void setCalendarVariables(FlowPane flowPane, Text yearText, Text monthText, Text roomText) {
         this.flowPane = flowPane;
@@ -153,7 +154,24 @@ public class ViewFactory {
         }
     }
 
+    public void turnGlowing(int day){
+        StackPane temp = (StackPane) flowPane.getChildren().get(day - 1 + Model.getDateOffset());
+        Border redBorder = new Border(
+                new BorderStroke(
+                        Color.RED,
+                        BorderStrokeStyle.SOLID,
+                        new CornerRadii(5), // You can adjust the corner radii as needed
+                        new BorderWidths(2) // You can adjust the border width as needed
+                )
+        );
+
+        temp.setBorder(redBorder);
+    }
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    public CalendarModel getCalendarModel() {
+        return calendarModel;
     }
 }

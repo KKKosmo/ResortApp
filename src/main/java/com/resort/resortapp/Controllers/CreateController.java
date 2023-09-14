@@ -1,18 +1,18 @@
 package com.resort.resortapp.Controllers;
 
+import com.resort.resortapp.Models.CalendarModel;
 import com.resort.resortapp.Models.Model;
-import com.resort.resortapp.Models.Rooms;
+import com.resort.resortapp.Rooms;
 import com.resort.resortapp.Models.sqliteModel;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class CreateController  implements Initializable{
@@ -63,10 +63,11 @@ public class CreateController  implements Initializable{
 
         textFieldAddListener(pax_fld);
         textFieldAddListener(payment_fld);
+        datePickerAddListener(checkIn_datePicker);
 
         Model.getInstance().getViewFactory().insertCalendar(month_anchorPane);
+        Model.getInstance().getViewFactory().setClickable();
     }
-
     private void insertRecord(){
         if(sqliteModel.insertRecord(currentDate_datePicker, name_fld, pax_fld, vehicleYes_radio, petsYes_radio, videokeYes_radio, payment_fld, checkIn_datePicker, checkOut_datePicker, room_choiceBox)){
             Model.getInstance().getViewFactory().setSceneMainMenu();
@@ -92,16 +93,28 @@ public class CreateController  implements Initializable{
         checkOut_datePicker.setValue(null);
         room_choiceBox.setValue(null);
     }
-
     private void textFieldAddListener(TextField textField){
-        textField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    textField.setText(newValue.replaceAll("\\D", ""));
-                }
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                textField.setText(newValue.replaceAll("\\D", ""));
             }
+        });
+    }
+
+    private void datePickerAddListener(DatePicker datePicker){
+        datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+
+            String test = newValue.toString().substring(newValue.toString().length() - 2);
+
+            Model.getInstance().getViewFactory().turnGlowing(Integer.parseInt(test));
+
+
+
+//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//            LocalDate localDate = LocalDate.parse(newValue.toString(), formatter);
+//            if (localDate.isAfter(Model.getInstance().getViewFactory().getCalendarModel().getLeftDate())) {
+//                System.out.println("IS GLOWING");
+//            }
         });
     }
 }

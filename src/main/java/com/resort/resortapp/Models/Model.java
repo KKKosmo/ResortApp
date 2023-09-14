@@ -1,5 +1,6 @@
 package com.resort.resortapp.Models;
 
+import com.resort.resortapp.Rooms;
 import com.resort.resortapp.Views.ViewFactory;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
@@ -94,4 +95,10 @@ public class Model {
     public static void setDateFocus() {
         dateFocus = ZonedDateTime.now();
     }
+
+    public void getMin(){
+
+    }
+
+
 }

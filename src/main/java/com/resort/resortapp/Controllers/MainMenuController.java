@@ -22,6 +22,6 @@ public class MainMenuController implements Initializable {
             Model.getInstance().getViewFactory().setSceneCreate();
         });
         Model.getInstance().getViewFactory().insertCalendar(anchorPane);
-        Model.getInstance().getViewFactory().setClickable();
+//        Model.getInstance().getViewFactory().setClickable();
     }
 }

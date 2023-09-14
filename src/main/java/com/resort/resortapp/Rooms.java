@@ -1,4 +1,4 @@
-package com.resort.resortapp.Models;
+package com.resort.resortapp;
 
 public enum Rooms{
     ALL_ROOMS("all", 32),

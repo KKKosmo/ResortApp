@@ -1,9 +1,11 @@
 package com.resort.resortapp.Models;
 
+import com.resort.resortapp.Rooms;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.StackPane;
 
 import java.sql.*;
 import java.text.ParseException;
