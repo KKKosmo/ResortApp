@@ -8,6 +8,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -22,6 +23,7 @@ public class ViewFactory {
     private Text monthText;
     private Text roomText;
     private FlowPane flowPane;
+    private Stage stage;
 
     public void setCalendarVariables(FlowPane flowPane, Text yearText, Text monthText, Text roomText) {
         this.flowPane = flowPane;
@@ -30,29 +32,8 @@ public class ViewFactory {
         this.roomText = roomText;
     }
 
-    public Scene getSceneVisualsMonth() {
-        if (visualsMonth == null) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/VisualsMonth.fxml"));
-                visualsMonth = new Scene(loader.load());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return visualsMonth;
-    }
-    public Scene getSceneCreate() {
-        if (create == null) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Create.fxml"));
-                create = new Scene(loader.load());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return create;
-    }
-    public Scene getSceneLogin() {
+
+    public void setSceneLogin(){
         if (login == null) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Login.fxml"));
@@ -61,8 +42,32 @@ public class ViewFactory {
                 e.printStackTrace();
             }
         }
-        return login;
+        stage.setScene(login);
     }
+    public void setSceneCreate(){
+        if (create == null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Create.fxml"));
+                create = new Scene(loader.load());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        stage.setScene(create);
+    }
+    public void setSceneVisualsMonth(){
+        if (visualsMonth == null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/VisualsMonth.fxml"));
+                visualsMonth = new Scene(loader.load());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        stage.setScene(visualsMonth);
+    }
+
+
     public void fillFlowPaneMonths(Rooms rooms){
         flowPane.getChildren().clear();
         setCalendarGrid(rooms);
@@ -126,5 +131,7 @@ public class ViewFactory {
         }
     }
 
-
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
 }

@@ -46,8 +46,7 @@ public class VisualsMonthController implements Initializable {
             prevRoom();
         });
         add_btn.setOnAction(actionEvent -> {
-            Stage stage = (Stage)add_btn.getScene().getWindow();
-            stage.setScene(Model.getInstance().getViewFactory().getSceneCreate());
+            Model.getInstance().getViewFactory().setSceneCreate();
         });
     }
 
@@ -63,5 +62,4 @@ public class VisualsMonthController implements Initializable {
     public void prevRoom() {
         Model.getInstance().prevRoom();
     }
-
 }

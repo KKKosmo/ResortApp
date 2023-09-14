@@ -23,8 +23,7 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         login_btn.setOnAction(event ->
             {
-                Stage stage = (Stage)login_btn.getScene().getWindow();
-                stage.setScene(Model.getInstance().getViewFactory().getSceneVisualsMonth());
+                Model.getInstance().getViewFactory().setSceneVisualsMonth();
             }
         );
     }

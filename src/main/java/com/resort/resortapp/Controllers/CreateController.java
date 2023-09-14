@@ -1,11 +1,13 @@
 package com.resort.resortapp.Controllers;
 
+import com.resort.resortapp.Models.Model;
 import com.resort.resortapp.Models.Rooms;
 import com.resort.resortapp.Models.sqliteModel;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -18,6 +20,7 @@ public class CreateController  implements Initializable{
     public RadioButton petsNo_radio;
     public RadioButton vehicleYes_radio;
     public RadioButton vehicleNo_radio;
+    public Button back_btn;
     private String[] rooms = {
             Rooms.ROOM_G.getDisplayName(),
             Rooms.ROOM_J.getDisplayName(),
@@ -47,6 +50,12 @@ public class CreateController  implements Initializable{
         clr_btn.setOnAction(actionEvent -> {
             clearForm();
         });
+
+        back_btn.setOnAction(event ->
+                {
+                    Model.getInstance().getViewFactory().setSceneVisualsMonth();
+                });
+
         textFieldAddListener(pax_fld);
         textFieldAddListener(payment_fld);
     }
@@ -105,6 +114,7 @@ public class CreateController  implements Initializable{
 //            System.out.println(checkOutString);
 //            System.out.println(roomFormatted);
 //            System.out.println("CLEAR");
+            Model.getInstance().getViewFactory().setSceneVisualsMonth();
         }
     }
     private void clearForm(){

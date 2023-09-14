@@ -12,8 +12,9 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage){
+        Model.getInstance().getViewFactory().setStage(stage);
         stage.setTitle("J&G Resort App");
-        stage.setScene(Model.getInstance().getViewFactory().getSceneLogin());
+        Model.getInstance().getViewFactory().setSceneLogin();
         stage.setResizable(false);
         stage.show();
     }
