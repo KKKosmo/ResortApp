@@ -3,6 +3,7 @@ package com.resort.resortapp.Views;
 import com.resort.resortapp.Models.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -10,14 +11,16 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.util.List;
 
 public class ViewFactory {
 
-    private Scene visualsMonth;
+    private Scene mainMenu;
     private Scene create;
     private Scene login;
+    private Scene calendar;
     private ZonedDateTime today;
     private Text yearText;
     private Text monthText;
@@ -55,16 +58,26 @@ public class ViewFactory {
         }
         stage.setScene(create);
     }
-    public void setSceneVisualsMonth(){
-//        if (visualsMonth == null) {
+    public void setSceneMainMenu(){
+        if (mainMenu == null) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Calendar.fxml"));
-                visualsMonth = new Scene(loader.load());
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/MainMenu.fxml"));
+                mainMenu = new Scene(loader.load());
             } catch (Exception e) {
                 e.printStackTrace();
             }
-//        }
-        stage.setScene(visualsMonth);
+        }
+        stage.setScene(mainMenu);
+    }
+    public void insertCalendar(AnchorPane anchorPane){
+        if (calendar == null) {
+            try {
+                AnchorPane pane = FXMLLoader.load(getClass().getResource("/Fxml/Calendar.fxml"));
+                anchorPane.getChildren().setAll(pane);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
 
@@ -88,7 +101,6 @@ public class ViewFactory {
                 temp.setText(slotsList.get(i));
             }
         }
-        setClickable();
     }
     public void setClickable(){
         for(int i = 0; i < Model.getMonthMaxDate(); i++){
@@ -97,7 +109,6 @@ public class ViewFactory {
                 Text temp2 = (Text)(temp.getChildren().get(2));
                 System.out.println(temp2.getText());
             });
-
         }
     }
     private void setCalendarGrid(Rooms rooms){

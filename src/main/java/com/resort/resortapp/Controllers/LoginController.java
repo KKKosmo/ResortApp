@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,7 +22,7 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         login_btn.setOnAction(event ->
             {
-                Model.getInstance().getViewFactory().setSceneVisualsMonth();
+                Model.getInstance().getViewFactory().setSceneMainMenu();
             }
         );
     }

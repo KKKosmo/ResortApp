@@ -58,25 +58,18 @@ public class CreateController  implements Initializable{
 
         back_btn.setOnAction(event ->
                 {
-                    Model.getInstance().getViewFactory().setSceneVisualsMonth();
+                    Model.getInstance().getViewFactory().setSceneMainMenu();
                 });
 
         textFieldAddListener(pax_fld);
         textFieldAddListener(payment_fld);
 
-
-
-        try {
-            AnchorPane pane = FXMLLoader.load(getClass().getResource("/Fxml/Calendar.fxml"));
-            month_anchorPane.getChildren().setAll(pane);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        Model.getInstance().getViewFactory().insertCalendar(month_anchorPane);
     }
 
     private void insertRecord(){
         if(sqliteModel.insertRecord(currentDate_datePicker, name_fld, pax_fld, vehicleYes_radio, petsYes_radio, videokeYes_radio, payment_fld, checkIn_datePicker, checkOut_datePicker, room_choiceBox)){
-            Model.getInstance().getViewFactory().setSceneVisualsMonth();
+            Model.getInstance().getViewFactory().setSceneMainMenu();
         }
         else{
             //TODO error window
