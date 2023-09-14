@@ -29,6 +29,15 @@ public class ViewFactory {
 
     public CalendarModel calendarModel = new CalendarModel();
 
+        Border selectedBorder = new Border(
+                new BorderStroke(
+                        Color.BLUE,
+                        BorderStrokeStyle.SOLID,
+                        new CornerRadii(5), // You can adjust the corner radii as needed
+                        new BorderWidths(2) // You can adjust the border width as needed
+                )
+        );
+
     public void setCalendarVariables(FlowPane flowPane, Text yearText, Text monthText, Text roomText) {
         this.flowPane = flowPane;
         this.yearText = yearText;
@@ -70,11 +79,12 @@ public class ViewFactory {
         }
         stage.setScene(mainMenu);
     }
-    public void insertCalendar(AnchorPane anchorPane){
+    public void insertCalendar(Pane pane){
+
         if (calendar == null) {
             try {
-                AnchorPane pane = FXMLLoader.load(getClass().getResource("/Fxml/Calendar.fxml"));
-                anchorPane.getChildren().setAll(pane);
+                AnchorPane childPane = FXMLLoader.load(getClass().getResource("/Fxml/Calendar.fxml"));
+                pane.getChildren().setAll(childPane);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -154,21 +164,22 @@ public class ViewFactory {
         }
     }
 
-    public void turnGlowing(int day){
-        StackPane temp = (StackPane) flowPane.getChildren().get(day - 1 + Model.getDateOffset());
-        Border redBorder = new Border(
-                new BorderStroke(
-                        Color.RED,
-                        BorderStrokeStyle.SOLID,
-                        new CornerRadii(5), // You can adjust the corner radii as needed
-                        new BorderWidths(2) // You can adjust the border width as needed
-                )
-        );
-
-        temp.setBorder(redBorder);
+    public int selectDays(){
+        int result = 32;
+        for (int i = calendarModel.getLeftDateInt() - 1; i < calendarModel.getRightDateInt(); i++){
+            StackPane temp = (StackPane) flowPane.getChildren().get(i + Model.getDateOffset());
+            temp.setBorder(selectedBorder);
+            Text temp2 = (Text)(temp.getChildren().get(2));
+            result = Math.min(result, Integer.parseInt(temp2.getText().substring(0, 2)));
+        }
+        System.out.println(result);
+        return result;
     }
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+    public void flowPaneSmall(){
+        flowPane.setPrefHeight(330);
     }
 
     public CalendarModel getCalendarModel() {

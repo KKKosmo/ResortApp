@@ -1,18 +1,15 @@
 package com.resort.resortapp.Controllers;
 
-import com.resort.resortapp.Models.CalendarModel;
 import com.resort.resortapp.Models.Model;
 import com.resort.resortapp.Rooms;
 import com.resort.resortapp.Models.sqliteModel;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class CreateController  implements Initializable{
@@ -23,7 +20,6 @@ public class CreateController  implements Initializable{
     public RadioButton vehicleYes_radio;
     public RadioButton vehicleNo_radio;
     public Button back_btn;
-    public AnchorPane month_anchorPane;
     public Button done_btn;
     public Button clr_btn;
     public TextField name_fld;
@@ -33,13 +29,12 @@ public class CreateController  implements Initializable{
     public DatePicker currentDate_datePicker;
     public DatePicker checkOut_datePicker;
     public DatePicker checkIn_datePicker;
+    public FlowPane month_pane;
+    private int maxPax = 32;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        currentDate_datePicker.setValue(LocalDate);
-
         currentDate_datePicker.setValue(LocalDate.now());
-
 
         String[] rooms = {
                 Rooms.ROOM_G.getDisplayName(),
@@ -50,7 +45,10 @@ public class CreateController  implements Initializable{
         };
         room_choiceBox.getItems().addAll(rooms);
         done_btn.setOnAction(actionEvent -> {
-            insertRecord();
+            if(!invalidPax()){
+                System.out.println("INVALID PAX");
+                insertRecord();
+            }
         });
         clr_btn.setOnAction(actionEvent -> {
             clearForm();
@@ -63,9 +61,22 @@ public class CreateController  implements Initializable{
 
         textFieldAddListener(pax_fld);
         textFieldAddListener(payment_fld);
-        datePickerAddListener(checkIn_datePicker);
 
-        Model.getInstance().getViewFactory().insertCalendar(month_anchorPane);
+        checkIn_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            Model.getInstance().getViewFactory().getCalendarModel().setLeftDate(newValue);
+            if(checkIn_datePicker.getValue() != null && checkOut_datePicker != null){
+                maxPax = Model.getInstance().getViewFactory().selectDays();
+            }
+        });
+        checkOut_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            Model.getInstance().getViewFactory().getCalendarModel().setRightDate(newValue);
+            if(checkIn_datePicker.getValue() != null && checkOut_datePicker != null){
+                maxPax = Model.getInstance().getViewFactory().selectDays();
+            }
+        });
+
+//        Model.getInstance().getViewFactory().flowPaneSmall();
+        Model.getInstance().getViewFactory().insertCalendar(month_pane);
         Model.getInstance().getViewFactory().setClickable();
     }
     private void insertRecord(){
@@ -101,20 +112,7 @@ public class CreateController  implements Initializable{
         });
     }
 
-    private void datePickerAddListener(DatePicker datePicker){
-        datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
-
-            String test = newValue.toString().substring(newValue.toString().length() - 2);
-
-            Model.getInstance().getViewFactory().turnGlowing(Integer.parseInt(test));
-
-
-
-//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//            LocalDate localDate = LocalDate.parse(newValue.toString(), formatter);
-//            if (localDate.isAfter(Model.getInstance().getViewFactory().getCalendarModel().getLeftDate())) {
-//                System.out.println("IS GLOWING");
-//            }
-        });
+    private boolean invalidPax(){
+        return Integer.parseInt(pax_fld.getText()) > maxPax;
     }
 }

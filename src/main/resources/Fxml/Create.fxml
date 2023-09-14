@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -145,6 +146,19 @@
                   </VBox>
                   <VBox alignment="CENTER">
                      <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Check In">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <DatePicker fx:id="checkIn_datePicker" editable="false" />
+                     </children>
+                     <padding>
+                        <Insets left="50.0" right="50.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="CENTER">
+                     <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Check Out">
                            <font>
                               <Font size="18.0" />
@@ -155,19 +169,6 @@
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
-                     <padding>
-                        <Insets left="50.0" right="50.0" />
-                     </padding>
-                  </VBox>
-                  <VBox alignment="CENTER">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Check In">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Text>
-                        <DatePicker fx:id="checkIn_datePicker" editable="false" />
-                     </children>
                      <padding>
                         <Insets left="50.0" right="50.0" />
                      </padding>
@@ -192,7 +193,7 @@
             <Button fx:id="back_btn" layoutX="2.0" layoutY="2.0" mnemonicParsing="false" text="&lt;-" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="month_anchorPane" layoutX="280.0" prefHeight="591.0" prefWidth="1000.0" style="-fx-background-color: #00FF00;" stylesheets="@../Styles/create.css" />
-      <AnchorPane layoutX="280.0" layoutY="637.0" prefHeight="163.0" prefWidth="1000.0" />
+      <FlowPane fx:id="month_pane" alignment="CENTER" layoutX="280.0" prefHeight="650.0" prefWidth="1000.0" />
+      <AnchorPane layoutX="280.0" layoutY="650.0" prefHeight="150.0" prefWidth="1000.0" style="-fx-background-color: #990000;" />
    </children>
 </AnchorPane>
