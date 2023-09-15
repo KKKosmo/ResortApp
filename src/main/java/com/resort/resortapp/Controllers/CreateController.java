@@ -30,7 +30,6 @@ public class CreateController  implements Initializable{
     public DatePicker checkOut_datePicker;
     public DatePicker checkIn_datePicker;
     public FlowPane month_pane;
-    private int maxPax = 32;
     Set<String> available;
 
     @Override

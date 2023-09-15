@@ -1,9 +1,11 @@
 package com.resort.resortapp.Views;
 
+import com.resort.resortapp.Controllers.EditController;
 import com.resort.resortapp.Models.*;
 import com.resort.resortapp.Rooms;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,6 +17,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,6 +85,35 @@ public class ViewFactory {
             e.printStackTrace();
         }
     }
+
+
+    public void setSceneEdit(LocalDate insertedDate, String name, int pax, boolean vehicle, boolean pets, boolean videoke, double payment, LocalDate checkIn, LocalDate checkOut, String room){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Edit.fxml"));
+            Parent root = loader.load();
+
+            EditController editController = loader.getController();
+            editController.setValues(pax);
+
+            stage.setScene(new Scene(root));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("Scene2.fxml"));
+//        root = loader.load();
+//
+//        Scene2Controller scene2Controller = loader.getController();
+//        scene2Controller.setValues(values);
+//
+//        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+//        scene = new Scene(root);
+//        stage.setScene(scene);
+//        stage.show();
+
+
+
     public void insertCalendar(Pane pane){
         try {
             AnchorPane childPane = FXMLLoader.load(getClass().getResource("/Fxml/Calendar.fxml"));
@@ -204,6 +236,23 @@ public class ViewFactory {
             Button editButton = new Button("Edit");
             Button deleteButton = new Button("Delete");
 
+//          LocalDate insertedDate, String name, int pax, boolean vehicle, boolean pets, boolean videoke, double payment, LocalDate checkIn, LocalDate checkOut, String room
+            List<String> temp = list.get(i);
+            editButton.setOnAction(actionEvent -> {
+                setSceneEdit(
+                        LocalDate.parse(temp.get(1)),
+                        temp.get(2),
+                        Integer.parseInt(temp.get(3)),
+                        temp.get(4).equals("Yes"),
+                        temp.get(5).equals("Yes"),
+                        temp.get(6).equals("Yes"),
+                        Double.parseDouble(temp.get(7)),
+                        LocalDate.parse(temp.get(8)),
+                        LocalDate.parse(temp.get(9)),
+                        temp.get(10)
+                        );
+            });
+
             GridPane.setColumnIndex(viewButton, 12);
             GridPane.setColumnIndex(editButton, 13);
             GridPane.setColumnIndex(deleteButton, 14);
@@ -214,7 +263,5 @@ public class ViewFactory {
 
             gridPane.getChildren().addAll(viewButton, editButton, deleteButton);
         }
-
-
     }
 }
