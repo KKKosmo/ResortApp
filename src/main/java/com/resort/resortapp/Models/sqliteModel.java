@@ -187,14 +187,9 @@ public class sqliteModel {
         }
         return  result;
     }
-
-
-
-
     public static boolean insertRecord(DatePicker currentDate_datePicker, TextField name_fld,
                                        TextField pax_fld, RadioButton vehicleYes_radio, RadioButton petsYes_radio,
-                                       RadioButton videokeYes_radio,
-                                       TextField payment_fld, DatePicker checkIn_datePicker,
+                                       RadioButton videokeYes_radio, TextField payment_fld, DatePicker checkIn_datePicker,
                                        DatePicker checkOut_datePicker, ChoiceBox<String> room_choiceBox){
 
 

@@ -1,6 +1,7 @@
 package com.resort.resortapp.Models;
 
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 
 public class DayModel {
     int gridSlot;
@@ -9,6 +10,7 @@ public class DayModel {
     boolean j, g, attic, kubo1, kubo2;
     StackPane stackPane;
     int freeSlots;
+    Text slotsText;
     String available;
     String notAvailable;
 
