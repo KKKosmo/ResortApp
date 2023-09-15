@@ -1,5 +1,7 @@
 package com.resort.resortapp.Controllers;
 
+import com.resort.resortapp.Models.Model;
+import com.resort.resortapp.Models.sqliteModel;
 import com.resort.resortapp.Rooms;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -8,6 +10,7 @@ import javafx.scene.layout.FlowPane;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 public class EditController implements Initializable {
     public DatePicker currentDate_datePicker;
@@ -26,6 +29,9 @@ public class EditController implements Initializable {
     public Button done_btn;
     public Button back_btn;
     public FlowPane month_pane;
+    private Set<String> available;
+    private int id;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -39,19 +45,20 @@ public class EditController implements Initializable {
         room_choiceBox.getItems().addAll(rooms);
         done_btn.setOnAction(actionEvent -> {
 //            insertRecord();
+            available = sqliteModel.getMonthAvailability(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
+            if(sqliteModel.updateRecord(id, currentDate_datePicker, name_fld, pax_fld, vehicleYes_radio, petsYes_radio, videokeYes_radio, payment_fld, checkIn_datePicker, checkOut_datePicker, room_choiceBox, available)){
+                Model.getInstance().getViewFactory().setSceneMainMenu();
+            }
+            else{
+                //TODO error window
+                System.out.println("ERROR");
+            }
         });
-
-
         //viewFactory.edit(values)
-
-
-
-
-
-
     }
 
-    public void setValues(LocalDate insertedDate, String name, String pax, boolean vehicle, boolean pets, boolean videoke, String payment, LocalDate checkIn, LocalDate checkOut, String room) {
+    public void setValues(int id, LocalDate insertedDate, String name, String pax, boolean vehicle, boolean pets, boolean videoke, String payment, LocalDate checkIn, LocalDate checkOut, String room) {
+        this.id = id;
         currentDate_datePicker.setValue(insertedDate);
         name_fld.setText(name);
         pax_fld.setText(pax);
@@ -61,6 +68,21 @@ public class EditController implements Initializable {
         payment_fld.setText(payment);
         checkIn_datePicker.setValue(checkIn);
         checkOut_datePicker.setValue(checkOut);
-        room_choiceBox.setValue(room);
+
+        Rooms rooms = Rooms.ALL_ROOMS;
+
+        if ("g".equals(room)) {
+            rooms = Rooms.ROOM_G;
+        } else if ("j".equals(room)) {
+            rooms = Rooms.ROOM_J;
+        } else if ("attic".equals(room)) {
+            rooms = Rooms.ATTIC;
+        } else if ("k1".equals(room)) {
+            rooms = Rooms.KUBO_1;
+        } else if ("k2".equals(room)) {
+            rooms = Rooms.KUBO_2;
+        }
+
+        room_choiceBox.setValue(rooms.getDisplayName());
     }
 }

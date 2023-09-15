@@ -13,7 +13,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.resort.resortapp.Controllers.ListController">
    <children>
       <Button fx:id="back_btn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="&lt;-" />
-      <TextField fx:id="searchBar_fld" layoutX="222.0" layoutY="98.0" prefHeight="25.0" prefWidth="324.0" text="NAME SEARCH BAR" />
+      <TextField fx:id="searchBar_fld" layoutX="152.0" layoutY="98.0" prefHeight="25.0" prefWidth="293.0" text="NAME SEARCH BAR" />
       <DatePicker fx:id="startDate_datePicker" editable="false" layoutX="457.0" layoutY="28.0" prefHeight="25.0" prefWidth="129.0">
          <cursor>
             <Cursor fx:constant="DEFAULT" />

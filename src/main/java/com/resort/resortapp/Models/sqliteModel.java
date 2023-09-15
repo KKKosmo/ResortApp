@@ -327,11 +327,125 @@ public class sqliteModel {
             return true;
         }
         return false;
-
-
-
-
     }
+
+
+
+
+    public static boolean updateRecord(int id, DatePicker currentDate_datePicker, TextField name_fld,
+                                       TextField pax_fld, RadioButton vehicleYes_radio, RadioButton petsYes_radio,
+                                       RadioButton videokeYes_radio, TextField payment_fld, DatePicker checkIn_datePicker,
+                                       DatePicker checkOut_datePicker, ChoiceBox<String> room_choiceBox, Set<String> available){
+
+
+        LocalDate currentDateLocalDate = currentDate_datePicker.getValue();
+        String name = name_fld.getText();
+        String paxString = pax_fld.getText();
+        boolean vehicle = vehicleYes_radio.isSelected();
+        boolean pets = petsYes_radio.isSelected();
+        boolean videoke = videokeYes_radio.isSelected();
+        String partial_paymentString = payment_fld.getText();
+        LocalDate checkInLocalDate = checkIn_datePicker.getValue();
+        LocalDate checkOutLocalDate = checkOut_datePicker.getValue();
+        String roomUnformatted = room_choiceBox.getValue();
+
+
+        Rooms rooms = Rooms.ALL_ROOMS;
+
+        if ("ROOM G".equals(roomUnformatted)) {
+            rooms = Rooms.ROOM_G;
+        } else if ("ROOM J".equals(roomUnformatted)) {
+            rooms = Rooms.ROOM_J;
+        } else if ("ATTIC".equals(roomUnformatted)) {
+            rooms = Rooms.ATTIC;
+        } else if ("KUBO 1".equals(roomUnformatted)) {
+            rooms = Rooms.KUBO_1;
+        } else if ("KUBO 2".equals(roomUnformatted)) {
+            rooms = Rooms.KUBO_2;
+        }
+
+//        System.out.println(available);
+        available.add(rooms.getAbbreviatedName());
+//        System.out.println(available);
+
+
+        if(currentDateLocalDate == null)
+            System.out.println("current date empty");
+        else if (name.isEmpty())
+            System.out.println("name empty");
+        else if (paxString.isEmpty())
+            System.out.println("pax empty");
+        else if(vehicleYes_radio.getToggleGroup().getSelectedToggle() == null)
+            System.out.println("vehicle empty");
+        else if(petsYes_radio.getToggleGroup().getSelectedToggle() == null)
+            System.out.println("pets empty");
+        else if(videokeYes_radio.getToggleGroup().getSelectedToggle() == null)
+            System.out.println("videoke empty");
+        else if(partial_paymentString.isEmpty())
+            System.out.println("payment empty");
+        else if(checkInLocalDate == null)
+            System.out.println("checkin empty");
+        else if(checkOutLocalDate == null)
+            System.out.println("checkout empty");
+        else if(roomUnformatted == null)
+            System.out.println("room empty");
+        else if(checkInLocalDate.isAfter(checkOutLocalDate))
+            System.out.println("checkIn is after checkOut");
+        else if(!available.contains(rooms.getAbbreviatedName()))
+            System.out.println("Invalid Room");
+        else{
+            String currentDate = currentDateLocalDate.toString();
+            int paxInt = Integer.parseInt(paxString);
+
+            if(paxInt == 0){
+                System.out.println("PAX is 0");
+                return false;
+            }
+
+            double partial_paymentDouble = Double.parseDouble(partial_paymentString);
+            String checkInString = checkIn_datePicker.getValue().toString();
+            String checkOutString = checkOut_datePicker.getValue().toString();
+            String roomFormatted = roomUnformatted.replace(" ", "_");
+            roomFormatted = Rooms.valueOf(roomFormatted).getAbbreviatedName();
+
+
+
+            String sql = String.format("UPDATE main SET " +
+                            "dateInserted = '%s', " +
+                            "name = '%s', " +
+                            "pax = %d, " +
+                            "vehicle = %b, " +
+                            "pets = %b, " +
+                            "videoke = %b, " +
+                            "partial_payment = %.2f, " +
+                            "checkIn = '%s', " +
+                            "checkOut = '%s', " +
+                            "room = '%s' " +
+                            "WHERE id = '%d';",
+                    currentDate, name, paxInt, vehicle, pets, videoke, partial_paymentDouble, checkInString, checkOutString, roomFormatted, id);
+
+
+
+            System.out.println("sql = " + sql);
+            try {
+                //open db
+                PreparedStatement pStmt = openDB().prepareStatement(sql);
+                pStmt.executeUpdate();
+
+                closeDB();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            return true;
+        }
+        return false;
+    }
+
+
+
+
+
     public static List<List<String>> queryViewList(){
         List<List<String>> result = new ArrayList<>();
         String sql = "SELECT * FROM main ORDER BY id DESC limit 15";
