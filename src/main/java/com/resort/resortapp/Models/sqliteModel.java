@@ -332,40 +332,46 @@ public class sqliteModel {
 
 
     }
-    public void selectAll(){
-
-        String sql = "SELECT * FROM main";
+    public static List<List<String>> queryViewList(){
+        List<List<String>> result = new ArrayList<>();
+        String sql = "SELECT * FROM main ORDER BY id DESC limit 15";
         try {
             PreparedStatement pStmt = openDB().prepareStatement(sql);
             ResultSet resultSet = pStmt.executeQuery();
             while(resultSet.next()){
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 int id = resultSet.getInt("id");
+                String dateInserted = resultSet.getString("dateInserted");
                 String name = resultSet.getString("name");
                 int pax = resultSet.getInt("pax");
                 boolean vehicle = resultSet.getBoolean("vehicle");
                 boolean pets = resultSet.getBoolean("pets");
                 boolean videoke = resultSet.getBoolean("videoke");
                 double partial_payment = resultSet.getDouble("partial_payment");
-                java.util.Date checkInDate;
-                java.util.Date checkOutDate;
-                String checkInString;
-                String checkOutString;
+                String checkInString = resultSet.getString("checkIn");
+                String checkOutString = resultSet.getString("checkOut");
                 String room = resultSet.getString("room");
-                try {
-                    checkInDate = dateFormat.parse(resultSet.getString("checkIn"));
-                    checkOutDate = dateFormat.parse(resultSet.getString("checkOut"));
-                    checkInString = dateFormat.format(checkInDate);
-                    checkOutString = dateFormat.format(checkOutDate);
-                } catch (ParseException e) {
-                    throw new RuntimeException(e);
-                }
+                String user = resultSet.getString("user");
 
-                System.out.println();
-                System.out.println(id + ", " + name + ", " + pax + ", " + vehicle + ", " +
-                        pets + ", " + videoke + ", " + partial_payment + ", "
-                        + checkInString + ", " + checkOutString + ", " + room);
-
+//                System.out.println();
+//                System.out.println(id + ", " + dateInserted+ ", " + name + ", " + pax + ", " + vehicle + ", " +
+//                        pets + ", " + videoke + ", " + partial_payment + ", "
+//                        + checkInString + ", " + checkOutString + ", " + room + ", " + user);
+                List<String> row = new ArrayList<>();
+                row.add(Integer.toString(id));
+                row.add(dateInserted);
+                row.add(name);
+                row.add(Integer.toString(pax));
+                row.add(vehicle ? "Yes" : "No");
+                row.add(pets ? "Yes" : "No");
+                row.add(videoke ? "Yes" : "No");
+                row.add(Double.toString(partial_payment));
+                row.add(checkInString);
+                row.add(checkOutString);
+                row.add(room);
+                row.add(user);
+                System.out.println(row);
+                System.out.println(row.size());
+                result.add(row);
             }
             resultSet.close();
             closeDB();
@@ -373,5 +379,6 @@ public class sqliteModel {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return result;
     }
 }

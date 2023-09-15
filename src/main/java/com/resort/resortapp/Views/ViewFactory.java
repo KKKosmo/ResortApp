@@ -3,15 +3,20 @@ package com.resort.resortapp.Views;
 import com.resort.resortapp.Models.*;
 import com.resort.resortapp.Rooms;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ViewFactory {
@@ -181,4 +186,35 @@ public class ViewFactory {
         return calendarModel;
     }
 
+    public void insertListRows(GridPane gridPane){
+        List<List<String>> list = sqliteModel.queryViewList();
+        for(int i = 0; i < list.size(); i++){
+            for(int j = 0; j < list.get(0).size(); j++){
+                Label label = new Label();
+                label.setAlignment(Pos.CENTER);
+                label.setText(list.get(i).get(j));
+                label.setTextAlignment(TextAlignment.CENTER);
+                GridPane.setRowIndex(label, i+1);
+                GridPane.setColumnIndex(label, j);
+                gridPane.getChildren().add(label);
+            }
+
+
+            Button viewButton = new Button("View");
+            Button editButton = new Button("Edit");
+            Button deleteButton = new Button("Delete");
+
+            GridPane.setColumnIndex(viewButton, 12);
+            GridPane.setColumnIndex(editButton, 13);
+            GridPane.setColumnIndex(deleteButton, 14);
+
+            GridPane.setRowIndex(viewButton, i + 1);
+            GridPane.setRowIndex(editButton, i + 1);
+            GridPane.setRowIndex(deleteButton, i + 1);
+
+            gridPane.getChildren().addAll(viewButton, editButton, deleteButton);
+        }
+
+
+    }
 }
