@@ -15,11 +15,7 @@ import java.time.ZonedDateTime;
 import java.util.List;
 
 public class ViewFactory {
-
-    private Scene mainMenu;
     private Scene create;
-    private Scene login;
-    private Scene calendar;
     private ZonedDateTime today;
     private Text yearText;
     private Text monthText;
@@ -45,17 +41,22 @@ public class ViewFactory {
         this.roomText = roomText;
     }
 
+    public void setSceneList() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/List.fxml"));
+            stage.setScene(new Scene(loader.load()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public void setSceneLogin(){
-        if (login == null) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Login.fxml"));
-                login = new Scene(loader.load());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Login.fxml"));
+            stage.setScene(new Scene(loader.load()));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        stage.setScene(login);
     }
     public void setSceneCreate(){
         if (create == null) {
@@ -69,25 +70,19 @@ public class ViewFactory {
         stage.setScene(create);
     }
     public void setSceneMainMenu(){
-        if (mainMenu == null) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/MainMenu.fxml"));
-                mainMenu = new Scene(loader.load());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/MainMenu.fxml"));
+            stage.setScene(new Scene(loader.load()));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        stage.setScene(mainMenu);
     }
     public void insertCalendar(Pane pane){
-
-        if (calendar == null) {
-            try {
-                AnchorPane childPane = FXMLLoader.load(getClass().getResource("/Fxml/Calendar.fxml"));
-                pane.getChildren().setAll(childPane);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+        try {
+            AnchorPane childPane = FXMLLoader.load(getClass().getResource("/Fxml/Calendar.fxml"));
+            pane.getChildren().setAll(childPane);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -164,7 +159,6 @@ public class ViewFactory {
             }
         }
     }
-
     public int selectDays(){
         int result = 32;
         for (int i = calendarModel.getLeftDateInt() - 1; i < calendarModel.getRightDateInt(); i++){
@@ -186,4 +180,5 @@ public class ViewFactory {
     public CalendarModel getCalendarModel() {
         return calendarModel;
     }
+
 }

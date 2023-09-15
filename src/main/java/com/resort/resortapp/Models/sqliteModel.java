@@ -187,10 +187,58 @@ public class sqliteModel {
         }
         return  result;
     }
+
+
+
+
+
+
+
+
+
+    public static Set<String> getMonthAvailability(LocalDate checkIn, LocalDate checkOut){
+
+        Set<String> set = new HashSet<>();
+
+        for (int i = 0; i < Model.getMonthMaxDate(); i++) {
+            set.add("j");
+            set.add("g");
+            set.add("attic");
+            set.add("k1");
+            set.add("k2");
+        }
+
+        String sql = "SELECT room FROM main where checkIn <= '" + checkOut.toString() + "' AND checkOut >= '" + checkIn.toString() + "';";
+        try {
+            PreparedStatement pStmt = openDB().prepareStatement(sql);
+            ResultSet resultSet = pStmt.executeQuery();
+            while(resultSet.next()){
+                set.remove(resultSet.getString("room"));
+            }
+            resultSet.close();
+            closeDB();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println(checkIn + " - " + checkOut + " = " + set);
+        return set;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     public static boolean insertRecord(DatePicker currentDate_datePicker, TextField name_fld,
                                        TextField pax_fld, RadioButton vehicleYes_radio, RadioButton petsYes_radio,
                                        RadioButton videokeYes_radio, TextField payment_fld, DatePicker checkIn_datePicker,
-                                       DatePicker checkOut_datePicker, ChoiceBox<String> room_choiceBox){
+                                       DatePicker checkOut_datePicker, ChoiceBox<String> room_choiceBox, Set<String> available){
 
 
         LocalDate currentDateLocalDate = currentDate_datePicker.getValue();
@@ -203,6 +251,21 @@ public class sqliteModel {
         LocalDate checkInLocalDate = checkIn_datePicker.getValue();
         LocalDate checkOutLocalDate = checkOut_datePicker.getValue();
         String roomUnformatted = room_choiceBox.getValue();
+
+
+        Rooms rooms = Rooms.ALL_ROOMS;
+
+        if ("ROOM G".equals(roomUnformatted)) {
+            rooms = Rooms.ROOM_G;
+        } else if ("ROOM J".equals(roomUnformatted)) {
+            rooms = Rooms.ROOM_J;
+        } else if ("ATTIC".equals(roomUnformatted)) {
+            rooms = Rooms.ATTIC;
+        } else if ("KUBO 1".equals(roomUnformatted)) {
+            rooms = Rooms.KUBO_1;
+        } else if ("KUBO 2".equals(roomUnformatted)) {
+            rooms = Rooms.KUBO_2;
+        }
 
 
         if(currentDateLocalDate == null)
@@ -227,9 +290,17 @@ public class sqliteModel {
             System.out.println("room empty");
         else if(checkInLocalDate.isAfter(checkOutLocalDate))
             System.out.println("checkIn is after checkOut");
+        else if(!available.contains(rooms.getAbbreviatedName()))
+            System.out.println("Invalid Room");
         else{
             String currentDate = currentDateLocalDate.toString();
             int paxInt = Integer.parseInt(paxString);
+
+            if(paxInt == 0){
+                System.out.println("PAX is 0");
+                return false;
+            }
+
             double partial_paymentDouble = Double.parseDouble(partial_paymentString);
             String checkInString = checkIn_datePicker.getValue().toString();
             String checkOutString = checkOut_datePicker.getValue().toString();
