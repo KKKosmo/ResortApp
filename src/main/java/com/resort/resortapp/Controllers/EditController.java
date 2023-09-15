@@ -6,6 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class EditController implements Initializable {
@@ -50,7 +51,16 @@ public class EditController implements Initializable {
 
     }
 
-    public void setValues(int pax) {
-        pax_fld.setText(Integer.toString(pax));
+    public void setValues(LocalDate insertedDate, String name, String pax, boolean vehicle, boolean pets, boolean videoke, String payment, LocalDate checkIn, LocalDate checkOut, String room) {
+        currentDate_datePicker.setValue(insertedDate);
+        name_fld.setText(name);
+        pax_fld.setText(pax);
+        (vehicle ? vehicleYes_radio : vehicleNo_radio).setSelected(true);
+        (pets ? petsYes_radio : petsNo_radio).setSelected(true);
+        (videoke ? videokeYes_radio : videokeNo_radio).setSelected(true);
+        payment_fld.setText(payment);
+        checkIn_datePicker.setValue(checkIn);
+        checkOut_datePicker.setValue(checkOut);
+        room_choiceBox.setValue(room);
     }
 }

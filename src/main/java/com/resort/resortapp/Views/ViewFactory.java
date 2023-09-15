@@ -87,32 +87,19 @@ public class ViewFactory {
     }
 
 
-    public void setSceneEdit(LocalDate insertedDate, String name, int pax, boolean vehicle, boolean pets, boolean videoke, double payment, LocalDate checkIn, LocalDate checkOut, String room){
+    public void setSceneEdit(LocalDate insertedDate, String name, String pax, boolean vehicle, boolean pets, boolean videoke, String payment, LocalDate checkIn, LocalDate checkOut, String room){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Edit.fxml"));
             Parent root = loader.load();
 
             EditController editController = loader.getController();
-            editController.setValues(pax);
+            editController.setValues(insertedDate, name, pax, vehicle, pets, videoke, payment, checkIn, checkOut, room);
 
             stage.setScene(new Scene(root));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("Scene2.fxml"));
-//        root = loader.load();
-//
-//        Scene2Controller scene2Controller = loader.getController();
-//        scene2Controller.setValues(values);
-//
-//        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-//        scene = new Scene(root);
-//        stage.setScene(scene);
-//        stage.show();
-
-
 
     public void insertCalendar(Pane pane){
         try {
@@ -242,11 +229,11 @@ public class ViewFactory {
                 setSceneEdit(
                         LocalDate.parse(temp.get(1)),
                         temp.get(2),
-                        Integer.parseInt(temp.get(3)),
+                        temp.get(3),
                         temp.get(4).equals("Yes"),
                         temp.get(5).equals("Yes"),
                         temp.get(6).equals("Yes"),
-                        Double.parseDouble(temp.get(7)),
+                        temp.get(7),
                         LocalDate.parse(temp.get(8)),
                         LocalDate.parse(temp.get(9)),
                         temp.get(10)
