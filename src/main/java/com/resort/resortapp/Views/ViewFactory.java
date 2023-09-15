@@ -98,6 +98,7 @@ public class ViewFactory {
 
         if(rooms == Rooms.ALL_ROOMS){
             List<Integer> slotsList = sqliteModel.getMonthSlots();
+            sqliteModel.getMonthAvailability();
 
             for(int i = 0; i < Model.getMonthMaxDate(); i++){
                 Text temp = (Text)((StackPane)flowPane.getChildren().get(i + Model.getDateOffset())).getChildren().get(2);

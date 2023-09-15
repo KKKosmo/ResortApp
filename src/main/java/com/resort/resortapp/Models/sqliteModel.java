@@ -5,7 +5,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.StackPane;
 
 import java.sql.*;
 import java.text.ParseException;
@@ -13,7 +12,9 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class sqliteModel {
     private static Connection con = null;
@@ -37,7 +38,6 @@ public class sqliteModel {
     }
     public static List<Integer> getMonthSlots(){
         List<Integer> result = new ArrayList<>();
-//        System.out.println(dateOffset);
 
         for (int i = 0; i < Model.getMonthMaxDate(); i++) {
             result.add(32);
@@ -79,10 +79,10 @@ public class sqliteModel {
                     result.set(i, result.get(i) - rooms.getPax());
                 }
 
-                System.out.println("startDate = " + startDate);
-                System.out.println("daysCount = " + daysCount);
-                System.out.println(result);
-                System.out.println(checkInString + ", " + checkOutString + ", " + rooms.getDisplayName());
+//                System.out.println("startDate = " + startDate);
+//                System.out.println("daysCount = " + daysCount);
+//                System.out.println(result);
+//                System.out.println(checkInString + ", " + checkOutString + ", " + rooms.getDisplayName());
             }
             resultSet.close();
             closeDB();
@@ -137,6 +137,60 @@ public class sqliteModel {
         }
         return  result;
     }
+    public static List<Set<String>> getMonthAvailability(){
+
+        List<Set<String>> result = new ArrayList<>();
+
+        for (int i = 0; i < Model.getMonthMaxDate(); i++) {
+            Set<String> set = new HashSet<>();
+            set.add("j");
+            set.add("g");
+            set.add("attic");
+            set.add("k1");
+            set.add("k2");
+            result.add(set);
+        }
+
+        DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MM");
+        String twoDigitMonth = Model.getDateFocus().format(monthFormatter);
+
+        String monthStart = Model.getDateFocus().getYear() + "-" + twoDigitMonth + "-01";
+        String monthEnd = Model.getDateFocus().getYear() + "-" + twoDigitMonth + "-" + Model.getMonthMaxDate();
+        String sql = "SELECT checkIn, checkOut, room FROM main where checkIn <= '" + monthEnd + "' AND checkOut >= '" + monthStart + "';";
+        try {
+            PreparedStatement pStmt = openDB().prepareStatement(sql);
+            ResultSet resultSet = pStmt.executeQuery();
+            while(resultSet.next()){
+                String checkInString = resultSet.getString("checkIn");
+                String checkOutString = resultSet.getString("checkOut");
+
+                int startDate = Integer.parseInt(checkInString.substring(8));
+                int daysCount = Integer.parseInt(checkOutString.substring(8)) - startDate + 1;
+
+                String roomValue = resultSet.getString("room");
+
+                for(int i = startDate - 1; i < daysCount + startDate - 1; i++){
+                    result.get(i).remove(roomValue);
+                }
+
+            }
+            resultSet.close();
+            closeDB();
+
+            for(int i = 0; i < result.size(); i++){
+                System.out.println();
+                System.out.println(i + 1);
+                System.out.println(result.get(i));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return  result;
+    }
+
+
+
+
     public static boolean insertRecord(DatePicker currentDate_datePicker, TextField name_fld,
                                        TextField pax_fld, RadioButton vehicleYes_radio, RadioButton petsYes_radio,
                                        RadioButton videokeYes_radio,
@@ -176,6 +230,8 @@ public class sqliteModel {
             System.out.println("checkout empty");
         else if(roomUnformatted == null)
             System.out.println("room empty");
+        else if(checkInLocalDate.isAfter(checkOutLocalDate))
+            System.out.println("checkIn is after checkOut");
         else{
             String currentDate = currentDateLocalDate.toString();
             int paxInt = Integer.parseInt(paxString);

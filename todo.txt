@@ -1,7 +1,8 @@
 index my table?
 
 implement adding
-    add confirmation, somehow make calendar interact with form, error proof it, dont put string into int, checkin should be later than checkOut, cant submit when no space, cant insert more pax than space in room, cant submit when no space, look at previous resort to do list
+    add confirmation, error proof it, cant submit when no space, cant insert more pax than space in room, look at previous resort to do list
+    what if 1 book and 2 rooms
 
 cant enter room whjen someone is already ion irt
 
