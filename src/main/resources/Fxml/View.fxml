@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.resort.resortapp.Controllers.ViewController">
+    <AnchorPane prefHeight="800.0" prefWidth="280.0" style="-fx-background-color: #AA0000;" stylesheets="@../Styles/create.css">
+        <VBox layoutY="28.0" prefHeight="708.0" prefWidth="326.0" spacing="30.0" style="-fx-background-color: #FFFFFF;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
+            <VBox alignment="CENTER" prefHeight="56.0" prefWidth="253.0">
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date" textAlignment="CENTER" wrappingWidth="100.0">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Text>
+                <Text fx:id="dateInserted_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="175.13671875">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Text>
+            </VBox>
+            <VBox alignment="CENTER">
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" textAlignment="CENTER">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                </Text>
+                <Text fx:id="name_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="175.13671875">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Text>
+            </VBox>
+            <VBox alignment="CENTER">
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="No. of Person" textAlignment="CENTER">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Text>
+                <Text fx:id="pax_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="175.13671875">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Text>
+            </VBox>
+            <HBox alignment="CENTER" prefHeight="92.0" prefWidth="256.0">
+                <VBox alignment="CENTER" prefHeight="91.0" prefWidth="98.0" spacing="10.0">
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Vehicle" textAlignment="CENTER">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                    </Text>
+                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pets" textAlignment="CENTER">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                    </Text>
+                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Videoke" textAlignment="CENTER">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                    </Text>
+                </VBox>
+                <VBox alignment="CENTER" prefHeight="101.0" prefWidth="0.0" spacing="10.0">
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                    <Text fx:id="vehicle_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="112.13671875">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                    </Text>
+                    <Text fx:id="pets_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="112.13671875">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                    </Text>
+                    <Text fx:id="videoke_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="112.13671875">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                    </Text>
+                </VBox>
+            </HBox>
+            <VBox alignment="CENTER">
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Partial Payment" textAlignment="CENTER">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Text>
+                <Text fx:id="payment_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="175.13671875">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Text>
+            </VBox>
+            <VBox alignment="CENTER">
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Check In" textAlignment="CENTER">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Text>
+                <Text fx:id="checkIn_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="175.13671875">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Text>
+            </VBox>
+            <VBox alignment="CENTER">
+                <VBox.margin>
+                    <Insets />
+                </VBox.margin>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Check Out" textAlignment="CENTER">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Text>
+                <Text fx:id="checkOut_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="175.13671875">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Text>
+            </VBox>
+            <VBox alignment="CENTER">
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room" textAlignment="CENTER">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Text>
+                <Text fx:id="room_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="175.13671875">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Text>
+            </VBox>
+        </VBox>
+        <Button fx:id="done_btn" layoutX="90.0" layoutY="736.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="DONE" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="90.0" />
+        <Button layoutX="2.0" layoutY="2.0" mnemonicParsing="false" text="&lt;-" />
+    </AnchorPane>
+    <FlowPane fx:id="month_pane" alignment="CENTER" layoutX="280.0" prefHeight="650.0" prefWidth="1000.0" />
+    <AnchorPane layoutX="280.0" layoutY="650.0" prefHeight="150.0" prefWidth="1000.0" style="-fx-background-color: #990000;" />
+</AnchorPane>
