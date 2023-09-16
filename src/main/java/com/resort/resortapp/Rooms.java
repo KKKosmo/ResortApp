@@ -36,4 +36,22 @@ public enum Rooms{
     public String getAbbreviatedName() {
         return abbreviatedName;
     }
+    public static String abbvToDisplay(String abbreviatedName) {
+        for (Rooms room : Rooms.values()) {
+            if (room.getAbbreviatedName().equalsIgnoreCase(abbreviatedName)) {
+                return room.getDisplayName();
+            }
+        }
+        // If no match is found, you can return the input string as is or any other default value
+        return abbreviatedName;
+    }
+    public static String displayToAbbv(String displayName) {
+        for (Rooms room : Rooms.values()) {
+            if (room.getDisplayName().equalsIgnoreCase(displayName)) {
+                return room.getAbbreviatedName();
+            }
+        }
+        // If no match is found, you can return the input string as is or any other default value
+        return displayName;
+    }
 }

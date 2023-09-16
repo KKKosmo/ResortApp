@@ -1,6 +1,7 @@
 package com.resort.resortapp.Views;
 
 import com.resort.resortapp.Controllers.EditController;
+import com.resort.resortapp.Controllers.ViewController;
 import com.resort.resortapp.Models.*;
 import com.resort.resortapp.Rooms;
 import javafx.fxml.FXMLLoader;
@@ -39,17 +40,15 @@ public class ViewFactory {
                         Color.BLUE,
                         BorderStrokeStyle.SOLID,
                         new CornerRadii(5), // You can adjust the corner radii as needed
-                        new BorderWidths(2) // You can adjust the border width as needed
+                        new BorderWidths(1) // You can adjust the border width as needed
                 )
         );
-
     public void setCalendarVariables(FlowPane flowPane, Text yearText, Text monthText, Text roomText) {
         this.flowPane = flowPane;
         this.yearText = yearText;
         this.monthText = monthText;
         this.roomText = roomText;
     }
-
     public void setSceneList() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/List.fxml"));
@@ -58,7 +57,6 @@ public class ViewFactory {
             e.printStackTrace();
         }
     }
-
     public void setSceneLogin(){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Login.fxml"));
@@ -86,9 +84,6 @@ public class ViewFactory {
             e.printStackTrace();
         }
     }
-
-
-
     public void insertCalendar(Pane pane){
         try {
             AnchorPane childPane = FXMLLoader.load(getClass().getResource("/Fxml/Calendar.fxml"));
@@ -103,7 +98,7 @@ public class ViewFactory {
 
         if(rooms == Rooms.ALL_ROOMS){
             List<Integer> slotsList = sqliteModel.getMonthSlots();
-            sqliteModel.getMonthAvailability();
+//            sqliteModel.getMonthAvailability();
 
             for(int i = 0; i < Model.getMonthMaxDate(); i++){
                 Text temp = (Text)((StackPane)flowPane.getChildren().get(i + Model.getDateOffset())).getChildren().get(2);
@@ -189,8 +184,6 @@ public class ViewFactory {
     public CalendarModel getCalendarModel() {
         return calendarModel;
     }
-
-
     public void setSceneEdit(int id, LocalDate insertedDate, String name, String pax, boolean vehicle, boolean pets, boolean videoke, String payment, LocalDate checkIn, LocalDate checkOut, String room){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Edit.fxml"));
@@ -204,9 +197,20 @@ public class ViewFactory {
             e.printStackTrace();
         }
     }
+    public void setSceneView(String insertedDate, String name, String pax, String vehicle, String pets, String videoke, String payment, String checkIn, String checkOut, String room){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/View.fxml"));
+            Parent root = loader.load();
 
+            ViewController viewController = loader.getController();
+            viewController.setValues(insertedDate, name, pax, vehicle, pets, videoke, payment, checkIn, checkOut, room);
+
+            stage.setScene(new Scene(root));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     public void insertListRows(GridPane gridPane, List<List<String>> list){
-
         for(int i = 0; i < list.size(); i++){
             for(int j = 0; j < list.get(0).size(); j++){
                 Label label = new Label();
@@ -250,7 +254,22 @@ public class ViewFactory {
 //                else {
                     //error window popup, idk the best way to implement it yet
 //                }
+            });
 
+
+            viewButton.setOnAction(actionEvent ->{
+                setSceneView(
+                        temp.get(1),
+                        temp.get(2),
+                        temp.get(3),
+                        temp.get(4),
+                        temp.get(5),
+                        temp.get(6),
+                        temp.get(7),
+                        temp.get(8),
+                        temp.get(9),
+                        temp.get(10)
+                );
             });
 
             GridPane.setColumnIndex(viewButton, 12);

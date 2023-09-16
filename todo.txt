@@ -4,4 +4,18 @@ index my table?
 implement adding
     add confirmations to adding, editing, deleting
 
+
+fix brute forced rooms conversions
+create form resetting when done
+navigation
+escape menu
+entry date should be date time
+print
+inner room room fxml
+calendar controller should have a list of its days
+room menu fxml
+
+
     in create and edit, remove choice from room when unavailable
+
+maybe selected boxes should have colored inside? idk do it without affecting grid

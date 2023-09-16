@@ -189,13 +189,6 @@ public class sqliteModel {
     }
 
 
-
-
-
-
-
-
-
     public static Set<String> getMonthAvailability(LocalDate checkIn, LocalDate checkOut){
 
         Set<String> set = new HashSet<>();
@@ -223,13 +216,34 @@ public class sqliteModel {
         System.out.println(checkIn + " - " + checkOut + " = " + set);
         return set;
     }
+    public static Set<String> getMonthAvailability(LocalDate checkIn, LocalDate checkOut, int id){
 
+        Set<String> set = new HashSet<>();
 
+        for (int i = 0; i < Model.getMonthMaxDate(); i++) {
+            set.add("j");
+            set.add("g");
+            set.add("attic");
+            set.add("k1");
+            set.add("k2");
+        }
 
-
-
-
-
+//        String sql = "SELECT room FROM main where checkIn <= '" + checkOut.toString() + "' AND checkOut >= '" + checkIn.toString() + "';";
+        String sql = String.format("SELECT room FROM main where checkIn <= '%s' AND checkOut >= '%s' AND NOT id = %d;", checkOut.toString(), checkIn.toString(), id);
+        try {
+            PreparedStatement pStmt = openDB().prepareStatement(sql);
+            ResultSet resultSet = pStmt.executeQuery();
+            while(resultSet.next()){
+                set.remove(resultSet.getString("room"));
+            }
+            resultSet.close();
+            closeDB();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println(checkIn + " - " + checkOut + " = " + set);
+        return set;
+    }
 
 
 
@@ -346,26 +360,15 @@ public class sqliteModel {
         String partial_paymentString = payment_fld.getText();
         LocalDate checkInLocalDate = checkIn_datePicker.getValue();
         LocalDate checkOutLocalDate = checkOut_datePicker.getValue();
-        String roomUnformatted = room_choiceBox.getValue();
+        String room = room_choiceBox.getValue();
+
+//        available.add(room);
+        room = Rooms.displayToAbbv(room);
 
 
-        Rooms rooms = Rooms.ALL_ROOMS;
-
-        if ("ROOM G".equals(roomUnformatted)) {
-            rooms = Rooms.ROOM_G;
-        } else if ("ROOM J".equals(roomUnformatted)) {
-            rooms = Rooms.ROOM_J;
-        } else if ("ATTIC".equals(roomUnformatted)) {
-            rooms = Rooms.ATTIC;
-        } else if ("KUBO 1".equals(roomUnformatted)) {
-            rooms = Rooms.KUBO_1;
-        } else if ("KUBO 2".equals(roomUnformatted)) {
-            rooms = Rooms.KUBO_2;
-        }
-
-//        System.out.println(available);
-        available.add(rooms.getAbbreviatedName());
-//        System.out.println(available);
+        System.out.println("=======HERE======");
+        System.out.println(room);
+        System.out.println(available);
 
 
         if(currentDateLocalDate == null)
@@ -386,11 +389,11 @@ public class sqliteModel {
             System.out.println("checkin empty");
         else if(checkOutLocalDate == null)
             System.out.println("checkout empty");
-        else if(roomUnformatted == null)
+        else if(room == null)
             System.out.println("room empty");
         else if(checkInLocalDate.isAfter(checkOutLocalDate))
             System.out.println("checkIn is after checkOut");
-        else if(!available.contains(rooms.getAbbreviatedName()))
+        else if(!available.contains(room))
             System.out.println("Invalid Room");
         else{
             String currentDate = currentDateLocalDate.toString();
@@ -404,8 +407,6 @@ public class sqliteModel {
             double partial_paymentDouble = Double.parseDouble(partial_paymentString);
             String checkInString = checkIn_datePicker.getValue().toString();
             String checkOutString = checkOut_datePicker.getValue().toString();
-            String roomFormatted = roomUnformatted.replace(" ", "_");
-            roomFormatted = Rooms.valueOf(roomFormatted).getAbbreviatedName();
 
 
 
@@ -421,7 +422,7 @@ public class sqliteModel {
                             "checkOut = '%s', " +
                             "room = '%s' " +
                             "WHERE id = '%d';",
-                    currentDate, name, paxInt, vehicle, pets, videoke, partial_paymentDouble, checkInString, checkOutString, roomFormatted, id);
+                    currentDate, name, paxInt, vehicle, pets, videoke, partial_paymentDouble, checkInString, checkOutString, room, id);
 
 
 
@@ -499,8 +500,6 @@ public class sqliteModel {
                 row.add(checkOutString);
                 row.add(room);
                 row.add(user);
-                System.out.println(row);
-                System.out.println(row.size());
                 result.add(row);
             }
             resultSet.close();
@@ -550,8 +549,6 @@ public class sqliteModel {
                 row.add(checkOutString);
                 row.add(room);
                 row.add(user);
-                System.out.println(row);
-                System.out.println(row.size());
                 result.add(row);
             }
             resultSet.close();

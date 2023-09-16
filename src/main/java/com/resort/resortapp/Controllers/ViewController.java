@@ -1,6 +1,7 @@
 package com.resort.resortapp.Controllers;
 
 import com.resort.resortapp.Models.Model;
+import com.resort.resortapp.Rooms;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.FlowPane;
@@ -32,4 +33,16 @@ public class ViewController implements Initializable {
 
     }
 
+    public void setValues(String insertedDate, String name, String pax, String vehicle, String pets, String videoke, String payment, String checkIn, String checkOut, String room) {
+        dateInserted_txt.setText(insertedDate);
+        name_txt.setText(name);
+        pax_txt.setText(pax);
+        vehicle_txt.setText(vehicle);
+        pets_txt.setText(pets);
+        videoke_txt.setText(videoke);
+        payment_txt.setText(payment);
+        checkIn_txt.setText(checkIn);
+        checkOut_txt.setText(checkOut);
+        room_txt.setText(Rooms.abbvToDisplay(room));
+    }
 }

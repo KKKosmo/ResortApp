@@ -43,9 +43,9 @@ public class EditController implements Initializable {
                 Rooms.KUBO_2.getDisplayName()
         };
         room_choiceBox.getItems().addAll(rooms);
+
         done_btn.setOnAction(actionEvent -> {
-//            insertRecord();
-            available = sqliteModel.getMonthAvailability(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
+            available = sqliteModel.getMonthAvailability(checkIn_datePicker.getValue(), checkOut_datePicker.getValue(), id);
             if(sqliteModel.updateRecord(id, currentDate_datePicker, name_fld, pax_fld, vehicleYes_radio, petsYes_radio, videokeYes_radio, payment_fld, checkIn_datePicker, checkOut_datePicker, room_choiceBox, available)){
                 Model.getInstance().getViewFactory().setSceneMainMenu();
             }
@@ -55,6 +55,10 @@ public class EditController implements Initializable {
             }
         });
         //viewFactory.edit(values)
+    }
+
+    public void setAvailable(Set<String> available) {
+        this.available = available;
     }
 
     public void setValues(int id, LocalDate insertedDate, String name, String pax, boolean vehicle, boolean pets, boolean videoke, String payment, LocalDate checkIn, LocalDate checkOut, String room) {
@@ -68,21 +72,6 @@ public class EditController implements Initializable {
         payment_fld.setText(payment);
         checkIn_datePicker.setValue(checkIn);
         checkOut_datePicker.setValue(checkOut);
-
-        Rooms rooms = Rooms.ALL_ROOMS;
-
-        if ("g".equals(room)) {
-            rooms = Rooms.ROOM_G;
-        } else if ("j".equals(room)) {
-            rooms = Rooms.ROOM_J;
-        } else if ("attic".equals(room)) {
-            rooms = Rooms.ATTIC;
-        } else if ("k1".equals(room)) {
-            rooms = Rooms.KUBO_1;
-        } else if ("k2".equals(room)) {
-            rooms = Rooms.KUBO_2;
-        }
-
-        room_choiceBox.setValue(rooms.getDisplayName());
+        room_choiceBox.setValue(Rooms.abbvToDisplay(room));
     }
 }
