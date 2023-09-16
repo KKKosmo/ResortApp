@@ -95,10 +95,4 @@ public class Model {
     public static void setDateFocus() {
         dateFocus = ZonedDateTime.now();
     }
-
-    public void getMin(){
-
-    }
-
-
 }

@@ -1,6 +1,7 @@
 package com.resort.resortapp.Controllers;
 
 import com.resort.resortapp.Models.Model;
+import com.resort.resortapp.Models.sqliteModel;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -26,11 +27,12 @@ public class ListController implements Initializable {
     public TextField searchBar_fld;
     public Button back_btn;
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Model.getInstance().getViewFactory().insertListRows(gridPane);
+        Model.getInstance().getViewFactory().insertListRows(gridPane, sqliteModel.queryViewList());
+        back_btn.setOnAction(event ->
+        {
+            Model.getInstance().getViewFactory().setSceneMainMenu();
+        });
     }
-
-
 }

@@ -52,9 +52,9 @@ public class CreateController  implements Initializable{
         });
 
         back_btn.setOnAction(event ->
-                {
-                    Model.getInstance().getViewFactory().setSceneMainMenu();
-                });
+            {
+                Model.getInstance().getViewFactory().setSceneMainMenu();
+            });
 
         textFieldAddListener(pax_fld);
         textFieldAddListener(payment_fld);

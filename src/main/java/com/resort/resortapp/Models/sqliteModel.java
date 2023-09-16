@@ -315,7 +315,6 @@ public class sqliteModel {
 
             System.out.println("sql = " + sql);
             try {
-                //open db
                 PreparedStatement pStmt = openDB().prepareStatement(sql);
                 pStmt.executeUpdate();
 
@@ -323,7 +322,7 @@ public class sqliteModel {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-
+            //TODO fix return true and false on the try catch
             return true;
         }
         return false;
@@ -443,7 +442,75 @@ public class sqliteModel {
     }
 
 
+    public enum OrderCategory{
+        ID,
+        ENTRYDATE,
+        NAME,
+        PAX,
+        VEHICLE,
+        PETS,
+        VIDEOKE,
+        PAYMENT,
+        CHECKIN,
+        CHECKOUT,
+        ROOM,
+        USER;
+    }
 
+    public enum OrderDirection{
+        ASC,
+        DESC;
+    }
+
+    public static List<List<String>> queryViewList(OrderCategory orderCategory, OrderDirection orderDirection, int page){
+        List<List<String>> result = new ArrayList<>();
+        String sql = "SELECT * FROM main ORDER BY id DESC limit 15";
+        try {
+            PreparedStatement pStmt = openDB().prepareStatement(sql);
+            ResultSet resultSet = pStmt.executeQuery();
+            while(resultSet.next()){
+                int id = resultSet.getInt("id");
+                String dateInserted = resultSet.getString("dateInserted");
+                String name = resultSet.getString("name");
+                int pax = resultSet.getInt("pax");
+                boolean vehicle = resultSet.getBoolean("vehicle");
+                boolean pets = resultSet.getBoolean("pets");
+                boolean videoke = resultSet.getBoolean("videoke");
+                double partial_payment = resultSet.getDouble("partial_payment");
+                String checkInString = resultSet.getString("checkIn");
+                String checkOutString = resultSet.getString("checkOut");
+                String room = resultSet.getString("room");
+                String user = resultSet.getString("user");
+
+//                System.out.println();
+//                System.out.println(id + ", " + dateInserted+ ", " + name + ", " + pax + ", " + vehicle + ", " +
+//                        pets + ", " + videoke + ", " + partial_payment + ", "
+//                        + checkInString + ", " + checkOutString + ", " + room + ", " + user);
+                List<String> row = new ArrayList<>();
+                row.add(Integer.toString(id));
+                row.add(dateInserted);
+                row.add(name);
+                row.add(Integer.toString(pax));
+                row.add(vehicle ? "Yes" : "No");
+                row.add(pets ? "Yes" : "No");
+                row.add(videoke ? "Yes" : "No");
+                row.add(Double.toString(partial_payment));
+                row.add(checkInString);
+                row.add(checkOutString);
+                row.add(room);
+                row.add(user);
+                System.out.println(row);
+                System.out.println(row.size());
+                result.add(row);
+            }
+            resultSet.close();
+            closeDB();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 
 
     public static List<List<String>> queryViewList(){
@@ -494,5 +561,25 @@ public class sqliteModel {
             e.printStackTrace();
         }
         return result;
+    }
+
+
+
+
+    public static boolean deleteEntry(int id){
+        String sql = String.format("DELETE FROM main WHERE id = %d", id);
+        System.out.println("sql = " + sql);
+
+        try {
+            PreparedStatement pStmt = openDB().prepareStatement(sql);
+            pStmt.executeUpdate();
+
+            closeDB();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            //TODO viewFactory method where i pass e and a window pops up with the e inside
+            return false;
+        }
     }
 }

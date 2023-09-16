@@ -5,6 +5,7 @@ import com.resort.resortapp.Models.*;
 import com.resort.resortapp.Rooms;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -87,19 +88,6 @@ public class ViewFactory {
     }
 
 
-    public void setSceneEdit(int id, LocalDate insertedDate, String name, String pax, boolean vehicle, boolean pets, boolean videoke, String payment, LocalDate checkIn, LocalDate checkOut, String room){
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Edit.fxml"));
-            Parent root = loader.load();
-
-            EditController editController = loader.getController();
-            editController.setValues(id, insertedDate, name, pax, vehicle, pets, videoke, payment, checkIn, checkOut, room);
-
-            stage.setScene(new Scene(root));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public void insertCalendar(Pane pane){
         try {
@@ -109,8 +97,6 @@ public class ViewFactory {
             throw new RuntimeException(e);
         }
     }
-
-
     public void fillFlowPaneMonths(Rooms rooms){
         flowPane.getChildren().clear();
         setCalendarGrid(rooms);
@@ -200,54 +186,80 @@ public class ViewFactory {
     public void flowPaneSmall(){
         flowPane.setPrefHeight(330);
     }
-
     public CalendarModel getCalendarModel() {
         return calendarModel;
     }
 
-    public void insertListRows(GridPane gridPane){
-        List<List<String>> list = sqliteModel.queryViewList();
+
+    public void setSceneEdit(int id, LocalDate insertedDate, String name, String pax, boolean vehicle, boolean pets, boolean videoke, String payment, LocalDate checkIn, LocalDate checkOut, String room){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Edit.fxml"));
+            Parent root = loader.load();
+
+            EditController editController = loader.getController();
+            editController.setValues(id, insertedDate, name, pax, vehicle, pets, videoke, payment, checkIn, checkOut, room);
+
+            stage.setScene(new Scene(root));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void insertListRows(GridPane gridPane, List<List<String>> list){
+
         for(int i = 0; i < list.size(); i++){
             for(int j = 0; j < list.get(0).size(); j++){
                 Label label = new Label();
                 label.setAlignment(Pos.CENTER);
                 label.setText(list.get(i).get(j));
                 label.setTextAlignment(TextAlignment.CENTER);
-                GridPane.setRowIndex(label, i+1);
+                GridPane.setRowIndex(label, i);
                 GridPane.setColumnIndex(label, j);
                 gridPane.getChildren().add(label);
             }
-
 
             Button viewButton = new Button("View");
             Button editButton = new Button("Edit");
             Button deleteButton = new Button("Delete");
 
-//          LocalDate insertedDate, String name, int pax, boolean vehicle, boolean pets, boolean videoke, double payment, LocalDate checkIn, LocalDate checkOut, String room
             List<String> temp = list.get(i);
             editButton.setOnAction(actionEvent -> {
                 setSceneEdit(
-                        Integer.parseInt(temp.get(0)),
-                        LocalDate.parse(temp.get(1)),
-                        temp.get(2),
-                        temp.get(3),
-                        temp.get(4).equals("Yes"),
-                        temp.get(5).equals("Yes"),
-                        temp.get(6).equals("Yes"),
-                        temp.get(7),
-                        LocalDate.parse(temp.get(8)),
-                        LocalDate.parse(temp.get(9)),
-                        temp.get(10)
-                        );
+                    Integer.parseInt(temp.get(0)),
+                    LocalDate.parse(temp.get(1)),
+                    temp.get(2),
+                    temp.get(3),
+                    temp.get(4).equals("Yes"),
+                    temp.get(5).equals("Yes"),
+                    temp.get(6).equals("Yes"),
+                    temp.get(7),
+                    LocalDate.parse(temp.get(8)),
+                    LocalDate.parse(temp.get(9)),
+                    temp.get(10)
+                    );
+            });
+
+            deleteButton.setOnAction(actionEvent -> {
+                if(sqliteModel.deleteEntry(Integer.parseInt(temp.get(0)))){
+//                    Node node = gridPane.getChildren().get(0);
+//                    gridPane.getChildren().clear();
+//                    gridPane.getChildren().add(0,node);
+                    gridPane.getChildren().retainAll(gridPane.getChildren().get(0));
+                    insertListRows(gridPane, sqliteModel.queryViewList());
+                }
+//                else {
+                    //error window popup, idk the best way to implement it yet
+//                }
+
             });
 
             GridPane.setColumnIndex(viewButton, 12);
             GridPane.setColumnIndex(editButton, 13);
             GridPane.setColumnIndex(deleteButton, 14);
 
-            GridPane.setRowIndex(viewButton, i + 1);
-            GridPane.setRowIndex(editButton, i + 1);
-            GridPane.setRowIndex(deleteButton, i + 1);
+            GridPane.setRowIndex(viewButton, i);
+            GridPane.setRowIndex(editButton, i);
+            GridPane.setRowIndex(deleteButton, i);
 
             gridPane.getChildren().addAll(viewButton, editButton, deleteButton);
         }

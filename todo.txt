@@ -1,13 +1,7 @@
 index my table?
 
+
 implement adding
-    add confirmation, error proof it, look at previous resort to do list
-    what if 1 book and 2 rooms
+    add confirmations to adding, editing, deleting
 
-cant enter room whjen someone is already ion irt
-
-implement seeing by list
-
-3 sleep
-2 talk
-130 stop
+    in create and edit, remove choice from room when unavailable
