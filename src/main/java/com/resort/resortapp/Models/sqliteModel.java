@@ -290,36 +290,60 @@ public class sqliteModel {
 
 
 
-        if(currentDateLocalDate == null)
-            System.out.println("current date empty");
-        else if (name.isEmpty())
-            System.out.println("name empty");
-        else if (paxString.isEmpty())
-            System.out.println("pax empty");
-        else if(vehicleYes_radio.getToggleGroup().getSelectedToggle() == null)
-            System.out.println("vehicle empty");
-        else if(petsYes_radio.getToggleGroup().getSelectedToggle() == null)
-            System.out.println("pets empty");
-        else if(videokeYes_radio.getToggleGroup().getSelectedToggle() == null)
-            System.out.println("videoke empty");
-        else if(partial_paymentString.isEmpty())
-            System.out.println("payment empty");
-        else if(checkInLocalDate == null)
-            System.out.println("checkin empty");
-        else if(checkOutLocalDate == null)
-            System.out.println("checkout empty");
-        else if(roomUnformatted == null)
-            System.out.println("room empty");
-        else if(checkInLocalDate.isAfter(checkOutLocalDate))
-            System.out.println("checkIn is after checkOut");
-        else if(!available.contains(roomUnformatted))
-            System.out.println("Invalid Room");
+        if(currentDateLocalDate == null){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Current date is empty.");
+            return false;
+        }
+        else if (name.isEmpty()){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Name is empty.");
+            return false;
+        }
+        else if (paxString.isEmpty()){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Number of persons is empty.");
+            return false;
+        }
+        else if(vehicleYes_radio.getToggleGroup().getSelectedToggle() == null){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Vehicle choice is empty.");
+            return false;
+        }
+        else if(petsYes_radio.getToggleGroup().getSelectedToggle() == null){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Pets choice is empty.");
+            return false;
+        }
+        else if(videokeYes_radio.getToggleGroup().getSelectedToggle() == null){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Videoke choice is empty.");
+            return false;
+        }
+        else if(partial_paymentString.isEmpty()){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Partial payment is empty.");
+            return false;
+        }
+        else if(checkInLocalDate == null){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Check-in date is empty.");
+            return false;
+        }
+        else if(checkOutLocalDate == null){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Check-out date is empty.");
+            return false;
+        }
+        else if(roomUnformatted == null){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Room choice is empty.");
+            return false;
+        }
+        else if(checkInLocalDate.isAfter(checkOutLocalDate)){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Check-in date must come before Check-out date.");
+            return false;
+        }
+        else if(!available.contains(roomUnformatted)){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.abbvToDisplay(roomUnformatted) + " is unavailable for " + checkInLocalDate + " - " + checkOutLocalDate + ".");
+            return false;
+        }
         else{
             String currentDate = currentDateLocalDate.toString();
             int paxInt = Integer.parseInt(paxString);
 
-            if(paxInt == 0){
-                System.out.println("PAX is 0");
+            if(paxInt <= 0){
+                Model.getInstance().getViewFactory().showErrorPopup("Error: Number of people must be more than 0.");
                 return false;
             }
 
@@ -342,13 +366,16 @@ public class sqliteModel {
                 pStmt.executeUpdate();
 
                 closeDB();
+                Model.getInstance().getViewFactory().showSuccessPopup("Successfully inserted a record.");
+                return true;
             } catch (SQLException e) {
                 e.printStackTrace();
+
+                Model.getInstance().getViewFactory().showErrorPopup("Error: " + e);
+                return false;
             }
             //TODO fix return true and false on the try catch
-            return true;
         }
-        return false;
     }
 
 

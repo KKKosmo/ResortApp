@@ -2,7 +2,6 @@ index my table?
 
 
 print
-scrape off rooms features
 add confirmations to adding, editing, deleting
 calendar days should display the rooms available, not count
 calendar controller should have a list of its days

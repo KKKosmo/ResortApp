@@ -9,7 +9,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -23,6 +25,7 @@ import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ViewFactory {
     private AnchorPane escMenu;
@@ -305,5 +308,33 @@ public class ViewFactory {
 
             gridPane.getChildren().addAll(viewButton, editButton, deleteButton);
         }
+    }
+    public boolean showDialog(Alert.AlertType type) {
+        Alert alert = new Alert(type);
+        alert.setTitle("Alert!");
+        alert.setContentText("This is an alert");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if(result.isEmpty()){
+            return false;
+        } else if(result.get() == ButtonType.OK){
+            return true;
+        } else if(result.get() == ButtonType.CANCEL){
+            return false;
+        }
+        return false;
+    }
+    public void showSuccessPopup(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    public void showErrorPopup(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("");
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

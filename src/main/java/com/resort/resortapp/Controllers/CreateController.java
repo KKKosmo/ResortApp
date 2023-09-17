@@ -88,14 +88,9 @@ public class CreateController  implements Initializable{
     private void insertRecord(){
         if(sqliteModel.insertRecord(currentDate_datePicker, name_fld, pax_fld, vehicleYes_radio, petsYes_radio, videokeYes_radio, payment_fld, checkIn_datePicker, checkOut_datePicker, room_choiceBox, available)){
 //            available = sqliteModel.getMonthAvailability(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
-            Model.getInstance().getViewFactory().setSceneMainMenu();
+                Model.getInstance().getViewFactory().setSceneMainMenu();
 //            clearForm();
         }
-        else{
-            //TODO error window
-            System.out.println("ERROR");
-        }
-
     }
     private void clearForm(){
         currentDate_datePicker.setValue(LocalDate.now());
