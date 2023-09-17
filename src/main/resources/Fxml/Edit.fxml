@@ -192,8 +192,7 @@
                 <Button fx:id="done_btn" layoutX="88.0" layoutY="736.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="DONE" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="92.0" />
             </children>
         </AnchorPane>
-        <FlowPane fx:id="month_pane" alignment="CENTER" layoutX="280.0" prefHeight="650.0" prefWidth="1000.0" />
-        <AnchorPane layoutX="280.0" layoutY="650.0" prefHeight="150.0" prefWidth="1000.0" style="-fx-background-color: #990000;" />
+        <FlowPane fx:id="month_pane" alignment="CENTER" layoutX="280.0" prefHeight="800.0" prefWidth="1000.0" />
       <Button fx:id="burger_btn" mnemonicParsing="false">
          <graphic>
             <FontAwesomeIconView glyphName="BARS" size="20" />
