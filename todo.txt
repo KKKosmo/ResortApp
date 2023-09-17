@@ -1,16 +1,19 @@
 index my table?
 
 
-implement adding
-    add confirmations to adding, editing, deleting
-
-entry date should be date time
 print
+add confirmations to adding, editing, deleting
 inner room room fxml
 calendar controller should have a list of its days
 room menu fxml
 
-
-    in create and edit, remove choice from room when unavailable
+in create and edit, remove choice from room when unavailable
 
 maybe selected boxes should have colored inside? idk do it without affecting grid
+
+booked by room
+entry date logic
+    should entry date be editable?
+    entry date should be date time
+    how should edit affect timeBooked
+user
