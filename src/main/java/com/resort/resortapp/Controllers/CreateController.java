@@ -1,14 +1,15 @@
 package com.resort.resortapp.Controllers;
 
 import com.resort.resortapp.Models.Model;
-import com.resort.resortapp.Rooms;
 import com.resort.resortapp.Models.sqliteModel;
+import com.resort.resortapp.Rooms;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
@@ -36,13 +37,8 @@ public class CreateController  implements Initializable{
     public void initialize(URL url, ResourceBundle resourceBundle) {
         currentDate_datePicker.setValue(LocalDate.now());
 
-        String[] rooms = {
-                Rooms.ROOM_G.getDisplayName(),
-                Rooms.ROOM_J.getDisplayName(),
-                Rooms.ATTIC.getDisplayName(),
-                Rooms.KUBO_1.getDisplayName(),
-                Rooms.KUBO_2.getDisplayName()
-        };
+        List<String> rooms = Rooms.getRoomDisplayNameList();
+
         room_choiceBox.getItems().addAll(rooms);
         done_btn.setOnAction(actionEvent -> {
             insertRecord();

@@ -58,11 +58,11 @@ public class Model {
     }
 
 
-    public static int getDateOffset() {
+    public int getDateOffset() {
         return dateOffset;
     }
 
-    public static void DayModelSetters(){
+    public void DayModelSetters(){
         year = dateFocus.getYear();
         monthValue = dateFocus.getMonthValue();
         month =  dateFocus.getMonth();
@@ -76,23 +76,31 @@ public class Model {
         }
     }
 
-    public static int getMonthMaxDate() {
+    public int getMonthMaxDate() {
         return monthMaxDate;
     }
 
-    public static int getYear() {
+    public int getYear() {
         return year;
     }
 
-    public static Month getMonth() {
+    public Month getMonth() {
         return month;
     }
 
-    public static ZonedDateTime getDateFocus() {
+    public ZonedDateTime getDateFocus() {
         return dateFocus;
     }
 
-    public static void setDateFocus() {
+    private void setDateFocus() {
         dateFocus = ZonedDateTime.now();
+    }
+
+    public Rooms getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(Rooms rooms) {
+        this.rooms = rooms;
     }
 }

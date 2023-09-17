@@ -96,27 +96,29 @@ public class ViewFactory {
         flowPane.getChildren().clear();
         setCalendarGrid(rooms);
 
+        int monthMaxDate = Model.getInstance().getMonthMaxDate();
+        int dateOffset = Model.getInstance().getDateOffset();
         if(rooms == Rooms.ALL_ROOMS){
             List<Integer> slotsList = sqliteModel.getMonthSlots();
 //            sqliteModel.getMonthAvailability();
 
-            for(int i = 0; i < Model.getMonthMaxDate(); i++){
-                Text temp = (Text)((StackPane)flowPane.getChildren().get(i + Model.getDateOffset())).getChildren().get(2);
+            for(int i = 0; i < monthMaxDate; i++){
+                Text temp = (Text)((StackPane)flowPane.getChildren().get(i + dateOffset)).getChildren().get(2);
                 temp.setText(slotsList.get(i).toString() + " Slots Free");
             }
         }
         else{
             List<String> slotsList = sqliteModel.getMonthSlots(rooms);
 
-            for(int i = 0; i < Model.getMonthMaxDate(); i++){
-                Text temp = (Text)((StackPane)flowPane.getChildren().get(i + Model.getDateOffset())).getChildren().get(2);
+            for(int i = 0; i < monthMaxDate; i++){
+                Text temp = (Text)((StackPane)flowPane.getChildren().get(i + dateOffset)).getChildren().get(2);
                 temp.setText(slotsList.get(i));
             }
         }
     }
     public void setClickable(){
-        for(int i = 0; i < Model.getMonthMaxDate(); i++){
-            StackPane temp = (StackPane) flowPane.getChildren().get(i + Model.getDateOffset());
+        for(int i = 0; i < Model.getInstance().getMonthMaxDate(); i++){
+            StackPane temp = (StackPane) flowPane.getChildren().get(i + Model.getInstance().getDateOffset());
             temp.setOnMouseClicked(event -> {
                 Text temp2 = (Text)(temp.getChildren().get(2));
                 System.out.println(temp2.getText());
@@ -124,8 +126,8 @@ public class ViewFactory {
         }
     }
     private void setCalendarGrid(Rooms rooms){
-        yearText.setText(String.valueOf(Model.getYear()));
-        monthText.setText(String.valueOf(Model.getMonth()));
+        yearText.setText(String.valueOf(Model.getInstance().getYear()));
+        monthText.setText(String.valueOf(Model.getInstance().getMonth()));
         roomText.setText(rooms.getDisplayName());
 
         double calendarWidth = flowPane.getPrefWidth();
@@ -167,7 +169,7 @@ public class ViewFactory {
     public int selectDays(){
         int result = 32;
         for (int i = calendarModel.getLeftDateInt() - 1; i < calendarModel.getRightDateInt(); i++){
-            StackPane temp = (StackPane) flowPane.getChildren().get(i + Model.getDateOffset());
+            StackPane temp = (StackPane) flowPane.getChildren().get(i + Model.getInstance().getDateOffset());
             temp.setBorder(selectedBorder);
             Text temp2 = (Text)(temp.getChildren().get(2));
             result = Math.min(result, Integer.parseInt(temp2.getText().substring(0, 2)));

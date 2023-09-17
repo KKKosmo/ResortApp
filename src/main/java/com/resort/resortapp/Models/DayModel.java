@@ -15,9 +15,10 @@ public class DayModel {
     String notAvailable;
 
     public DayModel(int i, int j){
+        int dateOffset = Model.getInstance().getDateOffset();
         gridSlot = (7*i)+(j+1);
-        gridDate = gridSlot - Model.getDateOffset();
-        withinMonth = gridSlot > Model.getDateOffset() && gridDate <= Model.getMonthMaxDate();
+        gridDate = gridSlot - dateOffset;
+        withinMonth = gridSlot > dateOffset && gridDate <= Model.getInstance().getMonthMaxDate();
     }
 
     public boolean isWithinMonth() {

@@ -10,6 +10,7 @@ import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -39,14 +40,19 @@ public class sqliteModel {
     public static List<Integer> getMonthSlots(){
         List<Integer> result = new ArrayList<>();
 
-        for (int i = 0; i < Model.getMonthMaxDate(); i++) {
+        int monthMaxDate = Model.getInstance().getMonthMaxDate();
+
+        for (int i = 0; i < monthMaxDate; i++) {
             result.add(32);
         }
         DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MM");
-        String twoDigitMonth = Model.getDateFocus().format(monthFormatter);
 
-        String monthStart = Model.getDateFocus().getYear() + "-" + twoDigitMonth + "-01";
-        String monthEnd = Model.getDateFocus().getYear() + "-" + twoDigitMonth + "-" + Model.getMonthMaxDate();
+        ZonedDateTime dateFocus = Model.getInstance().getDateFocus();
+
+        String twoDigitMonth = dateFocus.format(monthFormatter);
+
+        String monthStart = dateFocus.getYear() + "-" + twoDigitMonth + "-01";
+        String monthEnd = dateFocus.getYear() + "-" + twoDigitMonth + "-" + monthMaxDate;
         String sql = "SELECT checkIn, checkOut, room FROM main where checkIn <= '" + monthEnd + "' AND checkOut >= '" + monthStart + "';";
 //        System.out.println("sql = " + sql);
         try {
@@ -57,19 +63,19 @@ public class sqliteModel {
                 String checkOutString = resultSet.getString("checkOut");
 
                 String roomValue = resultSet.getString("room");
-                Rooms rooms = Rooms.ALL_ROOMS;
+                Rooms rooms = Rooms.fromString(roomValue);
 
-                if ("g".equals(roomValue)) {
-                    rooms = Rooms.ROOM_G;
-                } else if ("j".equals(roomValue)) {
-                    rooms = Rooms.ROOM_J;
-                } else if ("attic".equals(roomValue)) {
-                    rooms = Rooms.ATTIC;
-                } else if ("k1".equals(roomValue)) {
-                    rooms = Rooms.KUBO_1;
-                } else if ("k2".equals(roomValue)) {
-                    rooms = Rooms.KUBO_2;
-                }
+//                if ("g".equals(roomValue)) {
+//                    rooms = Rooms.ROOM_G;
+//                } else if ("j".equals(roomValue)) {
+//                    rooms = Rooms.ROOM_J;
+//                } else if ("attic".equals(roomValue)) {
+//                    rooms = Rooms.ATTIC;
+//                } else if ("k1".equals(roomValue)) {
+//                    rooms = Rooms.KUBO_1;
+//                } else if ("k2".equals(roomValue)) {
+//                    rooms = Rooms.KUBO_2;
+//                }
 
                 int startDate = Integer.parseInt(checkInString.substring(8));
                 int daysCount = Integer.parseInt(checkOutString.substring(8)) - startDate + 1;
@@ -95,16 +101,21 @@ public class sqliteModel {
     public static List<String> getMonthSlots(Rooms rooms){
         List<String> result = new ArrayList<>();
 //        System.out.println(dateOffset);
+        int monthMaxDate = Model.getInstance().getMonthMaxDate();
 
-        for (int i = 0; i < Model.getMonthMaxDate(); i++) {
+        for (int i = 0; i < monthMaxDate; i++) {
             result.add("AVAILABLE");
         }
 
         DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MM");
-        String twoDigitMonth = Model.getDateFocus().format(monthFormatter);
 
-        String monthStart = Model.getDateFocus().getYear() + "-" + twoDigitMonth + "-01";
-        String monthEnd = Model.getDateFocus().getYear() + "-" + twoDigitMonth + "-" + Model.getMonthMaxDate();
+
+        ZonedDateTime dateFocus = Model.getInstance().getDateFocus();
+
+        String twoDigitMonth = dateFocus.format(monthFormatter);
+
+        String monthStart = dateFocus.getYear() + "-" + twoDigitMonth + "-01";
+        String monthEnd = dateFocus.getYear() + "-" + twoDigitMonth + "-" + monthMaxDate;
         String sql = "SELECT checkIn, checkOut, room FROM main where checkIn <= '" + monthEnd + "' AND checkOut >= '" + monthStart + "' AND room = '" + rooms.getAbbreviatedName() + "';";
 
         System.out.println("sql = " + sql);
@@ -141,7 +152,9 @@ public class sqliteModel {
 
         List<Set<String>> result = new ArrayList<>();
 
-        for (int i = 0; i < Model.getMonthMaxDate(); i++) {
+        int monthMaxDate = Model.getInstance().getMonthMaxDate();
+
+        for (int i = 0; i < monthMaxDate; i++) {
             Set<String> set = new HashSet<>();
             set.add("j");
             set.add("g");
@@ -152,10 +165,14 @@ public class sqliteModel {
         }
 
         DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MM");
-        String twoDigitMonth = Model.getDateFocus().format(monthFormatter);
 
-        String monthStart = Model.getDateFocus().getYear() + "-" + twoDigitMonth + "-01";
-        String monthEnd = Model.getDateFocus().getYear() + "-" + twoDigitMonth + "-" + Model.getMonthMaxDate();
+
+        ZonedDateTime dateFocus = Model.getInstance().getDateFocus();
+
+        String twoDigitMonth = dateFocus.format(monthFormatter);
+
+        String monthStart = dateFocus.getYear() + "-" + twoDigitMonth + "-01";
+        String monthEnd = dateFocus.getYear() + "-" + twoDigitMonth + "-" + monthMaxDate;
         String sql = "SELECT checkIn, checkOut, room FROM main where checkIn <= '" + monthEnd + "' AND checkOut >= '" + monthStart + "';";
         try {
             PreparedStatement pStmt = openDB().prepareStatement(sql);
@@ -191,15 +208,17 @@ public class sqliteModel {
 
     public static Set<String> getMonthAvailability(LocalDate checkIn, LocalDate checkOut){
 
-        Set<String> set = new HashSet<>();
+        Set<String> set = Rooms.getRoomAbbreviateNameSet();
 
-        for (int i = 0; i < Model.getMonthMaxDate(); i++) {
-            set.add("j");
-            set.add("g");
-            set.add("attic");
-            set.add("k1");
-            set.add("k2");
-        }
+
+
+//        for (int i = 0; i < Model.getInstance().getMonthMaxDate(); i++) {
+//            set.add("j");
+//            set.add("g");
+//            set.add("attic");
+//            set.add("k1");
+//            set.add("k2");
+//        }
 
         String sql = "SELECT room FROM main where checkIn <= '" + checkOut.toString() + "' AND checkOut >= '" + checkIn.toString() + "';";
         try {
@@ -218,17 +237,18 @@ public class sqliteModel {
     }
     public static Set<String> getMonthAvailability(LocalDate checkIn, LocalDate checkOut, int id){
 
-        Set<String> set = new HashSet<>();
+        Set<String> set = Rooms.getRoomAbbreviateNameSet();
 
-        for (int i = 0; i < Model.getMonthMaxDate(); i++) {
-            set.add("j");
-            set.add("g");
-            set.add("attic");
-            set.add("k1");
-            set.add("k2");
-        }
 
-//        String sql = "SELECT room FROM main where checkIn <= '" + checkOut.toString() + "' AND checkOut >= '" + checkIn.toString() + "';";
+
+//        for (int i = 0; i < Model.getInstance().getMonthMaxDate(); i++) {
+//            set.add("j");
+//            set.add("g");
+//            set.add("attic");
+//            set.add("k1");
+//            set.add("k2");
+//        }
+
         String sql = String.format("SELECT room FROM main where checkIn <= '%s' AND checkOut >= '%s' AND NOT id = %d;", checkOut.toString(), checkIn.toString(), id);
         try {
             PreparedStatement pStmt = openDB().prepareStatement(sql);
@@ -266,20 +286,8 @@ public class sqliteModel {
         LocalDate checkOutLocalDate = checkOut_datePicker.getValue();
         String roomUnformatted = room_choiceBox.getValue();
 
+        roomUnformatted = Rooms.displayToAbbv(roomUnformatted);
 
-        Rooms rooms = Rooms.ALL_ROOMS;
-
-        if ("ROOM G".equals(roomUnformatted)) {
-            rooms = Rooms.ROOM_G;
-        } else if ("ROOM J".equals(roomUnformatted)) {
-            rooms = Rooms.ROOM_J;
-        } else if ("ATTIC".equals(roomUnformatted)) {
-            rooms = Rooms.ATTIC;
-        } else if ("KUBO 1".equals(roomUnformatted)) {
-            rooms = Rooms.KUBO_1;
-        } else if ("KUBO 2".equals(roomUnformatted)) {
-            rooms = Rooms.KUBO_2;
-        }
 
 
         if(currentDateLocalDate == null)
@@ -304,7 +312,7 @@ public class sqliteModel {
             System.out.println("room empty");
         else if(checkInLocalDate.isAfter(checkOutLocalDate))
             System.out.println("checkIn is after checkOut");
-        else if(!available.contains(rooms.getAbbreviatedName()))
+        else if(!available.contains(roomUnformatted))
             System.out.println("Invalid Room");
         else{
             String currentDate = currentDateLocalDate.toString();
@@ -319,7 +327,8 @@ public class sqliteModel {
             String checkInString = checkIn_datePicker.getValue().toString();
             String checkOutString = checkOut_datePicker.getValue().toString();
             String roomFormatted = roomUnformatted.replace(" ", "_");
-            roomFormatted = Rooms.valueOf(roomFormatted).getAbbreviatedName();
+//            roomFormatted = Rooms.valueOf(roomFormatted).getAbbreviatedName();
+            roomFormatted = Rooms.displayToAbbv(roomFormatted);
 
 
 

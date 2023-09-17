@@ -1,5 +1,10 @@
 package com.resort.resortapp;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 public enum Rooms{
     ALL_ROOMS("all", 32),
     ROOM_J("j", 6),
@@ -53,5 +58,33 @@ public enum Rooms{
         }
         // If no match is found, you can return the input string as is or any other default value
         return displayName;
+    }
+    public static Rooms fromString(String roomValue) {
+        for (Rooms room : values()) {
+            if (room.abbreviatedName.equals(roomValue) || room.getDisplayName().equals(roomValue)) {
+                return room;
+            }
+        }
+        return ALL_ROOMS; // Default value if no matching enum constant is found
+    }
+    public static List<String> getRoomDisplayNameList(){
+        List<String> result = new ArrayList<>();
+
+        for(int i = 0; i < 6; i++){
+            result.add(values[i].getDisplayName());
+        }
+        result.remove(0);
+
+        return result;
+    }
+    public static Set<String> getRoomAbbreviateNameSet(){
+        Set<String> result = new HashSet<>();
+
+        for(Rooms room : values()){
+            result.add(room.getAbbreviatedName());
+        }
+        result.remove("all");
+
+        return result;
     }
 }
