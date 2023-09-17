@@ -17,8 +17,6 @@ public class ListController implements Initializable {
     public TextField room_inputFld;
     public Button nextPage_btn;
     public Button prevPage_btn;
-    public Button seeCalendar_btn;
-    public Button add_btn;
     public GridPane gridPane;
     public Text room_text;
     public Button nextRoom_btn;
@@ -37,13 +35,5 @@ public class ListController implements Initializable {
             escMenu.setVisible(true);
         });
         Model.getInstance().getViewFactory().insertListRows(gridPane, sqliteModel.queryViewList());
-        seeCalendar_btn.setOnAction(event ->
-        {
-            Model.getInstance().getViewFactory().setSceneMainMenu();
-        });
-        add_btn.setOnAction(event ->
-        {
-            Model.getInstance().getViewFactory().setSceneCreate();
-        });
     }
 }

@@ -13,9 +13,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainMenuController implements Initializable {
-    public Button add_btn;
     public FlowPane flowPane;
-    public Button list_btn;
     public Button burger_btn;
     public AnchorPane parentPane;
     public AnchorPane escMenu;
@@ -26,12 +24,6 @@ public class MainMenuController implements Initializable {
         escMenu =  Model.getInstance().getViewFactory().getEscMenu(parentPane);
         burger_btn.setOnAction(actionEvent -> {
             escMenu.setVisible(true);
-        });
-        add_btn.setOnAction(actionEvent -> {
-            Model.getInstance().getViewFactory().setSceneCreate();
-        });
-        list_btn.setOnAction(actionEvent -> {
-            Model.getInstance().getViewFactory().setSceneList();
         });
         Model.getInstance().getViewFactory().insertCalendar(flowPane);
 //        Model.getInstance().getViewFactory().setClickable();

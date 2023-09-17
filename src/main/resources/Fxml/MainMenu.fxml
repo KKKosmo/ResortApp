@@ -7,8 +7,6 @@
 
 <AnchorPane fx:id="parentPane" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #f2fafc;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.resort.resortapp.Controllers.MainMenuController">
    <FlowPane fx:id="flowPane" alignment="CENTER" layoutX="189.0" prefHeight="800.0" prefWidth="872.0" />
-    <Button fx:id="add_btn" layoutX="1131.0" layoutY="728.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="135.0" text="ADD" />
-   <Button fx:id="list_btn" layoutX="1131.0" layoutY="662.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="135.0" text="See List" />
    <Button fx:id="burger_btn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false">
       <graphic>
          <FontAwesomeIconView glyphName="BARS" size="20" />
