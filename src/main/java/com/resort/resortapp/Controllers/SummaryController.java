@@ -13,7 +13,6 @@ public class SummaryController implements Initializable {
     public Button burger_btn;
     public AnchorPane escMenu;
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         escMenu =  Model.getInstance().getViewFactory().getEscMenu(parentPane);

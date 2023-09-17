@@ -2,12 +2,14 @@ index my table?
 
 
 print
+scrape off rooms features
 add confirmations to adding, editing, deleting
-inner room room fxml
+calendar days should display the rooms available, not count
 calendar controller should have a list of its days
-room menu fxml
 
-in create and edit, remove choice from room when unavailable
+in create and edit
+    remove choice from room when unavailable
+    days should be color coded and symbol coded
 
 maybe selected boxes should have colored inside? idk do it without affecting grid
 
@@ -17,3 +19,10 @@ entry date logic
     entry date should be date time
     how should edit affect timeBooked
 user
+summary
+
+
+
+room fxml
+inner room
+room menu fxml

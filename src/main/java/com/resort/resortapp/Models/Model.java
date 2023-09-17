@@ -12,12 +12,12 @@ public class Model {
     private static Model model;
     private final ViewFactory viewFactory;
     Rooms rooms = Rooms.ALL_ROOMS;
-    static int dateOffset;
-    static int monthMaxDate;
-    static int year;
-    static int monthValue;
-    static Month month;
-    static ZonedDateTime dateFocus;
+    private int dateOffset;
+    private int monthMaxDate;
+    private int year;
+    private int monthValue;
+    private Month month;
+    private ZonedDateTime dateFocus;
 
 
     private Model(){
