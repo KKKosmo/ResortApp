@@ -66,15 +66,15 @@ public class ViewFactory {
         }
     }
     public void setSceneCreate(){
-        if (create == null) {
+//        if (create == null) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Create.fxml"));
-                create = new Scene(loader.load());
+//                create = new Scene(loader.load());
+                stage.setScene(new Scene(loader.load()));
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-        stage.setScene(create);
+//        }
     }
     public void setSceneMainMenu(){
         try {

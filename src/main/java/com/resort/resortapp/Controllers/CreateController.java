@@ -56,22 +56,26 @@ public class CreateController  implements Initializable{
         textFieldAddListener(payment_fld);
 
         checkIn_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
-            Model.getInstance().getViewFactory().getCalendarModel().setLeftDate(newValue);
+            if(newValue != null){
+                Model.getInstance().getViewFactory().getCalendarModel().setLeftDate(newValue);
+                if(checkOut_datePicker.getValue() != null && (checkIn_datePicker.getValue().isBefore(checkOut_datePicker.getValue()) || checkIn_datePicker.getValue().equals(checkOut_datePicker.getValue()))){
+                    available = sqliteModel.getMonthAvailability(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
+                }
+            }
 //            if(checkIn_datePicker.getValue() != null && checkOut_datePicker != null){
 //                maxPax = Model.getInstance().getViewFactory().selectDays();
 //            }
-            if(checkIn_datePicker.getValue() != null && checkOut_datePicker.getValue() != null && (checkIn_datePicker.getValue().isBefore(checkOut_datePicker.getValue()) || checkIn_datePicker.getValue().equals(checkOut_datePicker.getValue()))){
-                available = sqliteModel.getMonthAvailability(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
-            }
         });
         checkOut_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
-            Model.getInstance().getViewFactory().getCalendarModel().setRightDate(newValue);
+            if(newValue != null){
+                Model.getInstance().getViewFactory().getCalendarModel().setRightDate(newValue);
+                if(checkIn_datePicker.getValue() != null && (checkIn_datePicker.getValue().isBefore(checkOut_datePicker.getValue()) || checkIn_datePicker.getValue().equals(checkOut_datePicker.getValue()))){
+                    available = sqliteModel.getMonthAvailability(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
+                }
+            }
 //            if(checkIn_datePicker.getValue() != null && checkOut_datePicker != null){
 //                maxPax = Model.getInstance().getViewFactory().selectDays();
 //            }
-            if(checkIn_datePicker.getValue() != null && checkOut_datePicker.getValue() != null && (checkIn_datePicker.getValue().isBefore(checkOut_datePicker.getValue()) || checkIn_datePicker.getValue().equals(checkOut_datePicker.getValue()))){
-                available = sqliteModel.getMonthAvailability(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
-            }
         });
 
 
@@ -81,7 +85,9 @@ public class CreateController  implements Initializable{
     }
     private void insertRecord(){
         if(sqliteModel.insertRecord(currentDate_datePicker, name_fld, pax_fld, vehicleYes_radio, petsYes_radio, videokeYes_radio, payment_fld, checkIn_datePicker, checkOut_datePicker, room_choiceBox, available)){
+//            available = sqliteModel.getMonthAvailability(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
             Model.getInstance().getViewFactory().setSceneMainMenu();
+//            clearForm();
         }
         else{
             //TODO error window

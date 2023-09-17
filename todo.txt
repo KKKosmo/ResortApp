@@ -5,8 +5,6 @@ implement adding
     add confirmations to adding, editing, deleting
 
 
-fix brute forced rooms conversions
-create form resetting when done
 navigation
 escape menu
 entry date should be date time
