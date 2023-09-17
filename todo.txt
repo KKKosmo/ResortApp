@@ -4,9 +4,6 @@ index my table?
 implement adding
     add confirmations to adding, editing, deleting
 
-
-navigation
-escape menu
 entry date should be date time
 print
 inner room room fxml

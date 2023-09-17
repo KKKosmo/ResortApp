@@ -5,6 +5,7 @@ import com.resort.resortapp.Models.sqliteModel;
 import com.resort.resortapp.Rooms;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 
 import java.net.URL;
@@ -27,14 +28,22 @@ public class EditController implements Initializable {
     public DatePicker checkOut_datePicker;
     public ChoiceBox room_choiceBox;
     public Button done_btn;
-    public Button back_btn;
     public FlowPane month_pane;
+    public Button burger_btn;
+    public AnchorPane parentPane;
     private Set<String> available;
     private int id;
 
 
+    public AnchorPane escMenu;
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        escMenu =  Model.getInstance().getViewFactory().getEscMenu(parentPane);
+        burger_btn.setOnAction(actionEvent -> {
+            escMenu.setVisible(true);
+        });
         String[] rooms = {
                 Rooms.ROOM_G.getDisplayName(),
                 Rooms.ROOM_J.getDisplayName(),
@@ -47,7 +56,7 @@ public class EditController implements Initializable {
         done_btn.setOnAction(actionEvent -> {
             available = sqliteModel.getMonthAvailability(checkIn_datePicker.getValue(), checkOut_datePicker.getValue(), id);
             if(sqliteModel.updateRecord(id, currentDate_datePicker, name_fld, pax_fld, vehicleYes_radio, petsYes_radio, videokeYes_radio, payment_fld, checkIn_datePicker, checkOut_datePicker, room_choiceBox, available)){
-                Model.getInstance().getViewFactory().setSceneMainMenu();
+                Model.getInstance().getViewFactory().setSceneList();
             }
             else{
                 //TODO error window

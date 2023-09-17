@@ -5,6 +5,7 @@ import com.resort.resortapp.Models.sqliteModel;
 import com.resort.resortapp.Rooms;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 
 import java.net.URL;
@@ -20,7 +21,6 @@ public class CreateController  implements Initializable{
     public RadioButton petsNo_radio;
     public RadioButton vehicleYes_radio;
     public RadioButton vehicleNo_radio;
-    public Button back_btn;
     public Button done_btn;
     public Button clr_btn;
     public TextField name_fld;
@@ -31,10 +31,18 @@ public class CreateController  implements Initializable{
     public DatePicker checkOut_datePicker;
     public DatePicker checkIn_datePicker;
     public FlowPane month_pane;
+    public Button burger_btn;
+    public AnchorPane parentPane;
     Set<String> available;
+    public AnchorPane escMenu;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        escMenu =  Model.getInstance().getViewFactory().getEscMenu(parentPane);
+        burger_btn.setOnAction(actionEvent -> {
+            escMenu.setVisible(true);
+        });
         currentDate_datePicker.setValue(LocalDate.now());
 
         List<String> rooms = Rooms.getRoomDisplayNameList();
@@ -46,12 +54,6 @@ public class CreateController  implements Initializable{
         clr_btn.setOnAction(actionEvent -> {
             clearForm();
         });
-
-        back_btn.setOnAction(event ->
-            {
-                Model.getInstance().getViewFactory().setSceneMainMenu();
-            });
-
         textFieldAddListener(pax_fld);
         textFieldAddListener(payment_fld);
 

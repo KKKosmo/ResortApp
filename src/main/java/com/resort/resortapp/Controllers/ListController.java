@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
@@ -25,14 +26,24 @@ public class ListController implements Initializable {
     public DatePicker endDate_datePicker;
     public DatePicker startDate_datePicker;
     public TextField searchBar_fld;
-    public Button back_btn;
+    public AnchorPane parentPane;
+    public Button burger_btn;
+    public AnchorPane escMenu;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        escMenu =  Model.getInstance().getViewFactory().getEscMenu(parentPane);
+        burger_btn.setOnAction(actionEvent -> {
+            escMenu.setVisible(true);
+        });
         Model.getInstance().getViewFactory().insertListRows(gridPane, sqliteModel.queryViewList());
-        back_btn.setOnAction(event ->
+        seeCalendar_btn.setOnAction(event ->
         {
             Model.getInstance().getViewFactory().setSceneMainMenu();
+        });
+        add_btn.setOnAction(event ->
+        {
+            Model.getInstance().getViewFactory().setSceneCreate();
         });
     }
 }

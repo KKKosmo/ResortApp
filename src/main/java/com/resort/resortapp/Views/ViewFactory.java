@@ -25,13 +25,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewFactory {
-    private Scene create;
+    private AnchorPane escMenu;
     private ZonedDateTime today;
     private Text yearText;
     private Text monthText;
     private Text roomText;
     private FlowPane flowPane;
     private Stage stage;
+//    TODO listview settings
 
     public CalendarModel calendarModel = new CalendarModel();
 
@@ -48,6 +49,18 @@ public class ViewFactory {
         this.yearText = yearText;
         this.monthText = monthText;
         this.roomText = roomText;
+    }
+
+    public AnchorPane getEscMenu(Pane parentPane){
+        if (escMenu == null) {
+            try {
+                escMenu = FXMLLoader.load(getClass().getResource("/Fxml/EscMenu.fxml"));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        parentPane.getChildren().add(escMenu);
+        return escMenu;
     }
     public void setSceneList() {
         try {
@@ -67,13 +80,13 @@ public class ViewFactory {
     }
     public void setSceneCreate(){
 //        if (create == null) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Create.fxml"));
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Create.fxml"));
 //                create = new Scene(loader.load());
-                stage.setScene(new Scene(loader.load()));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            stage.setScene(new Scene(loader.load()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 //        }
     }
     public void setSceneMainMenu(){
@@ -87,7 +100,7 @@ public class ViewFactory {
     public void insertCalendar(Pane pane){
         try {
             AnchorPane childPane = FXMLLoader.load(getClass().getResource("/Fxml/Calendar.fxml"));
-            pane.getChildren().setAll(childPane);
+            pane.getChildren().add(childPane);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

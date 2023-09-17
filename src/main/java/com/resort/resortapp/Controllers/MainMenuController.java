@@ -16,10 +16,17 @@ public class MainMenuController implements Initializable {
     public Button add_btn;
     public FlowPane flowPane;
     public Button list_btn;
+    public Button burger_btn;
+    public AnchorPane parentPane;
+    public AnchorPane escMenu;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        escMenu =  Model.getInstance().getViewFactory().getEscMenu(parentPane);
+        burger_btn.setOnAction(actionEvent -> {
+            escMenu.setVisible(true);
+        });
         add_btn.setOnAction(actionEvent -> {
             Model.getInstance().getViewFactory().setSceneCreate();
         });

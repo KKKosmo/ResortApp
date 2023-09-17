@@ -4,6 +4,7 @@ import com.resort.resortapp.Models.Model;
 import com.resort.resortapp.Rooms;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
 
@@ -23,12 +24,20 @@ public class ViewController implements Initializable {
     public Text room_txt;
     public FlowPane month_pane;
     public Button done_btn;
+    public Button burger_btn;
+    public AnchorPane parentPane;
+    public AnchorPane escMenu;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        escMenu =  Model.getInstance().getViewFactory().getEscMenu(parentPane);
+        burger_btn.setOnAction(actionEvent -> {
+            escMenu.setVisible(true);
+        });
         done_btn.setOnAction(event ->
         {
-            Model.getInstance().getViewFactory().setSceneMainMenu();
+            Model.getInstance().getViewFactory().setSceneList();
         });
 
     }
