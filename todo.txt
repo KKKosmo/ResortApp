@@ -4,10 +4,9 @@ print
 calendar controller should have a list of its days
 
 in create and edit
-    remove choice from room when unavailable
     days should be color coded and symbol coded
+    remove choice from room when unavailable
 
-maybe selected boxes should have colored inside? idk do it without affecting grid
 
 booked by room
 entry date logic
@@ -16,8 +15,6 @@ entry date logic
     how should edit affect timeBooked
 user
 summary
-
-
 
 room fxml
 inner room

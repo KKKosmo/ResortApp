@@ -36,7 +36,7 @@ public class ViewFactory {
 //    TODO listview settings
 
     private CalendarModel calendarModel = new CalendarModel();
-    Border borderUnselected = new Border(new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.SOLID, null, new BorderWidths(5)));
+    Border borderUnselected = new Border(new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.SOLID, null, new BorderWidths(3)));
     Border normalBorder = new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, new BorderWidths(5)));
     public void setCalendarVariables(FlowPane flowPane, Text yearText, Text monthText, Text roomText) {
         this.flowPane = flowPane;
