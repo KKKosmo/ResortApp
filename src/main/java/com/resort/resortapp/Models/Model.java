@@ -1,12 +1,20 @@
 package com.resort.resortapp.Models;
 
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.layout.element.Paragraph;
 import com.resort.resortapp.Rooms;
 import com.resort.resortapp.Views.ViewFactory;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
 
+import java.io.FileNotFoundException;
 import java.time.Month;
 import java.time.ZonedDateTime;
+
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+
 
 public class Model {
     private static Model model;
@@ -102,5 +110,21 @@ public class Model {
 
     public void setRooms(Rooms rooms) {
         this.rooms = rooms;
+    }
+
+
+    public void generateReportPDF(){
+        try {
+            String path = "Report.pdf";
+            PdfWriter pdfWriter = new PdfWriter(path);
+            PdfDocument pdfDocument = new PdfDocument(pdfWriter);
+            pdfDocument.setDefaultPageSize(PageSize.LETTER);
+            Document document = new Document(pdfDocument);
+
+            document.add(new Paragraph(("pls")));
+            document.close();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

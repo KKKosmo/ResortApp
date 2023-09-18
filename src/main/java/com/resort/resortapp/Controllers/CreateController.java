@@ -52,7 +52,8 @@ public class CreateController  implements Initializable{
             insertRecord();
         });
         clr_btn.setOnAction(actionEvent -> {
-            clearForm();
+            if(Model.getInstance().getViewFactory().showConfirmPopup("Are you sure you want to clear the values?"))
+                clearForm();
         });
         textFieldAddListener(pax_fld);
         textFieldAddListener(payment_fld);

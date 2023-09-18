@@ -350,15 +350,12 @@ public class sqliteModel {
             double partial_paymentDouble = Double.parseDouble(partial_paymentString);
             String checkInString = checkIn_datePicker.getValue().toString();
             String checkOutString = checkOut_datePicker.getValue().toString();
-            String roomFormatted = roomUnformatted.replace(" ", "_");
-//            roomFormatted = Rooms.valueOf(roomFormatted).getAbbreviatedName();
-            roomFormatted = Rooms.displayToAbbv(roomFormatted);
 
 
 
             String sql = String.format("INSERT INTO main (dateInserted, name, pax, vehicle, pets, videoke, partial_payment, checkIn, checkOut, room) " +
                             "VALUES ('%s','%s', %d, %b, %b, %b, %.2f, '%s', '%s', '%s');",
-                    currentDate, name, paxInt, vehicle, pets, videoke, partial_paymentDouble, checkInString, checkOutString, roomFormatted);
+                    currentDate, name, paxInt, vehicle, pets, videoke, partial_paymentDouble, checkInString, checkOutString, roomUnformatted);
 
             System.out.println("sql = " + sql);
             try {
@@ -374,7 +371,6 @@ public class sqliteModel {
                 Model.getInstance().getViewFactory().showErrorPopup("Error: " + e);
                 return false;
             }
-            //TODO fix return true and false on the try catch
         }
     }
 
@@ -407,36 +403,60 @@ public class sqliteModel {
         System.out.println(available);
 
 
-        if(currentDateLocalDate == null)
-            System.out.println("current date empty");
-        else if (name.isEmpty())
-            System.out.println("name empty");
-        else if (paxString.isEmpty())
-            System.out.println("pax empty");
-        else if(vehicleYes_radio.getToggleGroup().getSelectedToggle() == null)
-            System.out.println("vehicle empty");
-        else if(petsYes_radio.getToggleGroup().getSelectedToggle() == null)
-            System.out.println("pets empty");
-        else if(videokeYes_radio.getToggleGroup().getSelectedToggle() == null)
-            System.out.println("videoke empty");
-        else if(partial_paymentString.isEmpty())
-            System.out.println("payment empty");
-        else if(checkInLocalDate == null)
-            System.out.println("checkin empty");
-        else if(checkOutLocalDate == null)
-            System.out.println("checkout empty");
-        else if(room == null)
-            System.out.println("room empty");
-        else if(checkInLocalDate.isAfter(checkOutLocalDate))
-            System.out.println("checkIn is after checkOut");
-        else if(!available.contains(room))
-            System.out.println("Invalid Room");
+        if(currentDateLocalDate == null){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Current date is empty.");
+            return false;
+        }
+        else if (name.isEmpty()){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Name is empty.");
+            return false;
+        }
+        else if (paxString.isEmpty()){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Number of persons is empty.");
+            return false;
+        }
+        else if(vehicleYes_radio.getToggleGroup().getSelectedToggle() == null){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Vehicle choice is empty.");
+            return false;
+        }
+        else if(petsYes_radio.getToggleGroup().getSelectedToggle() == null){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Pets choice is empty.");
+            return false;
+        }
+        else if(videokeYes_radio.getToggleGroup().getSelectedToggle() == null){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Videoke choice is empty.");
+            return false;
+        }
+        else if(partial_paymentString.isEmpty()){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Partial payment is empty.");
+            return false;
+        }
+        else if(checkInLocalDate == null){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Check-in date is empty.");
+            return false;
+        }
+        else if(checkOutLocalDate == null){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Check-out date is empty.");
+            return false;
+        }
+        else if(room == null){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Room choice is empty.");
+            return false;
+        }
+        else if(checkInLocalDate.isAfter(checkOutLocalDate)){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Check-in date must come before Check-out date.");
+            return false;
+        }
+        else if(!available.contains(room)){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.abbvToDisplay(room) + " is unavailable for " + checkInLocalDate + " - " + checkOutLocalDate + ".");
+            return false;
+        }
         else{
             String currentDate = currentDateLocalDate.toString();
             int paxInt = Integer.parseInt(paxString);
 
-            if(paxInt == 0){
-                System.out.println("PAX is 0");
+            if(paxInt <= 0){
+                Model.getInstance().getViewFactory().showErrorPopup("Error: Number of people must be more than 0.");
                 return false;
             }
 
@@ -460,22 +480,20 @@ public class sqliteModel {
                             "WHERE id = '%d';",
                     currentDate, name, paxInt, vehicle, pets, videoke, partial_paymentDouble, checkInString, checkOutString, room, id);
 
-
-
             System.out.println("sql = " + sql);
             try {
-                //open db
                 PreparedStatement pStmt = openDB().prepareStatement(sql);
                 pStmt.executeUpdate();
 
                 closeDB();
+                Model.getInstance().getViewFactory().showSuccessPopup("Successfully inserted a record.");
+                return true;
             } catch (SQLException e) {
                 e.printStackTrace();
+                Model.getInstance().getViewFactory().showErrorPopup("Error: " + e);
+                return false;
             }
-
-            return true;
         }
-        return false;
     }
 
 
@@ -608,10 +626,11 @@ public class sqliteModel {
             pStmt.executeUpdate();
 
             closeDB();
+            Model.getInstance().getViewFactory().showConfirmPopup("Row successfully deleted.");
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
-            //TODO viewFactory method where i pass e and a window pops up with the e inside
+            Model.getInstance().getViewFactory().showErrorPopup("Failed to delete row: " + e);
             return false;
         }
     }

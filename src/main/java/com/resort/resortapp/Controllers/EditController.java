@@ -58,12 +58,7 @@ public class EditController implements Initializable {
             if(sqliteModel.updateRecord(id, currentDate_datePicker, name_fld, pax_fld, vehicleYes_radio, petsYes_radio, videokeYes_radio, payment_fld, checkIn_datePicker, checkOut_datePicker, room_choiceBox, available)){
                 Model.getInstance().getViewFactory().setSceneList();
             }
-            else{
-                //TODO error window
-                System.out.println("ERROR");
-            }
         });
-        //viewFactory.edit(values)
     }
 
     public void setAvailable(Set<String> available) {

@@ -4,6 +4,8 @@ module com.resort.resortapp {
     requires de.jensd.fx.glyphs.fontawesome;
     requires java.sql;
     requires org.xerial.sqlitejdbc;
+    requires kernel;
+    requires layout;
 
     opens com.resort.resortapp to javafx.fxml;
     exports com.resort.resortapp;

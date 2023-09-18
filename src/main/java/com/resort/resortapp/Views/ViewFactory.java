@@ -270,16 +270,13 @@ public class ViewFactory {
             });
 
             deleteButton.setOnAction(actionEvent -> {
-                if(sqliteModel.deleteEntry(Integer.parseInt(temp.get(0)))){
-//                    Node node = gridPane.getChildren().get(0);
-//                    gridPane.getChildren().clear();
-//                    gridPane.getChildren().add(0,node);
-                    gridPane.getChildren().retainAll(gridPane.getChildren().get(0));
-                    insertListRows(gridPane, sqliteModel.queryViewList());
+
+                if(Model.getInstance().getViewFactory().showConfirmPopup("Are you sure you want to delete this row?")){
+                    if(sqliteModel.deleteEntry(Integer.parseInt(temp.get(0)))){
+                        gridPane.getChildren().retainAll(gridPane.getChildren().get(0));
+                        insertListRows(gridPane, sqliteModel.queryViewList());
+                    }
                 }
-//                else {
-                    //error window popup, idk the best way to implement it yet
-//                }
             });
 
 
@@ -336,5 +333,15 @@ public class ViewFactory {
         alert.setTitle("");
         alert.setContentText(message);
         alert.showAndWait();
+    }
+    public boolean showConfirmPopup(String message) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("");
+        alert.setContentText(message);
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if(result.isEmpty()){
+            return false;
+        } else return result.get() == ButtonType.OK;
     }
 }
