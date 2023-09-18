@@ -84,7 +84,7 @@ public class CreateController  implements Initializable{
 
 //        Model.getInstance().getViewFactory().flowPaneSmall();
         Model.getInstance().getViewFactory().insertCalendar(month_pane);
-        Model.getInstance().getViewFactory().setClickable();
+//        Model.getInstance().getViewFactory().setClickable();
     }
     private void insertRecord(){
         if(sqliteModel.insertRecord(currentDate_datePicker, name_fld, pax_fld, vehicleYes_radio, petsYes_radio, videokeYes_radio, payment_fld, checkIn_datePicker, checkOut_datePicker, room_choiceBox, available)){

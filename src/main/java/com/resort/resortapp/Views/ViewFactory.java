@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
@@ -26,6 +27,7 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public class ViewFactory {
     private AnchorPane escMenu;
@@ -38,22 +40,13 @@ public class ViewFactory {
 //    TODO listview settings
 
     public CalendarModel calendarModel = new CalendarModel();
-
-        Border selectedBorder = new Border(
-                new BorderStroke(
-                        Color.BLUE,
-                        BorderStrokeStyle.SOLID,
-                        new CornerRadii(5), // You can adjust the corner radii as needed
-                        new BorderWidths(1) // You can adjust the border width as needed
-                )
-        );
+    Border selectedBorder = new Border(new BorderStroke(Color.BLUE, BorderStrokeStyle.SOLID, new CornerRadii(5), new BorderWidths(1)));
     public void setCalendarVariables(FlowPane flowPane, Text yearText, Text monthText, Text roomText) {
         this.flowPane = flowPane;
         this.yearText = yearText;
         this.monthText = monthText;
         this.roomText = roomText;
     }
-
     public AnchorPane getEscMenu(Pane parentPane){
         if (escMenu == null) {
             try {
@@ -123,12 +116,21 @@ public class ViewFactory {
         int monthMaxDate = Model.getInstance().getMonthMaxDate();
         int dateOffset = Model.getInstance().getDateOffset();
         if(rooms == Rooms.ALL_ROOMS){
-            List<Integer> slotsList = sqliteModel.getMonthSlots();
-//            sqliteModel.getMonthAvailability();
+//            List<Integer> slotsList = sqliteModel.getMonthSlots();
+            List<Set<String>> availablesList = sqliteModel.getMonthAvailability();
 
             for(int i = 0; i < monthMaxDate; i++){
                 Text temp = (Text)((StackPane)flowPane.getChildren().get(i + dateOffset)).getChildren().get(2);
-                temp.setText(slotsList.get(i).toString() + " Slots Free");
+                StringBuilder desc = new StringBuilder();
+                Set<String> set = availablesList.get(i);
+                for(String string : set){
+                    desc.append(string).append("\n");
+                }
+
+//                temp.setText(slotsList.get(i).toString() + " Slots Free");
+                temp.setText(desc.toString());
+                temp.setTextAlignment(TextAlignment.CENTER);
+//                temp.setFont(Font.font(10));
             }
         }
         else{
@@ -178,12 +180,13 @@ public class ViewFactory {
 
                 if(dayModel.isWithinMonth()){
                     Text dateText = new Text(String.valueOf(dayModel.getGridDate()));
-                    double dateTextTranslationY = - (boxHeight / 2) * 0.75;
-                    dateText.setTranslateY(dateTextTranslationY);
+                    dateText.setTranslateY(-(boxHeight / 2) * 0.75);
+                    dateText.setTranslateX((boxWidth / 2) * 0.75);
+
+
                     stackPane.getChildren().add(dateText);
-                    Text totalText = new Text("AVAILABLE");
-                    double totalTextTranslationY =  boxHeight * 0.25;
-                    totalText.setTranslateY(totalTextTranslationY);
+                    Text totalText = new Text("");
+                    totalText.setTranslateY(boxHeight * 0.2);
                     stackPane.getChildren().add(totalText);
                 }
                 flowPane.getChildren().add(stackPane);
@@ -270,7 +273,6 @@ public class ViewFactory {
             });
 
             deleteButton.setOnAction(actionEvent -> {
-
                 if(Model.getInstance().getViewFactory().showConfirmPopup("Are you sure you want to delete this row?")){
                     if(sqliteModel.deleteEntry(Integer.parseInt(temp.get(0)))){
                         gridPane.getChildren().retainAll(gridPane.getChildren().get(0));

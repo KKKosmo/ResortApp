@@ -87,4 +87,14 @@ public enum Rooms{
 
         return result;
     }
+    public static Set<String> getRoomDisplayNameSet(){
+        Set<String> result = new HashSet<>();
+
+        for(Rooms room : values()){
+            result.add(room.getDisplayName());
+        }
+        result.remove("ALL ROOMS");
+
+        return result;
+    }
 }

@@ -155,17 +155,10 @@ public class sqliteModel {
         int monthMaxDate = Model.getInstance().getMonthMaxDate();
 
         for (int i = 0; i < monthMaxDate; i++) {
-            Set<String> set = new HashSet<>();
-            set.add("j");
-            set.add("g");
-            set.add("attic");
-            set.add("k1");
-            set.add("k2");
-            result.add(set);
+            result.add(Rooms.getRoomDisplayNameSet());
         }
 
         DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MM");
-
 
         ZonedDateTime dateFocus = Model.getInstance().getDateFocus();
 
@@ -187,18 +180,19 @@ public class sqliteModel {
                 String roomValue = resultSet.getString("room");
 
                 for(int i = startDate - 1; i < daysCount + startDate - 1; i++){
-                    result.get(i).remove(roomValue);
+                    result.get(i).remove(Rooms.abbvToDisplay(roomValue));
                 }
 
             }
             resultSet.close();
             closeDB();
 
-            for(int i = 0; i < result.size(); i++){
-                System.out.println();
-                System.out.println(i + 1);
-                System.out.println(result.get(i));
-            }
+//            for(int i = 0; i < result.size(); i++){
+//                System.out.println();
+//                System.out.println(i + 1);
+//                System.out.println(result.get(i));
+//            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

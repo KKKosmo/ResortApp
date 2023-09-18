@@ -18,7 +18,7 @@ public class HelloApplication extends Application {
         Model.getInstance().getViewFactory().setSceneLogin();
         stage.setResizable(false);
         stage.show();
-        Model.getInstance().generateReportPDF();
+//        Model.getInstance().generateReportPDF();
     }
 
     public static void main(String[] args) {
