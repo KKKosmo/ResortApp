@@ -58,7 +58,6 @@ public class CalendarModel {
     public LocalDate getLeftDate() {
         return leftDate;
     }
-    public boolean valid;
 
     public void setLeftDate(LocalDate leftDate) {
         this.leftDate = leftDate;
@@ -76,7 +75,7 @@ public class CalendarModel {
 
 
         if (leftDate != null && rightDate != null) {
-            if(valid){
+            if(leftDate.isBefore(rightDate)){
                 LocalDate tempDate = leftDate;
                 while (tempDate.isBefore(rightDate) || tempDate.isEqual(rightDate)) {
                     int day = tempDate.getDayOfMonth();
@@ -102,13 +101,5 @@ public class CalendarModel {
 
     public Set<Integer> getSelected() {
         return selected;
-    }
-
-    public boolean isValid() {
-        return valid;
-    }
-
-    public void setValid(boolean valid) {
-        this.valid = valid;
     }
 }

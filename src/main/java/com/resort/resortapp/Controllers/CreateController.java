@@ -65,14 +65,10 @@ public class CreateController  implements Initializable{
                 Model.getInstance().getViewFactory().getCalendarModel().setLeftDate(newValue);
                 if(checkOut_datePicker.getValue() != null){
                     if(checkIn_datePicker.getValue().isBefore(checkOut_datePicker.getValue()) || checkIn_datePicker.getValue().equals(checkOut_datePicker.getValue())){
-                        Model.getInstance().getViewFactory().getCalendarModel().setValid(true);
-                    }
-                    else{
-                        Model.getInstance().getViewFactory().getCalendarModel().setValid(false);
+                        available = sqliteModel.getMonthAvailability(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
                     }
                     Model.getInstance().getViewFactory().getCalendarModel().setSelected();
                     Model.getInstance().getViewFactory().highlight();
-                    available = sqliteModel.getMonthAvailability(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
                 }
             }
         });
@@ -81,14 +77,10 @@ public class CreateController  implements Initializable{
                 Model.getInstance().getViewFactory().getCalendarModel().setRightDate(newValue);
                 if(checkIn_datePicker.getValue() != null){
                     if(checkIn_datePicker.getValue().isBefore(checkOut_datePicker.getValue()) || checkIn_datePicker.getValue().equals(checkOut_datePicker.getValue())){
-                        Model.getInstance().getViewFactory().getCalendarModel().setValid(true);
-                    }
-                    else{
-                        Model.getInstance().getViewFactory().getCalendarModel().setValid(false);
+                        available = sqliteModel.getMonthAvailability(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
                     }
                     Model.getInstance().getViewFactory().getCalendarModel().setSelected();
                     Model.getInstance().getViewFactory().highlight();
-                    available = sqliteModel.getMonthAvailability(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
                 }
             }
         });
@@ -118,8 +110,7 @@ public class CreateController  implements Initializable{
         checkOut_datePicker.setValue(null);
         Model.getInstance().getViewFactory().getCalendarModel().setRightDate(null);
         room_choiceBox.setValue(null);
-        Model.getInstance().getViewFactory().getCalendarModel().setSelected();
-        Model.getInstance().getViewFactory().highlight();
+        Model.getInstance().getViewFactory().clear();
     }
     private void textFieldAddListener(TextField textField){
         textField.textProperty().addListener((observable, oldValue, newValue) -> {

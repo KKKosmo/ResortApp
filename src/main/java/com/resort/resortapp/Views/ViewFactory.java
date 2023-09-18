@@ -33,13 +33,11 @@ public class ViewFactory {
     private FlowPane flowPane;
     private Stage stage;
     List<Set<String>> availablesList;
-    Set<StackPane> highlighted = new HashSet<>();
 //    TODO listview settings
 
     private CalendarModel calendarModel = new CalendarModel();
-    Border selectedBorderValid = new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, new BorderWidths(5)));
-    Border selectedBorderInvalid = new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, new BorderWidths(5)));
-    Border normalBorder = new Border(new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.SOLID, null, new BorderWidths(5)));
+    Border borderUnselected = new Border(new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.SOLID, null, new BorderWidths(5)));
+    Border normalBorder = new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, new BorderWidths(5)));
     public void setCalendarVariables(FlowPane flowPane, Text yearText, Text monthText, Text roomText) {
         this.flowPane = flowPane;
         this.yearText = yearText;
@@ -165,31 +163,21 @@ public class ViewFactory {
         }
     }
     public void highlight(){
-        for (StackPane pane: highlighted) {
-//            rect.setStroke(Color.BLACK);
-//            rect.setStrokeWidth(1);
-            pane.setBorder(normalBorder);
-        }
-        highlighted.clear();
-        if(calendarModel.isValid()){
-            for(Integer i : calendarModel.getSelected()){
-                StackPane temp = (StackPane) flowPane.getChildren().get(i + Model.getInstance().getDateOffset() - 1);
-//                Rectangle rect = (Rectangle) temp.getChildren().get(0);
-//                rect.setStroke(Color.BLUE);
-//                rect.setStrokeWidth(10);
-                temp.setBorder(selectedBorderValid);
-                highlighted.add(temp);
+        for(int i = 0; i < 42; i++){
+            StackPane temp = (StackPane) flowPane.getChildren().get(i);
+            if(calendarModel.getSelected().contains(i - Model.getInstance().getDateOffset() + 1)){
+                temp.setBorder(normalBorder);
+            }
+            else{
+                temp.setBorder(borderUnselected);
             }
         }
-        else{
-            for(Integer i : calendarModel.getSelected()){
-                StackPane temp = (StackPane) flowPane.getChildren().get(i + Model.getInstance().getDateOffset() - 1);
-//                Rectangle rect = (Rectangle) temp.getChildren().get(0);
-//                rect.setStroke(Color.ORANGE);
-//                rect.setStrokeWidth(10);
-                temp.setBorder(selectedBorderInvalid);
-                highlighted.add(temp);
-            }
+    }
+    public void clear(){
+        for(int i = 0; i < 42; i++){
+            StackPane temp = (StackPane) flowPane.getChildren().get(i);
+            temp.setBorder(normalBorder);
+            temp.setStyle("-fx-background-color: white;");
         }
     }
     private void setCalendarGrid(Rooms rooms){
