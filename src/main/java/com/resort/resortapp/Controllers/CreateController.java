@@ -45,9 +45,7 @@ public class CreateController  implements Initializable{
         });
         currentDate_datePicker.setValue(LocalDate.now());
 
-        List<String> rooms = Rooms.getRoomDisplayNameList();
-
-        room_choiceBox.getItems().addAll(rooms);
+        room_choiceBox.getItems().addAll(Rooms.getRoomDisplayNameList());
         done_btn.setOnAction(actionEvent -> {
             insertRecord();
         });
@@ -58,6 +56,9 @@ public class CreateController  implements Initializable{
         textFieldAddListener(pax_fld);
         textFieldAddListener(payment_fld);
 
+        room_choiceBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            Model.getInstance().getViewFactory().colorize(Rooms.fromString(newValue));
+        });
         checkIn_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue != null){
                 Model.getInstance().getViewFactory().getCalendarModel().setLeftDate(newValue);
@@ -65,9 +66,6 @@ public class CreateController  implements Initializable{
                     available = sqliteModel.getMonthAvailability(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
                 }
             }
-//            if(checkIn_datePicker.getValue() != null && checkOut_datePicker != null){
-//                maxPax = Model.getInstance().getViewFactory().selectDays();
-//            }
         });
         checkOut_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue != null){
@@ -76,21 +74,15 @@ public class CreateController  implements Initializable{
                     available = sqliteModel.getMonthAvailability(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
                 }
             }
-//            if(checkIn_datePicker.getValue() != null && checkOut_datePicker != null){
-//                maxPax = Model.getInstance().getViewFactory().selectDays();
-//            }
         });
 
 
-//        Model.getInstance().getViewFactory().flowPaneSmall();
         Model.getInstance().getViewFactory().insertCalendar(month_pane);
 //        Model.getInstance().getViewFactory().setClickable();
     }
     private void insertRecord(){
         if(sqliteModel.insertRecord(currentDate_datePicker, name_fld, pax_fld, vehicleYes_radio, petsYes_radio, videokeYes_radio, payment_fld, checkIn_datePicker, checkOut_datePicker, room_choiceBox, available)){
-//            available = sqliteModel.getMonthAvailability(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
-                Model.getInstance().getViewFactory().setSceneMainMenu();
-//            clearForm();
+            Model.getInstance().getViewFactory().setSceneMainMenu();
         }
     }
     private void clearForm(){

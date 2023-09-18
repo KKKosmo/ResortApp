@@ -37,6 +37,7 @@ public class ViewFactory {
     private Text roomText;
     private FlowPane flowPane;
     private Stage stage;
+    List<Set<String>> availablesList;
 //    TODO listview settings
 
     public CalendarModel calendarModel = new CalendarModel();
@@ -117,7 +118,7 @@ public class ViewFactory {
         int dateOffset = Model.getInstance().getDateOffset();
         if(rooms == Rooms.ALL_ROOMS){
 //            List<Integer> slotsList = sqliteModel.getMonthSlots();
-            List<Set<String>> availablesList = sqliteModel.getMonthAvailability();
+            availablesList = sqliteModel.getMonthAvailability();
 
             for(int i = 0; i < monthMaxDate; i++){
                 Text temp = (Text)((StackPane)flowPane.getChildren().get(i + dateOffset)).getChildren().get(2);
@@ -145,10 +146,24 @@ public class ViewFactory {
     public void setClickable(){
         for(int i = 0; i < Model.getInstance().getMonthMaxDate(); i++){
             StackPane temp = (StackPane) flowPane.getChildren().get(i + Model.getInstance().getDateOffset());
+
             temp.setOnMouseClicked(event -> {
                 Text temp2 = (Text)(temp.getChildren().get(2));
                 System.out.println(temp2.getText());
+                temp.setStyle("-fx-background-color: red;");
+                //TODO add symbols for color blind people
             });
+        }
+    }
+    public void colorize(Rooms rooms){
+        for(int i = 0; i < Model.getInstance().getMonthMaxDate(); i++){
+            StackPane temp = (StackPane) flowPane.getChildren().get(i + Model.getInstance().getDateOffset());
+            if(availablesList.get(i).contains(rooms.getDisplayName())){
+                temp.setStyle("-fx-background-color: green;");
+            }
+            else{
+                temp.setStyle("-fx-background-color: red;");
+            }
         }
     }
     private void setCalendarGrid(Rooms rooms){

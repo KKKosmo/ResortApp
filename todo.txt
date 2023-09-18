@@ -1,7 +1,6 @@
 index my table?
 
 print
-calendar days should display the rooms available, not count
 calendar controller should have a list of its days
 
 in create and edit
