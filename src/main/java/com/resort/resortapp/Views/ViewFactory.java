@@ -38,7 +38,7 @@ public class ViewFactory {
     Set<Rectangle> highlighted = new HashSet<>();
 //    TODO listview settings
 
-    public CalendarModel calendarModel = new CalendarModel();
+    private CalendarModel calendarModel = new CalendarModel();
     Border selectedBorder = new Border(new BorderStroke(Color.BLUE, BorderStrokeStyle.SOLID, new CornerRadii(5), new BorderWidths(0)));
     public void setCalendarVariables(FlowPane flowPane, Text yearText, Text monthText, Text roomText) {
         this.flowPane = flowPane;
@@ -169,12 +169,21 @@ public class ViewFactory {
             rect.setStroke(Color.BLACK);
         }
         highlighted.clear();
-        for(Integer i : calendarModel.getSelected()){
-            StackPane temp = (StackPane) flowPane.getChildren().get(i + Model.getInstance().getDateOffset() - 1);
-            Rectangle rect = (Rectangle) temp.getChildren().get(0);
-//            temp.setBorder(selectedBorder);
-            rect.setStroke(Color.BLUE);
-            highlighted.add(rect);
+        if(calendarModel.isValid()){
+            for(Integer i : calendarModel.getSelected()){
+                StackPane temp = (StackPane) flowPane.getChildren().get(i + Model.getInstance().getDateOffset() - 1);
+                Rectangle rect = (Rectangle) temp.getChildren().get(0);
+                rect.setStroke(Color.BLUE);
+                highlighted.add(rect);
+            }
+        }
+        else{
+            for(Integer i : calendarModel.getSelected()){
+                StackPane temp = (StackPane) flowPane.getChildren().get(i + Model.getInstance().getDateOffset() - 1);
+                Rectangle rect = (Rectangle) temp.getChildren().get(0);
+                rect.setStroke(Color.ORANGE);
+                highlighted.add(rect);
+            }
         }
     }
     private void setCalendarGrid(Rooms rooms){

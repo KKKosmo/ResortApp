@@ -58,6 +58,7 @@ public class CalendarModel {
     public LocalDate getLeftDate() {
         return leftDate;
     }
+    public boolean valid;
 
     public void setLeftDate(LocalDate leftDate) {
         this.leftDate = leftDate;
@@ -73,27 +74,41 @@ public class CalendarModel {
     public void setSelected(){
         Set<Integer> result = new HashSet<>();
 
+
         if (leftDate != null && rightDate != null) {
-            LocalDate tempDate = leftDate;
-            while (tempDate.isBefore(rightDate) || tempDate.isEqual(rightDate)) {
-                int day = tempDate.getDayOfMonth();
-                if (day <= Model.getInstance().getMonthMaxDate())
-                    result.add(day);
-                tempDate = tempDate.plusDays(1);
+            if(valid){
+                LocalDate tempDate = leftDate;
+                while (tempDate.isBefore(rightDate) || tempDate.isEqual(rightDate)) {
+                    int day = tempDate.getDayOfMonth();
+                    if (day <= Model.getInstance().getMonthMaxDate())
+                        result.add(day);
+                    tempDate = tempDate.plusDays(1);
+                }
+            }
+            else{
+                LocalDate tempDate = rightDate;
+                while (tempDate.isBefore(leftDate) || tempDate.isEqual(leftDate)) {
+                    int day = tempDate.getDayOfMonth();
+                    if (day <= Model.getInstance().getMonthMaxDate())
+                        result.add(day);
+                    tempDate = tempDate.plusDays(1);
+                }
             }
         }
-        else {
-            if (leftDate != null){
-                result.add(leftDate.getDayOfMonth());
-            } else if (rightDate != null) {
-                System.out.println(rightDate);
-                result.add(rightDate.getDayOfMonth());
-            }
-        }
+
+
         selected = result;
     }
 
     public Set<Integer> getSelected() {
         return selected;
+    }
+
+    public boolean isValid() {
+        return valid;
+    }
+
+    public void setValid(boolean valid) {
+        this.valid = valid;
     }
 }

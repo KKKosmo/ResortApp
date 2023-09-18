@@ -62,9 +62,15 @@ public class CreateController  implements Initializable{
         checkIn_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue != null){
                 Model.getInstance().getViewFactory().getCalendarModel().setLeftDate(newValue);
-                Model.getInstance().getViewFactory().getCalendarModel().setSelected();
-                Model.getInstance().getViewFactory().highlight();
-                if(checkOut_datePicker.getValue() != null && (checkIn_datePicker.getValue().isBefore(checkOut_datePicker.getValue()) || checkIn_datePicker.getValue().equals(checkOut_datePicker.getValue()))){
+                if(checkOut_datePicker.getValue() != null){
+                    if(checkIn_datePicker.getValue().isBefore(checkOut_datePicker.getValue()) || checkIn_datePicker.getValue().equals(checkOut_datePicker.getValue())){
+                        Model.getInstance().getViewFactory().getCalendarModel().setValid(true);
+                    }
+                    else{
+                        Model.getInstance().getViewFactory().getCalendarModel().setValid(false);
+                    }
+                    Model.getInstance().getViewFactory().getCalendarModel().setSelected();
+                    Model.getInstance().getViewFactory().highlight();
                     available = sqliteModel.getMonthAvailability(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
                 }
             }
@@ -72,9 +78,15 @@ public class CreateController  implements Initializable{
         checkOut_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue != null){
                 Model.getInstance().getViewFactory().getCalendarModel().setRightDate(newValue);
-                Model.getInstance().getViewFactory().getCalendarModel().setSelected();
-                Model.getInstance().getViewFactory().highlight();
-                if(checkIn_datePicker.getValue() != null && (checkIn_datePicker.getValue().isBefore(checkOut_datePicker.getValue()) || checkIn_datePicker.getValue().equals(checkOut_datePicker.getValue()))){
+                if(checkIn_datePicker.getValue() != null){
+                    if(checkIn_datePicker.getValue().isBefore(checkOut_datePicker.getValue()) || checkIn_datePicker.getValue().equals(checkOut_datePicker.getValue())){
+                        Model.getInstance().getViewFactory().getCalendarModel().setValid(true);
+                    }
+                    else{
+                        Model.getInstance().getViewFactory().getCalendarModel().setValid(false);
+                    }
+                    Model.getInstance().getViewFactory().getCalendarModel().setSelected();
+                    Model.getInstance().getViewFactory().highlight();
                     available = sqliteModel.getMonthAvailability(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
                 }
             }
