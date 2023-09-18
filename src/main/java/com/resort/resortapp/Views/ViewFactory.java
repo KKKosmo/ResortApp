@@ -24,10 +24,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 public class ViewFactory {
     private AnchorPane escMenu;
@@ -38,10 +35,11 @@ public class ViewFactory {
     private FlowPane flowPane;
     private Stage stage;
     List<Set<String>> availablesList;
+    Set<Rectangle> highlighted = new HashSet<>();
 //    TODO listview settings
 
     public CalendarModel calendarModel = new CalendarModel();
-    Border selectedBorder = new Border(new BorderStroke(Color.BLUE, BorderStrokeStyle.SOLID, new CornerRadii(5), new BorderWidths(1)));
+    Border selectedBorder = new Border(new BorderStroke(Color.BLUE, BorderStrokeStyle.SOLID, new CornerRadii(5), new BorderWidths(0)));
     public void setCalendarVariables(FlowPane flowPane, Text yearText, Text monthText, Text roomText) {
         this.flowPane = flowPane;
         this.yearText = yearText;
@@ -166,6 +164,19 @@ public class ViewFactory {
             }
         }
     }
+    public void highlight(){
+        for (Rectangle rect: highlighted) {
+            rect.setStroke(Color.BLACK);
+        }
+        highlighted.clear();
+        for(Integer i : calendarModel.getSelected()){
+            StackPane temp = (StackPane) flowPane.getChildren().get(i + Model.getInstance().getDateOffset() - 1);
+            Rectangle rect = (Rectangle) temp.getChildren().get(0);
+//            temp.setBorder(selectedBorder);
+            rect.setStroke(Color.BLUE);
+            highlighted.add(rect);
+        }
+    }
     private void setCalendarGrid(Rooms rooms){
         yearText.setText(String.valueOf(Model.getInstance().getYear()));
         monthText.setText(String.valueOf(Model.getInstance().getMonth()));
@@ -207,17 +218,6 @@ public class ViewFactory {
                 flowPane.getChildren().add(stackPane);
             }
         }
-    }
-    public int selectDays(){
-        int result = 32;
-        for (int i = calendarModel.getLeftDateInt() - 1; i < calendarModel.getRightDateInt(); i++){
-            StackPane temp = (StackPane) flowPane.getChildren().get(i + Model.getInstance().getDateOffset());
-            temp.setBorder(selectedBorder);
-            Text temp2 = (Text)(temp.getChildren().get(2));
-            result = Math.min(result, Integer.parseInt(temp2.getText().substring(0, 2)));
-        }
-        System.out.println(result);
-        return result;
     }
     public void setStage(Stage stage) {
         this.stage = stage;
