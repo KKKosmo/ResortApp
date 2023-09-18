@@ -57,7 +57,8 @@ public class CreateController  implements Initializable{
         textFieldAddListener(payment_fld);
 
         room_choiceBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-            Model.getInstance().getViewFactory().colorize(Rooms.fromString(newValue));
+            if(newValue != null)
+                Model.getInstance().getViewFactory().colorize(Rooms.fromString(newValue));
         });
         checkIn_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue != null){
@@ -117,6 +118,8 @@ public class CreateController  implements Initializable{
         checkOut_datePicker.setValue(null);
         Model.getInstance().getViewFactory().getCalendarModel().setRightDate(null);
         room_choiceBox.setValue(null);
+        Model.getInstance().getViewFactory().getCalendarModel().setSelected();
+        Model.getInstance().getViewFactory().highlight();
     }
     private void textFieldAddListener(TextField textField){
         textField.textProperty().addListener((observable, oldValue, newValue) -> {

@@ -6,7 +6,6 @@ import com.resort.resortapp.Models.*;
 import com.resort.resortapp.Rooms;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -16,7 +15,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
@@ -35,11 +33,13 @@ public class ViewFactory {
     private FlowPane flowPane;
     private Stage stage;
     List<Set<String>> availablesList;
-    Set<Rectangle> highlighted = new HashSet<>();
+    Set<StackPane> highlighted = new HashSet<>();
 //    TODO listview settings
 
     private CalendarModel calendarModel = new CalendarModel();
-    Border selectedBorder = new Border(new BorderStroke(Color.BLUE, BorderStrokeStyle.SOLID, new CornerRadii(5), new BorderWidths(0)));
+    Border selectedBorderValid = new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, new BorderWidths(5)));
+    Border selectedBorderInvalid = new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, new BorderWidths(5)));
+    Border normalBorder = new Border(new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.SOLID, null, new BorderWidths(5)));
     public void setCalendarVariables(FlowPane flowPane, Text yearText, Text monthText, Text roomText) {
         this.flowPane = flowPane;
         this.yearText = yearText;
@@ -165,24 +165,30 @@ public class ViewFactory {
         }
     }
     public void highlight(){
-        for (Rectangle rect: highlighted) {
-            rect.setStroke(Color.BLACK);
+        for (StackPane pane: highlighted) {
+//            rect.setStroke(Color.BLACK);
+//            rect.setStrokeWidth(1);
+            pane.setBorder(normalBorder);
         }
         highlighted.clear();
         if(calendarModel.isValid()){
             for(Integer i : calendarModel.getSelected()){
                 StackPane temp = (StackPane) flowPane.getChildren().get(i + Model.getInstance().getDateOffset() - 1);
-                Rectangle rect = (Rectangle) temp.getChildren().get(0);
-                rect.setStroke(Color.BLUE);
-                highlighted.add(rect);
+//                Rectangle rect = (Rectangle) temp.getChildren().get(0);
+//                rect.setStroke(Color.BLUE);
+//                rect.setStrokeWidth(10);
+                temp.setBorder(selectedBorderValid);
+                highlighted.add(temp);
             }
         }
         else{
             for(Integer i : calendarModel.getSelected()){
                 StackPane temp = (StackPane) flowPane.getChildren().get(i + Model.getInstance().getDateOffset() - 1);
-                Rectangle rect = (Rectangle) temp.getChildren().get(0);
-                rect.setStroke(Color.ORANGE);
-                highlighted.add(rect);
+//                Rectangle rect = (Rectangle) temp.getChildren().get(0);
+//                rect.setStroke(Color.ORANGE);
+//                rect.setStrokeWidth(10);
+                temp.setBorder(selectedBorderInvalid);
+                highlighted.add(temp);
             }
         }
     }
@@ -193,12 +199,13 @@ public class ViewFactory {
 
         double calendarWidth = flowPane.getPrefWidth();
         double calendarHeight = flowPane.getPrefHeight();
-        double strokeWidth = 1;
+        double strokeWidth = 5;
         double spacingH = flowPane.getHgap();
         double spacingV = flowPane.getVgap();
 
-        double boxWidth = (calendarWidth/7) - strokeWidth - spacingH;
-        double boxHeight = (calendarHeight/6) - strokeWidth - spacingV;
+        double boxWidth = (calendarWidth/7) - strokeWidth - 10 - spacingH;
+        double boxHeight = (calendarHeight/6) - strokeWidth - 10 - spacingV;
+
 
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 7; j++) {
@@ -207,8 +214,8 @@ public class ViewFactory {
                 StackPane stackPane = new StackPane();
                 Rectangle rectangle = new Rectangle();
                 rectangle.setFill(Color.TRANSPARENT);
-                rectangle.setStroke(Color.BLACK);
-                rectangle.setStrokeWidth(strokeWidth);
+                rectangle.setStroke(Color.TRANSPARENT);
+//                rectangle.setStrokeWidth(strokeWidth);
                 rectangle.setWidth(boxWidth);
                 rectangle.setHeight(boxHeight);
                 stackPane.getChildren().add(rectangle);
@@ -221,9 +228,10 @@ public class ViewFactory {
 
                     stackPane.getChildren().add(dateText);
                     Text totalText = new Text("");
-                    totalText.setTranslateY(boxHeight * 0.2);
+                    totalText.setTranslateY(boxHeight * 0.1);
                     stackPane.getChildren().add(totalText);
                 }
+                stackPane.setBorder(normalBorder);
                 flowPane.getChildren().add(stackPane);
             }
         }

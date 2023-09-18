@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="800.0" prefWidth="913.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.resort.resortapp.Controllers.CalendarController">
+<AnchorPane prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: rgba(219, 219, 219, 1);" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.resort.resortapp.Controllers.CalendarController">
    <children>
       <HBox alignment="CENTER" prefHeight="30.0" prefWidth="969.0">
          <children>
@@ -68,8 +68,8 @@
             </GridPane>
          </children>
       </HBox>
-       <FlowPane fx:id="flowPane" alignment="CENTER" columnHalignment="CENTER" hgap="10.0" layoutX="2.0" layoutY="109.0" prefHeight="697.0" prefWidth="969.0" style="-fx-background-color: #FFFFFF;" vgap="5.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-       <HBox alignment="CENTER" layoutY="63.0" prefHeight="30.0" prefWidth="969.0" spacing="135.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+       <FlowPane fx:id="flowPane" alignment="CENTER" columnHalignment="CENTER" hgap="10.0" layoutY="84.0" prefHeight="716.0" prefWidth="969.0" style="-fx-background-color: #FFFFFF;" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+       <HBox alignment="CENTER" layoutY="60.0" prefHeight="30.0" prefWidth="969.0" spacing="125.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
            <children>
                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Su" textAlignment="CENTER" />
                <Text layoutX="213.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mo" textAlignment="CENTER" />
