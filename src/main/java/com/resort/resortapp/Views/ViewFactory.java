@@ -4,6 +4,7 @@ import com.resort.resortapp.Controllers.EditController;
 import com.resort.resortapp.Controllers.ViewController;
 import com.resort.resortapp.Models.*;
 import com.resort.resortapp.Rooms;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -33,6 +34,7 @@ public class ViewFactory {
     private FlowPane flowPane;
     private Stage stage;
     List<Set<String>> availablesList;
+    List<DayModel> dayModelList = new ArrayList<>();
 //    TODO listview settings
 
     private CalendarModel calendarModel = new CalendarModel();
@@ -108,52 +110,48 @@ public class ViewFactory {
     }
     public void fillFlowPaneMonths(Rooms rooms){
         flowPane.getChildren().clear();
+        //TODO clear daymodel list here?
         setCalendarGrid(rooms);
 
         int monthMaxDate = Model.getInstance().getMonthMaxDate();
         int dateOffset = Model.getInstance().getDateOffset();
         if(rooms == Rooms.ALL_ROOMS){
-//            List<Integer> slotsList = sqliteModel.getMonthSlots();
             availablesList = sqliteModel.getMonthAvailability();
 
             for(int i = 0; i < monthMaxDate; i++){
-                Text temp = (Text)((StackPane)flowPane.getChildren().get(i + dateOffset)).getChildren().get(2);
+                Text temp = dayModelList.get(i + dateOffset).getRoomsText();
                 StringBuilder desc = new StringBuilder();
                 Set<String> set = availablesList.get(i);
                 for(String string : set){
                     desc.append(string).append("\n");
                 }
 
-//                temp.setText(slotsList.get(i).toString() + " Slots Free");
                 temp.setText(desc.toString());
                 temp.setTextAlignment(TextAlignment.CENTER);
-//                temp.setFont(Font.font(10));
             }
         }
         else{
             List<String> slotsList = sqliteModel.getMonthSlots(rooms);
 
             for(int i = 0; i < monthMaxDate; i++){
-                Text temp = (Text)((StackPane)flowPane.getChildren().get(i + dateOffset)).getChildren().get(2);
+                Text temp = dayModelList.get(i + dateOffset).getRoomsText();
                 temp.setText(slotsList.get(i));
             }
         }
     }
     public void setClickable(){
         for(int i = 0; i < Model.getInstance().getMonthMaxDate(); i++){
-            StackPane temp = (StackPane) flowPane.getChildren().get(i + Model.getInstance().getDateOffset());
-
+            StackPane temp = dayModelList.get(i + Model.getInstance().getDateOffset()).getStackPane();
             temp.setOnMouseClicked(event -> {
                 Text temp2 = (Text)(temp.getChildren().get(2));
                 System.out.println(temp2.getText());
                 temp.setStyle("-fx-background-color: red;");
-                //TODO add symbols for color blind people
             });
         }
     }
     public void colorize(Rooms rooms){
         for(int i = 0; i < Model.getInstance().getMonthMaxDate(); i++){
-            StackPane temp = (StackPane) flowPane.getChildren().get(i + Model.getInstance().getDateOffset());
+            StackPane temp = dayModelList.get(i + Model.getInstance().getDateOffset()).getStackPane();
             if(availablesList.get(i).contains(rooms.getDisplayName())){
                 temp.setStyle("-fx-background-color: green;");
             }
@@ -164,7 +162,7 @@ public class ViewFactory {
     }
     public void highlight(){
         for(int i = 0; i < 42; i++){
-            StackPane temp = (StackPane) flowPane.getChildren().get(i);
+            StackPane temp = dayModelList.get(i).getStackPane();
             if(calendarModel.getSelected().contains(i - Model.getInstance().getDateOffset() + 1)){
                 temp.setBorder(normalBorder);
             }
@@ -175,7 +173,7 @@ public class ViewFactory {
     }
     public void clear(){
         for(int i = 0; i < 42; i++){
-            StackPane temp = (StackPane) flowPane.getChildren().get(i);
+            StackPane temp = dayModelList.get(i).getStackPane();
             temp.setBorder(normalBorder);
             temp.setStyle("-fx-background-color: white;");
         }
@@ -194,7 +192,7 @@ public class ViewFactory {
         double boxWidth = (calendarWidth/7) - strokeWidth - 10 - spacingH;
         double boxHeight = (calendarHeight/6) - strokeWidth - 10 - spacingV;
 
-
+        dayModelList.clear();
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 7; j++) {
                 DayModel dayModel = new DayModel(i, j);
@@ -212,15 +210,18 @@ public class ViewFactory {
                     Text dateText = new Text(String.valueOf(dayModel.getGridDate()));
                     dateText.setTranslateY(-(boxHeight / 2) * 0.75);
                     dateText.setTranslateX((boxWidth / 2) * 0.75);
-
+                    dayModel.setDayText(dateText);
 
                     stackPane.getChildren().add(dateText);
                     Text totalText = new Text("");
                     totalText.setTranslateY(boxHeight * 0.1);
                     stackPane.getChildren().add(totalText);
+                    dayModel.setRoomsText(totalText);
                 }
                 stackPane.setBorder(normalBorder);
                 flowPane.getChildren().add(stackPane);
+                dayModel.setStackPane(stackPane);
+                dayModelList.add(dayModel);
             }
         }
     }
