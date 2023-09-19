@@ -8,10 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -147,14 +144,29 @@ public class ViewFactory {
             });
         }
     }
-    public void colorize(Rooms rooms){
-        for(int i = 0; i < Model.getInstance().getMonthMaxDate(); i++){
-            StackPane temp = dayModelList.get(i + Model.getInstance().getDateOffset()).getStackPane();
-            if(availableRoomsPerDayList.get(i).contains(rooms.getDisplayName())){
-                temp.setStyle("-fx-background-color: green;");
+    public void colorize(Set<String> roomsCheckBoxes){
+        if(roomsCheckBoxes.isEmpty()){
+            for(int i = 0; i < Model.getInstance().getMonthMaxDate(); i++){
+                StackPane temp = dayModelList.get(i + Model.getInstance().getDateOffset()).getStackPane();
+                temp.setStyle("-fx-background-color: transparent;");
             }
-            else{
-                temp.setStyle("-fx-background-color: red;");
+        }
+        else{
+            for(int i = 0; i < Model.getInstance().getMonthMaxDate(); i++){
+                StackPane temp = dayModelList.get(i + Model.getInstance().getDateOffset()).getStackPane();
+                boolean available = true;
+                for (String room : roomsCheckBoxes) {
+                    if(!availableRoomsPerDayList.get(i).contains(room)){
+                        available = false;
+                        break;
+                    }
+                }
+                if(available){
+                    temp.setStyle("-fx-background-color: green;");
+                }
+                else{
+                    temp.setStyle("-fx-background-color: red;");
+                }
             }
         }
     }

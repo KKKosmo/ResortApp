@@ -10,6 +10,8 @@ import javafx.scene.layout.FlowPane;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
@@ -25,24 +27,33 @@ public class CreateController  implements Initializable{
     public TextField name_fld;
     public TextField pax_fld;
     public TextField payment_fld;
-    public ChoiceBox<String> room_choiceBox;
     public DatePicker checkOut_datePicker;
     public DatePicker checkIn_datePicker;
     public FlowPane month_pane;
     public Button burger_btn;
     public AnchorPane parentPane;
+    public CheckBox roomG_ChkBox;
+    public CheckBox roomJ_ChkBox;
+    public CheckBox attic_ChkBox;
+    public CheckBox kubo1_ChkBox;
+    public CheckBox kubo2_ChkBox;
     Set<String> available;
     public AnchorPane escMenu;
+    List<CheckBox> roomCheckBoxes = new ArrayList<>();
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        roomCheckBoxes.add(roomG_ChkBox);
+        roomCheckBoxes.add(roomJ_ChkBox);
+        roomCheckBoxes.add(attic_ChkBox);
+        roomCheckBoxes.add(kubo1_ChkBox);
+        roomCheckBoxes.add(kubo2_ChkBox);
         escMenu =  Model.getInstance().getViewFactory().getEscMenu(parentPane);
         burger_btn.setOnAction(actionEvent -> {
             escMenu.setVisible(true);
         });
 
-        room_choiceBox.getItems().addAll(Rooms.getRoomDisplayNameList());
         done_btn.setOnAction(actionEvent -> {
             insertRecord();
         });
@@ -53,10 +64,12 @@ public class CreateController  implements Initializable{
         textFieldAddListener(pax_fld);
         textFieldAddListener(payment_fld);
 
-        room_choiceBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue != null)
-                Model.getInstance().getViewFactory().colorize(Rooms.fromString(newValue));
-        });
+//        room_choiceBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+//            if(newValue != null)
+//                Model.getInstance().getViewFactory().colorize(Rooms.fromString(newValue));
+//        });
+        //TODO ROOM LISTENERS EHRE
+
         checkIn_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue != null){
                 Model.getInstance().setLeftDate(newValue);
@@ -85,9 +98,12 @@ public class CreateController  implements Initializable{
 
         Model.getInstance().getViewFactory().insertCalendar(month_pane);
 //        Model.getInstance().getViewFactory().setClickable();
+        for (CheckBox checkBox : roomCheckBoxes){
+            checkBoxAddListener(checkBox);
+        }
     }
     private void insertRecord(){
-        if(sqliteModel.insertRecord(name_fld, pax_fld, vehicleYes_radio, petsYes_radio, videokeYes_radio, payment_fld, checkIn_datePicker, checkOut_datePicker, room_choiceBox, available)){
+        if(sqliteModel.insertRecord(name_fld, pax_fld, vehicleYes_radio, petsYes_radio, videokeYes_radio, payment_fld, checkIn_datePicker, checkOut_datePicker, roomCheckBoxes, available)){
             Model.getInstance().getViewFactory().setSceneMainMenu();
         }
     }
@@ -105,7 +121,9 @@ public class CreateController  implements Initializable{
         Model.getInstance().setLeftDate(null);
         checkOut_datePicker.setValue(null);
         Model.getInstance().setRightDate(null);
-        room_choiceBox.setValue(null);
+        for (CheckBox checkBox: roomCheckBoxes) {
+            checkBox.setSelected(false);
+        }
         Model.getInstance().getViewFactory().clear();
     }
     private void textFieldAddListener(TextField textField){
@@ -113,6 +131,12 @@ public class CreateController  implements Initializable{
             if (!newValue.matches("\\d*")) {
                 textField.setText(newValue.replaceAll("\\D", ""));
             }
+        });
+    }
+
+    private void checkBoxAddListener(CheckBox checkBox){
+        checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            Model.getInstance().getViewFactory().colorize(Rooms.manageCheckboxesSet(roomCheckBoxes));
         });
     }
 }

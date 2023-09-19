@@ -1,5 +1,7 @@
 package com.resort.resortapp;
 
+import javafx.scene.control.CheckBox;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -95,6 +97,56 @@ public enum Rooms{
         }
         result.remove("ALL ROOMS");
 
+        return result;
+    }
+
+    public static String manageCheckboxesString(List<CheckBox> roomCheckboxes){
+//        List<String> result = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        if(roomCheckboxes.get(0).isSelected()){
+            sb.append(ROOM_G.getAbbreviatedName()).append(", ");
+//            result.add(ROOM_G.getAbbreviatedName());
+        }
+        if(roomCheckboxes.get(1).isSelected()){
+            sb.append(ROOM_J.getAbbreviatedName()).append(", ");
+//            result.add(ROOM_J.getAbbreviatedName());
+        }
+        if(roomCheckboxes.get(2).isSelected()){
+            sb.append(ATTIC.getAbbreviatedName()).append(", ");
+//            result.add(ATTIC.getAbbreviatedName());
+        }
+        if(roomCheckboxes.get(3).isSelected()){
+            sb.append(KUBO_1.getAbbreviatedName()).append(", ");
+//            result.add(KUBO_1.getAbbreviatedName());
+        }
+        if(roomCheckboxes.get(4).isSelected()){
+            sb.append(KUBO_2.getAbbreviatedName()).append(", ");
+//            result.add(KUBO_2.getAbbreviatedName());
+        }
+        if (!sb.isEmpty()) {
+            sb.delete(sb.length() - 2, sb.length());
+        }
+        return sb.toString();
+//        return result.toString();
+    }
+
+    public static Set<String> manageCheckboxesSet(List<CheckBox> roomCheckboxes){
+        Set<String> result = new HashSet<>();
+        if(roomCheckboxes.get(0).isSelected()){
+            result.add(ROOM_G.getDisplayName());
+        }
+        if(roomCheckboxes.get(1).isSelected()){
+            result.add(ROOM_J.getDisplayName());
+        }
+        if(roomCheckboxes.get(2).isSelected()){
+            result.add(ATTIC.getDisplayName());
+        }
+        if(roomCheckboxes.get(3).isSelected()){
+            result.add(KUBO_1.getDisplayName());
+        }
+        if(roomCheckboxes.get(4).isSelected()){
+            result.add(KUBO_2.getDisplayName());
+        }
         return result;
     }
 }
