@@ -21,19 +21,6 @@
             <children>
                 <VBox layoutY="28.0" prefHeight="708.0" prefWidth="280.0" spacing="15.0" style="-fx-background-color: #FFFFFF;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
                     <children>
-                        <VBox alignment="CENTER" prefHeight="49.0" prefWidth="207.0">
-                            <children>
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date" textAlignment="CENTER" wrappingWidth="100.0">
-                                    <font>
-                                        <Font size="18.0" />
-                                    </font>
-                                </Text>
-                                <DatePicker fx:id="currentDate_datePicker" editable="false" />
-                            </children>
-                            <padding>
-                                <Insets left="50.0" right="50.0" />
-                            </padding>
-                        </VBox>
                         <VBox alignment="CENTER">
                             <children>
                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name">

@@ -14,7 +14,6 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 public class EditController implements Initializable {
-    public DatePicker currentDate_datePicker;
     public TextField name_fld;
     public TextField pax_fld;
     public RadioButton vehicleNo_radio;
@@ -55,7 +54,7 @@ public class EditController implements Initializable {
 
         done_btn.setOnAction(actionEvent -> {
             available = sqliteModel.getAvailableRoomsPerDayList(checkIn_datePicker.getValue(), checkOut_datePicker.getValue(), id);
-            if(sqliteModel.updateRecord(id, currentDate_datePicker, name_fld, pax_fld, vehicleYes_radio, petsYes_radio, videokeYes_radio, payment_fld, checkIn_datePicker, checkOut_datePicker, room_choiceBox, available)){
+            if(sqliteModel.updateRecord(id, name_fld, pax_fld, vehicleYes_radio, petsYes_radio, videokeYes_radio, payment_fld, checkIn_datePicker, checkOut_datePicker, room_choiceBox, available)){
                 Model.getInstance().getViewFactory().setSceneList();
             }
         });
@@ -65,9 +64,8 @@ public class EditController implements Initializable {
         this.available = available;
     }
 
-    public void setValues(int id, LocalDate insertedDate, String name, String pax, boolean vehicle, boolean pets, boolean videoke, String payment, LocalDate checkIn, LocalDate checkOut, String room) {
+    public void setValues(int id, String name, String pax, boolean vehicle, boolean pets, boolean videoke, String payment, LocalDate checkIn, LocalDate checkOut, String room) {
         this.id = id;
-        currentDate_datePicker.setValue(insertedDate);
         name_fld.setText(name);
         pax_fld.setText(pax);
         (vehicle ? vehicleYes_radio : vehicleNo_radio).setSelected(true);

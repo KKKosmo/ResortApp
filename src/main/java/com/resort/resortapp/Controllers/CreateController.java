@@ -26,7 +26,6 @@ public class CreateController  implements Initializable{
     public TextField pax_fld;
     public TextField payment_fld;
     public ChoiceBox<String> room_choiceBox;
-    public DatePicker currentDate_datePicker;
     public DatePicker checkOut_datePicker;
     public DatePicker checkIn_datePicker;
     public FlowPane month_pane;
@@ -42,7 +41,6 @@ public class CreateController  implements Initializable{
         burger_btn.setOnAction(actionEvent -> {
             escMenu.setVisible(true);
         });
-        currentDate_datePicker.setValue(LocalDate.now());
 
         room_choiceBox.getItems().addAll(Rooms.getRoomDisplayNameList());
         done_btn.setOnAction(actionEvent -> {
@@ -89,12 +87,11 @@ public class CreateController  implements Initializable{
 //        Model.getInstance().getViewFactory().setClickable();
     }
     private void insertRecord(){
-        if(sqliteModel.insertRecord(currentDate_datePicker, name_fld, pax_fld, vehicleYes_radio, petsYes_radio, videokeYes_radio, payment_fld, checkIn_datePicker, checkOut_datePicker, room_choiceBox, available)){
+        if(sqliteModel.insertRecord(name_fld, pax_fld, vehicleYes_radio, petsYes_radio, videokeYes_radio, payment_fld, checkIn_datePicker, checkOut_datePicker, room_choiceBox, available)){
             Model.getInstance().getViewFactory().setSceneMainMenu();
         }
     }
     private void clearForm(){
-        currentDate_datePicker.setValue(LocalDate.now());
         name_fld.clear();
         pax_fld.clear();
         videokeYes_radio.setSelected(false);

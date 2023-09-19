@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 public class sqliteModel {
+    static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private static Connection con = null;
     private static Connection openDB() {
         try {
@@ -251,13 +253,12 @@ public class sqliteModel {
 
 
 
-    public static boolean insertRecord(DatePicker currentDate_datePicker, TextField name_fld,
+    public static boolean insertRecord(TextField name_fld,
                                        TextField pax_fld, RadioButton vehicleYes_radio, RadioButton petsYes_radio,
                                        RadioButton videokeYes_radio, TextField payment_fld, DatePicker checkIn_datePicker,
                                        DatePicker checkOut_datePicker, ChoiceBox<String> room_choiceBox, Set<String> available){
 
 
-        LocalDate currentDateLocalDate = currentDate_datePicker.getValue();
         String name = name_fld.getText();
         String paxString = pax_fld.getText();
         boolean vehicle = vehicleYes_radio.isSelected();
@@ -272,11 +273,7 @@ public class sqliteModel {
 
 
 
-        if(currentDateLocalDate == null){
-            Model.getInstance().getViewFactory().showErrorPopup("Error: Current date is empty.");
-            return false;
-        }
-        else if (name.isEmpty()){
+        if (name.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Name is empty.");
             return false;
         }
@@ -321,7 +318,8 @@ public class sqliteModel {
             return false;
         }
         else{
-            String currentDate = currentDateLocalDate.toString();
+            String currentDate = LocalDateTime.now().format(formatter);
+
             int paxInt = Integer.parseInt(paxString);
 
             if(paxInt <= 0){
@@ -359,13 +357,12 @@ public class sqliteModel {
 
 
 
-    public static boolean updateRecord(int id, DatePicker currentDate_datePicker, TextField name_fld,
+    public static boolean updateRecord(int id, TextField name_fld,
                                        TextField pax_fld, RadioButton vehicleYes_radio, RadioButton petsYes_radio,
                                        RadioButton videokeYes_radio, TextField payment_fld, DatePicker checkIn_datePicker,
                                        DatePicker checkOut_datePicker, ChoiceBox<String> room_choiceBox, Set<String> available){
 
 
-        LocalDate currentDateLocalDate = currentDate_datePicker.getValue();
         String name = name_fld.getText();
         String paxString = pax_fld.getText();
         boolean vehicle = vehicleYes_radio.isSelected();
@@ -384,12 +381,7 @@ public class sqliteModel {
         System.out.println(room);
         System.out.println(available);
 
-
-        if(currentDateLocalDate == null){
-            Model.getInstance().getViewFactory().showErrorPopup("Error: Current date is empty.");
-            return false;
-        }
-        else if (name.isEmpty()){
+        if (name.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Name is empty.");
             return false;
         }
@@ -434,7 +426,8 @@ public class sqliteModel {
             return false;
         }
         else{
-            String currentDate = currentDateLocalDate.toString();
+            //TODO EDIT HISTORY
+            String currentDate = LocalDateTime.now().format(formatter);
             int paxInt = Integer.parseInt(paxString);
 
             if(paxInt <= 0){
@@ -449,7 +442,6 @@ public class sqliteModel {
 
 
             String sql = String.format("UPDATE main SET " +
-                            "dateInserted = '%s', " +
                             "name = '%s', " +
                             "pax = %d, " +
                             "vehicle = %b, " +
@@ -460,7 +452,7 @@ public class sqliteModel {
                             "checkOut = '%s', " +
                             "room = '%s' " +
                             "WHERE id = '%d';",
-                    currentDate, name, paxInt, vehicle, pets, videoke, partial_paymentDouble, checkInString, checkOutString, room, id);
+                    name, paxInt, vehicle, pets, videoke, partial_paymentDouble, checkInString, checkOutString, room, id);
 
             System.out.println("sql = " + sql);
             try {

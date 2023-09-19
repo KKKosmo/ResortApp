@@ -18,7 +18,6 @@ public class MainMenuController implements Initializable {
     public AnchorPane parentPane;
     public AnchorPane escMenu;
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         escMenu =  Model.getInstance().getViewFactory().getEscMenu(parentPane);

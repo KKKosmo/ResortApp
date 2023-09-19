@@ -229,13 +229,13 @@ public class ViewFactory {
     public void flowPaneSmall(){
         flowPane.setPrefHeight(330);
     }
-    public void setSceneEdit(int id, LocalDate insertedDate, String name, String pax, boolean vehicle, boolean pets, boolean videoke, String payment, LocalDate checkIn, LocalDate checkOut, String room){
+    public void setSceneEdit(int id, String name, String pax, boolean vehicle, boolean pets, boolean videoke, String payment, LocalDate checkIn, LocalDate checkOut, String room){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Edit.fxml"));
             Parent root = loader.load();
 
             EditController editController = loader.getController();
-            editController.setValues(id, insertedDate, name, pax, vehicle, pets, videoke, payment, checkIn, checkOut, room);
+            editController.setValues(id, name, pax, vehicle, pets, videoke, payment, checkIn, checkOut, room);
 
             stage.setScene(new Scene(root));
         } catch (Exception e) {
@@ -275,7 +275,6 @@ public class ViewFactory {
             editButton.setOnAction(actionEvent -> {
                 setSceneEdit(
                     Integer.parseInt(temp.get(0)),
-                    LocalDate.parse(temp.get(1)),
                     temp.get(2),
                     temp.get(3),
                     temp.get(4).equals("Yes"),
@@ -362,6 +361,4 @@ public class ViewFactory {
             return false;
         } else return result.get() == ButtonType.OK;
     }
-
-
 }

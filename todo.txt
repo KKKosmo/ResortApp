@@ -1,11 +1,5 @@
 index my table?
 
-calendar controller should have a list of its days
-
-maybe calendar should be a static scene, and just fill up the panes accordingly instead of instantiating calendar everytime?
-
-entry date should be date time
-entry date should be completely uneditable
 multiple rooms can be selected
 vehicle count
 
@@ -18,6 +12,7 @@ what should the report have?
     add column last modified, and its rows should be buttons to view data
 
 edit should have a confirmation and the values changed popup
+edit popup success popup should say successfuly edited
 
 static list of users, and passwords, think about how to reset passwords
 
@@ -35,7 +30,7 @@ user list
 
 
 
-
+maybe calendar should be a static scene, and just fill up the panes accordingly instead of instantiating calendar everytime?
 
 room fxml
 inner room
