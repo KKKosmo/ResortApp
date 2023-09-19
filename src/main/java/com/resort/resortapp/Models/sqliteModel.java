@@ -7,13 +7,10 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 
 import java.sql.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -148,7 +145,7 @@ public class sqliteModel {
         }
         return  result;
     }
-    public static List<Set<String>> getMonthAvailability(){
+    public static List<Set<String>> getAvailableRoomsPerDayList(){
 
         List<Set<String>> result = new ArrayList<>();
 
@@ -200,7 +197,7 @@ public class sqliteModel {
     }
 
 
-    public static Set<String> getMonthAvailability(LocalDate checkIn, LocalDate checkOut){
+    public static Set<String> getAvailableRoomsPerDayList(LocalDate checkIn, LocalDate checkOut){
 
         Set<String> set = Rooms.getRoomAbbreviateNameSet();
 
@@ -229,19 +226,10 @@ public class sqliteModel {
         System.out.println(checkIn + " - " + checkOut + " = " + set);
         return set;
     }
-    public static Set<String> getMonthAvailability(LocalDate checkIn, LocalDate checkOut, int id){
+    public static Set<String> getAvailableRoomsPerDayList(LocalDate checkIn, LocalDate checkOut, int id){
 
         Set<String> set = Rooms.getRoomAbbreviateNameSet();
 
-
-
-//        for (int i = 0; i < Model.getInstance().getMonthMaxDate(); i++) {
-//            set.add("j");
-//            set.add("g");
-//            set.add("attic");
-//            set.add("k1");
-//            set.add("k2");
-//        }
 
         String sql = String.format("SELECT room FROM main where checkIn <= '%s' AND checkOut >= '%s' AND NOT id = %d;", checkOut.toString(), checkIn.toString(), id);
         try {

@@ -54,7 +54,7 @@ public class EditController implements Initializable {
         room_choiceBox.getItems().addAll(rooms);
 
         done_btn.setOnAction(actionEvent -> {
-            available = sqliteModel.getMonthAvailability(checkIn_datePicker.getValue(), checkOut_datePicker.getValue(), id);
+            available = sqliteModel.getAvailableRoomsPerDayList(checkIn_datePicker.getValue(), checkOut_datePicker.getValue(), id);
             if(sqliteModel.updateRecord(id, currentDate_datePicker, name_fld, pax_fld, vehicleYes_radio, petsYes_radio, videokeYes_radio, payment_fld, checkIn_datePicker, checkOut_datePicker, room_choiceBox, available)){
                 Model.getInstance().getViewFactory().setSceneList();
             }

@@ -13,8 +13,11 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
 
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
 import java.time.Month;
 import java.time.ZonedDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
@@ -31,6 +34,9 @@ public class Model {
     private int monthValue;
     private Month month;
     private ZonedDateTime dateFocus;
+    private LocalDate leftDate;
+    private LocalDate rightDate;
+    private Set<Integer> selected;
 
 
     private Model(){
@@ -117,6 +123,59 @@ public class Model {
         this.rooms = rooms;
     }
 
+
+    public void setSelected(){
+        Set<Integer> result = new HashSet<>();
+
+
+        if (leftDate != null && rightDate != null) {
+            if(leftDate.isBefore(rightDate)){
+                LocalDate tempDate = leftDate;
+                while (tempDate.isBefore(rightDate) || tempDate.isEqual(rightDate)) {
+                    int day = tempDate.getDayOfMonth();
+                    if (day <= Model.getInstance().getMonthMaxDate())
+                        result.add(day);
+                    tempDate = tempDate.plusDays(1);
+                }
+            }
+            else{
+                LocalDate tempDate = rightDate;
+                while (tempDate.isBefore(leftDate) || tempDate.isEqual(leftDate)) {
+                    int day = tempDate.getDayOfMonth();
+                    if (day <= Model.getInstance().getMonthMaxDate())
+                        result.add(day);
+                    tempDate = tempDate.plusDays(1);
+                }
+            }
+        }
+
+
+        selected = result;
+    }
+
+    public LocalDate getLeftDate() {
+        return leftDate;
+    }
+
+    public void setLeftDate(LocalDate leftDate) {
+        this.leftDate = leftDate;
+    }
+
+    public LocalDate getRightDate() {
+        return rightDate;
+    }
+
+    public void setRightDate(LocalDate rightDate) {
+        this.rightDate = rightDate;
+    }
+
+    public Set<Integer> getSelected() {
+        return selected;
+    }
+
+    public void setSelected(Set<Integer> selected) {
+        this.selected = selected;
+    }
 
     public void generateReportPDF(){
         try {

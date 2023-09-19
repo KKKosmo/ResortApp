@@ -4,7 +4,6 @@ import com.resort.resortapp.Controllers.EditController;
 import com.resort.resortapp.Controllers.ViewController;
 import com.resort.resortapp.Models.*;
 import com.resort.resortapp.Rooms;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -33,11 +32,10 @@ public class ViewFactory {
     private Text roomText;
     private FlowPane flowPane;
     private Stage stage;
-    List<Set<String>> availablesList;
     List<DayModel> dayModelList = new ArrayList<>();
-//    TODO listview settings
+    List<Set<String>> availableRoomsPerDayList;
 
-    private CalendarModel calendarModel = new CalendarModel();
+//    TODO listview settings
     Border borderUnselected = new Border(new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.SOLID, null, new BorderWidths(3)));
     Border normalBorder = new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, new BorderWidths(5)));
     public void setCalendarVariables(FlowPane flowPane, Text yearText, Text monthText, Text roomText) {
@@ -116,12 +114,12 @@ public class ViewFactory {
         int monthMaxDate = Model.getInstance().getMonthMaxDate();
         int dateOffset = Model.getInstance().getDateOffset();
         if(rooms == Rooms.ALL_ROOMS){
-            availablesList = sqliteModel.getMonthAvailability();
+            availableRoomsPerDayList = sqliteModel.getAvailableRoomsPerDayList();
 
             for(int i = 0; i < monthMaxDate; i++){
                 Text temp = dayModelList.get(i + dateOffset).getRoomsText();
                 StringBuilder desc = new StringBuilder();
-                Set<String> set = availablesList.get(i);
+                Set<String> set = availableRoomsPerDayList.get(i);
                 for(String string : set){
                     desc.append(string).append("\n");
                 }
@@ -152,7 +150,7 @@ public class ViewFactory {
     public void colorize(Rooms rooms){
         for(int i = 0; i < Model.getInstance().getMonthMaxDate(); i++){
             StackPane temp = dayModelList.get(i + Model.getInstance().getDateOffset()).getStackPane();
-            if(availablesList.get(i).contains(rooms.getDisplayName())){
+            if(availableRoomsPerDayList.get(i).contains(rooms.getDisplayName())){
                 temp.setStyle("-fx-background-color: green;");
             }
             else{
@@ -163,7 +161,7 @@ public class ViewFactory {
     public void highlight(){
         for(int i = 0; i < 42; i++){
             StackPane temp = dayModelList.get(i).getStackPane();
-            if(calendarModel.getSelected().contains(i - Model.getInstance().getDateOffset() + 1)){
+            if(Model.getInstance().getSelected().contains(i - Model.getInstance().getDateOffset() + 1)){
                 temp.setBorder(normalBorder);
             }
             else{
@@ -231,9 +229,6 @@ public class ViewFactory {
     public void flowPaneSmall(){
         flowPane.setPrefHeight(330);
     }
-    public CalendarModel getCalendarModel() {
-        return calendarModel;
-    }
     public void setSceneEdit(int id, LocalDate insertedDate, String name, String pax, boolean vehicle, boolean pets, boolean videoke, String payment, LocalDate checkIn, LocalDate checkOut, String room){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Edit.fxml"));
@@ -294,7 +289,7 @@ public class ViewFactory {
             });
 
             deleteButton.setOnAction(actionEvent -> {
-                if(Model.getInstance().getViewFactory().showConfirmPopup("Are you sure you want to delete this row?")){
+                if(showConfirmPopup("Are you sure you want to delete this row?")){
                     if(sqliteModel.deleteEntry(Integer.parseInt(temp.get(0)))){
                         gridPane.getChildren().retainAll(gridPane.getChildren().get(0));
                         insertListRows(gridPane, sqliteModel.queryViewList());
@@ -367,4 +362,6 @@ public class ViewFactory {
             return false;
         } else return result.get() == ButtonType.OK;
     }
+
+
 }

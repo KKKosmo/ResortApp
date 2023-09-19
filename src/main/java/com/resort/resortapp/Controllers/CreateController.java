@@ -10,7 +10,6 @@ import javafx.scene.layout.FlowPane;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
@@ -62,24 +61,24 @@ public class CreateController  implements Initializable{
         });
         checkIn_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue != null){
-                Model.getInstance().getViewFactory().getCalendarModel().setLeftDate(newValue);
+                Model.getInstance().setLeftDate(newValue);
                 if(checkOut_datePicker.getValue() != null){
                     if(checkIn_datePicker.getValue().isBefore(checkOut_datePicker.getValue()) || checkIn_datePicker.getValue().equals(checkOut_datePicker.getValue())){
-                        available = sqliteModel.getMonthAvailability(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
+                        available = sqliteModel.getAvailableRoomsPerDayList(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
                     }
-                    Model.getInstance().getViewFactory().getCalendarModel().setSelected();
+                    Model.getInstance().setSelected();
                     Model.getInstance().getViewFactory().highlight();
                 }
             }
         });
         checkOut_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue != null){
-                Model.getInstance().getViewFactory().getCalendarModel().setRightDate(newValue);
+                Model.getInstance().setRightDate(newValue);
                 if(checkIn_datePicker.getValue() != null){
                     if(checkIn_datePicker.getValue().isBefore(checkOut_datePicker.getValue()) || checkIn_datePicker.getValue().equals(checkOut_datePicker.getValue())){
-                        available = sqliteModel.getMonthAvailability(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
+                        available = sqliteModel.getAvailableRoomsPerDayList(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
                     }
-                    Model.getInstance().getViewFactory().getCalendarModel().setSelected();
+                    Model.getInstance().setSelected();
                     Model.getInstance().getViewFactory().highlight();
                 }
             }
@@ -106,9 +105,9 @@ public class CreateController  implements Initializable{
         vehicleNo_radio.setSelected(false);
         payment_fld.clear();
         checkIn_datePicker.setValue(null);
-        Model.getInstance().getViewFactory().getCalendarModel().setLeftDate(null);
+        Model.getInstance().setLeftDate(null);
         checkOut_datePicker.setValue(null);
-        Model.getInstance().getViewFactory().getCalendarModel().setRightDate(null);
+        Model.getInstance().setRightDate(null);
         room_choiceBox.setValue(null);
         Model.getInstance().getViewFactory().clear();
     }
