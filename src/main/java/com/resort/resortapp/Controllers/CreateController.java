@@ -20,8 +20,6 @@ public class CreateController  implements Initializable{
     public RadioButton videokeNo_radio;
     public RadioButton petsYes_radio;
     public RadioButton petsNo_radio;
-    public RadioButton vehicleYes_radio;
-    public RadioButton vehicleNo_radio;
     public Button done_btn;
     public Button clr_btn;
     public TextField name_fld;
@@ -37,6 +35,7 @@ public class CreateController  implements Initializable{
     public CheckBox attic_ChkBox;
     public CheckBox kubo1_ChkBox;
     public CheckBox kubo2_ChkBox;
+    public TextField vehicle_textFld;
     Set<String> available;
     public AnchorPane escMenu;
     List<CheckBox> roomCheckBoxes = new ArrayList<>();
@@ -103,7 +102,7 @@ public class CreateController  implements Initializable{
         }
     }
     private void insertRecord(){
-        if(sqliteModel.insertRecord(name_fld, pax_fld, vehicleYes_radio, petsYes_radio, videokeYes_radio, payment_fld, checkIn_datePicker, checkOut_datePicker, roomCheckBoxes, available)){
+        if(sqliteModel.insertRecord(name_fld, pax_fld, vehicle_textFld, petsYes_radio, videokeYes_radio, payment_fld, checkIn_datePicker, checkOut_datePicker, roomCheckBoxes, available)){
             Model.getInstance().getViewFactory().setSceneMainMenu();
         }
     }
@@ -114,8 +113,7 @@ public class CreateController  implements Initializable{
         videokeNo_radio.setSelected(false);
         petsYes_radio.setSelected(false);
         petsNo_radio.setSelected(false);
-        vehicleYes_radio.setSelected(false);
-        vehicleNo_radio.setSelected(false);
+        vehicle_textFld.clear();
         payment_fld.clear();
         checkIn_datePicker.setValue(null);
         Model.getInstance().setLeftDate(null);

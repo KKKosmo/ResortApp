@@ -236,14 +236,14 @@ public class sqliteModel {
 
 
     public static boolean insertRecord(TextField name_fld,
-                                       TextField pax_fld, RadioButton vehicleYes_radio, RadioButton petsYes_radio,
+                                       TextField pax_fld, TextField vehicle_fld, RadioButton petsYes_radio,
                                        RadioButton videokeYes_radio, TextField payment_fld, DatePicker checkIn_datePicker,
                                        DatePicker checkOut_datePicker, List<CheckBox> roomCheckboxes, Set<String> available){
 
 
         String name = name_fld.getText();
         String paxString = pax_fld.getText();
-        boolean vehicle = vehicleYes_radio.isSelected();
+        String vehicle = vehicle_fld.getText();
         boolean pets = petsYes_radio.isSelected();
         boolean videoke = videokeYes_radio.isSelected();
         String partial_paymentString = payment_fld.getText();
@@ -264,8 +264,8 @@ public class sqliteModel {
             Model.getInstance().getViewFactory().showErrorPopup("Error: Number of persons is empty.");
             return false;
         }
-        else if(vehicleYes_radio.getToggleGroup().getSelectedToggle() == null){
-            Model.getInstance().getViewFactory().showErrorPopup("Error: Vehicle choice is empty.");
+        else if(vehicle.isEmpty()){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Vehicle count is empty.");
             return false;
         }
         else if(petsYes_radio.getToggleGroup().getSelectedToggle() == null){
@@ -328,8 +328,8 @@ public class sqliteModel {
 
 
             String sql = String.format("INSERT INTO main (dateInserted, name, pax, vehicle, pets, videoke, partial_payment, checkIn, checkOut, room) " +
-                            "VALUES ('%s','%s', %d, %b, %b, %b, %.2f, '%s', '%s', '%s');",
-                    currentDate, name, paxInt, vehicle, pets, videoke, partial_paymentDouble, checkInString, checkOutString, roomUnformatted);
+                            "VALUES ('%s','%s', %d, %d, %b, %b, %.2f, '%s', '%s', '%s');",
+                    currentDate, name, paxInt, Integer.parseInt(vehicle), pets, videoke, partial_paymentDouble, checkInString, checkOutString, roomUnformatted);
 
             System.out.println("sql = " + sql);
             try {
@@ -545,7 +545,7 @@ public class sqliteModel {
                 String dateInserted = resultSet.getString("dateInserted");
                 String name = resultSet.getString("name");
                 int pax = resultSet.getInt("pax");
-                boolean vehicle = resultSet.getBoolean("vehicle");
+                int vehicle = resultSet.getInt("vehicle");
                 boolean pets = resultSet.getBoolean("pets");
                 boolean videoke = resultSet.getBoolean("videoke");
                 double partial_payment = resultSet.getDouble("partial_payment");
@@ -563,7 +563,7 @@ public class sqliteModel {
                 row.add(dateInserted);
                 row.add(name);
                 row.add(Integer.toString(pax));
-                row.add(vehicle ? "Yes" : "No");
+                row.add(Integer.toString(vehicle));
                 row.add(pets ? "Yes" : "No");
                 row.add(videoke ? "Yes" : "No");
                 row.add(Double.toString(partial_payment));

@@ -44,14 +44,14 @@
                         <Insets left="25.0" right="25.0" />
                      </padding>
                   </VBox>
-                  <VBox alignment="CENTER">
+                  <VBox alignment="CENTER" prefHeight="38.0" prefWidth="280.0">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="No. of Person">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <TextField fx:id="pax_fld" alignment="CENTER" prefHeight="25.0" prefWidth="63.0" text="5">
+                        <TextField fx:id="pax_fld" alignment="CENTER" prefHeight="0.0" prefWidth="123.0" text="5">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -63,53 +63,90 @@
                      <padding>
                         <Insets left="75.0" right="75.0" />
                      </padding>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
                   </VBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="91.0" prefWidth="98.0">
+                  <HBox alignment="CENTER" prefHeight="91.0" prefWidth="98.0">
                      <children>
-                        <VBox alignment="CENTER_LEFT" prefHeight="91.0" prefWidth="98.0" spacing="10.0">
+                        <VBox alignment="CENTER" prefHeight="123.0" prefWidth="460.0" spacing="15.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Vehicle" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pets" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Videoke" />
+                              <HBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="329.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Vehicle">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <HBox alignment="CENTER" prefHeight="39.0" prefWidth="79.0" spacing="30.0">
+                                       <children>
+                                          <TextField fx:id="vehicle_textFld" prefHeight="0.0" prefWidth="41.0">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </TextField>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="27.0" prefWidth="211.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pets">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="274.0">
+                                       <children>
+                                          <RadioButton fx:id="petsNo_radio" mnemonicParsing="false" prefHeight="27.0" prefWidth="64.0" text="No">
+                                             <toggleGroup>
+                                                <ToggleGroup fx:id="pets" />
+                                             </toggleGroup>
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </RadioButton>
+                                          <RadioButton fx:id="petsYes_radio" mnemonicParsing="false" prefHeight="27.0" prefWidth="62.0" text="Yes" toggleGroup="$pets">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </RadioButton>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Videoke">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="231.0">
+                                       <children>
+                                          <RadioButton fx:id="videokeNo_radio" mnemonicParsing="false" prefHeight="27.0" prefWidth="64.0" text="No">
+                                             <toggleGroup>
+                                                <ToggleGroup fx:id="videoke" />
+                                             </toggleGroup>
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </RadioButton>
+                                          <RadioButton fx:id="videokeYes_radio" mnemonicParsing="false" prefHeight="27.0" prefWidth="62.0" text="Yes" toggleGroup="$videoke">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </RadioButton>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </HBox>
                            </children>
                            <padding>
-                              <Insets left="50.0" right="25.0" />
+                              <Insets left="40.0" right="40.0" />
                            </padding>
                         </VBox>
-                        <VBox alignment="CENTER" prefHeight="91.0" prefWidth="224.0" spacing="10.0">
-                           <children>
-                              <HBox spacing="30.0">
-                                 <children>
-                                    <RadioButton fx:id="vehicleNo_radio" mnemonicParsing="false" text="No">
-                                       <toggleGroup>
-                                          <ToggleGroup fx:id="vehicle" />
-                                       </toggleGroup>
-                                    </RadioButton>
-                                    <RadioButton fx:id="vehicleYes_radio" mnemonicParsing="false" text="Yes" toggleGroup="$vehicle" />
-                                 </children>
-                              </HBox>
-                              <HBox spacing="30.0">
-                                 <children>
-                                    <RadioButton fx:id="petsNo_radio" mnemonicParsing="false" text="No">
-                                       <toggleGroup>
-                                          <ToggleGroup fx:id="pets" />
-                                       </toggleGroup>
-                                    </RadioButton>
-                                    <RadioButton fx:id="petsYes_radio" mnemonicParsing="false" text="Yes" toggleGroup="$pets" />
-                                 </children>
-                              </HBox>
-                              <HBox spacing="30.0">
-                                 <children>
-                                    <RadioButton fx:id="videokeNo_radio" mnemonicParsing="false" text="No">
-                                       <toggleGroup>
-                                          <ToggleGroup fx:id="videoke" />
-                                       </toggleGroup>
-                                    </RadioButton>
-                                    <RadioButton fx:id="videokeYes_radio" mnemonicParsing="false" text="Yes" toggleGroup="$videoke" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
+                        <VBox alignment="CENTER_LEFT" prefHeight="105.0" prefWidth="157.0" spacing="6.0" />
                      </children>
                   </HBox>
                   <VBox alignment="CENTER">
@@ -119,7 +156,7 @@
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <TextField fx:id="payment_fld" alignment="CENTER" prefHeight="25.0" prefWidth="63.0" text="5000">
+                        <TextField fx:id="payment_fld" alignment="CENTER" prefHeight="25.0" prefWidth="90.0" text="5000">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -161,48 +198,52 @@
                         <Insets left="50.0" right="50.0" />
                      </padding>
                   </VBox>
-                  <VBox alignment="CENTER" spacing="10.0">
+                  <HBox alignment="CENTER" prefHeight="197.0" prefWidth="217.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Text>
-                        <HBox alignment="CENTER" prefHeight="85.0" prefWidth="217.0">
+                        <VBox alignment="CENTER" prefHeight="197.0" prefWidth="129.0" style="-fx-border-color: #000000;">
                            <children>
-                              <VBox prefHeight="155.0" prefWidth="107.0" spacing="5.0">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Text>
+                              <HBox alignment="CENTER" prefHeight="85.0" prefWidth="217.0">
                                  <children>
-                                    <CheckBox fx:id="roomG_ChkBox" mnemonicParsing="false" prefHeight="27.0" prefWidth="107.0" text="ROOM G">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </CheckBox>
-                                    <CheckBox fx:id="roomJ_ChkBox" mnemonicParsing="false" text="ROOM J">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </CheckBox>
-                                    <CheckBox fx:id="attic_ChkBox" mnemonicParsing="false" text="ATTIC">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </CheckBox>
-                                    <CheckBox fx:id="kubo1_ChkBox" mnemonicParsing="false" text="KUBO 1">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </CheckBox>
-                                    <CheckBox fx:id="kubo2_ChkBox" mnemonicParsing="false" text="KUBO 2">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </CheckBox>
+                                    <VBox prefHeight="155.0" prefWidth="107.0" spacing="5.0">
+                                       <children>
+                                          <CheckBox fx:id="roomG_ChkBox" mnemonicParsing="false" prefHeight="27.0" prefWidth="107.0" text="ROOM G">
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                          </CheckBox>
+                                          <CheckBox fx:id="roomJ_ChkBox" mnemonicParsing="false" text="ROOM J">
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                          </CheckBox>
+                                          <CheckBox fx:id="attic_ChkBox" mnemonicParsing="false" text="ATTIC">
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                          </CheckBox>
+                                          <CheckBox fx:id="kubo1_ChkBox" mnemonicParsing="false" text="KUBO 1">
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                          </CheckBox>
+                                          <CheckBox fx:id="kubo2_ChkBox" mnemonicParsing="false" text="KUBO 2">
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                          </CheckBox>
+                                       </children>
+                                    </VBox>
                                  </children>
-                              </VBox>
+                              </HBox>
                            </children>
-                        </HBox>
+                        </VBox>
                      </children>
-                  </VBox>
+                  </HBox>
                </children>
             </VBox>
             <Button fx:id="clr_btn" layoutX="8.0" layoutY="736.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="CLEAR" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="26.0" />
