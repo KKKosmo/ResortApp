@@ -96,7 +96,7 @@ public class EditController implements Initializable {
         checkOut_datePicker.setValue(checkOut);
         Rooms.tickCheckboxes(room, roomCheckBoxes);
 
-        available = Model.getInstance().getAvailableInRange(checkIn_datePicker.getValue(), checkOut_datePicker.getValue(), roomCheckBoxes);
+        available = Model.getInstance().getAvailableInRangeInit(checkIn_datePicker.getValue(), checkOut_datePicker.getValue(), roomCheckBoxes);
 
         Model.getInstance().setLeftDate(checkIn);
         Model.getInstance().setRightDate(checkOut);
@@ -109,7 +109,8 @@ public class EditController implements Initializable {
                 Model.getInstance().setLeftDate(newValue);
                 if(checkOut_datePicker.getValue() != null){
                     if(checkIn_datePicker.getValue().isBefore(checkOut_datePicker.getValue()) || checkIn_datePicker.getValue().equals(checkOut_datePicker.getValue())){
-                        available = sqliteModel.getAvailableRoomsPerDayList(checkIn_datePicker.getValue(), checkOut_datePicker.getValue(), id);
+//                        available = sqliteModel.getAvailableRoomsPerDayList(checkIn_datePicker.getValue(), checkOut_datePicker.getValue(), id);
+                        available = Model.getInstance().getAvailableInRange(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
                     }
                     Model.getInstance().setSelected();
                 }
@@ -120,7 +121,8 @@ public class EditController implements Initializable {
                 Model.getInstance().setRightDate(newValue);
                 if(checkIn_datePicker.getValue() != null){
                     if(checkIn_datePicker.getValue().isBefore(checkOut_datePicker.getValue()) || checkIn_datePicker.getValue().equals(checkOut_datePicker.getValue())){
-                        available = sqliteModel.getAvailableRoomsPerDayList(checkIn_datePicker.getValue(), checkOut_datePicker.getValue(), id);
+//                        available = sqliteModel.getAvailableRoomsPerDayList(checkIn_datePicker.getValue(), checkOut_datePicker.getValue(), id);
+                        available = Model.getInstance().getAvailableInRange(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
                     }
                     Model.getInstance().setSelected();
                 }

@@ -133,37 +133,6 @@ public class ViewFactory {
             }
         }
     }
-    public void fillFlowPaneMonthsEdit(Rooms rooms){
-        flowPane.getChildren().clear();
-        //TODO clear daymodel list here?
-        setCalendarGrid(rooms);
-
-        int monthMaxDate = Model.getInstance().getMonthMaxDate();
-        int dateOffset = Model.getInstance().getDateOffset();
-        if(rooms == Rooms.ALL_ROOMS){
-            Model.getInstance().setAvailableRoomsPerDayList(sqliteModel.getAvailableRoomsPerDayList());
-
-            for(int i = 0; i < monthMaxDate; i++){
-                Text temp = dayModelList.get(i + dateOffset).getRoomsText();
-                StringBuilder desc = new StringBuilder();
-                Set<String> set = Model.getInstance().getAvailableRoomsPerDayList().get(i);
-                for(String string : set){
-                    desc.append(Rooms.abbvToDisplay(string)).append("\n");
-                }
-
-                temp.setText(desc.toString());
-                temp.setTextAlignment(TextAlignment.CENTER);
-            }
-        }
-        else{
-            List<String> slotsList = sqliteModel.getMonthSlots(rooms);
-
-            for(int i = 0; i < monthMaxDate; i++){
-                Text temp = dayModelList.get(i + dateOffset).getRoomsText();
-                temp.setText(slotsList.get(i));
-            }
-        }
-    }
 
     public void setClickable(){
         for(int i = 0; i < Model.getInstance().getMonthMaxDate(); i++){

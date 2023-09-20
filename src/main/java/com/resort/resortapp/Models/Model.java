@@ -14,11 +14,9 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
 
 import java.io.FileNotFoundException;
-import java.sql.PreparedStatement;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.ZonedDateTime;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -63,10 +61,6 @@ public class Model {
     public void fillFlowPaneMonths(){
         DayModelSetters();
         viewFactory.fillFlowPaneMonths(rooms);
-    }
-    public void fillFlowPaneMonthsEdit(){
-        DayModelSetters();
-        viewFactory.fillFlowPaneMonthsEdit(rooms);
     }
     public void nextMonth() {
         dateFocus = dateFocus.plusMonths(1);
@@ -269,7 +263,7 @@ public class Model {
     }
 
 
-    public Set<String> getAvailableInRange(LocalDate checkIn, LocalDate checkOut, List<CheckBox> checkBoxList){
+    public Set<String> getAvailableInRangeInit(LocalDate checkIn, LocalDate checkOut, List<CheckBox> checkBoxList){
         Set<String> rooms = Rooms.manageCheckboxesSetAbbreviatedName(checkBoxList);
         int left = checkIn.getDayOfMonth() - 1;
         int right = checkOut.getDayOfMonth() - 1;
@@ -292,5 +286,16 @@ public class Model {
             temp.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         }
         return result;
+    }
+    public Set<String> getAvailableInRange(LocalDate checkIn, LocalDate checkOut){
+        Set<String> rooms = Rooms.getRoomAbbreviateNamesSet();
+        int left = checkIn.getDayOfMonth() - 1;
+        int right = checkOut.getDayOfMonth() - 1;
+
+        for(int i = left; i <= right; i++){
+            Set<String> result = availableRoomsPerDayList.get(i);
+            rooms.retainAll(result);
+        }
+        return rooms;
     }
 }

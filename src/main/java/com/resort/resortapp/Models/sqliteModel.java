@@ -82,7 +82,6 @@ public class sqliteModel {
     }
     public static List<String> getMonthSlots(Rooms rooms){
         List<String> result = new ArrayList<>();
-//        System.out.println(dateOffset);
         int monthMaxDate = Model.getInstance().getMonthMaxDate();
 
         for (int i = 0; i < monthMaxDate; i++) {
@@ -179,8 +178,6 @@ public class sqliteModel {
         }
         return  result;
     }
-
-
     public static Set<String> getAvailableRoomsPerDayList(LocalDate checkIn, LocalDate checkOut){
 
         Set<String> set = Rooms.getRoomAbbreviateNamesSet();
@@ -190,7 +187,6 @@ public class sqliteModel {
         try {
             PreparedStatement pStmt = openDB().prepareStatement(sql);
             ResultSet resultSet = pStmt.executeQuery();
-            //TODO wtf is this?
             while(resultSet.next()){
                 set.remove(resultSet.getString("room"));
             }
@@ -537,8 +533,6 @@ public class sqliteModel {
         }
         return result;
     }
-
-
     public static List<List<String>> queryViewList(){
         List<List<String>> result = new ArrayList<>();
         String sql = "SELECT * FROM main ORDER BY id DESC limit 15";
@@ -586,10 +580,6 @@ public class sqliteModel {
         }
         return result;
     }
-
-
-
-
     public static boolean deleteEntry(int id){
         String sql = String.format("DELETE FROM main WHERE id = %d", id);
         System.out.println("sql = " + sql);
