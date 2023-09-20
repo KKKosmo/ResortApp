@@ -25,6 +25,5 @@ public class MainMenuController implements Initializable {
             escMenu.setVisible(true);
         });
         Model.getInstance().getViewFactory().insertCalendar(flowPane);
-//        Model.getInstance().getViewFactory().setClickable();
     }
 }

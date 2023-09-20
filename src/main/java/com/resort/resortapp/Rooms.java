@@ -22,6 +22,7 @@ public enum Rooms{
         this.pax = pax;
     }
 
+
     public int getPax() {
         return pax;
     }
@@ -76,7 +77,7 @@ public enum Rooms{
 
         return result;
     }
-    public static Set<String> getRoomAbbreviateNameSet(){
+    public static Set<String> getRoomAbbreviateNamesSet(){
         Set<String> result = new HashSet<>();
 
         for(Rooms room : values()){
@@ -120,7 +121,7 @@ public enum Rooms{
         return sb.toString();
     }
 
-    public static Set<String> manageCheckboxesSet(List<CheckBox> roomCheckboxes){
+    public static Set<String> manageCheckboxesSetDisplayName(List<CheckBox> roomCheckboxes){
         Set<String> result = new HashSet<>();
         //TODO CHECK ORDER
         if(roomCheckboxes.get(0).isSelected()){
@@ -137,6 +138,26 @@ public enum Rooms{
         }
         if(roomCheckboxes.get(4).isSelected()){
             result.add(KUBO_2.getDisplayName());
+        }
+        return result;
+    }
+    public static Set<String> manageCheckboxesSetAbbreviatedName(List<CheckBox> roomCheckboxes){
+        Set<String> result = new HashSet<>();
+        //TODO CHECK ORDER
+        if(roomCheckboxes.get(0).isSelected()){
+            result.add(ROOM_J.getAbbreviatedName());
+        }
+        if(roomCheckboxes.get(1).isSelected()){
+            result.add(ROOM_G.getAbbreviatedName());
+        }
+        if(roomCheckboxes.get(2).isSelected()){
+            result.add(ATTIC.getAbbreviatedName());
+        }
+        if(roomCheckboxes.get(3).isSelected()){
+            result.add(KUBO_1.getAbbreviatedName());
+        }
+        if(roomCheckboxes.get(4).isSelected()){
+            result.add(KUBO_2.getAbbreviatedName());
         }
         return result;
     }

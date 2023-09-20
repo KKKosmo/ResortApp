@@ -9,7 +9,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -71,7 +70,6 @@ public class CreateController  implements Initializable{
                         available = sqliteModel.getAvailableRoomsPerDayList(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
                     }
                     Model.getInstance().setSelected();
-                    Model.getInstance().getViewFactory().highlight();
                 }
             }
         });
@@ -83,14 +81,12 @@ public class CreateController  implements Initializable{
                         available = sqliteModel.getAvailableRoomsPerDayList(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
                     }
                     Model.getInstance().setSelected();
-                    Model.getInstance().getViewFactory().highlight();
                 }
             }
         });
 
 
         Model.getInstance().getViewFactory().insertCalendar(month_pane);
-//        Model.getInstance().getViewFactory().setClickable();
         for (CheckBox checkBox : roomCheckBoxes){
             checkBoxAddListener(checkBox);
         }
@@ -128,7 +124,7 @@ public class CreateController  implements Initializable{
 
     private void checkBoxAddListener(CheckBox checkBox){
         checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            Model.getInstance().getViewFactory().colorize(Rooms.manageCheckboxesSet(roomCheckBoxes));
+            Model.getInstance().getViewFactory().colorize(Rooms.manageCheckboxesSetAbbreviatedName(roomCheckBoxes));
         });
     }
 }

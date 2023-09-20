@@ -131,7 +131,7 @@ public class sqliteModel {
         int monthMaxDate = Model.getInstance().getMonthMaxDate();
 
         for (int i = 0; i < monthMaxDate; i++) {
-            result.add(Rooms.getRoomDisplayNameSet());
+            result.add(Rooms.getRoomAbbreviateNamesSet());
         }
 
         DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MM");
@@ -160,7 +160,7 @@ public class sqliteModel {
 
                 for(String room : roomSet){
                     for(int i = startDate - 1; i < daysCount + startDate - 1; i++){
-                        result.get(i).remove(Rooms.abbvToDisplay(room));
+                        result.get(i).remove(room);
                     }
                 }
 
@@ -183,7 +183,7 @@ public class sqliteModel {
 
     public static Set<String> getAvailableRoomsPerDayList(LocalDate checkIn, LocalDate checkOut){
 
-        Set<String> set = Rooms.getRoomAbbreviateNameSet();
+        Set<String> set = Rooms.getRoomAbbreviateNamesSet();
 
 
         String sql = "SELECT room FROM main where checkIn <= '" + checkOut.toString() + "' AND checkOut >= '" + checkIn.toString() + "';";
@@ -203,8 +203,7 @@ public class sqliteModel {
         return set;
     }
     public static Set<String> getAvailableRoomsPerDayList(LocalDate checkIn, LocalDate checkOut, int id){
-
-        Set<String> set = Rooms.getRoomAbbreviateNameSet();
+        Set<String> roomAbbreviateNamesSet = Rooms.getRoomAbbreviateNamesSet();
 
 
         String sql = String.format("SELECT room FROM main where checkIn <= '%s' AND checkOut >= '%s' AND NOT id = %d;", checkOut.toString(), checkIn.toString(), id);
@@ -212,12 +211,14 @@ public class sqliteModel {
             PreparedStatement pStmt = openDB().prepareStatement(sql);
             ResultSet resultSet = pStmt.executeQuery();
 
-            Set<String> roomSet = Rooms.stringToSet(resultSet.getString("room"));
+            while(resultSet.next()){
+                Set<String> resultSetroomSet = Rooms.stringToSet(resultSet.getString("room"));
 
-            System.out.println("Roomset = " + roomSet);
-            System.out.println(set);
-            for(String room : roomSet){
-                set.remove(room);
+                System.out.println("HERE"+ resultSetroomSet);
+
+                for(String room : resultSetroomSet){
+                    roomAbbreviateNamesSet.remove(room);
+                }
             }
 
 
@@ -226,8 +227,8 @@ public class sqliteModel {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(checkIn + " - " + checkOut + " = " + set);
-        return set;
+        System.out.println(checkIn + " - " + checkOut + " = " + roomAbbreviateNamesSet);
+        return roomAbbreviateNamesSet;
     }
 
 
@@ -351,14 +352,14 @@ public class sqliteModel {
 
 
     public static boolean updateRecord(int id, TextField name_fld,
-                                       TextField pax_fld, RadioButton vehicleYes_radio, RadioButton petsYes_radio,
+                                       TextField pax_fld, TextField vehicle_fld, RadioButton petsYes_radio,
                                        RadioButton videokeYes_radio, TextField payment_fld, DatePicker checkIn_datePicker,
                                        DatePicker checkOut_datePicker, List<CheckBox> roomCheckboxes, Set<String> available){
 
 
         String name = name_fld.getText();
         String paxString = pax_fld.getText();
-        boolean vehicle = vehicleYes_radio.isSelected();
+        String vehicle = vehicle_fld.getText();
         boolean pets = petsYes_radio.isSelected();
         boolean videoke = videokeYes_radio.isSelected();
         String partial_paymentString = payment_fld.getText();
@@ -375,8 +376,8 @@ public class sqliteModel {
             Model.getInstance().getViewFactory().showErrorPopup("Error: Number of persons is empty.");
             return false;
         }
-        else if(vehicleYes_radio.getToggleGroup().getSelectedToggle() == null){
-            Model.getInstance().getViewFactory().showErrorPopup("Error: Vehicle choice is empty.");
+        else if(vehicle.isEmpty()){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Vehicle count is empty.");
             return false;
         }
         else if(petsYes_radio.getToggleGroup().getSelectedToggle() == null){
@@ -442,7 +443,7 @@ public class sqliteModel {
             String sql = String.format("UPDATE main SET " +
                             "name = '%s', " +
                             "pax = %d, " +
-                            "vehicle = %b, " +
+                            "vehicle = %d, " +
                             "pets = %b, " +
                             "videoke = %b, " +
                             "partial_payment = %.2f, " +
@@ -450,7 +451,7 @@ public class sqliteModel {
                             "checkOut = '%s', " +
                             "room = '%s' " +
                             "WHERE id = '%d';",
-                    name, paxInt, vehicle, pets, videoke, partial_paymentDouble, checkInString, checkOutString, roomUnformatted, id);
+                    name, paxInt, Integer.parseInt(vehicle), pets, videoke, partial_paymentDouble, checkInString, checkOutString, roomUnformatted, id);
 
             System.out.println("sql = " + sql);
             try {

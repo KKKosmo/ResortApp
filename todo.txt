@@ -4,8 +4,11 @@ multiple rooms can be selected
 vehicle count (add a column for date modified as well)
 repeat and do same for edit
 
+edit datepicker onchange
+add calendar to edit
 edit should have a confirmation and the values changed popup
 edit popup success popup should say successfully edited / no values changed
+
 
 what should the report have?
     scrape off view

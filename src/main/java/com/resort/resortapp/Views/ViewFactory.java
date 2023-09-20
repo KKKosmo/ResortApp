@@ -30,7 +30,6 @@ public class ViewFactory {
     private FlowPane flowPane;
     private Stage stage;
     List<DayModel> dayModelList = new ArrayList<>();
-    List<Set<String>> availableRoomsPerDayList;
 
 //    TODO listview settings
     Border borderUnselected = new Border(new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.SOLID, null, new BorderWidths(3)));
@@ -111,14 +110,14 @@ public class ViewFactory {
         int monthMaxDate = Model.getInstance().getMonthMaxDate();
         int dateOffset = Model.getInstance().getDateOffset();
         if(rooms == Rooms.ALL_ROOMS){
-            availableRoomsPerDayList = sqliteModel.getAvailableRoomsPerDayList();
+            Model.getInstance().setAvailableRoomsPerDayList(sqliteModel.getAvailableRoomsPerDayList());
 
             for(int i = 0; i < monthMaxDate; i++){
                 Text temp = dayModelList.get(i + dateOffset).getRoomsText();
                 StringBuilder desc = new StringBuilder();
-                Set<String> set = availableRoomsPerDayList.get(i);
+                Set<String> set = Model.getInstance().getAvailableRoomsPerDayList().get(i);
                 for(String string : set){
-                    desc.append(string).append("\n");
+                    desc.append(Rooms.abbvToDisplay(string)).append("\n");
                 }
 
                 temp.setText(desc.toString());
@@ -134,6 +133,38 @@ public class ViewFactory {
             }
         }
     }
+    public void fillFlowPaneMonthsEdit(Rooms rooms){
+        flowPane.getChildren().clear();
+        //TODO clear daymodel list here?
+        setCalendarGrid(rooms);
+
+        int monthMaxDate = Model.getInstance().getMonthMaxDate();
+        int dateOffset = Model.getInstance().getDateOffset();
+        if(rooms == Rooms.ALL_ROOMS){
+            Model.getInstance().setAvailableRoomsPerDayList(sqliteModel.getAvailableRoomsPerDayList());
+
+            for(int i = 0; i < monthMaxDate; i++){
+                Text temp = dayModelList.get(i + dateOffset).getRoomsText();
+                StringBuilder desc = new StringBuilder();
+                Set<String> set = Model.getInstance().getAvailableRoomsPerDayList().get(i);
+                for(String string : set){
+                    desc.append(Rooms.abbvToDisplay(string)).append("\n");
+                }
+
+                temp.setText(desc.toString());
+                temp.setTextAlignment(TextAlignment.CENTER);
+            }
+        }
+        else{
+            List<String> slotsList = sqliteModel.getMonthSlots(rooms);
+
+            for(int i = 0; i < monthMaxDate; i++){
+                Text temp = dayModelList.get(i + dateOffset).getRoomsText();
+                temp.setText(slotsList.get(i));
+            }
+        }
+    }
+
     public void setClickable(){
         for(int i = 0; i < Model.getInstance().getMonthMaxDate(); i++){
             StackPane temp = dayModelList.get(i + Model.getInstance().getDateOffset()).getStackPane();
@@ -145,6 +176,8 @@ public class ViewFactory {
         }
     }
     public void colorize(Set<String> roomsCheckBoxes){
+//        System.out.println(Model.getInstance().getAvailableRoomsPerDayList());
+
         if(roomsCheckBoxes.isEmpty()){
             for(int i = 0; i < Model.getInstance().getMonthMaxDate(); i++){
                 StackPane temp = dayModelList.get(i + Model.getInstance().getDateOffset()).getStackPane();
@@ -156,7 +189,7 @@ public class ViewFactory {
                 StackPane temp = dayModelList.get(i + Model.getInstance().getDateOffset()).getStackPane();
                 boolean available = true;
                 for (String room : roomsCheckBoxes) {
-                    if(!availableRoomsPerDayList.get(i).contains(room)){
+                    if(!Model.getInstance().getAvailableRoomsPerDayList().get(i).contains(room)){
                         available = false;
                         break;
                     }
@@ -241,14 +274,13 @@ public class ViewFactory {
     public void flowPaneSmall(){
         flowPane.setPrefHeight(330);
     }
-    public void setSceneEdit(int id, String name, String pax, boolean vehicle, boolean pets, boolean videoke, String payment, LocalDate checkIn, LocalDate checkOut, String room){
+    public void setSceneEdit(int id, String name, String pax, String vehicle, boolean pets, boolean videoke, String payment, LocalDate checkIn, LocalDate checkOut, String room){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Edit.fxml"));
             Parent root = loader.load();
 
             EditController editController = loader.getController();
             editController.setValues(id, name, pax, vehicle, pets, videoke, payment, checkIn, checkOut, room);
-
             stage.setScene(new Scene(root));
         } catch (Exception e) {
             e.printStackTrace();
@@ -289,7 +321,7 @@ public class ViewFactory {
                     Integer.parseInt(temp.get(0)),
                     temp.get(2),
                     temp.get(3),
-                    temp.get(4).equals("Yes"),
+                    temp.get(4),
                     temp.get(5).equals("Yes"),
                     temp.get(6).equals("Yes"),
                     temp.get(7),
@@ -372,5 +404,9 @@ public class ViewFactory {
         if(result.isEmpty()){
             return false;
         } else return result.get() == ButtonType.OK;
+    }
+
+    public List<DayModel> getDayModelList() {
+        return dayModelList;
     }
 }

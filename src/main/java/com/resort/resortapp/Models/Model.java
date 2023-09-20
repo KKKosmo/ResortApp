@@ -9,14 +9,18 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.TextAlignment;
 import com.resort.resortapp.Rooms;
 import com.resort.resortapp.Views.ViewFactory;
+import javafx.scene.control.CheckBox;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
 
 import java.io.FileNotFoundException;
+import java.sql.PreparedStatement;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.ZonedDateTime;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -38,6 +42,7 @@ public class Model {
     private LocalDate rightDate;
     private Set<Integer> selected;
 
+    private List<Set<String>> availableRoomsPerDayList;
 
     private Model(){
         this.viewFactory = new ViewFactory();
@@ -58,6 +63,10 @@ public class Model {
     public void fillFlowPaneMonths(){
         DayModelSetters();
         viewFactory.fillFlowPaneMonths(rooms);
+    }
+    public void fillFlowPaneMonthsEdit(){
+        DayModelSetters();
+        viewFactory.fillFlowPaneMonthsEdit(rooms);
     }
     public void nextMonth() {
         dateFocus = dateFocus.plusMonths(1);
@@ -151,6 +160,9 @@ public class Model {
 
 
         selected = result;
+
+
+        Model.getInstance().getViewFactory().highlight();
     }
 
     public LocalDate getLeftDate() {
@@ -246,5 +258,39 @@ public class Model {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public List<Set<String>> getAvailableRoomsPerDayList() {
+        return availableRoomsPerDayList;
+    }
+
+    public void setAvailableRoomsPerDayList(List<Set<String>> availableRoomsPerDayList) {
+        this.availableRoomsPerDayList = availableRoomsPerDayList;
+    }
+
+
+    public Set<String> getAvailableInRange(LocalDate checkIn, LocalDate checkOut, List<CheckBox> checkBoxList){
+        Set<String> rooms = Rooms.manageCheckboxesSetAbbreviatedName(checkBoxList);
+        int left = checkIn.getDayOfMonth() - 1;
+        int right = checkOut.getDayOfMonth() - 1;
+
+//        System.out.println("Rooms = " + rooms);
+
+        Set<String> result = new HashSet<>();
+
+        for(int i = left; i <= right; i++){
+
+            availableRoomsPerDayList.get(i).addAll(rooms);
+            result = availableRoomsPerDayList.get(i);
+
+            Text temp = viewFactory.getDayModelList().get(i + dateOffset).getRoomsText();
+            StringBuilder desc = new StringBuilder();
+            for(String string : result){
+                desc.append(Rooms.abbvToDisplay(string)).append("\n");
+            }
+            temp.setText(desc.toString());
+            temp.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
+        }
+        return result;
     }
 }
