@@ -10,6 +10,8 @@ import javafx.scene.layout.FlowPane;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
@@ -25,36 +27,43 @@ public class EditController implements Initializable {
     public TextField payment_fld;
     public DatePicker checkIn_datePicker;
     public DatePicker checkOut_datePicker;
-    public ChoiceBox room_choiceBox;
     public Button done_btn;
     public FlowPane month_pane;
     public Button burger_btn;
     public AnchorPane parentPane;
+    public CheckBox roomG_ChkBox;
+    public CheckBox roomJ_ChkBox;
+    public CheckBox kubo1_ChkBox;
+    public CheckBox attic_ChkBox;
+    public CheckBox kubo2_ChkBox;
     private Set<String> available;
     private int id;
 
 
     public AnchorPane escMenu;
+    List<CheckBox> roomCheckBoxes = new ArrayList<>();
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        roomCheckBoxes.add(roomJ_ChkBox);
+        roomCheckBoxes.add(roomG_ChkBox);
+        roomCheckBoxes.add(attic_ChkBox);
+        roomCheckBoxes.add(kubo1_ChkBox);
+        roomCheckBoxes.add(kubo2_ChkBox);
         escMenu =  Model.getInstance().getViewFactory().getEscMenu(parentPane);
         burger_btn.setOnAction(actionEvent -> {
             escMenu.setVisible(true);
         });
-        String[] rooms = {
-                Rooms.ROOM_G.getDisplayName(),
-                Rooms.ROOM_J.getDisplayName(),
-                Rooms.ATTIC.getDisplayName(),
-                Rooms.KUBO_1.getDisplayName(),
-                Rooms.KUBO_2.getDisplayName()
-        };
-        room_choiceBox.getItems().addAll(rooms);
+
+
+        for (CheckBox checkBox : roomCheckBoxes){
+            checkBoxAddListener(checkBox);
+        }
 
         done_btn.setOnAction(actionEvent -> {
             available = sqliteModel.getAvailableRoomsPerDayList(checkIn_datePicker.getValue(), checkOut_datePicker.getValue(), id);
-            if(sqliteModel.updateRecord(id, name_fld, pax_fld, vehicleYes_radio, petsYes_radio, videokeYes_radio, payment_fld, checkIn_datePicker, checkOut_datePicker, room_choiceBox, available)){
+            if(sqliteModel.updateRecord(id, name_fld, pax_fld, vehicleYes_radio, petsYes_radio, videokeYes_radio, payment_fld, checkIn_datePicker, checkOut_datePicker, roomCheckBoxes, available)){
                 Model.getInstance().getViewFactory().setSceneList();
             }
         });
@@ -74,6 +83,12 @@ public class EditController implements Initializable {
         payment_fld.setText(payment);
         checkIn_datePicker.setValue(checkIn);
         checkOut_datePicker.setValue(checkOut);
-        room_choiceBox.setValue(Rooms.abbvToDisplay(room));
+        Rooms.tickCheckboxes(room, roomCheckBoxes);
+    }
+
+    private void checkBoxAddListener(CheckBox checkBox){
+        checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            Model.getInstance().getViewFactory().colorize(Rooms.manageCheckboxesSet(roomCheckBoxes));
+        });
     }
 }

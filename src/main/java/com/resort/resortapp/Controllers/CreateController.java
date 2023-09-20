@@ -43,8 +43,8 @@ public class CreateController  implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        roomCheckBoxes.add(roomG_ChkBox);
         roomCheckBoxes.add(roomJ_ChkBox);
+        roomCheckBoxes.add(roomG_ChkBox);
         roomCheckBoxes.add(attic_ChkBox);
         roomCheckBoxes.add(kubo1_ChkBox);
         roomCheckBoxes.add(kubo2_ChkBox);
@@ -62,12 +62,6 @@ public class CreateController  implements Initializable{
         });
         textFieldAddListener(pax_fld);
         textFieldAddListener(payment_fld);
-
-//        room_choiceBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-//            if(newValue != null)
-//                Model.getInstance().getViewFactory().colorize(Rooms.fromString(newValue));
-//        });
-        //TODO ROOM LISTENERS EHRE
 
         checkIn_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue != null){
