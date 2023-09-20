@@ -1,7 +1,11 @@
 index my table?
 
 multiple rooms can be selected
-vehicle count
+vehicle count (add a column for date modified as well)
+repeat and do same for edit
+
+edit should have a confirmation and the values changed popup
+edit popup success popup should say successfully edited / no values changed
 
 what should the report have?
     scrape off view
@@ -11,14 +15,12 @@ what should the report have?
     edit history
     add column last modified, and its rows should be buttons to view data
 
-edit should have a confirmation and the values changed popup
-edit popup success popup should say successfuly edited
 
 static list of users, and passwords, think about how to reset passwords
 
 
 
-
+text field lengths should be limited
 
 
 
