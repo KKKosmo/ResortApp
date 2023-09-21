@@ -1,6 +1,7 @@
 package com.resort.resortapp.Controllers;
 
 import com.resort.resortapp.Models.Model;
+import com.resort.resortapp.Models.RecordModel;
 import com.resort.resortapp.Models.sqliteModel;
 import com.resort.resortapp.Rooms;
 import javafx.fxml.Initializable;
@@ -10,10 +11,7 @@ import javafx.scene.layout.FlowPane;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 
 public class EditController implements Initializable {
     public TextField name_fld;
@@ -37,7 +35,6 @@ public class EditController implements Initializable {
     public TextField vehicle_textFld;
     private Set<String> available;
     private int id;
-
 
     public AnchorPane escMenu;
     List<CheckBox> roomCheckBoxes = new ArrayList<>();
@@ -67,9 +64,10 @@ public class EditController implements Initializable {
     }
 
     public void updateRecord(){
-        //TODO AVAILABLE SHOULD BE SET IN DATEPICKER ON CHANGE
-        if(sqliteModel.updateRecord(id, name_fld, pax_fld, vehicle_textFld, petsYes_radio, videokeYes_radio, payment_fld, checkIn_datePicker, checkOut_datePicker, roomCheckBoxes, available)){
-            Model.getInstance().getViewFactory().setSceneList();
+        if(Model.getInstance().getViewFactory().showConfirmPopup("Are you sure you want to edit this record?")){
+            if(sqliteModel.updateRecord(id, name_fld, pax_fld, vehicle_textFld, petsYes_radio, videokeYes_radio, payment_fld, checkIn_datePicker, checkOut_datePicker, roomCheckBoxes, available)){
+                Model.getInstance().getViewFactory().setSceneList();
+            }
         }
     }
 
@@ -139,5 +137,10 @@ public class EditController implements Initializable {
         checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
             Model.getInstance().getViewFactory().colorize(Rooms.manageCheckboxesSetAbbreviatedName(roomCheckBoxes));
         });
+    }
+
+    private RecordModel newRecordModel(){
+        return new RecordModel(name_fld, pax_fld, vehicle_textFld, petsYes_radio, videokeYes_radio,
+                payment_fld, checkIn_datePicker, checkOut_datePicker, roomCheckBoxes);
     }
 }

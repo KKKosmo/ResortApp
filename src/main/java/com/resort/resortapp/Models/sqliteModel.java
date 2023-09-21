@@ -455,7 +455,7 @@ public class sqliteModel {
                 pStmt.executeUpdate();
 
                 closeDB();
-                Model.getInstance().getViewFactory().showSuccessPopup("Successfully inserted a record.");
+                Model.getInstance().getViewFactory().showSuccessPopup("Successfully updated this record.");
                 return true;
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -533,7 +533,7 @@ public class sqliteModel {
         }
         return result;
     }
-    public static List<List<String>> queryViewList(){
+    public static List<List<String>> queryViewList(){//TODO SHOULD RETURN RECORD OBJECT
         List<List<String>> result = new ArrayList<>();
         String sql = "SELECT * FROM main ORDER BY id DESC limit 15";
         try {
@@ -589,7 +589,7 @@ public class sqliteModel {
             pStmt.executeUpdate();
 
             closeDB();
-            Model.getInstance().getViewFactory().showConfirmPopup("Row successfully deleted.");
+            Model.getInstance().getViewFactory().showSuccessPopup("Row successfully deleted.");
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
