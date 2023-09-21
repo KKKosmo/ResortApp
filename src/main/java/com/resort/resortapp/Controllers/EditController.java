@@ -10,7 +10,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.*;
 
 public class EditController implements Initializable {
@@ -67,8 +66,9 @@ public class EditController implements Initializable {
     public void updateRecord(){
 //        initRecordModel.printStringFields();
 //        newRecordModel().printStringFields();
-        if(Model.getInstance().getViewFactory().showConfirmPopup("Are you sure you want to edit this record?" + initRecordModel.checkDifferences(newRecordModel()))){
-            if(sqliteModel.updateRecord(id, name_fld, pax_fld, vehicle_textFld, petsYes_radio, videokeYes_radio, payment_fld, checkIn_datePicker, checkOut_datePicker, roomCheckBoxes, available)){
+        RecordModel newRecordModel = newRecordModel();
+        if(Model.getInstance().getViewFactory().showConfirmPopup("Are you sure you want to edit this record?" + initRecordModel.checkDifferences(newRecordModel))){
+            if(sqliteModel.updateRecord(newRecordModel, available)){
                 Model.getInstance().getViewFactory().setSceneList();
             }
         }
@@ -135,8 +135,9 @@ public class EditController implements Initializable {
         });
     }
 
+
     private RecordModel newRecordModel(){
-        return new RecordModel(name_fld, pax_fld, vehicle_textFld, petsYes_radio, videokeYes_radio,
+        return new RecordModel(id, name_fld, pax_fld, vehicle_textFld, petsYes_radio, videokeYes_radio,
                 payment_fld, checkIn_datePicker, checkOut_datePicker, roomCheckBoxes);
     }
 }

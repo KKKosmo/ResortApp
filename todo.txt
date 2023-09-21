@@ -1,10 +1,7 @@
 index my table?
+if errors with sql, might be the plugins
 
-edit should have a confirmation and the values changed popup
-edit popup success popup should say successfully edited / no values changed
-
-    see sqliteModel queryViewList(), it should return recordmodel object
-    and its also to avoid passing lots of arguments, do same for others
+fix recordModel redundancy, see if the fields are even needed
 
 what should the report have?
     scrape off view
@@ -19,20 +16,24 @@ static list of users, and passwords, think about how to reset passwords
 
 
 
+
 text field lengths should be limited
+vehicle field number only
+
+check proper popups, a warning should not be the same as information
+are u sure u want to delete this row -> row ID
 
 
 
 
-landscape
-are abbreviated names fine
-ask if balance should indicate paid or unpaid
-user list
-
-check proper popups
 
 
-maybe calendar should be a static scene, and just fill up the panes accordingly instead of instantiating calendar everytime?
+
+recordModel should be split into different inheriting classes
+recordModel should have a constructor that would take in an sql resultSet
+recordModel is supposed to make the code more readable, but i have no time and its working so its not really implemented well.
+
+
 
 room fxml
 inner room

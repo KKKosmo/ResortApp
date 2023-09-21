@@ -255,19 +255,6 @@ public class ViewFactory {
             e.printStackTrace();
         }
     }
-    public void setSceneView(String insertedDate, String name, String pax, String vehicle, String pets, String videoke, String payment, String checkIn, String checkOut, String room){
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/View.fxml"));
-            Parent root = loader.load();
-
-            ViewController viewController = loader.getController();
-            viewController.setValues(insertedDate, name, pax, vehicle, pets, videoke, payment, checkIn, checkOut, room);
-
-            stage.setScene(new Scene(root));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
     public void insertListRows(GridPane gridPane, List<RecordModel> list){
         for(int i = 0; i < list.size(); i++){
             for(int j = 0; j < 12; j++){

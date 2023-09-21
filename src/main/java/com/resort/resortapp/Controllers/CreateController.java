@@ -1,6 +1,7 @@
 package com.resort.resortapp.Controllers;
 
 import com.resort.resortapp.Models.Model;
+import com.resort.resortapp.Models.RecordModel;
 import com.resort.resortapp.Models.sqliteModel;
 import com.resort.resortapp.Rooms;
 import javafx.fxml.Initializable;
@@ -94,7 +95,7 @@ public class CreateController  implements Initializable{
         }
     }
     private void insertRecord(){
-        if(sqliteModel.insertRecord(name_fld, pax_fld, vehicle_textFld, petsYes_radio, videokeYes_radio, payment_fld, checkIn_datePicker, checkOut_datePicker, roomCheckBoxes, available)){
+        if(sqliteModel.insertRecord(newRecordModel(), available)){
             Model.getInstance().getViewFactory().setSceneMainMenu();
         }
     }
@@ -128,5 +129,9 @@ public class CreateController  implements Initializable{
         checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
             Model.getInstance().getViewFactory().colorize(Rooms.manageCheckboxesSetAbbreviatedName(roomCheckBoxes));
         });
+    }
+    private RecordModel newRecordModel(){
+        return new RecordModel(name_fld, pax_fld, vehicle_textFld, petsYes_radio, videokeYes_radio,
+                payment_fld, checkIn_datePicker, checkOut_datePicker, roomCheckBoxes);
     }
 }
