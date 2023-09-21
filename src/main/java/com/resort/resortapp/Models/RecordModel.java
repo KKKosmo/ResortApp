@@ -6,11 +6,13 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecordModel {
 
-    String name, pax, vehicle, pets, videoke, payment, checkIn, checkOut, rooms;
+    String id, dateInserted, name, pax, vehicle, pets, videoke, payment, checkIn, checkOut, rooms, user;
     TextField name_fld;
     TextField pax_fld;
     TextField vehicle_fld;
@@ -20,6 +22,57 @@ public class RecordModel {
     DatePicker checkIn_datePicker;
     DatePicker checkOut_datePicker;
     List<CheckBox> roomCheckBoxes;
+    List<String> list = new ArrayList<>();
+
+    int idInt;
+    int paxInt;
+    int vehicleInt;
+    boolean petsBool;
+    boolean videokeBool;
+    double partial_paymentDouble;
+    LocalDate checkInLD;
+    LocalDate checkOutLD;
+
+    public RecordModel(int id, String dateInserted, String name, int pax, int vehicle, boolean pets, boolean videoke, double partialPayment, LocalDate checkIn, LocalDate checkOut, String room, String user) {
+        this.id = Integer.toString(id);
+        this.dateInserted = dateInserted;
+        this.name = name;
+        this.pax = Integer.toString(pax);
+        this.vehicle = Integer.toString(vehicle);
+        this.pets = pets ? "YES" : "NO";
+        this.videoke = videoke ? "YES" : "NO";
+        this.payment = Double.toString(partialPayment);
+        this.checkIn = checkIn.toString();
+        this.checkOut = checkOut.toString();
+        this.rooms = room;
+        this.user = user;
+
+        this.idInt = id;
+        this.paxInt = pax;
+        this.vehicleInt = vehicle;
+        this.petsBool = pets;
+        this.videokeBool = videoke;
+        this.partial_paymentDouble = partialPayment;
+        this.checkInLD = checkIn;
+        this.checkOutLD = checkOut;
+
+        list.add(this.id);
+        list.add(this.dateInserted);
+        list.add(this.name);
+        list.add(this.pax);
+        list.add(this.vehicle);
+        list.add(this.pets);
+        list.add(this.videoke);
+        list.add(this.payment);
+        list.add(this.checkIn);
+        list.add(this.checkOut);
+        list.add(this.rooms);
+        list.add(this.user);
+    }
+
+    public List<String> getList() {
+        return list;
+    }
 
     public RecordModel(TextField name_fld, TextField pax_fld, TextField vehicle_textFld, RadioButton petsYes_radio, RadioButton videokeYes_radio, TextField payment_fld, DatePicker checkIn_datePicker, DatePicker checkOut_datePicker, List<CheckBox> roomCheckBoxes) {
         this.name_fld = name_fld;
@@ -33,6 +86,7 @@ public class RecordModel {
         this.roomCheckBoxes = roomCheckBoxes;
         setStrings();
     }
+
 
     public void setStrings() {
         this.name = name_fld.getText();
@@ -58,10 +112,6 @@ public class RecordModel {
         System.out.println("Rooms: " + this.rooms);
     }
     public String checkDifferences(RecordModel arg){
-//        this.setStrings();
-//        arg.setStrings();
-//        this.printStringFields();
-//        arg.printStringFields();
 
         StringBuilder sb = new StringBuilder();
         if(!this.name.equals(arg.name)){
@@ -95,5 +145,70 @@ public class RecordModel {
             return "\nThere are no changes";
         }
         return sb.toString();
+    }
+
+    public int fillInFields(TextField nameFld, TextField paxFld, TextField vehicleTextFld, RadioButton petsYesRadio, RadioButton videokeYesRadio, RadioButton videokeYes_radio, RadioButton videokeNo_radio, TextField paymentFld, DatePicker checkInDatePicker, DatePicker checkOutDatePicker, List<CheckBox> roomCheckBoxes) {
+        nameFld.setText(name);
+        paxFld.setText(pax);
+        vehicleTextFld.setText(vehicle);
+        (pets.equals("YES") ? petsYesRadio : videokeYesRadio).setSelected(true);
+        (videoke.equals("YES") ? videokeYes_radio : videokeNo_radio).setSelected(true);
+        paymentFld.setText(String.valueOf(Math.round(Double.parseDouble(payment))));
+        checkInDatePicker.setValue(LocalDate.parse(checkIn));
+        checkOutDatePicker.setValue(LocalDate.parse(checkOut));
+        Rooms.tickCheckboxes(rooms, roomCheckBoxes);
+
+        return Integer.parseInt(id);
+    }
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(String vehicle) {
+        this.vehicle = vehicle;
+    }
+
+    public String getPets() {
+        return pets;
+    }
+
+    public void setPets(String pets) {
+        this.pets = pets;
+    }
+
+    public String getVideoke() {
+        return videoke;
+    }
+
+    public void setVideoke(String videoke) {
+        this.videoke = videoke;
+    }
+
+    public LocalDate getCheckInLD() {
+        return checkInLD;
+    }
+
+    public LocalDate getCheckOutLD() {
+        return checkOutLD;
+    }
+
+    public int getIdInt() {
+        return idInt;
     }
 }

@@ -85,22 +85,13 @@ public class EditController implements Initializable {
         this.available = available;
     }
 
-    public void setValues(int id, String name, String pax, String vehicle, boolean pets, boolean videoke, String payment, LocalDate checkIn, LocalDate checkOut, String room) {
-        this.id = id;
-        name_fld.setText(name);
-        pax_fld.setText(pax);
-        vehicle_textFld.setText(vehicle);
-        (pets ? petsYes_radio : petsNo_radio).setSelected(true);
-        (videoke ? videokeYes_radio : videokeNo_radio).setSelected(true);
-        payment_fld.setText(String.valueOf(Math.round(Double.parseDouble(payment))));
-        checkIn_datePicker.setValue(checkIn);
-        checkOut_datePicker.setValue(checkOut);
-        Rooms.tickCheckboxes(room, roomCheckBoxes);
+    public void setValues(RecordModel recordModel) {
+        id = recordModel.fillInFields(name_fld, pax_fld, vehicle_textFld, petsYes_radio, petsNo_radio, videokeYes_radio, videokeNo_radio, payment_fld, checkIn_datePicker, checkOut_datePicker, roomCheckBoxes);
 
         available = Model.getInstance().getAvailableInRangeInit(checkIn_datePicker.getValue(), checkOut_datePicker.getValue(), roomCheckBoxes);
 
-        Model.getInstance().setLeftDate(checkIn);
-        Model.getInstance().setRightDate(checkOut);
+        Model.getInstance().setLeftDate(recordModel.getCheckInLD());
+        Model.getInstance().setRightDate(recordModel.getCheckOutLD());
         Model.getInstance().setSelected();
         Model.getInstance().getViewFactory().colorize(Rooms.manageCheckboxesSetAbbreviatedName(roomCheckBoxes));
 

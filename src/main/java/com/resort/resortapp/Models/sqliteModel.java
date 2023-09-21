@@ -533,8 +533,8 @@ public class sqliteModel {
         }
         return result;
     }
-    public static List<List<String>> queryViewList(){//TODO SHOULD RETURN RECORD OBJECT
-        List<List<String>> result = new ArrayList<>();
+    public static List<RecordModel> queryViewList(){//TODO SHOULD RETURN RECORD OBJECT
+        List<RecordModel> result = new ArrayList<>();
         String sql = "SELECT * FROM main ORDER BY id DESC limit 15";
         try {
             PreparedStatement pStmt = openDB().prepareStatement(sql);
@@ -548,29 +548,13 @@ public class sqliteModel {
                 boolean pets = resultSet.getBoolean("pets");
                 boolean videoke = resultSet.getBoolean("videoke");
                 double partial_payment = resultSet.getDouble("partial_payment");
-                String checkInString = resultSet.getString("checkIn");
-                String checkOutString = resultSet.getString("checkOut");
+                LocalDate checkInString = LocalDate.parse(resultSet.getString("checkIn"));
+                LocalDate checkOutString = LocalDate.parse(resultSet.getString("checkOut"));
                 String room = resultSet.getString("room");
                 String user = resultSet.getString("user");
 
-//                System.out.println();
-//                System.out.println(id + ", " + dateInserted+ ", " + name + ", " + pax + ", " + vehicle + ", " +
-//                        pets + ", " + videoke + ", " + partial_payment + ", "
-//                        + checkInString + ", " + checkOutString + ", " + room + ", " + user);
-                List<String> row = new ArrayList<>();
-                row.add(Integer.toString(id));
-                row.add(dateInserted);
-                row.add(name);
-                row.add(Integer.toString(pax));
-                row.add(Integer.toString(vehicle));
-                row.add(pets ? "Yes" : "No");
-                row.add(videoke ? "Yes" : "No");
-                row.add(Double.toString(partial_payment));
-                row.add(checkInString);
-                row.add(checkOutString);
-                row.add(room);
-                row.add(user);
-                result.add(row);
+                RecordModel recordModel = new RecordModel(id, dateInserted, name, pax, vehicle, pets, videoke, partial_payment, checkInString, checkOutString, room, user);
+                result.add(recordModel);
             }
             resultSet.close();
             closeDB();

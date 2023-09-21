@@ -243,13 +243,13 @@ public class ViewFactory {
     public void flowPaneSmall(){
         flowPane.setPrefHeight(330);
     }
-    public void setSceneEdit(int id, String name, String pax, String vehicle, boolean pets, boolean videoke, String payment, LocalDate checkIn, LocalDate checkOut, String room){
+    public void setSceneEdit(RecordModel recordModel){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Edit.fxml"));
             Parent root = loader.load();
 
             EditController editController = loader.getController();
-            editController.setValues(id, name, pax, vehicle, pets, videoke, payment, checkIn, checkOut, room);
+            editController.setValues(recordModel);
             stage.setScene(new Scene(root));
         } catch (Exception e) {
             e.printStackTrace();
@@ -268,12 +268,13 @@ public class ViewFactory {
             e.printStackTrace();
         }
     }
-    public void insertListRows(GridPane gridPane, List<List<String>> list){
+    public void insertListRows(GridPane gridPane, List<RecordModel> list){
         for(int i = 0; i < list.size(); i++){
-            for(int j = 0; j < list.get(0).size(); j++){
+            for(int j = 0; j < 12; j++){
+                List<String> recordList = list.get(i).getList();
                 Label label = new Label();
                 label.setAlignment(Pos.CENTER);
-                label.setText(list.get(i).get(j));
+                label.setText(recordList.get(j));
                 label.setTextAlignment(TextAlignment.CENTER);
                 GridPane.setRowIndex(label, i);
                 GridPane.setColumnIndex(label, j);
@@ -284,46 +285,20 @@ public class ViewFactory {
             Button editButton = new Button("Edit");
             Button deleteButton = new Button("Delete");
 
-            List<String> temp = list.get(i);
+            RecordModel recordModel = list.get(i);
             editButton.setOnAction(actionEvent -> {
-                setSceneEdit(
-                    Integer.parseInt(temp.get(0)),
-                    temp.get(2),
-                    temp.get(3),
-                    temp.get(4),
-                    temp.get(5).equals("Yes"),
-                    temp.get(6).equals("Yes"),
-                    temp.get(7),
-                    LocalDate.parse(temp.get(8)),
-                    LocalDate.parse(temp.get(9)),
-                    temp.get(10)
-                    );
+                setSceneEdit(recordModel);
             });
 
             deleteButton.setOnAction(actionEvent -> {
                 if(showConfirmPopup("Are you sure you want to delete this row?")){
-                    if(sqliteModel.deleteEntry(Integer.parseInt(temp.get(0)))){
+                    if(sqliteModel.deleteEntry(recordModel.getIdInt())){
                         gridPane.getChildren().retainAll(gridPane.getChildren().get(0));
                         insertListRows(gridPane, sqliteModel.queryViewList());
                     }
                 }
             });
 
-
-            viewButton.setOnAction(actionEvent ->{
-                setSceneView(
-                        temp.get(1),
-                        temp.get(2),
-                        temp.get(3),
-                        temp.get(4),
-                        temp.get(5),
-                        temp.get(6),
-                        temp.get(7),
-                        temp.get(8),
-                        temp.get(9),
-                        temp.get(10)
-                );
-            });
 
             GridPane.setColumnIndex(viewButton, 12);
             GridPane.setColumnIndex(editButton, 13);
