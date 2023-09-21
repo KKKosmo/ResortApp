@@ -35,6 +35,7 @@ public class EditController implements Initializable {
     public TextField vehicle_textFld;
     private Set<String> available;
     private int id;
+    private RecordModel initRecordModel;
 
     public AnchorPane escMenu;
     List<CheckBox> roomCheckBoxes = new ArrayList<>();
@@ -64,7 +65,9 @@ public class EditController implements Initializable {
     }
 
     public void updateRecord(){
-        if(Model.getInstance().getViewFactory().showConfirmPopup("Are you sure you want to edit this record?")){
+//        initRecordModel.printStringFields();
+//        newRecordModel().printStringFields();
+        if(Model.getInstance().getViewFactory().showConfirmPopup("Are you sure you want to edit this record?" + initRecordModel.checkDifferences(newRecordModel()))){
             if(sqliteModel.updateRecord(id, name_fld, pax_fld, vehicle_textFld, petsYes_radio, videokeYes_radio, payment_fld, checkIn_datePicker, checkOut_datePicker, roomCheckBoxes, available)){
                 Model.getInstance().getViewFactory().setSceneList();
             }
@@ -130,6 +133,8 @@ public class EditController implements Initializable {
         for (CheckBox checkBox : roomCheckBoxes){
             checkBoxAddListener(checkBox);
         }
+
+        initRecordModel = newRecordModel();
 
     }
 

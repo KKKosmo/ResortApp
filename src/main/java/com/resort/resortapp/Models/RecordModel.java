@@ -31,6 +31,7 @@ public class RecordModel {
         this.checkIn_datePicker = checkIn_datePicker;
         this.checkOut_datePicker = checkOut_datePicker;
         this.roomCheckBoxes = roomCheckBoxes;
+        setStrings();
     }
 
     public void setStrings() {
@@ -45,42 +46,54 @@ public class RecordModel {
         this.rooms = Rooms.manageCheckboxesString(roomCheckBoxes);
     }
 
+    public void printStringFields() {
+        System.out.println("Name: " + this.name);
+        System.out.println("Pax: " + this.pax);
+        System.out.println("Vehicle: " + this.vehicle);
+        System.out.println("Pets: " + this.pets);
+        System.out.println("Videoke: " + this.videoke);
+        System.out.println("Payment: " + this.payment);
+        System.out.println("Check-In: " + this.checkIn);
+        System.out.println("Check-Out: " + this.checkOut);
+        System.out.println("Rooms: " + this.rooms);
+    }
     public String checkDifferences(RecordModel arg){
-        this.setStrings();
-        arg.setStrings();
-
+//        this.setStrings();
+//        arg.setStrings();
+//        this.printStringFields();
+//        arg.printStringFields();
 
         StringBuilder sb = new StringBuilder();
         if(!this.name.equals(arg.name)){
-            sb.append(this.name).append(" -> ").append(arg.name).append("\n");
+            sb.append("\n").append(this.name).append(" -> ").append(arg.name);
         }
         if (!this.pax.equals(arg.pax)) {
-            sb.append("Pax: ").append(this.pax).append(" -> ").append(arg.pax).append("\n");
+            sb.append("\n").append("Pax: ").append(this.pax).append(" -> ").append(arg.pax);
         }
         if (!this.vehicle.equals(arg.vehicle)) {
-            sb.append("Vehicle: ").append(this.vehicle).append(" -> ").append(arg.vehicle).append("\n");
+            sb.append("\n").append("Vehicle: ").append(this.vehicle).append(" -> ").append(arg.vehicle);
         }
         if (!this.pets.equals(arg.pets)) {
-            sb.append("Pets: ").append(this.pets).append(" -> ").append(arg.pets).append("\n");
+            sb.append("\n").append("Pets: ").append(this.pets).append(" -> ").append(arg.pets);
         }
         if (!this.videoke.equals(arg.videoke)) {
-            sb.append("Videoke: ").append(this.videoke).append(" -> ").append(arg.videoke).append("\n");
+            sb.append("\n").append("Videoke: ").append(this.videoke).append(" -> ").append(arg.videoke);
         }
         if (!this.payment.equals(arg.payment)) {
-            sb.append("Payment: ").append(this.payment).append(" -> ").append(arg.payment).append("\n");
+            sb.append("\n").append("Payment: ").append(this.payment).append(" -> ").append(arg.payment);
         }
         if (!this.checkIn.equals(arg.checkIn)) {
-            sb.append("Check-In: ").append(this.checkIn).append(" -> ").append(arg.checkIn).append("\n");
+            sb.append("\n").append("Check-In: ").append(this.checkIn).append(" -> ").append(arg.checkIn);
         }
         if (!this.checkOut.equals(arg.checkOut)) {
-            sb.append("Check-Out: ").append(this.checkOut).append(" -> ").append(arg.checkOut).append("\n");
+            sb.append("\n").append("Check-Out: ").append(this.checkOut).append(" -> ").append(arg.checkOut);
         }
         if (!this.rooms.equals(arg.rooms)) {
-            sb.append("Rooms: ").append(this.rooms).append(" -> ").append(arg.rooms).append("\n");
+            sb.append("\n").append("Rooms: ").append(this.rooms).append(" -> ").append(arg.rooms);
         }
         if (sb.isEmpty()) {
-            return "No changes";
+            return "\nThere are no changes";
         }
-        return sb.toString().trim();
+        return sb.toString();
     }
 }

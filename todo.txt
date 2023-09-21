@@ -1,14 +1,10 @@
 index my table?
 
-make an object for records,
-    it will have a constructor for Strings and for Objects
-    it will have the function differentiate
-    see sqliteModel queryViewList(), it should return an object
-    and its also to avoid passing lots of arguments
-
 edit should have a confirmation and the values changed popup
 edit popup success popup should say successfully edited / no values changed
 
+    see sqliteModel queryViewList(), it should return recordmodel object
+    and its also to avoid passing lots of arguments, do same for others
 
 what should the report have?
     scrape off view
