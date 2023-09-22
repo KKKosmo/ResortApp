@@ -192,8 +192,8 @@ public class sqliteModel {
         boolean pets = recordModel.isPetsBool();
         boolean videoke = recordModel.isVideokeBool();
         String partial_paymentString = recordModel.getPayment();
-        LocalDate checkInLocalDate = recordModel.getCheckInLD();
-        LocalDate checkOutLocalDate = recordModel.getCheckOutLD();
+        String checkIn = recordModel.getCheckIn();
+        String checkOut = recordModel.getCheckOut();
         String roomUnformatted = recordModel.getRooms();
         List<CheckBox> roomCheckboxes = recordModel.getRoomCheckBoxes();
         
@@ -224,11 +224,11 @@ public class sqliteModel {
             Model.getInstance().getViewFactory().showErrorPopup("Error: Partial payment is empty.");
             return false;
         }
-        else if(checkInLocalDate == null){
+        else if(checkIn.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Check-in date is empty.");
             return false;
         }
-        else if(checkOutLocalDate == null){
+        else if(checkOut.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Check-out date is empty.");
             return false;
         }
@@ -236,23 +236,23 @@ public class sqliteModel {
             Model.getInstance().getViewFactory().showErrorPopup("Error: A room must be selected.");
             return false;
         }
-        else if(checkInLocalDate.isAfter(checkOutLocalDate)){
+        else if(LocalDate.parse(checkIn).isAfter(LocalDate.parse(checkOut))){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Check-in date must come before Check-out date.");
             return false;
         }else if(roomCheckboxes.get(0).isSelected() && !available.contains(Rooms.ROOM_J.getAbbreviatedName())){
-            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ROOM_J.getAbbreviatedName() + " is unavailable for " + checkInLocalDate + " - " + checkOutLocalDate + ".");
+            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ROOM_J.getAbbreviatedName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
         }else if(roomCheckboxes.get(1).isSelected() && !available.contains(Rooms.ROOM_G.getAbbreviatedName())){
-            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ROOM_G.getAbbreviatedName() + " is unavailable for " + checkInLocalDate + " - " + checkOutLocalDate + ".");
+            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ROOM_G.getAbbreviatedName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
         }else if(roomCheckboxes.get(2).isSelected() && !available.contains(Rooms.ATTIC.getAbbreviatedName())){
-            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ATTIC.getAbbreviatedName() + " is unavailable for " + checkInLocalDate + " - " + checkOutLocalDate + ".");
+            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ATTIC.getAbbreviatedName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
         }else if(roomCheckboxes.get(3).isSelected() && !available.contains(Rooms.KUBO_1.getAbbreviatedName())){
-            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.KUBO_1.getAbbreviatedName() + " is unavailable for " + checkInLocalDate + " - " + checkOutLocalDate + ".");
+            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.KUBO_1.getAbbreviatedName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
         }else if(roomCheckboxes.get(4).isSelected() && !available.contains(Rooms.KUBO_2.getAbbreviatedName())){
-            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.KUBO_2.getAbbreviatedName() + " is unavailable for " + checkInLocalDate + " - " + checkOutLocalDate + ".");
+            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.KUBO_2.getAbbreviatedName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
         }
         else{
@@ -271,7 +271,7 @@ public class sqliteModel {
 
             String sql = String.format("INSERT INTO main (dateInserted, name, pax, vehicle, pets, videoke, partial_payment, checkIn, checkOut, room) " +
                             "VALUES ('%s','%s', %d, %d, %b, %b, %.2f, '%s', '%s', '%s');",
-                    currentDate, name, paxInt, Integer.parseInt(vehicle), pets, videoke, partial_paymentDouble, recordModel.getCheckIn(), recordModel.getCheckOut(), roomUnformatted);
+                    currentDate, name, paxInt, Integer.parseInt(vehicle), pets, videoke, partial_paymentDouble, checkIn, checkOut, roomUnformatted);
 
             System.out.println("sql = " + sql);
             try {
@@ -302,8 +302,8 @@ public class sqliteModel {
         boolean pets = recordModel.isPetsBool();
         boolean videoke = recordModel.isVideokeBool();
         String partial_paymentString = recordModel.getPayment();
-        LocalDate checkInLocalDate = recordModel.getCheckInLD();
-        LocalDate checkOutLocalDate = recordModel.getCheckOutLD();
+        String checkIn = recordModel.getCheckIn();
+        String checkOut = recordModel.getCheckOut();
         String roomUnformatted = recordModel.getRooms();
         List<CheckBox> roomCheckboxes = recordModel.getRoomCheckBoxes();
 
@@ -332,11 +332,11 @@ public class sqliteModel {
             Model.getInstance().getViewFactory().showErrorPopup("Error: Partial payment is empty.");
             return false;
         }
-        else if(checkInLocalDate == null){
+        else if(checkIn.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Check-in date is empty.");
             return false;
         }
-        else if(checkOutLocalDate == null){
+        else if(checkOut.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Check-out date is empty.");
             return false;
         }
@@ -344,24 +344,24 @@ public class sqliteModel {
             Model.getInstance().getViewFactory().showErrorPopup("Error: A room must be selected.");
             return false;
         }
-        else if(checkInLocalDate.isAfter(checkOutLocalDate)){
+        else if(LocalDate.parse(checkIn).isAfter(LocalDate.parse(checkOut))){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Check-in date must come before Check-out date.");
             return false;
 
         }else if(roomCheckboxes.get(0).isSelected() && !available.contains(Rooms.ROOM_J.getAbbreviatedName())){
-            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ROOM_J.getAbbreviatedName() + " is unavailable for " + checkInLocalDate + " - " + checkOutLocalDate + ".");
+            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ROOM_J.getAbbreviatedName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
         }else if(roomCheckboxes.get(1).isSelected() && !available.contains(Rooms.ROOM_G.getAbbreviatedName())){
-            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ROOM_G.getAbbreviatedName() + " is unavailable for " + checkInLocalDate + " - " + checkOutLocalDate + ".");
+            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ROOM_G.getAbbreviatedName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
         }else if(roomCheckboxes.get(2).isSelected() && !available.contains(Rooms.ATTIC.getAbbreviatedName())){
-            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ATTIC.getAbbreviatedName() + " is unavailable for " + checkInLocalDate + " - " + checkOutLocalDate + ".");
+            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ATTIC.getAbbreviatedName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
         }else if(roomCheckboxes.get(3).isSelected() && !available.contains(Rooms.KUBO_1.getAbbreviatedName())){
-            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.KUBO_1.getAbbreviatedName() + " is unavailable for " + checkInLocalDate + " - " + checkOutLocalDate + ".");
+            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.KUBO_1.getAbbreviatedName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
         }else if(roomCheckboxes.get(4).isSelected() && !available.contains(Rooms.KUBO_2.getAbbreviatedName())){
-            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.KUBO_2.getAbbreviatedName() + " is unavailable for " + checkInLocalDate + " - " + checkOutLocalDate + ".");
+            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.KUBO_2.getAbbreviatedName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
         }
         else{
@@ -389,7 +389,7 @@ public class sqliteModel {
                             "checkOut = '%s', " +
                             "room = '%s' " +
                             "WHERE id = '%d';",
-                    name, paxInt, Integer.parseInt(vehicle), pets, videoke, partial_paymentDouble, recordModel.getCheckIn(), recordModel.getCheckOut(), roomUnformatted, recordModel.getIdInt());
+                    name, paxInt, Integer.parseInt(vehicle), pets, videoke, partial_paymentDouble, checkIn, checkOut, roomUnformatted, recordModel.getIdInt());
 
             System.out.println("sql = " + sql);
             try {

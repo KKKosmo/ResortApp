@@ -163,16 +163,16 @@ public class Model {
         return leftDate;
     }
 
-    public void setLeftDate(LocalDate leftDate) {
-        this.leftDate = leftDate;
+    public void setLeftDate(String leftDate) {
+        this.leftDate = LocalDate.parse(leftDate);
     }
 
     public LocalDate getRightDate() {
         return rightDate;
     }
 
-    public void setRightDate(LocalDate rightDate) {
-        this.rightDate = rightDate;
+    public void setRightDate(String rightDate) {
+        this.rightDate = LocalDate.parse(rightDate);
     }
 
     public Set<Integer> getSelected() {

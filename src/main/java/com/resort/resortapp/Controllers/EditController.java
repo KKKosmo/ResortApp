@@ -90,15 +90,15 @@ public class EditController implements Initializable {
 
         available = Model.getInstance().getAvailableInRangeInit(checkIn_datePicker.getValue(), checkOut_datePicker.getValue(), roomCheckBoxes);
 
-        Model.getInstance().setLeftDate(recordModel.getCheckInLD());
-        Model.getInstance().setRightDate(recordModel.getCheckOutLD());
+        Model.getInstance().setLeftDate(recordModel.getCheckIn());
+        Model.getInstance().setRightDate(recordModel.getCheckOut());
         Model.getInstance().setSelected();
         Model.getInstance().getViewFactory().colorize(Rooms.manageCheckboxesSetAbbreviatedName(roomCheckBoxes));
 
 
         checkIn_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue != null){
-                Model.getInstance().setLeftDate(newValue);
+                Model.getInstance().setLeftDate(String.valueOf(newValue));
                 if(checkOut_datePicker.getValue() != null){
                     if(checkIn_datePicker.getValue().isBefore(checkOut_datePicker.getValue()) || checkIn_datePicker.getValue().equals(checkOut_datePicker.getValue())){
 //                        available = sqliteModel.getAvailableRoomsPerDayList(checkIn_datePicker.getValue(), checkOut_datePicker.getValue(), id);
@@ -110,7 +110,7 @@ public class EditController implements Initializable {
         });
         checkOut_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue != null){
-                Model.getInstance().setRightDate(newValue);
+                Model.getInstance().setRightDate(String.valueOf(newValue));
                 if(checkIn_datePicker.getValue() != null){
                     if(checkIn_datePicker.getValue().isBefore(checkOut_datePicker.getValue()) || checkIn_datePicker.getValue().equals(checkOut_datePicker.getValue())){
 //                        available = sqliteModel.getAvailableRoomsPerDayList(checkIn_datePicker.getValue(), checkOut_datePicker.getValue(), id);

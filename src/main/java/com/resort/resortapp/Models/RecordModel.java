@@ -13,28 +13,29 @@ import java.util.List;
 public class RecordModel {
 
     private String id, dateInserted, name, pax, vehicle, pets, videoke, payment, checkIn, checkOut, rooms, user;
-    private TextField name_fld;
-    private TextField pax_fld;
-    private TextField vehicle_fld;
+//    private TextField name_fld;
+//    private TextField pax_fld;
+//    private TextField vehicle_fld;
     private RadioButton petsYes_radio;
     private RadioButton videokeYes_radio;
-    private TextField payment_fld;
-    private DatePicker checkIn_datePicker;
-    private DatePicker checkOut_datePicker;
+//    private TextField payment_fld;
+//    private DatePicker checkIn_datePicker;
+//    private DatePicker checkOut_datePicker;
     private List<CheckBox> roomCheckBoxes;
     private List<String> list = new ArrayList<>();
 
     private int idInt;
-    private int paxInt;
-    private int vehicleInt;
+//    private int paxInt;
+//    private int vehicleInt;
     private boolean petsBool;
     private boolean videokeBool;
-    private double partial_paymentDouble;
-    private LocalDate checkInLD;
-    private LocalDate checkOutLD;
+//    private double partial_paymentDouble;
+//    private LocalDate checkInLD;
+//    private LocalDate checkOutLD;
 
     //for getting from sql then inserting to list, needs both strings and normal types
     public RecordModel(int id, String dateInserted, String name, int pax, int vehicle, boolean pets, boolean videoke, double partialPayment, LocalDate checkIn, LocalDate checkOut, String room, String user) {
+
         this.id = Integer.toString(id);
         this.dateInserted = dateInserted;
         this.name = name;
@@ -49,13 +50,13 @@ public class RecordModel {
         this.user = user;
 
         this.idInt = id;
-        this.paxInt = pax;
-        this.vehicleInt = vehicle;
+//        this.paxInt = pax;
+//        this.vehicleInt = vehicle;
         this.petsBool = pets;
         this.videokeBool = videoke;
-        this.partial_paymentDouble = partialPayment;
-        this.checkInLD = checkIn;
-        this.checkOutLD = checkOut;
+//        this.partial_paymentDouble = partialPayment;
+//        this.checkInLD = checkIn;
+//        this.checkOutLD = checkOut;
 
         list.add(this.id);
         list.add(this.dateInserted);
@@ -73,17 +74,52 @@ public class RecordModel {
 
     //for creating
     public RecordModel(TextField name_fld, TextField pax_fld, TextField vehicle_textFld, RadioButton petsYes_radio, RadioButton videokeYes_radio, TextField payment_fld, DatePicker checkIn_datePicker, DatePicker checkOut_datePicker, List<CheckBox> roomCheckBoxes) {
-        this.name_fld = name_fld;
-        this.pax_fld = pax_fld;
-        this.vehicle_fld = vehicle_textFld;
+
+        this.name = name_fld.getText();
+        this.pax = pax_fld.getText();
+        this.vehicle = vehicle_textFld.getText();
+        this.pets = petsYes_radio.isSelected() ? "YES" : "NO";
+        this.videoke = videokeYes_radio.isSelected() ? "YES" : "NO";
+        this.payment = payment_fld.getText();
+        this.rooms = Rooms.manageCheckboxesString(roomCheckBoxes);
+
+        this.roomCheckBoxes = roomCheckBoxes;
         this.petsYes_radio = petsYes_radio;
         this.videokeYes_radio = videokeYes_radio;
-        this.payment_fld = payment_fld;
-        this.checkIn_datePicker = checkIn_datePicker;
-        this.checkOut_datePicker = checkOut_datePicker;
-        this.roomCheckBoxes = roomCheckBoxes;
 
-        setStrings();
+
+//        if (pax.isEmpty()) {
+//            this.paxInt = 0;
+//        } else {
+//            this.paxInt = Integer.parseInt(pax);
+//        }
+//        if (vehicle.isEmpty()) {
+//            vehicleInt = 0;
+//        } else {
+//            vehicleInt = Integer.parseInt(vehicle);
+//        }
+//        if (payment.isEmpty()) {
+//            partial_paymentDouble = 0;
+//        } else {
+//            partial_paymentDouble = Integer.parseInt(payment);
+//        }
+        if(checkIn_datePicker.getValue() == null){
+            checkIn = "";
+        } else{
+            this.checkIn = checkIn_datePicker.getValue().toString();
+        }
+        if(checkOut_datePicker.getValue() == null){
+            checkOut = "";
+        } else{
+            this.checkOut = checkOut_datePicker.getValue().toString();
+        }
+
+
+
+        this.petsBool = petsYes_radio.isSelected();
+        this.videokeBool = videokeYes_radio.isSelected();
+//        this.checkInLD = LocalDate.parse(checkIn);
+//        this.checkOutLD = LocalDate.parse(checkOut);
     }
 
     public List<String> getList() {
@@ -93,51 +129,51 @@ public class RecordModel {
     //for editing
     public RecordModel(int id, TextField name_fld, TextField pax_fld, TextField vehicle_textFld, RadioButton petsYes_radio, RadioButton videokeYes_radio, TextField payment_fld, DatePicker checkIn_datePicker, DatePicker checkOut_datePicker, List<CheckBox> roomCheckBoxes) {
         this.idInt = id;
-        this.name_fld = name_fld;
-        this.pax_fld = pax_fld;
-        this.vehicle_fld = vehicle_textFld;
-        this.petsYes_radio = petsYes_radio;
-        this.videokeYes_radio = videokeYes_radio;
-        this.payment_fld = payment_fld;
-        this.checkIn_datePicker = checkIn_datePicker;
-        this.checkOut_datePicker = checkOut_datePicker;
-        this.roomCheckBoxes = roomCheckBoxes;
 
-        setStrings();
-    }
-
-
-    public void setStrings() {
         this.name = name_fld.getText();
         this.pax = pax_fld.getText();
-        this.vehicle = vehicle_fld.getText();
+        this.vehicle = vehicle_textFld.getText();
         this.pets = petsYes_radio.isSelected() ? "YES" : "NO";
         this.videoke = videokeYes_radio.isSelected() ? "YES" : "NO";
         this.payment = payment_fld.getText();
-        this.checkIn = checkIn_datePicker.getValue().toString();
-        this.checkOut = checkOut_datePicker.getValue().toString();
         this.rooms = Rooms.manageCheckboxesString(roomCheckBoxes);
 
-        if (pax.isEmpty()) {
-            this.paxInt = 0;
-        } else {
-            this.paxInt = Integer.parseInt(pax);
+        this.roomCheckBoxes = roomCheckBoxes;
+        this.petsYes_radio = petsYes_radio;
+        this.videokeYes_radio = videokeYes_radio;
+//        if (pax.isEmpty()) {
+//            this.paxInt = 0;
+//        } else {
+//            this.paxInt = Integer.parseInt(pax);
+//        }
+//        if (vehicle.isEmpty()) {
+//            vehicleInt = 0;
+//        } else {
+//            vehicleInt = Integer.parseInt(vehicle);
+//        }
+//        if (payment.isEmpty()) {
+//            partial_paymentDouble = 0;
+//        } else {
+//            partial_paymentDouble = Integer.parseInt(payment);
+//        }
+        if(checkIn_datePicker.getValue() == null){
+            checkIn = "";
+        } else{
+            this.checkIn = checkIn_datePicker.getValue().toString();
         }
-        if (vehicle.isEmpty()) {
-            vehicleInt = 0;
-        } else {
-            vehicleInt = Integer.parseInt(vehicle);
+        if(checkOut_datePicker.getValue() == null){
+            checkOut = "";
+        } else{
+            this.checkOut = checkOut_datePicker.getValue().toString();
         }
+
         this.petsBool = petsYes_radio.isSelected();
         this.videokeBool = videokeYes_radio.isSelected();
-        if (payment.isEmpty()) {
-            partial_paymentDouble = 0;
-        } else {
-            partial_paymentDouble = Integer.parseInt(payment);
-        }
-        this.checkInLD = LocalDate.parse(checkIn);
-        this.checkOutLD = LocalDate.parse(checkOut);
+//        this.checkInLD = LocalDate.parse(checkIn);
+//        this.checkOutLD = LocalDate.parse(checkOut);
     }
+
+
 
     public void printStringFields() {
         System.out.println("Name: " + this.name);
@@ -199,13 +235,6 @@ public class RecordModel {
 
         return Integer.parseInt(id);
     }
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -239,13 +268,13 @@ public class RecordModel {
         this.videoke = videoke;
     }
 
-    public LocalDate getCheckInLD() {
-        return checkInLD;
-    }
-
-    public LocalDate getCheckOutLD() {
-        return checkOutLD;
-    }
+//    public LocalDate getCheckInLD() {
+//        return checkInLD;
+//    }
+//
+//    public LocalDate getCheckOutLD() {
+//        return checkOutLD;
+//    }
 
     public int getIdInt() {
         return idInt;
@@ -277,7 +306,6 @@ public class RecordModel {
     public RadioButton getPetsYes_radio() {
         return petsYes_radio;
     }
-
 
     public RadioButton getVideokeYes_radio() {
         return videokeYes_radio;
