@@ -19,7 +19,10 @@ public class EditController implements Initializable {
     public RadioButton petsYes_radio;
     public RadioButton videokeNo_radio;
     public RadioButton videokeYes_radio;
-    public TextField payment_fld;
+    public TextField partialPayment_fld;
+    public TextField fullPayment_fld;
+    public RadioButton paidYes_radio;
+    public RadioButton paidNo_radio;
     public DatePicker checkIn_datePicker;
     public DatePicker checkOut_datePicker;
     public Button done_btn;
@@ -34,6 +37,7 @@ public class EditController implements Initializable {
     public TextField vehicle_textFld;
     private Set<String> available;
     private int id;
+    private boolean payStatus;
     private RecordModel initRecordModel;
 
     public AnchorPane escMenu;
@@ -57,7 +61,8 @@ public class EditController implements Initializable {
         });
 
         textFieldAddListener(pax_fld);
-        textFieldAddListener(payment_fld);
+        textFieldAddListener(partialPayment_fld);
+        textFieldAddListener(fullPayment_fld);
 
 
         Model.getInstance().getViewFactory().insertCalendar(month_pane);
@@ -86,7 +91,8 @@ public class EditController implements Initializable {
     }
 
     public void setValues(RecordModel recordModel) {
-        id = recordModel.fillInFields(name_fld, pax_fld, vehicle_textFld, petsYes_radio, petsNo_radio, videokeYes_radio, videokeNo_radio, payment_fld, checkIn_datePicker, checkOut_datePicker, roomCheckBoxes);
+        id = recordModel.fillInFields(name_fld, pax_fld, vehicle_textFld, petsYes_radio, petsNo_radio, videokeYes_radio, videokeNo_radio, partialPayment_fld, fullPayment_fld, paidYes_radio, paidNo_radio, checkIn_datePicker, checkOut_datePicker, roomCheckBoxes);
+
 
         available = Model.getInstance().getAvailableInRangeInit(checkIn_datePicker.getValue(), checkOut_datePicker.getValue(), roomCheckBoxes);
 
@@ -137,7 +143,7 @@ public class EditController implements Initializable {
 
 
     private RecordModel newRecordModel(){
-        return new RecordModel(id, name_fld, pax_fld, vehicle_textFld, petsYes_radio, videokeYes_radio,
-                payment_fld, checkIn_datePicker, checkOut_datePicker, roomCheckBoxes);
+        return new RecordModel(id, payStatus, name_fld, pax_fld, vehicle_textFld, petsYes_radio, videokeYes_radio,
+                partialPayment_fld, fullPayment_fld, paidYes_radio, checkIn_datePicker, checkOut_datePicker, roomCheckBoxes);
     }
 }

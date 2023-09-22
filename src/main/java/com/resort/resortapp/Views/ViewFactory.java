@@ -1,7 +1,6 @@
 package com.resort.resortapp.Views;
 
 import com.resort.resortapp.Controllers.EditController;
-import com.resort.resortapp.Controllers.ViewController;
 import com.resort.resortapp.Models.*;
 import com.resort.resortapp.Rooms;
 import javafx.fxml.FXMLLoader;
@@ -11,13 +10,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.*;
 
@@ -257,20 +256,60 @@ public class ViewFactory {
     }
     public void insertListRows(GridPane gridPane, List<RecordModel> list){
         for(int i = 0; i < list.size(); i++){
-            for(int j = 0; j < 12; j++){
+            for(int j = 0; j < 13; j++){
                 List<String> recordList = list.get(i).getList();
                 Label label = new Label();
                 label.setAlignment(Pos.CENTER);
                 label.setText(recordList.get(j));
                 label.setTextAlignment(TextAlignment.CENTER);
+
+
                 GridPane.setRowIndex(label, i);
                 GridPane.setColumnIndex(label, j);
                 gridPane.getChildren().add(label);
+                if (j == 1) {
+                    label.setMaxWidth(65.1796875);
+                    label.setWrapText(true);
+                } else if (j == 11) {
+                    label.setMaxWidth(49.669921875);
+                    label.setWrapText(true);
+                } else if (j == 7) {
+                    VBox vbox = new VBox();
+                    vbox.setAlignment(Pos.CENTER);
+
+                    Line line = new Line();
+                    line.setStartX(47.82231140136719);
+                    line.setEndX(100.61520385742188);
+
+                    Label temp = new Label();
+                    temp.setAlignment(Pos.CENTER);
+                    temp.setText(recordList.get(13));
+                    temp.setTextAlignment(TextAlignment.CENTER);
+
+                    vbox.getChildren().addAll(label, line, temp);
+                    GridPane.setRowIndex(vbox, i);
+                    GridPane.setColumnIndex(vbox, j);
+                    gridPane.getChildren().add(vbox);
+                }
+                else if(j == 8){
+                    VBox vbox = new VBox();
+                    vbox.setAlignment(Pos.CENTER);
+
+                    Label temp = new Label();
+                    temp.setAlignment(Pos.CENTER);
+                    temp.setText(recordList.get(14));
+                    temp.setTextAlignment(TextAlignment.CENTER);
+
+                    vbox.getChildren().addAll(label, temp);
+                    GridPane.setRowIndex(vbox, i);
+                    GridPane.setColumnIndex(vbox, j);
+                    gridPane.getChildren().add(vbox);
+                }
             }
 
-            Button viewButton = new Button("View");
+
             Button editButton = new Button("Edit");
-            Button deleteButton = new Button("Delete");
+            Button deleteButton = new Button("X");
 
             RecordModel recordModel = list.get(i);
             editButton.setOnAction(actionEvent -> {
@@ -287,15 +326,13 @@ public class ViewFactory {
             });
 
 
-            GridPane.setColumnIndex(viewButton, 12);
             GridPane.setColumnIndex(editButton, 13);
             GridPane.setColumnIndex(deleteButton, 14);
 
-            GridPane.setRowIndex(viewButton, i);
             GridPane.setRowIndex(editButton, i);
             GridPane.setRowIndex(deleteButton, i);
 
-            gridPane.getChildren().addAll(viewButton, editButton, deleteButton);
+            gridPane.getChildren().addAll(editButton, deleteButton);
         }
     }
     public boolean showDialog(Alert.AlertType type) {

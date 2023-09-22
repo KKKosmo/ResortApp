@@ -1,16 +1,17 @@
 index my table?
 if errors with sql, might be the plugins
 
-fix recordModel redundancy, see if the fields are even needed
 
-what should the report have?
-    scrape off view
-    change list columns (Look at docs)
-    LIST AND SUMMARY SHOULD BE ONE, ADD TOTAL BOOKING AND PAYMENT TO LIST (Look at docs), make it kinda like the preview as well
-    list should have a print button: PRINT PAGES 1-5
-    edit history
-    add column last modified, and its rows should be buttons to view data
+list should display time in 12 hour format
+list room selection must be a choicebox
+LIST AND SUMMARY SHOULD BE ONE, ADD TOTAL BOOKING AND PAYMENT TO LIST (Look at docs), make it kinda like the preview as well
+list should have a print button: PRINT PAGES 1-5
+edit history
+add column last modified, and its rows should be buttons to view data
+list should have on hover to make it easier to see
 
+
+saving list settings
 
 static list of users, and passwords, think about how to reset passwords
 

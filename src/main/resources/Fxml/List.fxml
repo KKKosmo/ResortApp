@@ -9,6 +9,9 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="parentPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.resort.resortapp.Controllers.ListController">
@@ -29,21 +32,21 @@
       <Text fx:id="room_text" layoutX="564.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ALL ROOMS" />
       <GridPane fx:id="gridPane" alignment="CENTER" gridLinesVisible="true" layoutX="9.0" layoutY="163.0" prefHeight="592.0" prefWidth="1262.0" style="-fx-background-color: #D8D8D8;">
          <columnConstraints>
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="108.0" minWidth="0.0" prefWidth="41.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="172.0" minWidth="0.0" prefWidth="89.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="309.0" minWidth="10.0" prefWidth="309.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="499.0" minWidth="10.0" prefWidth="75.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="490.0" minWidth="10.0" prefWidth="49.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="259.0" minWidth="0.0" prefWidth="47.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="263.0" minWidth="10.0" prefWidth="51.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="276.0" minWidth="8.0" prefWidth="102.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="310.0" minWidth="10.0" prefWidth="82.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="82.0" minWidth="82.0" prefWidth="82.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="82.0" minWidth="75.0" prefWidth="75.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="236.0" minWidth="10.0" prefWidth="84.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="219.0" minWidth="10.0" prefWidth="47.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="129.0" minWidth="10.0" prefWidth="42.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="82.0" minWidth="10.0" prefWidth="58.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="37.0" minWidth="37.0" prefWidth="37.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="80.0" minWidth="80.0" prefWidth="80.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="315.0" minWidth="315.0" prefWidth="315.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="25.5" prefWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="263.0" minWidth="10.0" prefWidth="104.5" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="103.5" minWidth="103.5" prefWidth="103.5" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="106.0" minWidth="90.0" prefWidth="90.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="165.0" minWidth="18.0" prefWidth="52.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="236.0" minWidth="10.0" prefWidth="94.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="219.0" minWidth="0.0" prefWidth="48.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="129.0" minWidth="10.0" prefWidth="44.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
@@ -61,44 +64,103 @@
             <RowConstraints minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
          </rowConstraints>
+<!--         <children>-->
+<!--            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="1234" />-->
+<!--            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="2023/09/19 2:34 PM" textAlignment="CENTER" wrappingWidth="65.1796875" GridPane.columnIndex="1" />-->
+<!--            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Louis Angel Ayson Manila" GridPane.columnIndex="2" />-->
+<!--            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="100" GridPane.columnIndex="3" />-->
+<!--            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="YES" GridPane.columnIndex="5" />-->
+<!--            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="YES" GridPane.columnIndex="6" />-->
+<!--            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="2023/09/19" GridPane.columnIndex="9" />-->
+<!--            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="2023/09/19" GridPane.columnIndex="10" />-->
+<!--            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="J, G, A, K1, K2" textAlignment="CENTER" wrappingWidth="49.669921875" GridPane.columnIndex="11" />-->
+<!--            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Kevinnn" GridPane.columnIndex="12" />-->
+<!--            <Button mnemonicParsing="false" text="X" GridPane.columnIndex="14" />-->
+<!--            <Button mnemonicParsing="false" text="Edit" GridPane.columnIndex="13" />-->
+<!--            <Button mnemonicParsing="false" text="45000, UNPAID" GridPane.columnIndex="8" />-->
+<!--            <VBox alignment="CENTER" GridPane.columnIndex="7">-->
+<!--               <children>-->
+<!--                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="5000" />-->
+<!--                  <Line endX="100.61520385742188" startX="47.82231140136719" />-->
+<!--                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="50000" />-->
+<!--               </children>-->
+<!--            </VBox>-->
+<!--            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="100" GridPane.columnIndex="4" />-->
+<!--         </children>-->
       </GridPane>
       <Text layoutX="495.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date" />
       <Text layoutX="637.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Date" />
       <Button fx:id="prevPage_btn" layoutX="564.0" layoutY="768.0" mnemonicParsing="false" text="&lt;" />
       <Button fx:id="nextPage_btn" layoutX="628.0" layoutY="768.0" mnemonicParsing="false" text="&gt;" />
       <TextField fx:id="room_inputFld" alignment="CENTER" layoutX="596.0" layoutY="768.0" prefHeight="25.0" prefWidth="25.0" text="1" />
-      <GridPane fx:id="decoy" alignment="CENTER" gridLinesVisible="true" layoutX="9.0" layoutY="124.0" prefHeight="38.0" prefWidth="1109.0" style="-fx-background-color: #D8D8D8;">
+      <GridPane fx:id="decoy" alignment="CENTER" gridLinesVisible="true" layoutX="9.0" layoutY="124.0" prefHeight="38.0" prefWidth="1170.0" style="-fx-background-color: #D8D8D8;">
          <columnConstraints>
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="108.0" minWidth="0.0" prefWidth="41.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="172.0" minWidth="0.0" prefWidth="89.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="309.0" minWidth="10.0" prefWidth="309.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="499.0" minWidth="10.0" prefWidth="75.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="490.0" minWidth="10.0" prefWidth="49.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="259.0" minWidth="0.0" prefWidth="47.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="263.0" minWidth="10.0" prefWidth="51.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="276.0" minWidth="8.0" prefWidth="102.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="310.0" minWidth="10.0" prefWidth="82.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="82.0" minWidth="82.0" prefWidth="82.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="82.0" minWidth="75.0" prefWidth="75.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="236.0" minWidth="10.0" prefWidth="84.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="37.0" minWidth="37.0" prefWidth="37.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="80.0" minWidth="80.0" prefWidth="80.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="315.0" minWidth="315.0" prefWidth="315.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="25.5" prefWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="263.0" minWidth="10.0" prefWidth="104.5" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="103.5" minWidth="103.5" prefWidth="103.5" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="106.0" minWidth="90.0" prefWidth="90.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="165.0" minWidth="18.0" prefWidth="52.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="236.0" minWidth="10.0" prefWidth="94.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date" GridPane.columnIndex="1" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" GridPane.columnIndex="2" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="No. of Heads" GridPane.columnIndex="3" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Vehicle" GridPane.columnIndex="4" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pets" GridPane.columnIndex="5" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Videoke" GridPane.columnIndex="6" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Partial Payment" GridPane.columnIndex="7" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Check In" GridPane.columnIndex="8" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Check Out" GridPane.columnIndex="9" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room" GridPane.columnIndex="10" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="User" GridPane.columnIndex="11" />
+            <Text stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="ID">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Text>
+            <Text stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="TIME CREATED" textAlignment="CENTER" wrappingWidth="56.802734375" GridPane.columnIndex="1">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Text>
+            <Text stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" GridPane.columnIndex="2">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Text>
+            <Text stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Head Count" textAlignment="CENTER" wrappingWidth="38.36328125" GridPane.columnIndex="3">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Text>
+            <Text stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Vehicle" GridPane.columnIndex="4">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Text>
+            <Text stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Pets" GridPane.columnIndex="5">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Text>
+            <Text stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Videoke" GridPane.columnIndex="6">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Text>
+            <VBox alignment="CENTER" GridPane.columnIndex="7">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Partial Payment">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Text>
+                  <Line endX="100.61520385742188" startX="12.32231330871582" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Full Payment">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Text>
+               </children>
+            </VBox>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Check In" GridPane.columnIndex="9" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Check Out" GridPane.columnIndex="10" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room" GridPane.columnIndex="11" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="User" GridPane.columnIndex="12" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Balance" GridPane.columnIndex="8" />
          </children>
       </GridPane>
       <Button fx:id="burger_btn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false">

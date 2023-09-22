@@ -191,7 +191,8 @@ public class sqliteModel {
         String vehicle = recordModel.getVehicle();
         boolean pets = recordModel.isPetsBool();
         boolean videoke = recordModel.isVideokeBool();
-        String partial_paymentString = recordModel.getPayment();
+        String partial_paymentString = recordModel.getPartialPayment();
+        String fullPaymentString = recordModel.getFullPayment();
         String checkIn = recordModel.getCheckIn();
         String checkOut = recordModel.getCheckOut();
         String roomUnformatted = recordModel.getRooms();
@@ -222,6 +223,10 @@ public class sqliteModel {
         }
         else if(partial_paymentString.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Partial payment is empty.");
+            return false;
+        }
+        else if(fullPaymentString.isEmpty()){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Full payment is empty.");
             return false;
         }
         else if(checkIn.isEmpty()){
@@ -257,8 +262,8 @@ public class sqliteModel {
         }
         else{
             String currentDate = LocalDateTime.now().format(formatter);
-
             int paxInt = Integer.parseInt(paxString);
+            boolean paid = false;
 
             if(paxInt <= 0){
                 Model.getInstance().getViewFactory().showErrorPopup("Error: Number of people must be more than 0.");
@@ -266,12 +271,22 @@ public class sqliteModel {
             }
 
             double partial_paymentDouble = Double.parseDouble(partial_paymentString);
+            double fullPaymentDouble = Double.parseDouble(fullPaymentString);
+
+            if(partial_paymentDouble > fullPaymentDouble){
+                Model.getInstance().getViewFactory().showErrorPopup("Error: Partial payment must be less than full payment.");
+                return false;
+//            } else if (partial_paymentDouble == fullPaymentDouble && !paid) {
+//                paid = Model.getInstance().getViewFactory().showConfirmPopup("Confirm: Partial payment is the same as full payment, do you want to consider it as paid?");
+//            }
+            } else if (partial_paymentDouble == fullPaymentDouble) {
+                paid = true;
+            }
 
 
-
-            String sql = String.format("INSERT INTO main (dateInserted, name, pax, vehicle, pets, videoke, partial_payment, checkIn, checkOut, room) " +
-                            "VALUES ('%s','%s', %d, %d, %b, %b, %.2f, '%s', '%s', '%s');",
-                    currentDate, name, paxInt, Integer.parseInt(vehicle), pets, videoke, partial_paymentDouble, checkIn, checkOut, roomUnformatted);
+            String sql = String.format("INSERT INTO main (dateInserted, name, pax, vehicle, pets, videoke, partial_payment, full_payment, paid, checkIn, checkOut, room) " +
+                            "VALUES ('%s','%s', %d, %d, %b, %b, %.2f, %.2f, %b, '%s', '%s', '%s');",
+                    currentDate, name, paxInt, Integer.parseInt(vehicle), pets, videoke, partial_paymentDouble, fullPaymentDouble, paid, checkIn, checkOut, roomUnformatted);
 
             System.out.println("sql = " + sql);
             try {
@@ -301,7 +316,9 @@ public class sqliteModel {
         String vehicle = recordModel.getVehicle();
         boolean pets = recordModel.isPetsBool();
         boolean videoke = recordModel.isVideokeBool();
-        String partial_paymentString = recordModel.getPayment();
+        boolean paid = recordModel.isPayStatusBool();
+        String partial_paymentString = recordModel.getPartialPayment();
+        String fullPaymentString = recordModel.getFullPayment();
         String checkIn = recordModel.getCheckIn();
         String checkOut = recordModel.getCheckOut();
         String roomUnformatted = recordModel.getRooms();
@@ -328,8 +345,16 @@ public class sqliteModel {
             Model.getInstance().getViewFactory().showErrorPopup("Error: Videoke choice is empty.");
             return false;
         }
+        else if(recordModel.getPaidYes_radio().getToggleGroup().getSelectedToggle() == null){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Paid status choice is empty.");
+            return false;
+        }
         else if(partial_paymentString.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Partial payment is empty.");
+            return false;
+        }
+        else if(fullPaymentString.isEmpty()){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Full payment is empty.");
             return false;
         }
         else if(checkIn.isEmpty()){
@@ -375,8 +400,17 @@ public class sqliteModel {
             }
 
             double partial_paymentDouble = Double.parseDouble(partial_paymentString);
+            double fullPaymentDouble = Double.parseDouble(fullPaymentString);
 
-
+            if(partial_paymentDouble > fullPaymentDouble){
+                Model.getInstance().getViewFactory().showErrorPopup("Error: Partial payment must be less than full payment.");
+                return false;
+//            } else if (partial_paymentDouble == fullPaymentDouble && !paid) {
+//                paid = Model.getInstance().getViewFactory().showConfirmPopup("Confirm: Partial payment is the same as full payment, do you want to consider it as paid?");
+//            }
+            } else if (partial_paymentDouble == fullPaymentDouble) {
+                paid = true;
+            }
 
             String sql = String.format("UPDATE main SET " +
                             "name = '%s', " +
@@ -385,11 +419,13 @@ public class sqliteModel {
                             "pets = %b, " +
                             "videoke = %b, " +
                             "partial_payment = %.2f, " +
+                            "full_payment = %.2f, " +
+                            "paid = %b, " +
                             "checkIn = '%s', " +
                             "checkOut = '%s', " +
                             "room = '%s' " +
                             "WHERE id = '%d';",
-                    name, paxInt, Integer.parseInt(vehicle), pets, videoke, partial_paymentDouble, checkIn, checkOut, roomUnformatted, recordModel.getIdInt());
+                    name, paxInt, Integer.parseInt(vehicle), pets, videoke, partial_paymentDouble, fullPaymentDouble, paid, checkIn, checkOut, roomUnformatted, recordModel.getIdInt());
 
             System.out.println("sql = " + sql);
             try {
@@ -477,7 +513,7 @@ public class sqliteModel {
     }
     public static List<RecordModel> queryViewList(){//TODO SHOULD RETURN RECORD OBJECT
         List<RecordModel> result = new ArrayList<>();
-        String sql = "SELECT * FROM main ORDER BY id DESC limit 15";
+        String sql = "SELECT * FROM main ORDER BY id DESC limit 16";
         try {
             PreparedStatement pStmt = openDB().prepareStatement(sql);
             ResultSet resultSet = pStmt.executeQuery();
@@ -490,12 +526,14 @@ public class sqliteModel {
                 boolean pets = resultSet.getBoolean("pets");
                 boolean videoke = resultSet.getBoolean("videoke");
                 double partial_payment = resultSet.getDouble("partial_payment");
+                double full_payment = resultSet.getDouble("full_payment");
+                boolean payStatus = resultSet.getBoolean("paid");
                 LocalDate checkInString = LocalDate.parse(resultSet.getString("checkIn"));
                 LocalDate checkOutString = LocalDate.parse(resultSet.getString("checkOut"));
                 String room = resultSet.getString("room");
                 String user = resultSet.getString("user");
 
-                RecordModel recordModel = new RecordModel(id, dateInserted, name, pax, vehicle, pets, videoke, partial_payment, checkInString, checkOutString, room, user);
+                RecordModel recordModel = new RecordModel(id, dateInserted, name, pax, vehicle, pets, videoke, partial_payment, full_payment, payStatus, checkInString, checkOutString, room, user);
                 result.add(recordModel);
             }
             resultSet.close();

@@ -36,6 +36,7 @@ public class CreateController  implements Initializable{
     public CheckBox kubo1_ChkBox;
     public CheckBox kubo2_ChkBox;
     public TextField vehicle_textFld;
+    public TextField fullPayment_fld;
     Set<String> available;
     public AnchorPane escMenu;
     List<CheckBox> roomCheckBoxes = new ArrayList<>();
@@ -62,6 +63,7 @@ public class CreateController  implements Initializable{
         });
         textFieldAddListener(pax_fld);
         textFieldAddListener(payment_fld);
+        textFieldAddListener(fullPayment_fld);
 
         checkIn_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue != null){
@@ -96,7 +98,7 @@ public class CreateController  implements Initializable{
     }
     private void insertRecord(){
         if(sqliteModel.insertRecord(newRecordModel(), available)){
-            Model.getInstance().getViewFactory().setSceneMainMenu();
+            Model.getInstance().getViewFactory().setSceneList();
         }
     }
     private void clearForm(){
@@ -108,6 +110,7 @@ public class CreateController  implements Initializable{
         petsNo_radio.setSelected(false);
         vehicle_textFld.clear();
         payment_fld.clear();
+        fullPayment_fld.clear();
         checkIn_datePicker.setValue(null);
         Model.getInstance().setLeftDate(null);
         checkOut_datePicker.setValue(null);
@@ -132,6 +135,6 @@ public class CreateController  implements Initializable{
     }
     private RecordModel newRecordModel(){
         return new RecordModel(name_fld, pax_fld, vehicle_textFld, petsYes_radio, videokeYes_radio,
-                payment_fld, checkIn_datePicker, checkOut_datePicker, roomCheckBoxes);
+                payment_fld, fullPayment_fld, checkIn_datePicker, checkOut_datePicker, roomCheckBoxes);
     }
 }
