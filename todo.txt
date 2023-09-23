@@ -3,9 +3,6 @@ if errors with sql, might be the plugins
 
 
 implement saving list settings
-    should get date first before filtering of any kind
-        get date, query, retrieve all, filter accordingly
-            default date should be this month
     room selection
     sort
     search bar
