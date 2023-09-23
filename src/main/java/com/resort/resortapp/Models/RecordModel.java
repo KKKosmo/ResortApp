@@ -7,6 +7,9 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,6 +68,9 @@ public class RecordModel {
 //        this.partial_paymentDouble = partialPayment;
 //        this.checkInLD = checkIn;
 //        this.checkOutLD = checkOut;
+        System.out.println(this.dateInserted);
+        this.dateInserted = LocalDateTime.parse(dateInserted, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd h:mm a"));
+        System.out.println(this.dateInserted);
 
         list.add(this.id);
         list.add(this.dateInserted);
