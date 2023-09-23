@@ -42,6 +42,17 @@ public class Model {
 
     private List<Set<String>> availableRoomsPerDayList;
 
+
+    private List<RecordModel> tableRecordModels;
+
+    private LocalDate tableStartDate;
+    private LocalDate tableEndDate;
+    private int currentPage;
+    private int maxPage;
+    private int startIndex;
+    private int endIndex;
+
+
     private Model(){
         this.viewFactory = new ViewFactory();
     }
@@ -298,4 +309,81 @@ public class Model {
         }
         return rooms;
     }
+
+
+    public List<RecordModel> getListRecordModels() {
+        return tableRecordModels;
+    }
+
+    public void setListRecordModels(List<RecordModel> listRecordModels) {
+        tableRecordModels = listRecordModels;
+//        System.out.println("size = " + listRecordModels.size());
+        maxPage = (int) Math.ceil((float) listRecordModels.size() / 16);
+    }
+
+    public void initTableValues(){
+        LocalDate temp = LocalDate.now();
+        tableStartDate = temp.withDayOfMonth(1);
+        tableEndDate = temp.withDayOfMonth(temp.lengthOfMonth());
+//        setCurrentPage(1);
+//        maxPage = 1;
+    }
+
+
+    public LocalDate getTableStartDate() {
+        return tableStartDate;
+    }
+
+    public void setTableStartDate(LocalDate tableStartDate) {
+        this.tableStartDate = tableStartDate;
+    }
+
+    public LocalDate getTableEndDate() {
+        return tableEndDate;
+    }
+
+    public void setTableEndDate(LocalDate tableEndDate) {
+        this.tableEndDate = tableEndDate;
+    }
+
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
+        this.startIndex = 16 * (currentPage - 1);
+//        if(tableRecordModels == null){
+//            this.endIndex = Math.max(startIndex + 15);
+//        }
+//        else{
+            this.endIndex = Math.min(startIndex + 16, tableRecordModels.size());
+//        }
+    }
+
+    public int getMaxPage() {
+        return maxPage;
+    }
+
+    public void setMaxPage(int maxPage) {
+        this.maxPage = maxPage;
+    }
+
+    public int getStartIndex() {
+        return startIndex;
+    }
+
+    public int getEndIndex() {
+        return endIndex;
+    }
+
+    public int getInitEndIndex(){
+        if(endIndex == 0){
+            return Math.min(getListRecordModels().size(), 16);
+        }
+        else{
+            return endIndex;
+        }
+    }
+
 }

@@ -15,7 +15,7 @@ public class HelloApplication extends Application {
     public void start(Stage stage){
         Model.getInstance().getViewFactory().setStage(stage);
         stage.setTitle("J&G Resort App");
-        Model.getInstance().getViewFactory().setSceneLogin();
+        Model.getInstance().getViewFactory().setSceneList();
         stage.setResizable(false);
         stage.show();
 //        Model.getInstance().generateReportPDF();

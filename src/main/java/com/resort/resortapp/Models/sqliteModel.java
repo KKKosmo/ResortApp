@@ -464,7 +464,7 @@ public class sqliteModel {
         DESC;
     }
 
-    public static List<List<String>> queryViewList(OrderCategory orderCategory, OrderDirection orderDirection, int page){
+    public static List<List<String>> queryTableRecords(OrderCategory orderCategory, OrderDirection orderDirection, int page){
         List<List<String>> result = new ArrayList<>();
         String sql = "SELECT * FROM main ORDER BY id DESC limit 15";
         try {
@@ -511,9 +511,12 @@ public class sqliteModel {
         }
         return result;
     }
-    public static List<RecordModel> queryViewList(){//TODO SHOULD RETURN RECORD OBJECT
+    public static void queryTableRecords(){
         List<RecordModel> result = new ArrayList<>();
-        String sql = "SELECT * FROM main ORDER BY id DESC limit 16";
+
+        String sql = String.format("SELECT * FROM main WHERE checkIn <= '%s' AND checkOut >= '%s' ORDER BY id;",
+                Model.getInstance().getTableEndDate(), Model.getInstance().getTableStartDate());
+        System.out.println(sql);
         try {
             PreparedStatement pStmt = openDB().prepareStatement(sql);
             ResultSet resultSet = pStmt.executeQuery();
@@ -542,7 +545,7 @@ public class sqliteModel {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return result;
+        Model.getInstance().setListRecordModels(result);
     }
     public static boolean deleteEntry(int id){
         String sql = String.format("DELETE FROM main WHERE id = %d", id);

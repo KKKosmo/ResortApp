@@ -1,13 +1,22 @@
 index my table?
 if errors with sql, might be the plugins
 
+
 implement saving list settings
+    should get date first before filtering of any kind
+        get date, query, retrieve all, filter accordingly
+            default date should be this month
     room selection
     sort
     search bar
+    default button functions
     edit history
+
     print
 
+dont init list everytime
+if query more than 100 or sum, split into 2
+when creating, handle what if different months
 
 static list of users, and passwords, think about how to reset passwords
 

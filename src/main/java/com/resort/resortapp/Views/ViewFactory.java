@@ -3,7 +3,6 @@ package com.resort.resortapp.Views;
 import com.resort.resortapp.Controllers.EditController;
 import com.resort.resortapp.Models.*;
 import com.resort.resortapp.Rooms;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -31,8 +30,11 @@ public class ViewFactory {
     private FlowPane flowPane;
     private Stage stage;
     List<DayModel> dayModelList = new ArrayList<>();
+    List<Node> listTableChildren;
 
-//    TODO listview settings
+    GridPane listTable;
+
+    //    TODO listview settings
     Border borderUnselected = new Border(new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.SOLID, null, new BorderWidths(3)));
     Border normalBorder = new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, new BorderWidths(5)));
     public void setCalendarVariables(FlowPane flowPane, Text yearText, Text monthText, Text roomText) {
@@ -54,7 +56,7 @@ public class ViewFactory {
     }
     public void setSceneList() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/List.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Table.fxml"));
             stage.setScene(new Scene(loader.load()));
         } catch (Exception e) {
             e.printStackTrace();
@@ -248,8 +250,17 @@ public class ViewFactory {
             e.printStackTrace();
         }
     }
-    public void insertListRows(GridPane gridPane, List<RecordModel> list){
-        for(int i = 0; i < list.size(); i++){
+    public void insertListRows(){
+        listTableChildren.removeIf(node -> listTableChildren.indexOf(node) > 8);
+        List<RecordModel> list = Model.getInstance().getListRecordModels();
+//        System.out.println(list);
+        int startIndex = Model.getInstance().getStartIndex();
+        int endIndex = Model.getInstance().getInitEndIndex();
+
+        System.out.println(startIndex);
+        System.out.println(endIndex);
+
+        for(int i = startIndex; i < endIndex; i++){
             for(int j = 0; j < 14; j++){
                 List<String> recordList = list.get(i).getList();
                 Label label = new Label();
@@ -258,9 +269,9 @@ public class ViewFactory {
                 label.setTextAlignment(TextAlignment.CENTER);
 
 
-                GridPane.setRowIndex(label, i);
+                GridPane.setRowIndex(label, i - startIndex);
                 GridPane.setColumnIndex(label, j);
-                gridPane.getChildren().add(label);
+                listTable.getChildren().add(label);
                 if (j == 1) {
                     label.setMaxWidth(65.1796875);
                     label.setWrapText(true);
@@ -281,9 +292,9 @@ public class ViewFactory {
                     temp.setTextAlignment(TextAlignment.CENTER);
 
                     vbox.getChildren().addAll(label, line, temp);
-                    GridPane.setRowIndex(vbox, i);
+                    GridPane.setRowIndex(vbox, i - startIndex);
                     GridPane.setColumnIndex(vbox, j);
-                    gridPane.getChildren().add(vbox);
+                    listTable.getChildren().add(vbox);
                 }
 //                else if(j == 8){
 //                    VBox vbox = new VBox();
@@ -313,9 +324,8 @@ public class ViewFactory {
             deleteButton.setOnAction(actionEvent -> {
                 if(showConfirmPopup("Are you sure you want to delete this row?")){
                     if(sqliteModel.deleteEntry(recordModel.getIdInt())){
-                        ObservableList<Node> children = gridPane.getChildren();
-                        children.removeIf(node -> children.indexOf(node) > 8);
-                        insertListRows(gridPane, sqliteModel.queryViewList());
+                        listTableChildren.removeIf(node -> listTableChildren.indexOf(node) > 8);
+                        insertListRows();
                     }
                 }
             });
@@ -324,10 +334,10 @@ public class ViewFactory {
             GridPane.setColumnIndex(editButton, 14);
             GridPane.setColumnIndex(deleteButton, 15);
 
-            GridPane.setRowIndex(editButton, i);
-            GridPane.setRowIndex(deleteButton, i);
+            GridPane.setRowIndex(editButton, i - startIndex);
+            GridPane.setRowIndex(deleteButton, i - startIndex);
 
-            gridPane.getChildren().addAll(editButton, deleteButton);
+            listTable.getChildren().addAll(editButton, deleteButton);
         }
     }
     public boolean showDialog(Alert.AlertType type) {
@@ -373,4 +383,12 @@ public class ViewFactory {
         return dayModelList;
     }
 
+    public void setListTableChildren(List<Node> listTableChildren) {
+        this.listTableChildren = listTableChildren;
+    }
+
+    public void setListTable(GridPane listTable) {
+        this.listTable = listTable;
+        setListTableChildren(listTable.getChildren());
+    }
 }
