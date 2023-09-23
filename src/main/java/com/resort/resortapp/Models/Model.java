@@ -47,7 +47,7 @@ public class Model {
 
     private LocalDate tableStartDate;
     private LocalDate tableEndDate;
-    private int currentPage;
+    private int currentPage = 1;
     private int maxPage;
     private int startIndex;
     private int endIndex;
@@ -315,11 +315,6 @@ public class Model {
         return tableRecordModels;
     }
 
-    public void setListRecordModels(List<RecordModel> listRecordModels) {
-        tableRecordModels = listRecordModels;
-//        System.out.println("size = " + listRecordModels.size());
-        maxPage = (int) Math.ceil((float) listRecordModels.size() / 16);
-    }
 
     public void initTableValues(){
         LocalDate temp = LocalDate.now();
@@ -350,15 +345,18 @@ public class Model {
         return currentPage;
     }
 
+    public void setListRecordModels(List<RecordModel> listRecordModels) {
+        tableRecordModels = listRecordModels;
+        maxPage = (int) Math.ceil((float) listRecordModels.size() / 16);
+        endIndex = Math.min(startIndex + 16, tableRecordModels.size());
+        System.out.println("PLSW ORD");
+    }
     public void setCurrentPage(int currentPage) {
         this.currentPage = currentPage;
         this.startIndex = 16 * (currentPage - 1);
-//        if(tableRecordModels == null){
-//            this.endIndex = Math.max(startIndex + 15);
-//        }
-//        else{
-            this.endIndex = Math.min(startIndex + 16, tableRecordModels.size());
-//        }
+        this.endIndex = Math.min(startIndex + 16, tableRecordModels.size());
+        System.out.println("SETTING CURRENT OPAEG");
+//
     }
 
     public int getMaxPage() {

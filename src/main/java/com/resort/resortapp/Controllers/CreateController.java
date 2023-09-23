@@ -98,7 +98,7 @@ public class CreateController  implements Initializable{
     }
     private void insertRecord(){
         if(sqliteModel.insertRecord(newRecordModel(), available)){
-            Model.getInstance().getViewFactory().setSceneList();
+            Model.getInstance().getViewFactory().setSceneTable();
         }
     }
     private void clearForm(){

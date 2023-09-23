@@ -1,7 +1,6 @@
 package com.resort.resortapp.Controllers;
 
 import com.resort.resortapp.Models.Model;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
@@ -32,7 +31,7 @@ public class EscMenuController implements Initializable {
             pane.setVisible(false);
         });
         list.setOnAction(actionEvent -> {
-            Model.getInstance().getViewFactory().setSceneList();
+            Model.getInstance().getViewFactory().setSceneTable();
             pane.setVisible(false);
         });
         signOut.setOnAction(actionEvent -> {

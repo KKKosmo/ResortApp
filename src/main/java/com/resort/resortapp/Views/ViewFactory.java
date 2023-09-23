@@ -1,6 +1,7 @@
 package com.resort.resortapp.Views;
 
 import com.resort.resortapp.Controllers.EditController;
+import com.resort.resortapp.Controllers.TableController;
 import com.resort.resortapp.Models.*;
 import com.resort.resortapp.Rooms;
 import javafx.fxml.FXMLLoader;
@@ -32,6 +33,7 @@ public class ViewFactory {
     List<DayModel> dayModelList = new ArrayList<>();
     List<Node> listTableChildren;
 
+    Scene table;
     GridPane listTable;
 
     //    TODO listview settings
@@ -54,13 +56,38 @@ public class ViewFactory {
         parentPane.getChildren().add(escMenu);
         return escMenu;
     }
-    public void setSceneList() {
+    public void setSceneTable() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Table.fxml"));
+        Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Table.fxml"));
-            stage.setScene(new Scene(loader.load()));
-        } catch (Exception e) {
+            root = loader.load();
+        } catch (IOException e) {
             e.printStackTrace();
         }
+//        if(table == null){
+//            try {
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+
+        table = new Scene(root);
+        TableController tableController = loader.getController();
+        tableController.myInit();
+        tableController.setEscMenu();
+        stage.setScene(table);
+
+
+
+
+//            try {
+//                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Table.fxml"));
+//                stage.setScene(new Scene(loader.load()));
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+
+
     }
     public void setSceneLogin(){
         try {
@@ -251,6 +278,7 @@ public class ViewFactory {
         }
     }
     public void insertListRows(){
+        System.out.println("INSERTING TABLE");
         listTableChildren.removeIf(node -> listTableChildren.indexOf(node) > 8);
         List<RecordModel> list = Model.getInstance().getListRecordModels();
 //        System.out.println(list);
@@ -325,7 +353,7 @@ public class ViewFactory {
                 if(showConfirmPopup("Are you sure you want to delete this row?")){
                     if(sqliteModel.deleteEntry(recordModel.getIdInt())){
                         listTableChildren.removeIf(node -> listTableChildren.indexOf(node) > 8);
-                        insertListRows();
+                        setSceneTable();
                     }
                 }
             });

@@ -74,7 +74,7 @@ public class EditController implements Initializable {
         RecordModel newRecordModel = newRecordModel();
         if(Model.getInstance().getViewFactory().showConfirmPopup("Are you sure you want to edit this record?" + initRecordModel.checkDifferences(newRecordModel))){
             if(sqliteModel.updateRecord(newRecordModel, available)){
-                Model.getInstance().getViewFactory().setSceneList();
+                Model.getInstance().getViewFactory().setSceneTable();
             }
         }
     }

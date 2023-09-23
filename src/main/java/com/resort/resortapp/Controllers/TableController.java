@@ -51,17 +51,17 @@ public class TableController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("DONT INIT LIST EVERYIME");
+        System.out.println("INITIALIZE");
+
         Model.getInstance().getViewFactory().setListTable(gridPane);
         Model.getInstance().initTableValues();
-        sqliteModel.queryTableRecords();
-        myInit();
-        Model.getInstance().setCurrentPage(1);
+//        myInit();
+
 
         startDate_datePicker.setValue(Model.getInstance().getTableStartDate());
         endDate_datePicker.setValue(Model.getInstance().getTableEndDate());
-        lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
-
+        currentPage_txt.setText(String.valueOf(Model.getInstance().getCurrentPage()));
+        page_fld.setText(String.valueOf(Model.getInstance().getCurrentPage()));
 
         burger_btn.setOnAction(actionEvent -> {
             escMenu.setVisible(true);
@@ -96,20 +96,18 @@ public class TableController implements Initializable {
             Model.getInstance().setTableStartDate(newValue);
             sqliteModel.queryTableRecords();
             Model.getInstance().getViewFactory().insertListRows();
+            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
         });
         endDate_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             Model.getInstance().setTableEndDate(newValue);
             sqliteModel.queryTableRecords();
             Model.getInstance().getViewFactory().insertListRows();
+            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
         });
         prevPage_btn.setOnAction(actionEvent -> {
-//            Model.getInstance().setCurrentPage(Math.max(0, Model.getInstance().getCurrentPage())-1);
-//            page_fld.setText(String.valueOf(Model.getInstance().getCurrentPage()));
             page_fld.setText(String.valueOf(Model.getInstance().getCurrentPage()-1));
         });
         nextPage_btn.setOnAction(actionEvent -> {
-//            Model.getInstance().setCurrentPage(Math.min(Model.getInstance().getMaxPage(), Model.getInstance().getCurrentPage())+1);
-//            page_fld.setText(String.valueOf(Model.getInstance().getCurrentPage()));
             page_fld.setText(String.valueOf(Model.getInstance().getCurrentPage()+1));
         });
         page_fld.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -134,8 +132,15 @@ public class TableController implements Initializable {
     }
 
     public void myInit(){
-        escMenu =  Model.getInstance().getViewFactory().getEscMenu(parentPane);
+        System.out.println("MYINIT");
+//        Model.getInstance().getViewFactory().setListTable(gridPane);
+        sqliteModel.queryTableRecords();
         Model.getInstance().getViewFactory().insertListRows();
+        lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
+    }
+
+    public void setEscMenu(){
+        escMenu =  Model.getInstance().getViewFactory().getEscMenu(parentPane);
     }
     private void onHover(HBox hBox){
         hBox.setOnMouseEntered(event -> {
