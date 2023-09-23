@@ -19,7 +19,6 @@
                   <Button fx:id="add" mnemonicParsing="false" prefHeight="78.0" prefWidth="261.0" text="ADD" />
                   <Button fx:id="calendar" mnemonicParsing="false" prefHeight="78.0" prefWidth="261.0" text="View by Calendar" />
                   <Button fx:id="list" mnemonicParsing="false" prefHeight="78.0" prefWidth="261.0" text="View by List" />
-                  <Button fx:id="summary" mnemonicParsing="false" prefHeight="78.0" prefWidth="261.0" text="Summary" />
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="291.0" prefWidth="442.0" spacing="20.0">

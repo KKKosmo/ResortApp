@@ -1,17 +1,13 @@
 index my table?
 if errors with sql, might be the plugins
 
+implement saving list settings
+    room selection
+    sort
+    search bar
+    edit history
+    print
 
-list should display time in 12 hour format
-list room selection must be a choicebox
-LIST AND SUMMARY SHOULD BE ONE, ADD TOTAL BOOKING AND PAYMENT TO LIST (Look at docs), make it kinda like the preview as well
-list should have a print button: PRINT PAGES 1-5
-edit history
-add column last modified, and its rows should be buttons to view data
-list should have on hover to make it easier to see
-
-
-saving list settings
 
 static list of users, and passwords, think about how to reset passwords
 
@@ -20,6 +16,7 @@ static list of users, and passwords, think about how to reset passwords
 
 text field lengths should be limited
 vehicle field number only
+button mouse appearances
 
 check proper popups, a warning should not be the same as information
 are u sure u want to delete this row -> row ID

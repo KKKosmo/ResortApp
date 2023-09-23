@@ -1,0 +1,7 @@
+.pane {
+    -fx-background-color: lightgray;
+}
+
+.pane:hover {
+    -fx-background-color: lightblue;
+}

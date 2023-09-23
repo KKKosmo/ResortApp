@@ -13,7 +13,6 @@ public class EscMenuController implements Initializable {
     public Button add;
     public Button calendar;
     public Button list;
-    public Button summary;
     public Button signOut;
     public Button exit;
     public Button burger;
@@ -34,10 +33,6 @@ public class EscMenuController implements Initializable {
         });
         list.setOnAction(actionEvent -> {
             Model.getInstance().getViewFactory().setSceneList();
-            pane.setVisible(false);
-        });
-        summary.setOnAction(actionEvent -> {
-            Model.getInstance().getViewFactory().setSceneSummary();
             pane.setVisible(false);
         });
         signOut.setOnAction(actionEvent -> {

@@ -3,8 +3,10 @@ package com.resort.resortapp.Views;
 import com.resort.resortapp.Controllers.EditController;
 import com.resort.resortapp.Models.*;
 import com.resort.resortapp.Rooms;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -80,14 +82,6 @@ public class ViewFactory {
     public void setSceneMainMenu(){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/MainMenu.fxml"));
-            stage.setScene(new Scene(loader.load()));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    public void setSceneSummary(){
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Summary.fxml"));
             stage.setScene(new Scene(loader.load()));
         } catch (Exception e) {
             e.printStackTrace();
@@ -256,7 +250,7 @@ public class ViewFactory {
     }
     public void insertListRows(GridPane gridPane, List<RecordModel> list){
         for(int i = 0; i < list.size(); i++){
-            for(int j = 0; j < 13; j++){
+            for(int j = 0; j < 14; j++){
                 List<String> recordList = list.get(i).getList();
                 Label label = new Label();
                 label.setAlignment(Pos.CENTER);
@@ -270,7 +264,7 @@ public class ViewFactory {
                 if (j == 1) {
                     label.setMaxWidth(65.1796875);
                     label.setWrapText(true);
-                } else if (j == 11) {
+                } else if (j == 12) {
                     label.setMaxWidth(49.669921875);
                     label.setWrapText(true);
                 } else if (j == 7) {
@@ -283,7 +277,7 @@ public class ViewFactory {
 
                     Label temp = new Label();
                     temp.setAlignment(Pos.CENTER);
-                    temp.setText(recordList.get(13));
+                    temp.setText(recordList.get(14));
                     temp.setTextAlignment(TextAlignment.CENTER);
 
                     vbox.getChildren().addAll(label, line, temp);
@@ -291,20 +285,20 @@ public class ViewFactory {
                     GridPane.setColumnIndex(vbox, j);
                     gridPane.getChildren().add(vbox);
                 }
-                else if(j == 8){
-                    VBox vbox = new VBox();
-                    vbox.setAlignment(Pos.CENTER);
-
-                    Label temp = new Label();
-                    temp.setAlignment(Pos.CENTER);
-                    temp.setText(recordList.get(14));
-                    temp.setTextAlignment(TextAlignment.CENTER);
-
-                    vbox.getChildren().addAll(label, temp);
-                    GridPane.setRowIndex(vbox, i);
-                    GridPane.setColumnIndex(vbox, j);
-                    gridPane.getChildren().add(vbox);
-                }
+//                else if(j == 8){
+//                    VBox vbox = new VBox();
+//                    vbox.setAlignment(Pos.CENTER);
+//
+//                    Label temp = new Label();
+//                    temp.setAlignment(Pos.CENTER);
+//                    temp.setText(recordList.get(14));
+//                    temp.setTextAlignment(TextAlignment.CENTER);
+//
+//                    vbox.getChildren().addAll(label, temp);
+//                    GridPane.setRowIndex(vbox, i);
+//                    GridPane.setColumnIndex(vbox, j);
+//                    gridPane.getChildren().add(vbox);
+//                }
             }
 
 
@@ -319,15 +313,16 @@ public class ViewFactory {
             deleteButton.setOnAction(actionEvent -> {
                 if(showConfirmPopup("Are you sure you want to delete this row?")){
                     if(sqliteModel.deleteEntry(recordModel.getIdInt())){
-                        gridPane.getChildren().retainAll(gridPane.getChildren().get(0));
+                        ObservableList<Node> children = gridPane.getChildren();
+                        children.removeIf(node -> children.indexOf(node) > 8);
                         insertListRows(gridPane, sqliteModel.queryViewList());
                     }
                 }
             });
 
 
-            GridPane.setColumnIndex(editButton, 13);
-            GridPane.setColumnIndex(deleteButton, 14);
+            GridPane.setColumnIndex(editButton, 14);
+            GridPane.setColumnIndex(deleteButton, 15);
 
             GridPane.setRowIndex(editButton, i);
             GridPane.setRowIndex(deleteButton, i);
@@ -377,4 +372,5 @@ public class ViewFactory {
     public List<DayModel> getDayModelList() {
         return dayModelList;
     }
+
 }

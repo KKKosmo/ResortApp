@@ -68,9 +68,9 @@ public class RecordModel {
 //        this.partial_paymentDouble = partialPayment;
 //        this.checkInLD = checkIn;
 //        this.checkOutLD = checkOut;
-        System.out.println(this.dateInserted);
+//        System.out.println(this.dateInserted);
         this.dateInserted = LocalDateTime.parse(dateInserted, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd h:mm a"));
-        System.out.println(this.dateInserted);
+//        System.out.println(this.dateInserted);
 
         list.add(this.id);
         list.add(this.dateInserted);
@@ -81,12 +81,12 @@ public class RecordModel {
         list.add(this.videoke);
         list.add(this.partialPayment);
         list.add(this.balance);
+        list.add(this.payStatus);
         list.add(this.checkIn);
         list.add(this.checkOut);
         list.add(this.rooms);
         list.add(this.user);
         list.add(this.fullPayment);
-        list.add(this.payStatus);
     }
 
     //for creating
