@@ -55,6 +55,37 @@ public class Model {
     private Set<String> tableRooms = new HashSet<>();
     private String nameFilter = "";
 
+    public enum OrderCategory{
+        ID("id"),
+        DATEINSERTED("dateInserted"),
+        NAME("lower(name)"),
+        PAX("pax"),
+        VEHICLE("vehicle"),
+        PETS("pets"),
+        VIDEOKE("videoke"),
+        PARTIALPAYMENT("partial_payment"),
+        FULLPAYMENT("full_payment"),
+        BALANCE("balance"),
+        STATUS("paid"),
+        CHECKIN("checkIn"),
+        CHECKOUT("checkOut"),
+        ROOM("room"),
+        USER("user");
+
+        final private String string;
+
+        OrderCategory(String string) {
+            this.string = string;
+        }
+
+        public String getString() {
+            return string;
+        }
+    }
+
+    private OrderCategory orderCategory = OrderCategory.ID;
+    private boolean ASC = false;
+
 
     private Model(){
         this.viewFactory = new ViewFactory();
@@ -402,5 +433,21 @@ public class Model {
 
     public void setNameFilter(String nameFilter) {
         this.nameFilter = nameFilter;
+    }
+
+    public OrderCategory getOrderCategory() {
+        return orderCategory;
+    }
+
+    public void setOrderCategory(OrderCategory orderCategory) {
+        this.orderCategory = orderCategory;
+    }
+
+    public boolean isASC() {
+        return ASC;
+    }
+
+    public void setASC(boolean ASC) {
+        this.ASC = ASC;
     }
 }

@@ -40,7 +40,7 @@ public class RecordModel {
 //    private LocalDate checkOutLD;
 
     //for getting from sql then inserting to list, needs both strings and normal types
-    public RecordModel(int id, String dateInserted, String name, int pax, int vehicle, boolean pets, boolean videoke, double partialPayment, double fullPayment, boolean payStatusBool, LocalDate checkIn, LocalDate checkOut, String room, String user) {
+    public RecordModel(int id, String dateInserted, String name, int pax, int vehicle, boolean pets, boolean videoke, double partialPayment, double fullPayment, double balance, boolean payStatusBool, LocalDate checkIn, LocalDate checkOut, String room, String user) {
 
         this.id = Integer.toString(id);
         this.payStatusBool = payStatusBool;
@@ -53,7 +53,7 @@ public class RecordModel {
         this.videoke = videoke ? "YES" : "NO";
         this.partialPayment = Double.toString(partialPayment);
         this.fullPayment = Double.toString(fullPayment);
-        this.balanceDouble = fullPayment - partialPayment;
+        this.balanceDouble = balance;
         this.balance = String.valueOf(balanceDouble);
         this.checkIn = checkIn.toString();
         this.checkOut = checkOut.toString();

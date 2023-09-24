@@ -92,8 +92,215 @@ public class TableController implements Initializable {
 
 
         id_pane.setOnMouseClicked(event -> {
-
+            if(Model.getInstance().getOrderCategory() != Model.OrderCategory.ID){
+                Model.getInstance().setOrderCategory(Model.OrderCategory.ID);
+                Model.getInstance().setASC(false);
+            }
+            else{
+                Model.getInstance().setASC(!Model.getInstance().isASC());
+            }
+            sqliteModel.queryTableRecords();
+            Model.getInstance().getViewFactory().insertListRows();
+            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
+            page_fld.setText("1");
         });
+
+        timeCreated_pane.setOnMouseClicked(event -> {
+            if(Model.getInstance().getOrderCategory() != Model.OrderCategory.DATEINSERTED){
+                Model.getInstance().setOrderCategory(Model.OrderCategory.DATEINSERTED);
+                Model.getInstance().setASC(false);
+            }
+            else{
+                Model.getInstance().setASC(!Model.getInstance().isASC());
+            }
+            sqliteModel.queryTableRecords();
+            Model.getInstance().getViewFactory().insertListRows();
+            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
+            page_fld.setText("1");
+        });
+
+        name_pane.setOnMouseClicked(event -> {
+            if(Model.getInstance().getOrderCategory() != Model.OrderCategory.NAME){
+                Model.getInstance().setOrderCategory(Model.OrderCategory.NAME);
+                Model.getInstance().setASC(true);
+            }
+            else{
+                Model.getInstance().setASC(!Model.getInstance().isASC());
+            }
+            sqliteModel.queryTableRecords();
+            Model.getInstance().getViewFactory().insertListRows();
+            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
+            page_fld.setText("1");
+        });
+
+        pax_pane.setOnMouseClicked(event -> {
+            if(Model.getInstance().getOrderCategory() != Model.OrderCategory.PAX){
+                Model.getInstance().setOrderCategory(Model.OrderCategory.PAX);
+                Model.getInstance().setASC(true);
+            }
+            else{
+                Model.getInstance().setASC(!Model.getInstance().isASC());
+            }
+            sqliteModel.queryTableRecords();
+            Model.getInstance().getViewFactory().insertListRows();
+            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
+            page_fld.setText("1");
+        });
+
+        vehicle_pane.setOnMouseClicked(event -> {
+            if(Model.getInstance().getOrderCategory() != Model.OrderCategory.VEHICLE){
+                Model.getInstance().setOrderCategory(Model.OrderCategory.VEHICLE);
+                Model.getInstance().setASC(true);
+            }
+            else{
+                Model.getInstance().setASC(!Model.getInstance().isASC());
+            }
+            sqliteModel.queryTableRecords();
+            Model.getInstance().getViewFactory().insertListRows();
+            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
+            page_fld.setText("1");
+        });
+
+        pets_pane.setOnMouseClicked(event -> {
+            if(Model.getInstance().getOrderCategory() != Model.OrderCategory.PETS){
+                Model.getInstance().setOrderCategory(Model.OrderCategory.PETS);
+                Model.getInstance().setASC(true);
+            }
+            else{
+                Model.getInstance().setASC(!Model.getInstance().isASC());
+            }
+            sqliteModel.queryTableRecords();
+            Model.getInstance().getViewFactory().insertListRows();
+            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
+            page_fld.setText("1");
+        });
+
+        videoke_pane.setOnMouseClicked(event -> {
+            if(Model.getInstance().getOrderCategory() != Model.OrderCategory.VIDEOKE){
+                Model.getInstance().setOrderCategory(Model.OrderCategory.VIDEOKE);
+                Model.getInstance().setASC(true);
+            }
+            else{
+                Model.getInstance().setASC(!Model.getInstance().isASC());
+            }
+            sqliteModel.queryTableRecords();
+            Model.getInstance().getViewFactory().insertListRows();
+            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
+            page_fld.setText("1");
+        });
+
+        partialPay_pane.setOnMouseClicked(event -> {
+            if(Model.getInstance().getOrderCategory() != Model.OrderCategory.PARTIALPAYMENT){
+                Model.getInstance().setOrderCategory(Model.OrderCategory.PARTIALPAYMENT);
+                Model.getInstance().setASC(true);
+            }
+            else{
+                Model.getInstance().setASC(!Model.getInstance().isASC());
+            }
+            sqliteModel.queryTableRecords();
+            Model.getInstance().getViewFactory().insertListRows();
+            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
+            page_fld.setText("1");
+        });
+
+        fullPay_pane.setOnMouseClicked(event -> {
+            if(Model.getInstance().getOrderCategory() != Model.OrderCategory.FULLPAYMENT){
+                Model.getInstance().setOrderCategory(Model.OrderCategory.FULLPAYMENT);
+                Model.getInstance().setASC(true);
+            }
+            else{
+                Model.getInstance().setASC(!Model.getInstance().isASC());
+            }
+            sqliteModel.queryTableRecords();
+            Model.getInstance().getViewFactory().insertListRows();
+            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
+            page_fld.setText("1");
+        });
+
+        balance_pane.setOnMouseClicked(event -> {
+            if(Model.getInstance().getOrderCategory() != Model.OrderCategory.BALANCE){
+                Model.getInstance().setOrderCategory(Model.OrderCategory.BALANCE);
+                Model.getInstance().setASC(true);
+            }
+            else{
+                Model.getInstance().setASC(!Model.getInstance().isASC());
+            }
+            sqliteModel.queryTableRecords();
+            Model.getInstance().getViewFactory().insertListRows();
+            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
+            page_fld.setText("1");
+        });
+
+        status_pane.setOnMouseClicked(event -> {
+            if(Model.getInstance().getOrderCategory() != Model.OrderCategory.STATUS){
+                Model.getInstance().setOrderCategory(Model.OrderCategory.STATUS);
+                Model.getInstance().setASC(true);
+            }
+            else{
+                Model.getInstance().setASC(!Model.getInstance().isASC());
+            }
+            sqliteModel.queryTableRecords();
+            Model.getInstance().getViewFactory().insertListRows();
+            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
+            page_fld.setText("1");
+        });
+
+        checkIn_pane.setOnMouseClicked(event -> {
+            if(Model.getInstance().getOrderCategory() != Model.OrderCategory.CHECKIN){
+                Model.getInstance().setOrderCategory(Model.OrderCategory.CHECKIN);
+                Model.getInstance().setASC(false);
+            }
+            else{
+                Model.getInstance().setASC(!Model.getInstance().isASC());
+            }
+            sqliteModel.queryTableRecords();
+            Model.getInstance().getViewFactory().insertListRows();
+            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
+            page_fld.setText("1");
+        });
+
+        checkOut_pane.setOnMouseClicked(event -> {
+            if(Model.getInstance().getOrderCategory() != Model.OrderCategory.CHECKOUT){
+                Model.getInstance().setOrderCategory(Model.OrderCategory.CHECKOUT);
+                Model.getInstance().setASC(false);
+            }
+            else{
+                Model.getInstance().setASC(!Model.getInstance().isASC());
+            }
+            sqliteModel.queryTableRecords();
+            Model.getInstance().getViewFactory().insertListRows();
+            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
+            page_fld.setText("1");
+        });
+
+        room_pane.setOnMouseClicked(event -> {
+            if(Model.getInstance().getOrderCategory() != Model.OrderCategory.ROOM){
+                Model.getInstance().setOrderCategory(Model.OrderCategory.ROOM);
+                Model.getInstance().setASC(true);
+            }
+            else{
+                Model.getInstance().setASC(!Model.getInstance().isASC());
+            }
+            sqliteModel.queryTableRecords();
+            Model.getInstance().getViewFactory().insertListRows();
+            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
+            page_fld.setText("1");
+        });
+
+        user_pane.setOnMouseClicked(event -> {
+            if(Model.getInstance().getOrderCategory() != Model.OrderCategory.USER){
+                Model.getInstance().setOrderCategory(Model.OrderCategory.USER);
+                Model.getInstance().setASC(false);
+            }
+            else{
+                Model.getInstance().setASC(!Model.getInstance().isASC());
+            }
+            sqliteModel.queryTableRecords();
+            Model.getInstance().getViewFactory().insertListRows();
+            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
+            page_fld.setText("1");
+        });
+
         for(HBox hbox : hBoxList){
             onHover(hbox);
         }
