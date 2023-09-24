@@ -2,9 +2,11 @@ package com.resort.resortapp.Controllers;
 
 import com.resort.resortapp.Models.Model;
 import com.resort.resortapp.Models.sqliteModel;
+import com.resort.resortapp.Rooms;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -48,16 +50,20 @@ public class TableController implements Initializable {
     public List<HBox> hBoxList;
     public Text currentPage_txt;
     public Text lastPage_txt;
+    public CheckBox j_chkBox;
+    public CheckBox g_chkBox;
+    public CheckBox a_chkBox;
+    public CheckBox k1_chkBox;
+    public CheckBox k2_chkBox;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("INITIALIZE");
 
         Model.getInstance().getViewFactory().setListTable(gridPane);
-        Model.getInstance().initTableValues();
 //        myInit();
 
-
+        System.out.println("SHOULD BE SETTING DATES HERE");
         startDate_datePicker.setValue(Model.getInstance().getTableStartDate());
         endDate_datePicker.setValue(Model.getInstance().getTableEndDate());
         currentPage_txt.setText(String.valueOf(Model.getInstance().getCurrentPage()));
@@ -97,12 +103,14 @@ public class TableController implements Initializable {
             sqliteModel.queryTableRecords();
             Model.getInstance().getViewFactory().insertListRows();
             lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
+            page_fld.setText("1");
         });
         endDate_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             Model.getInstance().setTableEndDate(newValue);
             sqliteModel.queryTableRecords();
             Model.getInstance().getViewFactory().insertListRows();
             lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
+            page_fld.setText("1");
         });
         prevPage_btn.setOnAction(actionEvent -> {
             page_fld.setText(String.valueOf(Model.getInstance().getCurrentPage()-1));
@@ -127,6 +135,76 @@ public class TableController implements Initializable {
                     Model.getInstance().getViewFactory().insertListRows();
                 }
             }
+        });
+
+        j_chkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue){
+                Model.getInstance().getTableRooms().add(Rooms.ROOM_J.getAbbreviatedName());
+            }
+            else{
+                Model.getInstance().getTableRooms().remove(Rooms.ROOM_J.getAbbreviatedName());
+            }
+            sqliteModel.queryTableRecords();
+            Model.getInstance().getViewFactory().insertListRows();
+            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
+            page_fld.setText("1");
+
+        });
+        g_chkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue){
+                Model.getInstance().getTableRooms().add(Rooms.ROOM_G.getAbbreviatedName());
+            }
+            else{
+                Model.getInstance().getTableRooms().remove(Rooms.ROOM_G.getAbbreviatedName());
+            }
+            sqliteModel.queryTableRecords();
+            Model.getInstance().getViewFactory().insertListRows();
+            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
+            page_fld.setText("1");
+        });
+        a_chkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue){
+                Model.getInstance().getTableRooms().add(Rooms.ATTIC.getAbbreviatedName());
+            }
+            else{
+                Model.getInstance().getTableRooms().remove(Rooms.ATTIC.getAbbreviatedName());
+            }
+            sqliteModel.queryTableRecords();
+            Model.getInstance().getViewFactory().insertListRows();
+            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
+            page_fld.setText("1");
+        });
+        k1_chkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue){
+                Model.getInstance().getTableRooms().add(Rooms.KUBO_1.getAbbreviatedName());
+            }
+            else{
+                Model.getInstance().getTableRooms().remove(Rooms.KUBO_1.getAbbreviatedName());
+            }
+            sqliteModel.queryTableRecords();
+            Model.getInstance().getViewFactory().insertListRows();
+            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
+            page_fld.setText("1");
+        });
+        k2_chkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue){
+                Model.getInstance().getTableRooms().add(Rooms.KUBO_2.getAbbreviatedName());
+            }
+            else{
+                Model.getInstance().getTableRooms().remove(Rooms.KUBO_2.getAbbreviatedName());
+            }
+            sqliteModel.queryTableRecords();
+            Model.getInstance().getViewFactory().insertListRows();
+            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
+            page_fld.setText("1");
+        });
+
+        searchBar_fld.textProperty().addListener((observable, oldValue, newValue) -> {
+            Model.getInstance().setNameFilter(newValue);
+            sqliteModel.queryTableRecords();
+            Model.getInstance().getViewFactory().insertListRows();
+            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
+            page_fld.setText("1");
         });
 
     }

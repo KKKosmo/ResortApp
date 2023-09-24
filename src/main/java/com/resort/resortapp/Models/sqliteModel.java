@@ -466,9 +466,21 @@ public class sqliteModel {
 
     public static void queryTableRecords(){
         List<RecordModel> result = new ArrayList<>();
+//        AND room LIKE '%%'
+        StringBuilder roomFilter = new StringBuilder();
+        for(String string : Model.getInstance().getTableRooms()){
+            roomFilter.append("AND room LIKE '%").append(string).append("%' ");
+        }
 
-        String sql = String.format("SELECT * FROM main WHERE checkIn <= '%s' AND checkOut >= '%s' ORDER BY id;",
-                Model.getInstance().getTableEndDate(), Model.getInstance().getTableStartDate());
+        String nameFilter;
+
+        if (!Model.getInstance().getNameFilter().isEmpty()){
+            nameFilter = "AND name LIKE '%"+Model.getInstance().getNameFilter()+"%'";
+        }
+        else nameFilter = "";
+
+        String sql = String.format("SELECT * FROM main WHERE checkIn <= '%s' AND checkOut >='%s' %s%sORDER BY id;",
+                Model.getInstance().getTableEndDate(), Model.getInstance().getTableStartDate(), roomFilter, nameFilter);
         System.out.println(sql);
         try {
             PreparedStatement pStmt = openDB().prepareStatement(sql);

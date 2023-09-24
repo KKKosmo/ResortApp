@@ -17,6 +17,7 @@ import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -51,6 +52,8 @@ public class Model {
     private int maxPage;
     private int startIndex;
     private int endIndex;
+    private Set<String> tableRooms = new HashSet<>();
+    private String nameFilter = "";
 
 
     private Model(){
@@ -318,6 +321,7 @@ public class Model {
 
     public void initTableValues(){
         LocalDate temp = LocalDate.now();
+        System.out.println("RESETTING EHRE");
         tableStartDate = temp.withDayOfMonth(1);
         tableEndDate = temp.withDayOfMonth(temp.lengthOfMonth());
 //        setCurrentPage(1);
@@ -384,4 +388,19 @@ public class Model {
         }
     }
 
+    public Set<String> getTableRooms() {
+        return tableRooms;
+    }
+
+    public void setTableRooms(Set<String> tableRooms) {
+        this.tableRooms = tableRooms;
+    }
+
+    public String getNameFilter() {
+        return nameFilter;
+    }
+
+    public void setNameFilter(String nameFilter) {
+        this.nameFilter = nameFilter;
+    }
 }

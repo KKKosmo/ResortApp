@@ -4,12 +4,15 @@ if errors with sql, might be the plugins
 
 implement saving list settings
     room selection
-    sort
     search bar
+    sort
     default button functions
     edit history
 
     print
+
+    page reset when changing table
+    date settings should be saved
 
 dont init list everytime
 if query more than 100 or sum, split into 2

@@ -20,7 +20,7 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="parentPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.resort.resortapp.Controllers.TableController">
-   <TextField fx:id="searchBar_fld" layoutX="152.0" layoutY="98.0" prefHeight="25.0" prefWidth="293.0" text="NAME SEARCH BAR" />
+   <TextField fx:id="searchBar_fld" alignment="CENTER" layoutX="126.0" layoutY="98.0" prefHeight="25.0" prefWidth="365.0" promptText="NAME SEARCH BAR" />
    <DatePicker fx:id="startDate_datePicker" editable="false" layoutX="457.0" layoutY="28.0" prefHeight="25.0" prefWidth="129.0">
       <cursor>
          <Cursor fx:constant="DEFAULT" />
@@ -274,14 +274,13 @@
    </GridPane>
    <HBox layoutX="989.0" layoutY="41.0" spacing="10.0">
       <VBox spacing="10.0">
-         <CheckBox mnemonicParsing="false" selected="true" text="All Rooms" />
-         <CheckBox mnemonicParsing="false" text="Room J" />
-         <CheckBox mnemonicParsing="false" text="Room G" />
+         <CheckBox fx:id="j_chkBox" mnemonicParsing="false" text="Room J" />
+         <CheckBox fx:id="g_chkBox" mnemonicParsing="false" text="Room G" />
+         <CheckBox fx:id="a_chkBox" mnemonicParsing="false" text="ATTIC" />
       </VBox>
       <VBox spacing="10.0">
-         <CheckBox mnemonicParsing="false" text="ATTIC" />
-         <CheckBox mnemonicParsing="false" text="KUBO 1" />
-         <CheckBox mnemonicParsing="false" text="KUBO 2" />
+         <CheckBox fx:id="k1_chkBox" mnemonicParsing="false" text="KUBO 1" />
+         <CheckBox fx:id="k2_chkBox" mnemonicParsing="false" text="KUBO 2" />
       </VBox>
    </HBox>
    <Text layoutX="758.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Bookings: 30" />
