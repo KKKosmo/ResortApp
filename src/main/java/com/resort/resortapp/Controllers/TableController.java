@@ -5,14 +5,12 @@ import com.resort.resortapp.Models.sqliteModel;
 import com.resort.resortapp.Rooms;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -56,6 +54,11 @@ public class TableController implements Initializable {
     public CheckBox k1_chkBox;
     public CheckBox k2_chkBox;
     public Button default_btn;
+    public Button export_btn;
+    public Text totalBookings_txt;
+    public Text totalPayment_txt;
+    public Text unpaid_txt;
+    public HBox totalPayment_hBox;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -64,11 +67,43 @@ public class TableController implements Initializable {
         Model.getInstance().getViewFactory().setListTable(gridPane);
 //        myInit();
 
+
+
         System.out.println("SHOULD BE SETTING DATES HERE");
         startDate_datePicker.setValue(Model.getInstance().getTableStartDate());
         endDate_datePicker.setValue(Model.getInstance().getTableEndDate());
         currentPage_txt.setText(String.valueOf(Model.getInstance().getCurrentPage()));
         page_fld.setText(String.valueOf(Model.getInstance().getCurrentPage()));
+
+
+        if(!Model.getInstance().isASC() && Model.getInstance().getOrderCategory() != Model.OrderCategory.ID){
+            if (Model.getInstance().isASC()) {
+                sort_icon.setGlyphName("SORT_UP");
+            } else {
+                sort_icon.setGlyphName("SORT_DOWN");
+            }
+
+            switch (Model.getInstance().getOrderCategory()) {
+                case DATEINSERTED -> timeCreated_pane.getChildren().add(sort_icon);
+                case NAME -> name_pane.getChildren().add(sort_icon);
+                case PAX -> pax_pane.getChildren().add(sort_icon);
+                case VEHICLE -> vehicle_pane.getChildren().add(sort_icon);
+                case PETS -> pets_pane.getChildren().add(sort_icon);
+                case VIDEOKE -> videoke_pane.getChildren().add(sort_icon);
+                case PARTIALPAYMENT -> partialPay_pane.getChildren().add(sort_icon);
+                case FULLPAYMENT -> fullPay_pane.getChildren().add(sort_icon);
+                case BALANCE -> balance_pane.getChildren().add(sort_icon);
+                case STATUS -> status_pane.getChildren().add(sort_icon);
+                case CHECKIN -> checkIn_pane.getChildren().add(sort_icon);
+                case CHECKOUT -> checkOut_pane.getChildren().add(sort_icon);
+                case ROOM -> room_pane.getChildren().add(sort_icon);
+                case USER -> user_pane.getChildren().add(sort_icon);
+                default -> {
+                }
+            }
+        }
+
+
 
         burger_btn.setOnAction(actionEvent -> {
             escMenu.setVisible(true);
@@ -107,10 +142,7 @@ public class TableController implements Initializable {
             else{
                 sort_icon.setGlyphName("SORT_DOWN");
             }
-            sqliteModel.queryTableRecords();
-            Model.getInstance().getViewFactory().insertListRows();
-            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
-            page_fld.setText("1");
+            refreshPage();
         });
 
         timeCreated_pane.setOnMouseClicked(event -> {
@@ -128,10 +160,7 @@ public class TableController implements Initializable {
             else{
                 sort_icon.setGlyphName("SORT_DOWN");
             }
-            sqliteModel.queryTableRecords();
-            Model.getInstance().getViewFactory().insertListRows();
-            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
-            page_fld.setText("1");
+            refreshPage();
         });
 
         name_pane.setOnMouseClicked(event -> {
@@ -149,10 +178,7 @@ public class TableController implements Initializable {
             else{
                 sort_icon.setGlyphName("SORT_DOWN");
             }
-            sqliteModel.queryTableRecords();
-            Model.getInstance().getViewFactory().insertListRows();
-            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
-            page_fld.setText("1");
+            refreshPage();
         });
 
         pax_pane.setOnMouseClicked(event -> {
@@ -170,10 +196,7 @@ public class TableController implements Initializable {
             else{
                 sort_icon.setGlyphName("SORT_DOWN");
             }
-            sqliteModel.queryTableRecords();
-            Model.getInstance().getViewFactory().insertListRows();
-            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
-            page_fld.setText("1");
+            refreshPage();
         });
 
         vehicle_pane.setOnMouseClicked(event -> {
@@ -191,10 +214,7 @@ public class TableController implements Initializable {
             else{
                 sort_icon.setGlyphName("SORT_DOWN");
             }
-            sqliteModel.queryTableRecords();
-            Model.getInstance().getViewFactory().insertListRows();
-            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
-            page_fld.setText("1");
+            refreshPage();
         });
 
         pets_pane.setOnMouseClicked(event -> {
@@ -212,10 +232,7 @@ public class TableController implements Initializable {
             else{
                 sort_icon.setGlyphName("SORT_DOWN");
             }
-            sqliteModel.queryTableRecords();
-            Model.getInstance().getViewFactory().insertListRows();
-            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
-            page_fld.setText("1");
+            refreshPage();
         });
 
         videoke_pane.setOnMouseClicked(event -> {
@@ -233,10 +250,7 @@ public class TableController implements Initializable {
             else{
                 sort_icon.setGlyphName("SORT_DOWN");
             }
-            sqliteModel.queryTableRecords();
-            Model.getInstance().getViewFactory().insertListRows();
-            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
-            page_fld.setText("1");
+            refreshPage();
         });
 
         partialPay_pane.setOnMouseClicked(event -> {
@@ -254,10 +268,7 @@ public class TableController implements Initializable {
             else{
                 sort_icon.setGlyphName("SORT_DOWN");
             }
-            sqliteModel.queryTableRecords();
-            Model.getInstance().getViewFactory().insertListRows();
-            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
-            page_fld.setText("1");
+            refreshPage();
         });
 
         fullPay_pane.setOnMouseClicked(event -> {
@@ -275,10 +286,7 @@ public class TableController implements Initializable {
             else{
                 sort_icon.setGlyphName("SORT_DOWN");
             }
-            sqliteModel.queryTableRecords();
-            Model.getInstance().getViewFactory().insertListRows();
-            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
-            page_fld.setText("1");
+            refreshPage();
         });
 
         balance_pane.setOnMouseClicked(event -> {
@@ -296,10 +304,7 @@ public class TableController implements Initializable {
             else{
                 sort_icon.setGlyphName("SORT_DOWN");
             }
-            sqliteModel.queryTableRecords();
-            Model.getInstance().getViewFactory().insertListRows();
-            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
-            page_fld.setText("1");
+            refreshPage();
         });
 
         status_pane.setOnMouseClicked(event -> {
@@ -317,10 +322,7 @@ public class TableController implements Initializable {
             else{
                 sort_icon.setGlyphName("SORT_DOWN");
             }
-            sqliteModel.queryTableRecords();
-            Model.getInstance().getViewFactory().insertListRows();
-            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
-            page_fld.setText("1");
+            refreshPage();
         });
 
         checkIn_pane.setOnMouseClicked(event -> {
@@ -338,10 +340,7 @@ public class TableController implements Initializable {
             else{
                 sort_icon.setGlyphName("SORT_DOWN");
             }
-            sqliteModel.queryTableRecords();
-            Model.getInstance().getViewFactory().insertListRows();
-            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
-            page_fld.setText("1");
+            refreshPage();
         });
 
         checkOut_pane.setOnMouseClicked(event -> {
@@ -359,10 +358,7 @@ public class TableController implements Initializable {
             else{
                 sort_icon.setGlyphName("SORT_DOWN");
             }
-            sqliteModel.queryTableRecords();
-            Model.getInstance().getViewFactory().insertListRows();
-            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
-            page_fld.setText("1");
+            refreshPage();
         });
 
         room_pane.setOnMouseClicked(event -> {
@@ -380,10 +376,7 @@ public class TableController implements Initializable {
             else{
                 sort_icon.setGlyphName("SORT_DOWN");
             }
-            sqliteModel.queryTableRecords();
-            Model.getInstance().getViewFactory().insertListRows();
-            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
-            page_fld.setText("1");
+            refreshPage();
         });
 
         user_pane.setOnMouseClicked(event -> {
@@ -401,10 +394,7 @@ public class TableController implements Initializable {
             else{
                 sort_icon.setGlyphName("SORT_DOWN");
             }
-            sqliteModel.queryTableRecords();
-            Model.getInstance().getViewFactory().insertListRows();
-            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
-            page_fld.setText("1");
+            refreshPage();
         });
 
         for(HBox hbox : hBoxList){
@@ -413,17 +403,11 @@ public class TableController implements Initializable {
 
         startDate_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             Model.getInstance().setTableStartDate(newValue);
-            sqliteModel.queryTableRecords();
-            Model.getInstance().getViewFactory().insertListRows();
-            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
-            page_fld.setText("1");
+            refreshPage();
         });
         endDate_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             Model.getInstance().setTableEndDate(newValue);
-            sqliteModel.queryTableRecords();
-            Model.getInstance().getViewFactory().insertListRows();
-            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
-            page_fld.setText("1");
+            refreshPage();
         });
         prevPage_btn.setOnAction(actionEvent -> {
             page_fld.setText(String.valueOf(Model.getInstance().getCurrentPage()-1));
@@ -457,10 +441,7 @@ public class TableController implements Initializable {
             else{
                 Model.getInstance().getTableRooms().remove(Rooms.ROOM_J.getAbbreviatedName());
             }
-            sqliteModel.queryTableRecords();
-            Model.getInstance().getViewFactory().insertListRows();
-            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
-            page_fld.setText("1");
+            refreshPage();
 
         });
         g_chkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
@@ -470,10 +451,7 @@ public class TableController implements Initializable {
             else{
                 Model.getInstance().getTableRooms().remove(Rooms.ROOM_G.getAbbreviatedName());
             }
-            sqliteModel.queryTableRecords();
-            Model.getInstance().getViewFactory().insertListRows();
-            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
-            page_fld.setText("1");
+            refreshPage();
         });
         a_chkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue){
@@ -482,10 +460,7 @@ public class TableController implements Initializable {
             else{
                 Model.getInstance().getTableRooms().remove(Rooms.ATTIC.getAbbreviatedName());
             }
-            sqliteModel.queryTableRecords();
-            Model.getInstance().getViewFactory().insertListRows();
-            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
-            page_fld.setText("1");
+            refreshPage();
         });
         k1_chkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue){
@@ -494,10 +469,7 @@ public class TableController implements Initializable {
             else{
                 Model.getInstance().getTableRooms().remove(Rooms.KUBO_1.getAbbreviatedName());
             }
-            sqliteModel.queryTableRecords();
-            Model.getInstance().getViewFactory().insertListRows();
-            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
-            page_fld.setText("1");
+            refreshPage();
         });
         k2_chkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue){
@@ -506,18 +478,12 @@ public class TableController implements Initializable {
             else{
                 Model.getInstance().getTableRooms().remove(Rooms.KUBO_2.getAbbreviatedName());
             }
-            sqliteModel.queryTableRecords();
-            Model.getInstance().getViewFactory().insertListRows();
-            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
-            page_fld.setText("1");
+            refreshPage();
         });
 
         searchBar_fld.textProperty().addListener((observable, oldValue, newValue) -> {
             Model.getInstance().setNameFilter(newValue);
-            sqliteModel.queryTableRecords();
-            Model.getInstance().getViewFactory().insertListRows();
-            lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
-            page_fld.setText("1");
+            refreshPage();
         });
 
         default_btn.setOnAction(actionEvent -> {
@@ -558,6 +524,9 @@ public class TableController implements Initializable {
 //        Model.getInstance().getViewFactory().setListTable(gridPane);
         sqliteModel.queryTableRecords();
         Model.getInstance().getViewFactory().insertListRows();
+        totalBookings_txt.setText(String.valueOf(Model.getInstance().getRecordCount()));
+        totalPayment_txt.setText(String.valueOf(Model.getInstance().getTotalPayment()));
+        unpaid_txt.setText(String.valueOf(Model.getInstance().getTotalUnpaid()));
         lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
     }
 
@@ -573,5 +542,15 @@ public class TableController implements Initializable {
         hBox.setOnMouseExited(event -> {
             hBox.getStyleClass().remove("pane");
         });
+    }
+    
+    private void refreshPage(){
+        sqliteModel.queryTableRecords();
+        Model.getInstance().getViewFactory().insertListRows();
+        lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
+        page_fld.setText("1");
+        totalBookings_txt.setText(String.valueOf(Model.getInstance().getRecordCount()));
+        totalPayment_txt.setText(String.valueOf(Model.getInstance().getTotalPayment()));
+        unpaid_txt.setText(String.valueOf(Model.getInstance().getTotalUnpaid()));
     }
 }

@@ -1,15 +1,9 @@
-index my table?
 if errors with sql, might be the plugins
 
+print
 
 edit history
 
-print
-add print settings to default
-
-
-dont init list everytime
-if query more than 100 or sum, split into 2
 when creating, handle what if different months
 
 static list of users, and passwords, think about how to reset passwords
@@ -24,7 +18,9 @@ button mouse appearances
 check proper popups, a warning should not be the same as information
 are u sure u want to delete this row -> row ID
 
-
+if query more than 100 or sum, split into 2
+dont init list everytime
+index my table
 
 
 

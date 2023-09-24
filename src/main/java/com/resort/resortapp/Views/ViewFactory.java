@@ -1,5 +1,11 @@
 package com.resort.resortapp.Views;
 
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
 import com.resort.resortapp.Controllers.EditController;
 import com.resort.resortapp.Controllers.TableController;
 import com.resort.resortapp.Models.*;
@@ -17,7 +23,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.util.*;
@@ -75,6 +84,11 @@ public class ViewFactory {
         TableController tableController = loader.getController();
         tableController.myInit();
         tableController.setEscMenu();
+
+        Tooltip tooltip = new Tooltip("IF NOT PAID, THEN THE PARTIAL PAYMENT INSTEAD OF THE FULL PAYMENT GETS ADDED TO THE TOTAL PAYMENT");
+        tooltip.setShowDelay(Duration.millis(0));
+        Tooltip.install(tableController.totalPayment_hBox, tooltip);
+
         stage.setScene(table);
 
 
@@ -418,5 +432,77 @@ public class ViewFactory {
     public void setListTable(GridPane listTable) {
         this.listTable = listTable;
         setListTableChildren(listTable.getChildren());
+    }
+
+    public void generateReportPDF(){
+        try {
+            String path = "Report.pdf";
+            PdfWriter pdfWriter = new PdfWriter(path);
+            PdfDocument pdfDocument = new PdfDocument(pdfWriter);
+            pdfDocument.setDefaultPageSize(PageSize.LETTER);
+            Document document = new Document(pdfDocument);
+
+            float col1 = 285f;
+            float col2 = 435f;
+            float[] headerWidth = {col1, col2};
+            Table table = new Table(headerWidth);
+            table.addCell(new com.itextpdf.layout.element.Cell().add("J&G Resort\n" +
+                    "Monthly Report\n" +
+                    "August 2023\n" +
+                    "Page 1/1").setBold().setTextAlignment(com.itextpdf.layout.property.TextAlignment.CENTER));
+
+            Table nestedTable = new Table(new float[]{col1/2, col1/2});
+            nestedTable.addCell(new com.itextpdf.layout.element.Cell().add("Total Reservations").setBorder(com.itextpdf.layout.border.Border.NO_BORDER).setBold());
+            nestedTable.addCell(new com.itextpdf.layout.element.Cell().add("0").setBorder(com.itextpdf.layout.border.Border.NO_BORDER));
+            nestedTable.addCell(new com.itextpdf.layout.element.Cell().add("Total Guests").setBorder(com.itextpdf.layout.border.Border.NO_BORDER).setBold());
+            nestedTable.addCell(new com.itextpdf.layout.element.Cell().add("0").setBorder(com.itextpdf.layout.border.Border.NO_BORDER));
+            nestedTable.addCell(new com.itextpdf.layout.element.Cell().add("Total Revenue").setBorder(com.itextpdf.layout.border.Border.NO_BORDER).setBold());
+            nestedTable.addCell(new com.itextpdf.layout.element.Cell().add("0 PHP").setBorder(com.itextpdf.layout.border.Border.NO_BORDER));
+
+            table.addCell(nestedTable);
+
+            document.add(table);
+
+            Table body = new Table(new float[]{0,0,0,0,0,0,0,0,0,0,0});
+            body.addCell(new com.itextpdf.layout.element.Cell().add("ID"));
+            body.addCell(new com.itextpdf.layout.element.Cell().add("Date"));
+            body.addCell(new com.itextpdf.layout.element.Cell().add("Name"));
+            body.addCell(new com.itextpdf.layout.element.Cell().add("No. of Heads"));
+            body.addCell(new com.itextpdf.layout.element.Cell().add("Vehicle"));
+            body.addCell(new com.itextpdf.layout.element.Cell().add("Pets"));
+            body.addCell(new com.itextpdf.layout.element.Cell().add("Videoke"));
+            body.addCell(new com.itextpdf.layout.element.Cell().add("Partial Payment"));
+            body.addCell(new com.itextpdf.layout.element.Cell().add("Check-In"));
+            body.addCell(new com.itextpdf.layout.element.Cell().add("Check-Out"));
+            body.addCell(new com.itextpdf.layout.element.Cell().add("Room"));
+            body.addCell(new com.itextpdf.layout.element.Cell().add("User"));
+            body.addCell(new com.itextpdf.layout.element.Cell().add("test"));
+            body.addCell(new com.itextpdf.layout.element.Cell().add("test"));
+            body.addCell(new com.itextpdf.layout.element.Cell().add("test"));
+            body.addCell(new com.itextpdf.layout.element.Cell().add("test"));
+            body.addCell(new com.itextpdf.layout.element.Cell().add("test"));
+            body.addCell(new com.itextpdf.layout.element.Cell().add("test"));
+            body.addCell(new com.itextpdf.layout.element.Cell().add("test"));
+            body.addCell(new com.itextpdf.layout.element.Cell().add("test"));
+            body.addCell(new com.itextpdf.layout.element.Cell().add("test"));
+            body.addCell(new com.itextpdf.layout.element.Cell().add("test"));
+            body.addCell(new com.itextpdf.layout.element.Cell().add("test"));
+            body.addCell(new com.itextpdf.layout.element.Cell().add("test"));
+            body.addCell(new com.itextpdf.layout.element.Cell().add("test"));
+            body.addCell(new com.itextpdf.layout.element.Cell().add("test"));
+            body.addCell(new com.itextpdf.layout.element.Cell().add("test"));
+            body.addCell(new com.itextpdf.layout.element.Cell().add("test"));
+            body.addCell(new com.itextpdf.layout.element.Cell().add("test"));
+            body.addCell(new com.itextpdf.layout.element.Cell().add("test"));
+            body.addCell(new com.itextpdf.layout.element.Cell().add("test"));
+            body.addCell(new com.itextpdf.layout.element.Cell().add("test"));
+            body.addCell(new com.itextpdf.layout.element.Cell().add("test"));
+            document.add(new Paragraph("THIS IS A PREVIEW FILE").setBold().setTextAlignment(com.itextpdf.layout.property.TextAlignment.CENTER));
+            document.add(body);
+            document.close();
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

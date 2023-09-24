@@ -471,78 +471,75 @@ public class sqliteModel {
 
         String sql;
 
-        if(Model.getInstance().getOrderCategory() == Model.OrderCategory.BALANCE){
-            sql = String.format("SELECT *, (full_payment - partial_payment) as balance FROM main WHERE checkIn <= '%s' AND checkOut >='%s' %s%sORDER BY %s %s;",
-                    Model.getInstance().getTableEndDate(), Model.getInstance().getTableStartDate(), roomFilter, nameFilter,
-                    Model.getInstance().getOrderCategory().getString(), direction);        System.out.println(sql);
-            try {
-                PreparedStatement pStmt = openDB().prepareStatement(sql);
-                ResultSet resultSet = pStmt.executeQuery();
-                while(resultSet.next()){
-                    int id = resultSet.getInt("id");
-                    String dateInserted = resultSet.getString("dateInserted");
-                    String name = resultSet.getString("name");
-                    int pax = resultSet.getInt("pax");
-                    int vehicle = resultSet.getInt("vehicle");
-                    boolean pets = resultSet.getBoolean("pets");
-                    boolean videoke = resultSet.getBoolean("videoke");
-                    double partial_payment = resultSet.getDouble("partial_payment");
-                    double full_payment = resultSet.getDouble("full_payment");
-                    double balance = resultSet.getDouble("balance");
-                    boolean payStatus = resultSet.getBoolean("paid");
-                    LocalDate checkInString = LocalDate.parse(resultSet.getString("checkIn"));
-                    LocalDate checkOutString = LocalDate.parse(resultSet.getString("checkOut"));
-                    String room = resultSet.getString("room");
-                    String user = resultSet.getString("user");
+        sql = String.format("SELECT *, (full_payment - partial_payment) as balance FROM main WHERE checkIn <= '%s' AND checkOut >='%s' %s%sORDER BY %s %s;",
+                Model.getInstance().getTableEndDate(), Model.getInstance().getTableStartDate(), roomFilter, nameFilter,
+                Model.getInstance().getOrderCategory().getString(), direction);
+        System.out.println(sql);
+        try {
+            PreparedStatement pStmt = openDB().prepareStatement(sql);
+            ResultSet resultSet = pStmt.executeQuery();
+            while(resultSet.next()){
+                int id = resultSet.getInt("id");
+                String dateInserted = resultSet.getString("dateInserted");
+                String name = resultSet.getString("name");
+                int pax = resultSet.getInt("pax");
+                int vehicle = resultSet.getInt("vehicle");
+                boolean pets = resultSet.getBoolean("pets");
+                boolean videoke = resultSet.getBoolean("videoke");
+                double partial_payment = resultSet.getDouble("partial_payment");
+                double full_payment = resultSet.getDouble("full_payment");
+                double balance = resultSet.getDouble("balance");
+                boolean payStatus = resultSet.getBoolean("paid");
+                LocalDate checkInString = LocalDate.parse(resultSet.getString("checkIn"));
+                LocalDate checkOutString = LocalDate.parse(resultSet.getString("checkOut"));
+                String room = resultSet.getString("room");
+                String user = resultSet.getString("user");
 
-                    RecordModel recordModel = new RecordModel(id, dateInserted, name, pax, vehicle, pets, videoke, partial_payment, full_payment, balance, payStatus, checkInString, checkOutString, room, user);
-                    result.add(recordModel);
-                }
-                resultSet.close();
-                closeDB();
-
-            } catch (SQLException e) {
-                e.printStackTrace();
+                RecordModel recordModel = new RecordModel(id, dateInserted, name, pax, vehicle, pets, videoke, partial_payment, full_payment, balance, payStatus, checkInString, checkOutString, room, user);
+                result.add(recordModel);
             }
-        }
-        else{
-            sql = String.format("SELECT * FROM main WHERE checkIn <= '%s' AND checkOut >='%s' %s%sORDER BY %s %s;",
+            resultSet.close();
+            closeDB();
+
+
+            sql = String.format("SELECT COUNT(*) as totalCount, " +
+                            "SUM(CASE WHEN paid = 1 THEN full_payment ELSE (full_payment - partial_payment) END) as totalPayment, " +
+                            "SUM(CASE WHEN paid = 0 THEN 1 ELSE 0 END) as totalUnpaid " +
+                            "FROM main WHERE checkIn <= '%s' AND checkOut >= '%s' %s%s " +
+                            "ORDER BY %s %s;",
                     Model.getInstance().getTableEndDate(), Model.getInstance().getTableStartDate(), roomFilter, nameFilter,
-                    Model.getInstance().getOrderCategory().getString(), direction);        System.out.println(sql);
-            try {
-                PreparedStatement pStmt = openDB().prepareStatement(sql);
-                ResultSet resultSet = pStmt.executeQuery();
-                while(resultSet.next()){
-                    int id = resultSet.getInt("id");
-                    String dateInserted = resultSet.getString("dateInserted");
-                    String name = resultSet.getString("name");
-                    int pax = resultSet.getInt("pax");
-                    int vehicle = resultSet.getInt("vehicle");
-                    boolean pets = resultSet.getBoolean("pets");
-                    boolean videoke = resultSet.getBoolean("videoke");
-                    double partial_payment = resultSet.getDouble("partial_payment");
-                    double full_payment = resultSet.getDouble("full_payment");
-                    double balance = full_payment - partial_payment;
-                    boolean payStatus = resultSet.getBoolean("paid");
-                    LocalDate checkInString = LocalDate.parse(resultSet.getString("checkIn"));
-                    LocalDate checkOutString = LocalDate.parse(resultSet.getString("checkOut"));
-                    String room = resultSet.getString("room");
-                    String user = resultSet.getString("user");
+                    Model.getInstance().getOrderCategory().getString(), direction);
+            System.out.println(sql);
 
-                    RecordModel recordModel = new RecordModel(id, dateInserted, name, pax, vehicle, pets, videoke, partial_payment, full_payment, balance, payStatus, checkInString, checkOutString, room, user);
-                    result.add(recordModel);
-                }
-                resultSet.close();
-                closeDB();
 
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+
+            pStmt = openDB().prepareStatement(sql);
+            resultSet = pStmt.executeQuery();
+
+            Model.getInstance().setRecordCount(resultSet.getInt("totalCount"));
+            Model.getInstance().setTotalPayment(resultSet.getDouble("totalPayment"));
+            Model.getInstance().setTotalUnpaid(resultSet.getInt("totalUnpaid"));
+
+
+            resultSet.close();
+            closeDB();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+
 
 
         Model.getInstance().setListRecordModels(result);
     }
+
+
+
+
+
+
+
+
     public static boolean deleteEntry(int id){
         String sql = String.format("DELETE FROM main WHERE id = %d", id);
         System.out.println("sql = " + sql);
