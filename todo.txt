@@ -2,17 +2,11 @@ index my table?
 if errors with sql, might be the plugins
 
 
-implement saving list settings
-    room selection
-    search bar
-    sort
-    default button functions
-    edit history
+edit history
 
-    print
+print
+add print settings to default
 
-    page reset when changing table
-    date settings should be saved
 
 dont init list everytime
 if query more than 100 or sum, split into 2
@@ -22,7 +16,7 @@ static list of users, and passwords, think about how to reset passwords
 
 
 
-
+text fields should be alphanumeric
 text field lengths should be limited
 vehicle field number only
 button mouse appearances

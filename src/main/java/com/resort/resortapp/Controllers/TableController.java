@@ -55,6 +55,7 @@ public class TableController implements Initializable {
     public CheckBox a_chkBox;
     public CheckBox k1_chkBox;
     public CheckBox k2_chkBox;
+    public Button default_btn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -95,9 +96,16 @@ public class TableController implements Initializable {
             if(Model.getInstance().getOrderCategory() != Model.OrderCategory.ID){
                 Model.getInstance().setOrderCategory(Model.OrderCategory.ID);
                 Model.getInstance().setASC(false);
+                id_pane.getChildren().add(sort_icon);
             }
             else{
                 Model.getInstance().setASC(!Model.getInstance().isASC());
+            }
+            if(Model.getInstance().isASC()){
+                sort_icon.setGlyphName("SORT_UP");
+            }
+            else{
+                sort_icon.setGlyphName("SORT_DOWN");
             }
             sqliteModel.queryTableRecords();
             Model.getInstance().getViewFactory().insertListRows();
@@ -109,9 +117,16 @@ public class TableController implements Initializable {
             if(Model.getInstance().getOrderCategory() != Model.OrderCategory.DATEINSERTED){
                 Model.getInstance().setOrderCategory(Model.OrderCategory.DATEINSERTED);
                 Model.getInstance().setASC(false);
+                timeCreated_pane.getChildren().add(sort_icon);
             }
             else{
                 Model.getInstance().setASC(!Model.getInstance().isASC());
+            }
+            if(Model.getInstance().isASC()){
+                sort_icon.setGlyphName("SORT_UP");
+            }
+            else{
+                sort_icon.setGlyphName("SORT_DOWN");
             }
             sqliteModel.queryTableRecords();
             Model.getInstance().getViewFactory().insertListRows();
@@ -123,9 +138,16 @@ public class TableController implements Initializable {
             if(Model.getInstance().getOrderCategory() != Model.OrderCategory.NAME){
                 Model.getInstance().setOrderCategory(Model.OrderCategory.NAME);
                 Model.getInstance().setASC(true);
+                name_pane.getChildren().add(sort_icon);
             }
             else{
                 Model.getInstance().setASC(!Model.getInstance().isASC());
+            }
+            if(Model.getInstance().isASC()){
+                sort_icon.setGlyphName("SORT_UP");
+            }
+            else{
+                sort_icon.setGlyphName("SORT_DOWN");
             }
             sqliteModel.queryTableRecords();
             Model.getInstance().getViewFactory().insertListRows();
@@ -136,10 +158,17 @@ public class TableController implements Initializable {
         pax_pane.setOnMouseClicked(event -> {
             if(Model.getInstance().getOrderCategory() != Model.OrderCategory.PAX){
                 Model.getInstance().setOrderCategory(Model.OrderCategory.PAX);
-                Model.getInstance().setASC(true);
+                Model.getInstance().setASC(false);
+                pax_pane.getChildren().add(sort_icon);
             }
             else{
                 Model.getInstance().setASC(!Model.getInstance().isASC());
+            }
+            if(Model.getInstance().isASC()){
+                sort_icon.setGlyphName("SORT_UP");
+            }
+            else{
+                sort_icon.setGlyphName("SORT_DOWN");
             }
             sqliteModel.queryTableRecords();
             Model.getInstance().getViewFactory().insertListRows();
@@ -150,10 +179,17 @@ public class TableController implements Initializable {
         vehicle_pane.setOnMouseClicked(event -> {
             if(Model.getInstance().getOrderCategory() != Model.OrderCategory.VEHICLE){
                 Model.getInstance().setOrderCategory(Model.OrderCategory.VEHICLE);
-                Model.getInstance().setASC(true);
+                Model.getInstance().setASC(false);
+                vehicle_pane.getChildren().add(sort_icon);
             }
             else{
                 Model.getInstance().setASC(!Model.getInstance().isASC());
+            }
+            if(Model.getInstance().isASC()){
+                sort_icon.setGlyphName("SORT_UP");
+            }
+            else{
+                sort_icon.setGlyphName("SORT_DOWN");
             }
             sqliteModel.queryTableRecords();
             Model.getInstance().getViewFactory().insertListRows();
@@ -164,10 +200,17 @@ public class TableController implements Initializable {
         pets_pane.setOnMouseClicked(event -> {
             if(Model.getInstance().getOrderCategory() != Model.OrderCategory.PETS){
                 Model.getInstance().setOrderCategory(Model.OrderCategory.PETS);
-                Model.getInstance().setASC(true);
+                Model.getInstance().setASC(false);
+                pets_pane.getChildren().add(sort_icon);
             }
             else{
                 Model.getInstance().setASC(!Model.getInstance().isASC());
+            }
+            if(Model.getInstance().isASC()){
+                sort_icon.setGlyphName("SORT_UP");
+            }
+            else{
+                sort_icon.setGlyphName("SORT_DOWN");
             }
             sqliteModel.queryTableRecords();
             Model.getInstance().getViewFactory().insertListRows();
@@ -178,10 +221,17 @@ public class TableController implements Initializable {
         videoke_pane.setOnMouseClicked(event -> {
             if(Model.getInstance().getOrderCategory() != Model.OrderCategory.VIDEOKE){
                 Model.getInstance().setOrderCategory(Model.OrderCategory.VIDEOKE);
-                Model.getInstance().setASC(true);
+                Model.getInstance().setASC(false);
+                videoke_pane.getChildren().add(sort_icon);
             }
             else{
                 Model.getInstance().setASC(!Model.getInstance().isASC());
+            }
+            if(Model.getInstance().isASC()){
+                sort_icon.setGlyphName("SORT_UP");
+            }
+            else{
+                sort_icon.setGlyphName("SORT_DOWN");
             }
             sqliteModel.queryTableRecords();
             Model.getInstance().getViewFactory().insertListRows();
@@ -192,10 +242,17 @@ public class TableController implements Initializable {
         partialPay_pane.setOnMouseClicked(event -> {
             if(Model.getInstance().getOrderCategory() != Model.OrderCategory.PARTIALPAYMENT){
                 Model.getInstance().setOrderCategory(Model.OrderCategory.PARTIALPAYMENT);
-                Model.getInstance().setASC(true);
+                Model.getInstance().setASC(false);
+                partialPay_pane.getChildren().add(sort_icon);
             }
             else{
                 Model.getInstance().setASC(!Model.getInstance().isASC());
+            }
+            if(Model.getInstance().isASC()){
+                sort_icon.setGlyphName("SORT_UP");
+            }
+            else{
+                sort_icon.setGlyphName("SORT_DOWN");
             }
             sqliteModel.queryTableRecords();
             Model.getInstance().getViewFactory().insertListRows();
@@ -206,10 +263,17 @@ public class TableController implements Initializable {
         fullPay_pane.setOnMouseClicked(event -> {
             if(Model.getInstance().getOrderCategory() != Model.OrderCategory.FULLPAYMENT){
                 Model.getInstance().setOrderCategory(Model.OrderCategory.FULLPAYMENT);
-                Model.getInstance().setASC(true);
+                Model.getInstance().setASC(false);
+                fullPay_pane.getChildren().add(sort_icon);
             }
             else{
                 Model.getInstance().setASC(!Model.getInstance().isASC());
+            }
+            if(Model.getInstance().isASC()){
+                sort_icon.setGlyphName("SORT_UP");
+            }
+            else{
+                sort_icon.setGlyphName("SORT_DOWN");
             }
             sqliteModel.queryTableRecords();
             Model.getInstance().getViewFactory().insertListRows();
@@ -220,10 +284,17 @@ public class TableController implements Initializable {
         balance_pane.setOnMouseClicked(event -> {
             if(Model.getInstance().getOrderCategory() != Model.OrderCategory.BALANCE){
                 Model.getInstance().setOrderCategory(Model.OrderCategory.BALANCE);
-                Model.getInstance().setASC(true);
+                Model.getInstance().setASC(false);
+                balance_pane.getChildren().add(sort_icon);
             }
             else{
                 Model.getInstance().setASC(!Model.getInstance().isASC());
+            }
+            if(Model.getInstance().isASC()){
+                sort_icon.setGlyphName("SORT_UP");
+            }
+            else{
+                sort_icon.setGlyphName("SORT_DOWN");
             }
             sqliteModel.queryTableRecords();
             Model.getInstance().getViewFactory().insertListRows();
@@ -235,9 +306,16 @@ public class TableController implements Initializable {
             if(Model.getInstance().getOrderCategory() != Model.OrderCategory.STATUS){
                 Model.getInstance().setOrderCategory(Model.OrderCategory.STATUS);
                 Model.getInstance().setASC(true);
+                status_pane.getChildren().add(sort_icon);
             }
             else{
                 Model.getInstance().setASC(!Model.getInstance().isASC());
+            }
+            if(Model.getInstance().isASC()){
+                sort_icon.setGlyphName("SORT_UP");
+            }
+            else{
+                sort_icon.setGlyphName("SORT_DOWN");
             }
             sqliteModel.queryTableRecords();
             Model.getInstance().getViewFactory().insertListRows();
@@ -249,9 +327,16 @@ public class TableController implements Initializable {
             if(Model.getInstance().getOrderCategory() != Model.OrderCategory.CHECKIN){
                 Model.getInstance().setOrderCategory(Model.OrderCategory.CHECKIN);
                 Model.getInstance().setASC(false);
+                checkIn_pane.getChildren().add(sort_icon);
             }
             else{
                 Model.getInstance().setASC(!Model.getInstance().isASC());
+            }
+            if(Model.getInstance().isASC()){
+                sort_icon.setGlyphName("SORT_UP");
+            }
+            else{
+                sort_icon.setGlyphName("SORT_DOWN");
             }
             sqliteModel.queryTableRecords();
             Model.getInstance().getViewFactory().insertListRows();
@@ -263,9 +348,16 @@ public class TableController implements Initializable {
             if(Model.getInstance().getOrderCategory() != Model.OrderCategory.CHECKOUT){
                 Model.getInstance().setOrderCategory(Model.OrderCategory.CHECKOUT);
                 Model.getInstance().setASC(false);
+                checkOut_pane.getChildren().add(sort_icon);
             }
             else{
                 Model.getInstance().setASC(!Model.getInstance().isASC());
+            }
+            if(Model.getInstance().isASC()){
+                sort_icon.setGlyphName("SORT_UP");
+            }
+            else{
+                sort_icon.setGlyphName("SORT_DOWN");
             }
             sqliteModel.queryTableRecords();
             Model.getInstance().getViewFactory().insertListRows();
@@ -277,9 +369,16 @@ public class TableController implements Initializable {
             if(Model.getInstance().getOrderCategory() != Model.OrderCategory.ROOM){
                 Model.getInstance().setOrderCategory(Model.OrderCategory.ROOM);
                 Model.getInstance().setASC(true);
+                room_pane.getChildren().add(sort_icon);
             }
             else{
                 Model.getInstance().setASC(!Model.getInstance().isASC());
+            }
+            if(Model.getInstance().isASC()){
+                sort_icon.setGlyphName("SORT_UP");
+            }
+            else{
+                sort_icon.setGlyphName("SORT_DOWN");
             }
             sqliteModel.queryTableRecords();
             Model.getInstance().getViewFactory().insertListRows();
@@ -290,10 +389,17 @@ public class TableController implements Initializable {
         user_pane.setOnMouseClicked(event -> {
             if(Model.getInstance().getOrderCategory() != Model.OrderCategory.USER){
                 Model.getInstance().setOrderCategory(Model.OrderCategory.USER);
-                Model.getInstance().setASC(false);
+                Model.getInstance().setASC(true);
+                user_pane.getChildren().add(sort_icon);
             }
             else{
                 Model.getInstance().setASC(!Model.getInstance().isASC());
+            }
+            if(Model.getInstance().isASC()){
+                sort_icon.setGlyphName("SORT_UP");
+            }
+            else{
+                sort_icon.setGlyphName("SORT_DOWN");
             }
             sqliteModel.queryTableRecords();
             Model.getInstance().getViewFactory().insertListRows();
@@ -414,6 +520,37 @@ public class TableController implements Initializable {
             page_fld.setText("1");
         });
 
+        default_btn.setOnAction(actionEvent -> {
+            if(Model.getInstance().getViewFactory().showConfirmPopup("Do you really want to reset the filter settings?")){
+                //sort
+                if(Model.getInstance().getOrderCategory() != Model.OrderCategory.ID){
+                    id_pane.getChildren().add(sort_icon);
+                    Model.getInstance().setOrderCategory(Model.OrderCategory.ID);
+                }
+                Model.getInstance().setASC(false);
+                sort_icon.setGlyphName("SORT_DOWN");
+
+
+                //date
+                Model.getInstance().initTableDates();
+                startDate_datePicker.setValue(Model.getInstance().getTableStartDate());
+                endDate_datePicker.setValue(Model.getInstance().getTableEndDate());
+
+                //rooms
+                j_chkBox.setSelected(false);
+                g_chkBox.setSelected(false);
+                a_chkBox.setSelected(false);
+                k1_chkBox.setSelected(false);
+                k2_chkBox.setSelected(false);
+
+                //searchbar
+                searchBar_fld.setText("");
+
+
+                sqliteModel.queryTableRecords();
+                Model.getInstance().getViewFactory().insertListRows();
+            }
+        });
     }
 
     public void myInit(){

@@ -465,6 +465,9 @@ public class sqliteModel {
         else{
             direction = "DESC";
         }
+        if(Model.getInstance().getOrderCategory() != Model.OrderCategory.ID){
+            direction += ", id DESC";
+        }
 
         String sql;
 

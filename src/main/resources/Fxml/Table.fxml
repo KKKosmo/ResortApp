@@ -312,4 +312,5 @@
          <FontAwesomeIconView glyphName="BARS" size="20" />
       </graphic>
    </Button>
+   <Button fx:id="default_btn" layoutX="70.0" layoutY="21.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="62.0" text="Default Filters" textAlignment="CENTER" wrapText="true" />
 </AnchorPane>

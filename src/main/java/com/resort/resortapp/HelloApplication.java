@@ -9,7 +9,7 @@ public class HelloApplication extends Application {
     public void start(Stage stage){
         Model.getInstance().getViewFactory().setStage(stage);
         stage.setTitle("J&G Resort App");
-        Model.getInstance().initTableValues();
+        Model.getInstance().initTableDates();
         Model.getInstance().getViewFactory().setSceneTable();
 //        Model.getInstance().setCurrentPage(1);
         stage.setResizable(false);

@@ -17,7 +17,6 @@ import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -70,7 +69,7 @@ public class Model {
         CHECKIN("checkIn"),
         CHECKOUT("checkOut"),
         ROOM("room"),
-        USER("user");
+        USER("lower(user)");
 
         final private String string;
 
@@ -350,7 +349,7 @@ public class Model {
     }
 
 
-    public void initTableValues(){
+    public void initTableDates(){
         LocalDate temp = LocalDate.now();
         System.out.println("RESETTING EHRE");
         tableStartDate = temp.withDayOfMonth(1);
