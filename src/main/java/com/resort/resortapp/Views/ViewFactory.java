@@ -10,6 +10,7 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.VerticalAlignment;
 import com.resort.resortapp.Controllers.EditController;
+import com.resort.resortapp.Controllers.EditHistoryController;
 import com.resort.resortapp.Controllers.TableController;
 import com.resort.resortapp.Models.*;
 import com.resort.resortapp.Rooms;
@@ -110,6 +111,22 @@ public class ViewFactory {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Login.fxml"));
             stage.setScene(new Scene(loader.load()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void setSceneEditHistory(){
+        try {
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/EditHistory.fxml"));
+//            Parent root = loader.load();
+//
+//            EditHistoryController editHistoryController = loader.getController();
+//            editHistoryController.setList(sqliteModel.getEditHistory());
+//            stage.setScene(new Scene(root));
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/EditHistory.fxml"));
+            stage.setScene(new Scene(loader.load()));
+
         } catch (Exception e) {
             e.printStackTrace();
         }

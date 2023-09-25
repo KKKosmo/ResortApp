@@ -308,9 +308,7 @@ public class sqliteModel {
 
 
 
-    public static boolean updateRecord(RecordModel recordModel, Set<String> available){
-
-
+    public static boolean updateRecord(RecordModel recordModel, Set<String> available, String changes){
         String name = recordModel.getName();
         String paxString = recordModel.getPax();
         String vehicle = recordModel.getVehicle();
@@ -323,7 +321,6 @@ public class sqliteModel {
         String checkOut = recordModel.getCheckOut();
         String roomUnformatted = recordModel.getRooms();
         List<CheckBox> roomCheckboxes = recordModel.getRoomCheckBoxes();
-
 
         if (name.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Name is empty.");
@@ -390,8 +387,6 @@ public class sqliteModel {
             return false;
         }
         else{
-            //TODO EDIT HISTORY
-            String currentDate = LocalDateTime.now().format(formatter);
             int paxInt = Integer.parseInt(paxString);
 
             if(paxInt <= 0){
@@ -412,27 +407,46 @@ public class sqliteModel {
                 paid = true;
             }
 
-            String sql = String.format("UPDATE main SET " +
-                            "name = '%s', " +
-                            "pax = %d, " +
-                            "vehicle = %d, " +
-                            "pets = %b, " +
-                            "videoke = %b, " +
-                            "partial_payment = %.2f, " +
-                            "full_payment = %.2f, " +
-                            "paid = %b, " +
-                            "checkIn = '%s', " +
-                            "checkOut = '%s', " +
-                            "room = '%s' " +
-                            "WHERE id = '%d';",
-                    name, paxInt, Integer.parseInt(vehicle), pets, videoke, partial_paymentDouble, fullPaymentDouble, paid, checkIn, checkOut, roomUnformatted, recordModel.getIdInt());
-
-            System.out.println("sql = " + sql);
             try {
+                String sql = String.format("UPDATE main SET " +
+                                "name = '%s', " +
+                                "pax = %d, " +
+                                "vehicle = %d, " +
+                                "pets = %b, " +
+                                "videoke = %b, " +
+                                "partial_payment = %.2f, " +
+                                "full_payment = %.2f, " +
+                                "paid = %b, " +
+                                "checkIn = '%s', " +
+                                "checkOut = '%s', " +
+                                "room = '%s' " +
+                                "WHERE id = '%d';",
+                        name, paxInt, Integer.parseInt(vehicle), pets, videoke, partial_paymentDouble, fullPaymentDouble, paid, checkIn, checkOut, roomUnformatted, recordModel.getIdInt());
+
+                System.out.println("sql = " + sql);
+
                 PreparedStatement pStmt = openDB().prepareStatement(sql);
                 pStmt.executeUpdate();
 
                 closeDB();
+
+
+                //TODO EDIT HISTORY
+
+                sql = String.format("INSERT INTO edit (record_id, edit_timestamp, summary, user) VALUES ('%d', '%s', '%s', '%s');",
+                        recordModel.getIdInt(),
+                        LocalDateTime.now().format(formatter),
+                        changes,
+                        "user"
+                );
+
+                System.out.println("sql = " + sql);
+
+                pStmt = openDB().prepareStatement(sql);
+                pStmt.executeUpdate();
+
+                closeDB();
+
                 Model.getInstance().getViewFactory().showSuccessPopup("Successfully updated this record.");
                 return true;
             } catch (SQLException e) {
@@ -556,5 +570,34 @@ public class sqliteModel {
             Model.getInstance().getViewFactory().showErrorPopup("Failed to delete row: " + e);
             return false;
         }
+    }
+
+    public static List<EditHistoryModel> getEditHistory() {
+        List<EditHistoryModel> result = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM edit";
+            System.out.println("sql = " + sql);
+            PreparedStatement pStmt = openDB().prepareStatement(sql);
+            ResultSet resultSet = pStmt.executeQuery();
+            while(resultSet.next()){
+                String editID = resultSet.getString("id");
+                String recordId = resultSet.getString("record_id");
+                String editTimestamp = resultSet.getString("edit_timestamp");
+                String summary = resultSet.getString("summary");
+                String user = resultSet.getString("user");
+
+
+                EditHistoryModel editHistoryModel = new EditHistoryModel(editID, recordId, editTimestamp, summary, user);
+
+                result.add(editHistoryModel);
+            }
+            resultSet.close();
+            closeDB();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 }

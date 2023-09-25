@@ -59,6 +59,7 @@ public class TableController implements Initializable {
     public Text totalPayment_txt;
     public Text unpaid_txt;
     public HBox totalPayment_hBox;
+    public Button history_btn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -520,6 +521,10 @@ public class TableController implements Initializable {
 
         export_btn.setOnAction(actionEvent -> {
             Model.getInstance().getViewFactory().generateReportPDF();
+        });
+
+        history_btn.setOnAction(actionEvent -> {
+            Model.getInstance().getViewFactory().setSceneEditHistory();
         });
     }
 
