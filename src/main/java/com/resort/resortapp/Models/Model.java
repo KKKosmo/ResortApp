@@ -90,6 +90,12 @@ public class Model {
     private int recordCount = 0;
     private int tableRowCount = 15;
 
+    private boolean tableJFilter = false;
+    private boolean tableGFilter = false;
+    private boolean tableAFilter = false;
+    private boolean tableK1Filter = false;
+    private boolean tableK2Filter = false;
+
     private Model(){
         this.viewFactory = new ViewFactory();
     }
@@ -415,5 +421,45 @@ public class Model {
 
     public void setTableRowCount(int tableRowCount) {
         this.tableRowCount = tableRowCount;
+    }
+
+    public boolean isTableJFilter() {
+        return tableJFilter;
+    }
+
+    public void setTableJFilter(boolean tableJFilter) {
+        this.tableJFilter = tableJFilter;
+    }
+
+    public boolean isTableGFilter() {
+        return tableGFilter;
+    }
+
+    public void setTableGFilter(boolean tableGFilter) {
+        this.tableGFilter = tableGFilter;
+    }
+
+    public boolean isTableAFilter() {
+        return tableAFilter;
+    }
+
+    public void setTableAFilter(boolean tableAFilter) {
+        this.tableAFilter = tableAFilter;
+    }
+
+    public boolean isTableK1Filter() {
+        return tableK1Filter;
+    }
+
+    public void setTableK1Filter(boolean tableK1Filter) {
+        this.tableK1Filter = tableK1Filter;
+    }
+
+    public boolean isTableK2Filter() {
+        return tableK2Filter;
+    }
+
+    public void setTableK2Filter(boolean tableK2Filter) {
+        this.tableK2Filter = tableK2Filter;
     }
 }

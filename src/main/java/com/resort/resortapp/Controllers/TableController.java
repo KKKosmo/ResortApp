@@ -70,7 +70,16 @@ public class TableController implements Initializable {
 
 
 
-        System.out.println("SHOULD BE SETTING DATES HERE");
+        //rooms
+
+        j_chkBox.setSelected(Model.getInstance().isTableJFilter());
+        g_chkBox.setSelected(Model.getInstance().isTableGFilter());
+        a_chkBox.setSelected(Model.getInstance().isTableAFilter());
+        k1_chkBox.setSelected(Model.getInstance().isTableK1Filter());
+        k2_chkBox.setSelected(Model.getInstance().isTableK2Filter());
+
+        searchBar_fld.setText(Model.getInstance().getNameFilter());
+
         startDate_datePicker.setValue(Model.getInstance().getTableStartDate());
         endDate_datePicker.setValue(Model.getInstance().getTableEndDate());
         currentPage_txt.setText(String.valueOf(Model.getInstance().getCurrentPage()));
@@ -442,6 +451,7 @@ public class TableController implements Initializable {
             else{
                 Model.getInstance().getTableRooms().remove(Rooms.ROOM_J.getAbbreviatedName());
             }
+            Model.getInstance().setTableJFilter(newValue);
             refreshPage();
 
         });
@@ -452,6 +462,7 @@ public class TableController implements Initializable {
             else{
                 Model.getInstance().getTableRooms().remove(Rooms.ROOM_G.getAbbreviatedName());
             }
+            Model.getInstance().setTableGFilter(newValue);
             refreshPage();
         });
         a_chkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
@@ -461,6 +472,7 @@ public class TableController implements Initializable {
             else{
                 Model.getInstance().getTableRooms().remove(Rooms.ATTIC.getAbbreviatedName());
             }
+            Model.getInstance().setTableAFilter(newValue);
             refreshPage();
         });
         k1_chkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
@@ -470,6 +482,7 @@ public class TableController implements Initializable {
             else{
                 Model.getInstance().getTableRooms().remove(Rooms.KUBO_1.getAbbreviatedName());
             }
+            Model.getInstance().setTableK1Filter(newValue);
             refreshPage();
         });
         k2_chkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
@@ -479,6 +492,7 @@ public class TableController implements Initializable {
             else{
                 Model.getInstance().getTableRooms().remove(Rooms.KUBO_2.getAbbreviatedName());
             }
+            Model.getInstance().setTableK2Filter(newValue);
             refreshPage();
         });
 
