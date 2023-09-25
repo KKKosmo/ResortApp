@@ -1,6 +1,7 @@
 if errors with sql, might be the plugins
 
 print
+    do payment first
 
 
 edit history

@@ -4,6 +4,7 @@ import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
+import com.itextpdf.layout.border.SolidBorder;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.HorizontalAlignment;
@@ -12,6 +13,7 @@ import com.resort.resortapp.Controllers.EditController;
 import com.resort.resortapp.Controllers.TableController;
 import com.resort.resortapp.Models.*;
 import com.resort.resortapp.Rooms;
+import com.itextpdf.layout.element.Cell;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -27,7 +29,6 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.ZonedDateTime;
@@ -436,6 +437,9 @@ public class ViewFactory {
         setListTableChildren(listTable.getChildren());
     }
 
+
+
+    float fontSize = 9.4f;
     public void generateReportPDF(){
         try {
             String path = "Report.pdf";
@@ -454,11 +458,10 @@ public class ViewFactory {
 
             int currentPage = 1;
             int rowCount = 15;
-            float fontSize = 9.4f;
 
             float[] headerWidth = new float[5];
             Table table = new Table(headerWidth);
-            table.addCell(new com.itextpdf.layout.element.Cell().add(
+            table.addCell(new Cell().add(
                     Model.getInstance().getTableStartDate() + " - " + Model.getInstance().getTableEndDate()).
                     setBold().setFontSize(fontSize));
 
@@ -479,12 +482,12 @@ public class ViewFactory {
             table.addCell("Total Payment Received: " + Model.getInstance().getTotalPayment() + " (" + Model.getInstance().getTotalUnpaid() + " UNPAID)").setBold().setFontSize(fontSize);
 
 //            Table nestedTable = new Table(new float[]{col1/2, col1/2});
-//            nestedTable.addCell(new com.itextpdf.layout.element.Cell().add("Total Reservations").setBorder(com.itextpdf.layout.border.Border.NO_BORDER).setBold());
-//            nestedTable.addCell(new com.itextpdf.layout.element.Cell().add("0").setBorder(com.itextpdf.layout.border.Border.NO_BORDER));
-//            nestedTable.addCell(new com.itextpdf.layout.element.Cell().add("Total Guests").setBorder(com.itextpdf.layout.border.Border.NO_BORDER).setBold());
-//            nestedTable.addCell(new com.itextpdf.layout.element.Cell().add("0").setBorder(com.itextpdf.layout.border.Border.NO_BORDER));
-//            nestedTable.addCell(new com.itextpdf.layout.element.Cell().add("Total Revenue").setBorder(com.itextpdf.layout.border.Border.NO_BORDER).setBold());
-//            nestedTable.addCell(new com.itextpdf.layout.element.Cell().add("0 PHP").setBorder(com.itextpdf.layout.border.Border.NO_BORDER));
+//            nestedTable.addCell(new Cell().add("Total Reservations").setBorder(com.itextpdf.layout.border.Border.NO_BORDER).setBold());
+//            nestedTable.addCell(new Cell().add("0").setBorder(com.itextpdf.layout.border.Border.NO_BORDER));
+//            nestedTable.addCell(new Cell().add("Total Guests").setBorder(com.itextpdf.layout.border.Border.NO_BORDER).setBold());
+//            nestedTable.addCell(new Cell().add("0").setBorder(com.itextpdf.layout.border.Border.NO_BORDER));
+//            nestedTable.addCell(new Cell().add("Total Revenue").setBorder(com.itextpdf.layout.border.Border.NO_BORDER).setBold());
+//            nestedTable.addCell(new Cell().add("0 PHP").setBorder(com.itextpdf.layout.border.Border.NO_BORDER));
 
 //            table.addCell(nestedTable);
 
@@ -495,32 +498,54 @@ public class ViewFactory {
             float[] columnWidthsInPoints = {
                     45.8f, //id
                     90.4f, //date
-                    250.2f, //name
-                    40.2f, //pax
-                    46.7f, //vehicle
-                    40.9f, //pets
-                    47.7f, //videoke
-                    55.0f, //payment
+                    215.2f, //name
+                    35.2f, //pax
+                    41.7f, //vehicle
+                    30.9f, //pets
+                    42.7f, //videoke
+                    125.0f, //payment
                     55.8f, //balance
                     44.4f, //status
                     100.5f, //checkin
                     100.5f, //chekcout
                     64.6f, //room
-                    135.6f //user
+                    125.6f //user
             };
             Table body = new Table(columnWidthsInPoints);
-            String[] columnHeaders = {
-                    "ID", "Date", "Name", "No. of Heads", "Vehicle", "Pets", "Videoke",
-                    "Payment", "Balance", "Status", "Check-In", "Check-Out", "Room", "User"
-            };
 
-            for (String columnHeader : columnHeaders) {
-                body.addCell(new com.itextpdf.layout.element.Cell().add(columnHeader)
-                        .setBold()
-                        .setFontSize(fontSize)
-                        .setTextAlignment(com.itextpdf.layout.property.TextAlignment.CENTER)
-                        .setVerticalAlignment(VerticalAlignment.MIDDLE));
-            }
+            body.addCell(createCellBold("ID"));
+            body.addCell(createCellBold("Time Created"));
+            body.addCell(createCellBold("Name"));
+            body.addCell(createCellBold("No. of Heads"));
+            body.addCell(createCellBold("Vehicle"));
+            body.addCell(createCellBold("Pets"));
+            body.addCell(createCellBold("Videoke"));
+
+
+
+            Table headerPayment = new Table(new float[1]).setMargin(0f).setPadding(0f);
+
+            headerPayment.addCell(createCellBold("Partial Payment").setMargin(0f).setPadding(0f)
+                    .setBorderBottom(new SolidBorder(com.itextpdf.kernel.color.Color.BLACK, 1f))
+                    .setBorderLeft(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f))
+                    .setBorderRight(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f))
+                    .setBorderTop(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f)));
+            headerPayment.addCell(createCellBold("Full Payment").setMargin(0f).setPadding(0f)
+                    .setBorderBottom(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f))
+                    .setBorderLeft(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f))
+                    .setBorderRight(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f))
+                    .setBorderTop(new SolidBorder(com.itextpdf.kernel.color.Color.BLACK, 1f)));
+
+            body.addCell(headerPayment);
+
+
+
+            body.addCell(createCellBold("Balance"));
+            body.addCell(createCellBold("Status"));
+            body.addCell(createCellBold("Check-In"));
+            body.addCell(createCellBold("Check-Out"));
+            body.addCell(createCellBold("Room"));
+            body.addCell(createCellBold("User"));
 
 
             List<RecordModel> list = Model.getInstance().getListRecordModels();
@@ -528,24 +553,34 @@ public class ViewFactory {
                 for(int j = 0; j < 14; j++){
 
                     List<String> recordList = list.get(i).getList();
-                    if (j == 1) {
-                        //date inserted
-//                        body.addCell(new com.itextpdf.layout.element.Cell().add(recordList.get(j)));
-                    } else if (j == 7) {
+                    if (j == 7) {
                         //partial payment
                         //line
                         //full payment
 //                        temp.setText(recordList.get(14));
-                    } else if (j == 12) {
-                        //rooms
+//                        body.addCell(createCell(recordList.get(j)));
+
+
+                        Table rowPayment = new Table(new float[1]).setMargin(0f).setPadding(0f);
+
+                        rowPayment.addCell(createCell(recordList.get(j)).setMargin(0f).setPadding(0f)
+                                .setBorderBottom(new SolidBorder(com.itextpdf.kernel.color.Color.BLACK, 1f))
+                                .setBorderLeft(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f))
+                                .setBorderRight(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f))
+                                .setBorderTop(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f)));
+                        rowPayment.addCell(createCell(recordList.get(14)).setMargin(0f).setPadding(0f)
+                                .setBorderBottom(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f))
+                                .setBorderLeft(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f))
+                                .setBorderRight(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f))
+                                .setBorderTop(new SolidBorder(com.itextpdf.kernel.color.Color.BLACK, 1f)));
+
+                        body.addCell(rowPayment.setHorizontalAlignment(HorizontalAlignment.CENTER));
+
+
                     }
                     else{
-//                        body.addCell(new com.itextpdf.layout.element.Cell().add(recordList.get(j)));
+                        body.addCell(createCell(recordList.get(j)));
                     }
-                    body.addCell(new com.itextpdf.layout.element.Cell().add(recordList.get(j))
-                            .setFontSize(fontSize)
-                            .setTextAlignment(com.itextpdf.layout.property.TextAlignment.CENTER)
-                            .setVerticalAlignment(VerticalAlignment.MIDDLE));
                 }
             }
 
@@ -561,5 +596,18 @@ public class ViewFactory {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }
+    public Cell createCell(String text) {
+        return new Cell().add(text)
+                .setFontSize(fontSize)
+                .setTextAlignment(com.itextpdf.layout.property.TextAlignment.CENTER)
+                .setVerticalAlignment(VerticalAlignment.MIDDLE);
+    }
+    public Cell createCellBold(String text) {
+        return new Cell().add(text)
+                .setFontSize(fontSize)
+                .setTextAlignment(com.itextpdf.layout.property.TextAlignment.CENTER)
+                .setVerticalAlignment(VerticalAlignment.MIDDLE)
+                .setBold();
     }
 }
