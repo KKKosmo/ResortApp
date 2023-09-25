@@ -88,6 +88,7 @@ public class Model {
     private Double totalPayment = 0.0;
     private int totalUnpaid = 0;
     private int recordCount = 0;
+    private int tableRowCount = 15;
 
     private Model(){
         this.viewFactory = new ViewFactory();
@@ -315,14 +316,14 @@ public class Model {
 
     public void setListRecordModels(List<RecordModel> listRecordModels) {
         tableRecordModels = listRecordModels;
-        maxPage = (int) Math.ceil((float) listRecordModels.size() / 16);
-        endIndex = Math.min(startIndex + 16, tableRecordModels.size());
+        maxPage = (int) Math.ceil((float) listRecordModels.size() / getTableRowCount());
+        endIndex = Math.min(startIndex + getTableRowCount(), tableRecordModels.size());
         System.out.println("PLSW ORD");
     }
     public void setCurrentPage(int currentPage) {
         this.currentPage = currentPage;
-        this.startIndex = 16 * (currentPage - 1);
-        this.endIndex = Math.min(startIndex + 16, tableRecordModels.size());
+        this.startIndex = getTableRowCount() * (currentPage - 1);
+        this.endIndex = Math.min(startIndex + getTableRowCount(), tableRecordModels.size());
         System.out.println("SETTING CURRENT OPAEG");
 //
     }
@@ -345,7 +346,7 @@ public class Model {
 
     public int getInitEndIndex(){
         if(endIndex == 0){
-            return Math.min(getListRecordModels().size(), 16);
+            return Math.min(getListRecordModels().size(), getTableRowCount());
         }
         else{
             return endIndex;
@@ -406,5 +407,13 @@ public class Model {
 
     public void setRecordCount(int recordCount) {
         this.recordCount = recordCount;
+    }
+
+    public int getTableRowCount() {
+        return tableRowCount;
+    }
+
+    public void setTableRowCount(int tableRowCount) {
+        this.tableRowCount = tableRowCount;
     }
 }

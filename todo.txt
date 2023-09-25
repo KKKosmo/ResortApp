@@ -2,7 +2,11 @@ if errors with sql, might be the plugins
 
 print
 
+
 edit history
+    it should include deletes
+
+default not resetting rooms?
 
 when creating, handle what if different months
 

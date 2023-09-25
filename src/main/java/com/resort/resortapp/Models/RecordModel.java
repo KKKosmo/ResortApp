@@ -85,7 +85,7 @@ public class RecordModel {
         list.add(this.checkIn);
         list.add(this.checkOut);
         list.add(this.rooms);
-        list.add(this.user);
+        list.add("user");
         list.add(this.fullPayment);
     }
 

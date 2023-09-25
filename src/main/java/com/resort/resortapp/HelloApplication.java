@@ -14,7 +14,6 @@ public class HelloApplication extends Application {
 //        Model.getInstance().setCurrentPage(1);
         stage.setResizable(false);
         stage.show();
-//        Model.getInstance().getViewFactory().generateReportPDF();
     }
 
     public static void main(String[] args) {

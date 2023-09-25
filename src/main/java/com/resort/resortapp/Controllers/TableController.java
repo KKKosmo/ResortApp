@@ -517,6 +517,10 @@ public class TableController implements Initializable {
                 Model.getInstance().getViewFactory().insertListRows();
             }
         });
+
+        export_btn.setOnAction(actionEvent -> {
+            Model.getInstance().getViewFactory().generateReportPDF();
+        });
     }
 
     public void myInit(){
