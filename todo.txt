@@ -19,7 +19,8 @@ vehicle field number only
 button mouse appearances
 
 check proper popups, a warning should not be the same as information
-are u sure u want to delete this row -> row ID
+are u sure u want to delete this row -> ID =
+
 
 if query more than 100 or sum, split into 2
 dont init list everytime

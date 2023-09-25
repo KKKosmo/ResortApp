@@ -436,7 +436,7 @@ public class sqliteModel {
                 sql = String.format("INSERT INTO edit (record_id, edit_timestamp, summary, user) VALUES ('%d', '%s', '%s', '%s');",
                         recordModel.getIdInt(),
                         LocalDateTime.now().format(formatter),
-                        changes,
+                        "UPDATED ROW: " + changes,
                         "user"
                 );
 
@@ -554,15 +554,47 @@ public class sqliteModel {
 
 
 
-    public static boolean deleteEntry(int id){
-        String sql = String.format("DELETE FROM main WHERE id = %d", id);
-        System.out.println("sql = " + sql);
-
+    public static boolean deleteEntry(RecordModel recordModel){
+        int id = recordModel.getIdInt();
         try {
+            String sql = String.format("DELETE FROM main WHERE id = %d", id);
+            System.out.println("sql = " + sql);
             PreparedStatement pStmt = openDB().prepareStatement(sql);
+            pStmt.executeUpdate();
+            closeDB();
+
+            String changes = "DELETED ROW: ";
+            changes += "id = " + recordModel.getIdInt();
+            changes += ", dateInserted = " + recordModel.getDateInserted();
+            changes += ", name = " + recordModel.getName();
+            changes += ", pax = " + recordModel.getPax();
+            changes += ", vehicle = " + recordModel.getVehicle();
+            changes += ", pets = " + recordModel.getPets();
+            changes += ", videoke = " + recordModel.getVideoke();
+            changes += ", partialPayment = " + recordModel.getPartialPayment();
+            changes += ", fullPayment = " + recordModel.getFullPayment();
+            changes += ", balance = " + recordModel.getBalance();
+            changes += ", payStatus = " + recordModel.getPayStatus();
+            changes += ", checkIn = " + recordModel.getCheckIn();
+            changes += ", checkOut = " + recordModel.getCheckOut();
+            changes += ", rooms = " + recordModel.getRooms();
+            changes += ", user = " + recordModel.getUser();
+
+
+            sql = String.format("INSERT INTO edit (record_id, edit_timestamp, summary, user) VALUES ('%d', '%s', '%s', '%s');",
+                    id,
+                    LocalDateTime.now().format(formatter),
+                    changes,
+                    "user"
+            );
+
+            System.out.println("sql = " + sql);
+
+            pStmt = openDB().prepareStatement(sql);
             pStmt.executeUpdate();
 
             closeDB();
+
             Model.getInstance().getViewFactory().showSuccessPopup("Row successfully deleted.");
             return true;
         } catch (SQLException e) {
@@ -580,14 +612,16 @@ public class sqliteModel {
             PreparedStatement pStmt = openDB().prepareStatement(sql);
             ResultSet resultSet = pStmt.executeQuery();
             while(resultSet.next()){
-                String editID = resultSet.getString("id");
-                String recordId = resultSet.getString("record_id");
+                int editID = resultSet.getInt("id");
+                int recordId = resultSet.getInt("record_id");
                 String editTimestamp = resultSet.getString("edit_timestamp");
                 String summary = resultSet.getString("summary");
                 String user = resultSet.getString("user");
 
 
-                EditHistoryModel editHistoryModel = new EditHistoryModel(editID, recordId, editTimestamp, summary, user);
+                String formattedTime = LocalDateTime.parse(editTimestamp, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd h:mm a"));
+
+                EditHistoryModel editHistoryModel = new EditHistoryModel(editID, recordId, formattedTime, summary, user);
 
                 result.add(editHistoryModel);
             }

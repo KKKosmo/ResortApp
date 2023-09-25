@@ -385,7 +385,7 @@ public class ViewFactory {
 
             deleteButton.setOnAction(actionEvent -> {
                 if(showConfirmPopup("Are you sure you want to delete this row?")){
-                    if(sqliteModel.deleteEntry(recordModel.getIdInt())){
+                    if(sqliteModel.deleteEntry(recordModel)){
                         listTableChildren.removeIf(node -> listTableChildren.indexOf(node) > 8);
                         setSceneTable();
                     }

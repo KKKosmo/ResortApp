@@ -377,4 +377,25 @@ public class RecordModel {
     public RadioButton getPaidYes_radio() {
         return paidYes_radio;
     }
+
+
+    public String getId() {
+        return id;
+    }
+
+    public String getDateInserted() {
+        return dateInserted;
+    }
+
+    public String getBalance() {
+        return balance;
+    }
+
+    public String getPayStatus() {
+        return payStatus;
+    }
+
+    public String getUser() {
+        return user;
+    }
 }

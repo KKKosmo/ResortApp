@@ -5,20 +5,25 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.resort.resortapp.Controllers.EditHistoryController">
+<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.resort.resortapp.Controllers.EditHistoryController">
     <Button fx:id="back_btn" layoutX="24.0" layoutY="24.0" mnemonicParsing="false">
         <graphic>
           <FontAwesomeIconView glyphName="ARROW_LEFT" size="20" />
         </graphic>
     </Button>
-   <TableView layoutX="20.0" layoutY="108.0" prefHeight="634.0" prefWidth="1240.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+   <TableView fx:id="tableview" layoutX="20.0" layoutY="70.0" prefHeight="708.0" prefWidth="1240.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
      <columns>
-       <TableColumn prefWidth="65.0" text="Edit ID" />
-       <TableColumn prefWidth="61.0" text="Book ID" />
-         <TableColumn prefWidth="161.0" text="Date &amp; Time" />
-         <TableColumn prefWidth="828.0" text="Changes" />
-         <TableColumn prefWidth="124.0" text="User" />
+       <TableColumn fx:id="editId_col" editable="false" prefWidth="55.0" resizable="false" sortType="DESCENDING" text="Edit ID" />
+       <TableColumn fx:id="bookId_col" editable="false" prefWidth="61.0" resizable="false" text="Book ID" />
+         <TableColumn fx:id="dateTime_col" editable="false" prefWidth="133.0" resizable="false" sortType="DESCENDING" sortable="false" text="Date &amp; Time" />
+         <TableColumn fx:id="user_col" editable="false" minWidth="0.0" prefWidth="129.0" resizable="false" text="User" />
+         <TableColumn fx:id="changes_col" editable="false" maxWidth="10000.0" prefWidth="1863.0" sortable="false">
+            <graphic>
+               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Change Summary" wrappingWidth="1108.8203125" />
+            </graphic>
+         </TableColumn>
      </columns>
    </TableView>
 </AnchorPane>
