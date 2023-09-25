@@ -13,7 +13,9 @@ when creating, handle what if different months
 
 static list of users, and passwords, think about how to reset passwords
 
+containerize
 
+export location
 
 text fields should be alphanumeric
 text field lengths should be limited
