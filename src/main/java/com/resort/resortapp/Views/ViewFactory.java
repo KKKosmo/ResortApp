@@ -163,7 +163,7 @@ public class ViewFactory {
     public void fillFlowPaneMonths(Rooms rooms){
         flowPane.getChildren().clear();
         //TODO clear daymodel list here?
-        setCalendarGrid(rooms);
+        setCalendarGrid();
 
         int dateOffset = Model.getInstance().getDateOffset();
 
@@ -188,14 +188,16 @@ public class ViewFactory {
 //        System.out.println("========tempdate = " + tempDate);
 //        System.out.println("========datefocus  = " + Model.getInstance().getDateFocus());
 
-        int monthMaxDate = Model.getInstance().getMonthMaxDate() + startDate;
+        Model.getInstance().setAvailableRoomsPerDayWithinTheMonthsList(sqliteModel.getAvailableRoomsPerDayList());
+        int monthMaxDate = Model.getInstance().getAvailableRoomsPerDayWithinTheMonthsList().size();
 
 //        System.out.println("===========STARTDATE = " + startDate);
 //        System.out.println("==============MONTHMAXDATE = " + monthMaxDate);
 
         if(rooms == Rooms.ALL_ROOMS){
-            Model.getInstance().setAvailableRoomsPerDayWithinTheMonthsList(sqliteModel.getAvailableRoomsPerDayList());
 
+            System.out.println(Model.getInstance().getAvailableRoomsPerDayWithinTheMonthsList().size());
+            System.out.println(monthMaxDate);
             for(int i = startDate; i < monthMaxDate; i++){
                 Text temp = onScreenCalendarDayModels.get(i + dateOffset).getRoomsText();
                 StringBuilder desc = new StringBuilder();
@@ -246,39 +248,16 @@ public class ViewFactory {
         }
     }
     public void highlight(){
-//        int count = 0;
-//
-//        System.out.println(Model.getInstance().getEdgeLeftDate());
-//        System.out.println(Model.getInstance().getDateFocus());
-//
-//        if(Model.getInstance().getEdgeLeftDate().isBefore(Model.getInstance().getDateFocus())){
-//            LocalDate temp2 = Model.getInstance().getEdgeLeftDate();
-//            while (Model.getInstance().getDateFocus().getMonth() != temp2.getMonth()){
-//                count += temp2.lengthOfMonth();
-//                temp2 = temp2.plusMonths(1);
-//            }
-//        }
-//        else{
-//            LocalDate temp2 = Model.getInstance().getDateFocus();
-//            while (Model.getInstance().getDateFocus().getMonth() != temp2.getMonth()){
-//                count += temp2.lengthOfMonth();
-//                temp2 = temp2.plusMonths(1);
-//            }
-//        }
-//
-//        System.out.println(count + " = COUNT");
-
-        //if onscreen contains selected, highlight index of selected
+        System.out.println("HIGHLIGHTING");
         Set<Integer> indexes = new HashSet<>();
 
         for(LocalDate localDate : Model.getInstance().getSelectedLocalDates()){
+            System.out.println(localDate);
             if(Model.getInstance().getViewFactory().onScreenLocalDates.contains(localDate)){
                 int index = Model.getInstance().getViewFactory().onScreenLocalDates.indexOf(localDate);
                 indexes.add(index + Model.getInstance().getDateOffset());
             }
         }
-
-
 
         for(int i = 0; i < 42; i++){
             StackPane temp = onScreenCalendarDayModels.get(i).getStackPane();
@@ -290,8 +269,6 @@ public class ViewFactory {
                 temp.setBorder(borderUnselected);
             }
         }
-
-
     }
     public void clear(){
         for(int i = 0; i < 42; i++){
@@ -300,10 +277,9 @@ public class ViewFactory {
             temp.setStyle("-fx-background-color: white;");
         }
     }
-    private void setCalendarGrid(Rooms rooms){
+    public void setCalendarGrid(){
         yearText.setText(String.valueOf(Model.getInstance().getYear()));
         monthText.setText(String.valueOf(Model.getInstance().getMonth()));
-        roomText.setText(rooms.getDisplayName());
 
         double calendarWidth = flowPane.getPrefWidth();
         double calendarHeight = flowPane.getPrefHeight();
@@ -339,21 +315,26 @@ public class ViewFactory {
                     totalText.setTranslateY(boxHeight * 0.1);
                     stackPane.getChildren().add(totalText);
                     dayModel.setRoomsText(totalText);
+
+
+//                    int offset = Model.getInstance().getDateOffset();
+                    LocalDate dateFocus = Model.getInstance().getDateFocus();
+                    int gridDate = dayModel.getGridDate();
+
+//                    int maxDayOfMonth = dateFocus.lengthOfMonth();
+//                    int adjustedDay = Math.min(maxDayOfMonth, gridDate + offset);
+
+                    LocalDate newDate = dateFocus.withDayOfMonth(gridDate);
+                    onScreenLocalDates.add(newDate);
+//                    System.out.println("ONSCREEN LOCAL DATE " + newDate);
                 }
-                stackPane.setBorder(normalBorder);
+//                else {
+//                    stackPane.setBorder(borderUnselected);
+//                }
+                stackPane.setBorder(borderUnselected);
                 flowPane.getChildren().add(stackPane);
                 dayModel.setStackPane(stackPane);
                 onScreenCalendarDayModels.add(dayModel);
-
-                int offset = Model.getInstance().getDateOffset();
-                LocalDate dateFocus = Model.getInstance().getDateFocus();
-                int gridDate = dayModel.getGridDate();
-
-                int maxDayOfMonth = dateFocus.lengthOfMonth();
-                int adjustedDay = Math.min(maxDayOfMonth, gridDate + offset);
-
-                LocalDate newDate = dateFocus.withDayOfMonth(adjustedDay);
-                onScreenLocalDates.add(newDate);
 
 //                onScreenLocalDates.add(Model.getInstance().getDateFocus().withDayOfMonth(dayModel.getGridDate() + Model.getInstance().getDateOffset()));
             }

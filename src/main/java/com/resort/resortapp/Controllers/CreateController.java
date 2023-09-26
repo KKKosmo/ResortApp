@@ -44,6 +44,7 @@ public class CreateController  implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+//        Model.getInstance().getViewFactory().getOnScreenCalendarDayModels().clear();
         roomCheckBoxes.add(roomJ_ChkBox);
         roomCheckBoxes.add(roomG_ChkBox);
         roomCheckBoxes.add(attic_ChkBox);
@@ -107,6 +108,8 @@ public class CreateController  implements Initializable{
 
 
         Model.getInstance().getViewFactory().insertCalendar(month_pane);
+        if(Model.getInstance().getSelectedLocalDates()!= null)
+            Model.getInstance().getSelectedLocalDates().clear();
         for (CheckBox checkBox : roomCheckBoxes){
             checkBoxAddListener(checkBox);
         }
@@ -127,13 +130,13 @@ public class CreateController  implements Initializable{
         payment_fld.clear();
         fullPayment_fld.clear();
         checkIn_datePicker.setValue(null);
-        Model.getInstance().setSelectedLeftDate(null);
+//        Model.getInstance().setSelectedLeftDate(null);
         checkOut_datePicker.setValue(null);
-        Model.getInstance().setSelectedRightDate(null);
+//        Model.getInstance().setSelectedRightDate(null);
         for (CheckBox checkBox: roomCheckBoxes) {
             checkBox.setSelected(false);
         }
-        Model.getInstance().getViewFactory().clear();
+//        Model.getInstance().getViewFactory().clear();
     }
     private void textFieldAddListener(TextField textField){
         textField.textProperty().addListener((observable, oldValue, newValue) -> {

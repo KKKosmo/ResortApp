@@ -128,7 +128,7 @@ public class sqliteModel {
 
         List<Set<String>> result = new ArrayList<>();
 
-        LocalDate resultStartDate = Model.getInstance().getEdgeLeftDate();
+        LocalDate resultStartDate = Model.getInstance().getCalendarLeftDate();
         LocalDate resultEndDate = Model.getInstance().getCalendarRightDate();
 
         long resultSize = ChronoUnit.DAYS.between(resultStartDate, resultEndDate)+1;
@@ -171,9 +171,9 @@ public class sqliteModel {
 
                 Collections.addAll(roomSet, roomValue.split(", "));
 
-                System.out.println("Startdate = " + startDate);
-                System.out.println("daysCount = " + daysCount);
-                System.out.println("daysCount + startDate = " + (daysCount + startDate));
+//                System.out.println("Startdate = " + startDate);
+//                System.out.println("daysCount = " + daysCount);
+//                System.out.println("daysCount + startDate = " + (daysCount + startDate));
 
                 for(String room : roomSet){
                     for(int i = startDate - 1; i < daysCount + startDate; i++){
@@ -262,7 +262,12 @@ public class sqliteModel {
         else if(LocalDate.parse(checkIn).isAfter(LocalDate.parse(checkOut))){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Check-in date must come before Check-out date.");
             return false;
-        }else if(roomCheckboxes.get(0).isSelected() && !available.contains(Rooms.ROOM_J.getAbbreviatedName())){
+        }
+        else if(ChronoUnit.DAYS.between(LocalDate.parse(checkIn), LocalDate.parse(checkOut))+1 > 28){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Booking days cannot be more than 28. This is a bug, will be fixed soon");
+            return false;
+        }
+        else if(roomCheckboxes.get(0).isSelected() && !available.contains(Rooms.ROOM_J.getAbbreviatedName())){
             Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ROOM_J.getAbbreviatedName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
         }else if(roomCheckboxes.get(1).isSelected() && !available.contains(Rooms.ROOM_G.getAbbreviatedName())){
@@ -387,7 +392,10 @@ public class sqliteModel {
         else if(LocalDate.parse(checkIn).isAfter(LocalDate.parse(checkOut))){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Check-in date must come before Check-out date.");
             return false;
-
+        }
+        else if(ChronoUnit.DAYS.between(LocalDate.parse(checkIn), LocalDate.parse(checkOut))+1 > 28){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Booking days cannot be more than 28. This is a bug, will be fixed soon");
+            return false;
         }else if(roomCheckboxes.get(0).isSelected() && !available.contains(Rooms.ROOM_J.getAbbreviatedName())){
             Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ROOM_J.getAbbreviatedName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;

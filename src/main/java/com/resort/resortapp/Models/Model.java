@@ -183,7 +183,7 @@ public class Model {
         return dateFocus;
     }
 
-    private void setDateFocus() {
+    public void setDateFocus() {
         dateFocus = LocalDate.now();
     }
 
@@ -200,17 +200,24 @@ public class Model {
 
 
         if (selectedLeftDate != null && selectedRightDate != null) {
-
             List<LocalDate> result = new ArrayList<>();
 
-            LocalDate temp = selectedLeftDate;
-            while (!temp.isEqual(selectedRightDate)){
-                result.add(temp);
-                temp = temp.plusDays(1);
+            if(selectedLeftDate.isBefore(selectedRightDate)) {
+                LocalDate temp = selectedLeftDate;
+                while (temp.isBefore(selectedRightDate) || temp.isEqual(selectedRightDate)) {
+                    result.add(temp);
+                    temp = temp.plusDays(1);
+                }
+            }else{
+                LocalDate temp = selectedRightDate;
+                while (temp.isBefore(selectedLeftDate) || temp.isEqual(selectedLeftDate)) {
+                    result.add(temp);
+                    temp = temp.plusDays(1);
+                }
             }
-
             selectedLocalDates = result;
             Model.getInstance().getViewFactory().highlight();
+
         }
 
 
@@ -525,7 +532,7 @@ public class Model {
     public void initCalendarDates(){
         setCalendarLeftDate(LocalDate.now());
         setCalendarRightDate(LocalDate.now());
-        setEdgeLeftDate(getCalendarLeftDate());
+//        setEdgeLeftDate(getCalendarLeftDate());
 //        setEdgeRightDate(LocalDate.now());
     }
 
@@ -556,5 +563,9 @@ public class Model {
 
     public void setEdgeRightDate(LocalDate edgeRightDate) {
         this.edgeRightDate = edgeRightDate;
+    }
+
+    public void setDateFocus(LocalDate dateFocus) {
+        this.dateFocus = dateFocus;
     }
 }

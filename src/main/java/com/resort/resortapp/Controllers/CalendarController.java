@@ -1,12 +1,14 @@
 package com.resort.resortapp.Controllers;
 
 import com.resort.resortapp.Models.Model;
+import com.resort.resortapp.Models.sqliteModel;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class CalendarController implements Initializable{
@@ -26,6 +28,18 @@ public class CalendarController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+//        Model.getInstance().setAvailableRoomsPerDayWithinTheMonthsList(sqliteModel.getAvailableRoomsPerDayList());
+        if(Model.getInstance().getDateFocus() != null){
+            while(LocalDate.now().isBefore(Model.getInstance().getDateFocus())){
+                Model.getInstance().prevMonth();
+            }
+            while(LocalDate.now().isAfter(Model.getInstance().getDateFocus())){
+                Model.getInstance().nextMonth();
+            }
+        }
+
+        Model.getInstance().setDateFocus();
+
         setCalendarVariables();
         fillFlowPaneMonths();
         next_month_btn.setOnAction(event ->

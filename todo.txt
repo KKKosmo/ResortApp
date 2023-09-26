@@ -1,16 +1,12 @@
 if errors with sql, might be the plugins
 
-on date select, put daymodels in a list, get their availability, color accordingly, insert
+selected should not stay
+clearing values results to errors
 
-on select left date, set the checkin to start of the month of the left date, pan to this month when the only one not null or has more dates
-on select right date, set the checkin to the end of the month of the left date, pan to this month when the only one not null or has more dates
-query when both are not null and when changed ends
-on selecting availability, match the day within the list, meaning if there is a preceeding month, to get the index of the day = prevMonth.max + index
+do same for edit
 
-when creating, handle what if different months
-dont highlight outside of the month boxes
-
-scrape of calendar by room
+scrape off calendar by room
+scrape off separate calendar
 
 static list of users, and passwords, think about how to reset passwords
 
@@ -25,6 +21,7 @@ text fields should be alphanumeric
 text field lengths should be limited
 vehicle field number only
 button mouse appearances
+"j is not available for" when room unavailable, it should say the display name
 
 check proper popups, a warning should not be the same as information
 are u sure u want to delete this row -> ID =
@@ -47,3 +44,6 @@ recordModel is supposed to make the code more readable, but i have no time and i
 room fxml
 inner room
 room menu fxml
+
+
+getting bugged by booked daycount
