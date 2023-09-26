@@ -49,6 +49,9 @@ public class CreateController  implements Initializable{
         roomCheckBoxes.add(attic_ChkBox);
         roomCheckBoxes.add(kubo1_ChkBox);
         roomCheckBoxes.add(kubo2_ChkBox);
+        Model.getInstance().getViewFactory().setRoomCheckBoxes(roomCheckBoxes);
+
+
         escMenu =  Model.getInstance().getViewFactory().getEscMenu(parentPane);
         burger_btn.setOnAction(actionEvent -> {
             escMenu.setVisible(true);
@@ -67,10 +70,16 @@ public class CreateController  implements Initializable{
 
         checkIn_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue != null){
-                Model.getInstance().setLeftDate(String.valueOf(newValue));
+                Model.getInstance().setSelectedLeftDate(String.valueOf(newValue));
+
+                Model.getInstance().setCalendarLeftDate(newValue);
+                System.out.println("LEFT DATE = " + Model.getInstance().getCalendarLeftDate());
+
+                Model.getInstance().autoTurnMonth(Model.getInstance().getCalendarLeftDate());
+
                 if(checkOut_datePicker.getValue() != null){
                     if(checkIn_datePicker.getValue().isBefore(checkOut_datePicker.getValue()) || checkIn_datePicker.getValue().equals(checkOut_datePicker.getValue())){
-//                        available = sqliteModel.getAvailableRoomsPerDayList(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
+                        Model.getInstance().setAvailableRoomsPerDayWithinTheMonthsList(sqliteModel.getAvailableRoomsPerDayList());
                         available = Model.getInstance().getAvailableInRange(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
                     }
                     Model.getInstance().setSelected();
@@ -79,10 +88,16 @@ public class CreateController  implements Initializable{
         });
         checkOut_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue != null){
-                Model.getInstance().setRightDate(String.valueOf(newValue));
+                Model.getInstance().setSelectedRightDate(String.valueOf(newValue));
+                Model.getInstance().setCalendarRightDate(newValue);
+                System.out.println("RIGHT DATE = " + Model.getInstance().getCalendarRightDate());
+
+                Model.getInstance().autoTurnMonth(Model.getInstance().getCalendarRightDate());
+
                 if(checkIn_datePicker.getValue() != null){
                     if(checkIn_datePicker.getValue().isBefore(checkOut_datePicker.getValue()) || checkIn_datePicker.getValue().equals(checkOut_datePicker.getValue())){
-//                        available = sqliteModel.getAvailableRoomsPerDayList(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
+
+                        Model.getInstance().setAvailableRoomsPerDayWithinTheMonthsList(sqliteModel.getAvailableRoomsPerDayList());
                         available = Model.getInstance().getAvailableInRange(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
                     }
                     Model.getInstance().setSelected();
@@ -112,9 +127,9 @@ public class CreateController  implements Initializable{
         payment_fld.clear();
         fullPayment_fld.clear();
         checkIn_datePicker.setValue(null);
-        Model.getInstance().setLeftDate(null);
+        Model.getInstance().setSelectedLeftDate(null);
         checkOut_datePicker.setValue(null);
-        Model.getInstance().setRightDate(null);
+        Model.getInstance().setSelectedRightDate(null);
         for (CheckBox checkBox: roomCheckBoxes) {
             checkBox.setSelected(false);
         }
@@ -130,11 +145,13 @@ public class CreateController  implements Initializable{
 
     private void checkBoxAddListener(CheckBox checkBox){
         checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            Model.getInstance().getViewFactory().colorize(Rooms.manageCheckboxesSetAbbreviatedName(roomCheckBoxes));
+            Model.getInstance().getViewFactory().colorize();
         });
     }
     private RecordModel newRecordModel(){
         return new RecordModel(name_fld, pax_fld, vehicle_textFld, petsYes_radio, videokeYes_radio,
                 payment_fld, fullPayment_fld, checkIn_datePicker, checkOut_datePicker, roomCheckBoxes);
     }
+
+
 }

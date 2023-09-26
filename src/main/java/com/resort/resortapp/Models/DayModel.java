@@ -4,6 +4,8 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
+import java.time.LocalDate;
+
 public class DayModel {
     int gridSlot;
     boolean withinMonth;
@@ -12,7 +14,6 @@ public class DayModel {
     StackPane stackPane;
     Text roomsText;
     Text dayText;
-
     public DayModel(int i, int j){
         int dateOffset = Model.getInstance().getDateOffset();
         gridSlot = (7*i)+(j+1);

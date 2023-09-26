@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class sqliteModel {
@@ -41,7 +42,7 @@ public class sqliteModel {
         }
         DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MM");
 
-        ZonedDateTime dateFocus = Model.getInstance().getDateFocus();
+        LocalDate dateFocus = Model.getInstance().getDateFocus();
 
         String twoDigitMonth = dateFocus.format(monthFormatter);
 
@@ -91,7 +92,7 @@ public class sqliteModel {
         DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MM");
 
 
-        ZonedDateTime dateFocus = Model.getInstance().getDateFocus();
+        LocalDate dateFocus = Model.getInstance().getDateFocus();
 
         String twoDigitMonth = dateFocus.format(monthFormatter);
 
@@ -127,43 +128,60 @@ public class sqliteModel {
 
         List<Set<String>> result = new ArrayList<>();
 
-        int monthMaxDate = Model.getInstance().getMonthMaxDate();
+        LocalDate resultStartDate = Model.getInstance().getEdgeLeftDate();
+        LocalDate resultEndDate = Model.getInstance().getCalendarRightDate();
 
-        for (int i = 0; i < monthMaxDate; i++) {
+        long resultSize = ChronoUnit.DAYS.between(resultStartDate, resultEndDate)+1;
+        System.out.println("DAYS = " + resultSize);
+        for (int i = 0; i < resultSize; i++) {
             result.add(Rooms.getRoomAbbreviateNamesSet());
         }
 
-        DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MM");
+//        System.out.println("22222222222222222222222222222222222222222222222");
+//        System.out.println(resultStartDate);
+//        System.out.println(resultEndDate);
 
-        ZonedDateTime dateFocus = Model.getInstance().getDateFocus();
-
-        String twoDigitMonth = dateFocus.format(monthFormatter);
-
-        String monthStart = dateFocus.getYear() + "-" + twoDigitMonth + "-01";
-        String monthEnd = dateFocus.getYear() + "-" + twoDigitMonth + "-" + monthMaxDate;
-        String sql = "SELECT checkIn, checkOut, room FROM main where checkIn <= '" + monthEnd + "' AND checkOut >= '" + monthStart + "';";
+        String sql = "SELECT checkIn, checkOut, room FROM main where checkIn <= '" + resultEndDate + "' AND checkOut >= '" + resultStartDate + "';";
         try {
             PreparedStatement pStmt = openDB().prepareStatement(sql);
             ResultSet resultSet = pStmt.executeQuery();
             while(resultSet.next()){
-                String checkInString = resultSet.getString("checkIn");
-                String checkOutString = resultSet.getString("checkOut");
+                LocalDate checkIn = LocalDate.parse(resultSet.getString("checkIn"));
+                LocalDate checkOut = LocalDate.parse(resultSet.getString("checkOut"));
 
-                int startDate = Integer.parseInt(checkInString.substring(8));
-                int daysCount = Integer.parseInt(checkOutString.substring(8)) - startDate + 1;
+
+                int startDate = checkIn.getDayOfMonth();
+
+                LocalDate temp = resultStartDate;
+//                System.out.println(temp);
+//                System.out.println(checkIn);
+                while (temp.getMonth() != checkIn.getMonth()){
+                    startDate += temp.lengthOfMonth();
+                    temp = temp.plusMonths(1);
+                }
+
+
+//                System.out.println("STARTDATE OF THE BOOK = " + startDate);
+
+                long daysCount = ChronoUnit.DAYS.between(checkIn, checkOut);
+
                 //TODO REPLACE WITH ROOMS FUNCTION
                 String roomValue = resultSet.getString("room");
                 Set<String> roomSet = new HashSet<>();
 
                 Collections.addAll(roomSet, roomValue.split(", "));
 
+                System.out.println("Startdate = " + startDate);
+                System.out.println("daysCount = " + daysCount);
+                System.out.println("daysCount + startDate = " + (daysCount + startDate));
+
                 for(String room : roomSet){
-                    for(int i = startDate - 1; i < daysCount + startDate - 1; i++){
+                    for(int i = startDate - 1; i < daysCount + startDate; i++){
                         result.get(i).remove(room);
                     }
                 }
-
             }
+
             resultSet.close();
             closeDB();
 
