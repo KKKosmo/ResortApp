@@ -1,8 +1,16 @@
 if errors with sql, might be the plugins
 
-default not resetting rooms?
+on date select, put daymodels in a list, get their availability, color accordingly, insert
+
+on select left date, set the checkin to start of the month of the left date, pan to this month when the only one not null or has more dates
+on select right date, set the checkin to the end of the month of the left date, pan to this month when the only one not null or has more dates
+query when both are not null
+on selecting availability, match the day within the list, meaning if there is a preceeding month, to get the index of the day = prevMonth.max + index
 
 when creating, handle what if different months
+dont highlight outside of the month boxes
+
+scrape of calendar by room
 
 static list of users, and passwords, think about how to reset passwords
 
@@ -10,6 +18,9 @@ containerize
 
 export location
 
+in edit history, it should say UPDATED ROW XX:
+in edit history, look into sorting by time
+add order by to pdf
 text fields should be alphanumeric
 text field lengths should be limited
 vehicle field number only

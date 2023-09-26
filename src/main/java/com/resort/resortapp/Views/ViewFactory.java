@@ -10,7 +10,6 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.VerticalAlignment;
 import com.resort.resortapp.Controllers.EditController;
-import com.resort.resortapp.Controllers.EditHistoryController;
 import com.resort.resortapp.Controllers.TableController;
 import com.resort.resortapp.Models.*;
 import com.resort.resortapp.Rooms;
@@ -43,7 +42,7 @@ public class ViewFactory {
     private Text roomText;
     private FlowPane flowPane;
     private Stage stage;
-    List<DayModel> dayModelList = new ArrayList<>();
+    List<DayModel> onScreenCalendarDayModels = new ArrayList<>();
     List<Node> listTableChildren;
 
     Scene table;
@@ -166,12 +165,12 @@ public class ViewFactory {
         int monthMaxDate = Model.getInstance().getMonthMaxDate();
         int dateOffset = Model.getInstance().getDateOffset();
         if(rooms == Rooms.ALL_ROOMS){
-            Model.getInstance().setAvailableRoomsPerDayList(sqliteModel.getAvailableRoomsPerDayList());
+            Model.getInstance().setAvailableRoomsPerDayWithinTheMonthsList(sqliteModel.getAvailableRoomsPerDayList());
 
             for(int i = 0; i < monthMaxDate; i++){
-                Text temp = dayModelList.get(i + dateOffset).getRoomsText();
+                Text temp = onScreenCalendarDayModels.get(i + dateOffset).getRoomsText();
                 StringBuilder desc = new StringBuilder();
-                Set<String> set = Model.getInstance().getAvailableRoomsPerDayList().get(i);
+                Set<String> set = Model.getInstance().getAvailableRoomsPerDayWithinTheMonthsList().get(i);
                 for(String string : set){
                     desc.append(Rooms.abbvToDisplay(string)).append("\n");
                 }
@@ -184,20 +183,9 @@ public class ViewFactory {
             List<String> slotsList = sqliteModel.getMonthSlots(rooms);
 
             for(int i = 0; i < monthMaxDate; i++){
-                Text temp = dayModelList.get(i + dateOffset).getRoomsText();
+                Text temp = onScreenCalendarDayModels.get(i + dateOffset).getRoomsText();
                 temp.setText(slotsList.get(i));
             }
-        }
-    }
-
-    public void setClickable(){
-        for(int i = 0; i < Model.getInstance().getMonthMaxDate(); i++){
-            StackPane temp = dayModelList.get(i + Model.getInstance().getDateOffset()).getStackPane();
-            temp.setOnMouseClicked(event -> {
-                Text temp2 = (Text)(temp.getChildren().get(2));
-                System.out.println(temp2.getText());
-                temp.setStyle("-fx-background-color: red;");
-            });
         }
     }
     public void colorize(Set<String> roomsCheckBoxes){
@@ -205,16 +193,16 @@ public class ViewFactory {
 
         if(roomsCheckBoxes.isEmpty()){
             for(int i = 0; i < Model.getInstance().getMonthMaxDate(); i++){
-                StackPane temp = dayModelList.get(i + Model.getInstance().getDateOffset()).getStackPane();
+                StackPane temp = onScreenCalendarDayModels.get(i + Model.getInstance().getDateOffset()).getStackPane();
                 temp.setStyle("-fx-background-color: transparent;");
             }
         }
         else{
             for(int i = 0; i < Model.getInstance().getMonthMaxDate(); i++){
-                StackPane temp = dayModelList.get(i + Model.getInstance().getDateOffset()).getStackPane();
+                StackPane temp = onScreenCalendarDayModels.get(i + Model.getInstance().getDateOffset()).getStackPane();
                 boolean available = true;
                 for (String room : roomsCheckBoxes) {
-                    if(!Model.getInstance().getAvailableRoomsPerDayList().get(i).contains(room)){
+                    if(!Model.getInstance().getAvailableRoomsPerDayWithinTheMonthsList().get(i).contains(room)){
                         available = false;
                         break;
                     }
@@ -230,7 +218,7 @@ public class ViewFactory {
     }
     public void highlight(){
         for(int i = 0; i < 42; i++){
-            StackPane temp = dayModelList.get(i).getStackPane();
+            StackPane temp = onScreenCalendarDayModels.get(i).getStackPane();
             if(Model.getInstance().getSelected().contains(i - Model.getInstance().getDateOffset() + 1)){
                 temp.setBorder(normalBorder);
             }
@@ -241,7 +229,7 @@ public class ViewFactory {
     }
     public void clear(){
         for(int i = 0; i < 42; i++){
-            StackPane temp = dayModelList.get(i).getStackPane();
+            StackPane temp = onScreenCalendarDayModels.get(i).getStackPane();
             temp.setBorder(normalBorder);
             temp.setStyle("-fx-background-color: white;");
         }
@@ -260,7 +248,7 @@ public class ViewFactory {
         double boxWidth = (calendarWidth/7) - strokeWidth - 10 - spacingH;
         double boxHeight = (calendarHeight/6) - strokeWidth - 10 - spacingV;
 
-        dayModelList.clear();
+        onScreenCalendarDayModels.clear();
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 7; j++) {
                 DayModel dayModel = new DayModel(i, j);
@@ -269,7 +257,6 @@ public class ViewFactory {
                 Rectangle rectangle = new Rectangle();
                 rectangle.setFill(Color.TRANSPARENT);
                 rectangle.setStroke(Color.TRANSPARENT);
-//                rectangle.setStrokeWidth(strokeWidth);
                 rectangle.setWidth(boxWidth);
                 rectangle.setHeight(boxHeight);
                 stackPane.getChildren().add(rectangle);
@@ -289,15 +276,12 @@ public class ViewFactory {
                 stackPane.setBorder(normalBorder);
                 flowPane.getChildren().add(stackPane);
                 dayModel.setStackPane(stackPane);
-                dayModelList.add(dayModel);
+                onScreenCalendarDayModels.add(dayModel);
             }
         }
     }
     public void setStage(Stage stage) {
         this.stage = stage;
-    }
-    public void flowPaneSmall(){
-        flowPane.setPrefHeight(330);
     }
     public void setSceneEdit(RecordModel recordModel){
         try {
@@ -423,7 +407,6 @@ public class ViewFactory {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
     public void showErrorPopup(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("");
@@ -440,15 +423,12 @@ public class ViewFactory {
             return false;
         } else return result.get() == ButtonType.OK;
     }
-
-    public List<DayModel> getDayModelList() {
-        return dayModelList;
+    public List<DayModel> getOnScreenCalendarDayModels() {
+        return onScreenCalendarDayModels;
     }
-
     public void setListTableChildren(List<Node> listTableChildren) {
         this.listTableChildren = listTableChildren;
     }
-
     public void setListTable(GridPane listTable) {
         this.listTable = listTable;
         setListTableChildren(listTable.getChildren());

@@ -92,7 +92,7 @@ public class TableController implements Initializable {
             } else {
                 sort_icon.setGlyphName("SORT_DOWN");
             }
-
+            System.out.println(Model.getInstance().getOrderCategory() + "===================================");
             switch (Model.getInstance().getOrderCategory()) {
                 case DATEINSERTED -> timeCreated_pane.getChildren().add(sort_icon);
                 case NAME -> name_pane.getChildren().add(sort_icon);
@@ -502,7 +502,7 @@ public class TableController implements Initializable {
         });
 
         default_btn.setOnAction(actionEvent -> {
-            if(Model.getInstance().getViewFactory().showConfirmPopup("Do you really want to reset the filter settings?")){
+            if(Model.getInstance().getViewFactory().showConfirmPopup("Do you really want to reset the settings?")){
                 //sort
                 if(Model.getInstance().getOrderCategory() != Model.OrderCategory.ID){
                     id_pane.getChildren().add(sort_icon);

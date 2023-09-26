@@ -1,29 +1,17 @@
 package com.resort.resortapp.Models;
 
-import com.itextpdf.kernel.geom.PageSize;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.layout.border.Border;
-import com.itextpdf.layout.element.Cell;
-import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.property.TextAlignment;
 import com.resort.resortapp.Rooms;
 import com.resort.resortapp.Views.ViewFactory;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
 
-import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.layout.Document;
-
 
 
 public class Model {
@@ -40,7 +28,7 @@ public class Model {
     private LocalDate rightDate;
     private Set<Integer> selected;
 
-    private List<Set<String>> availableRoomsPerDayList;
+    private List<Set<String>> availableRoomsPerDayWithinTheMonthsList;
 
 
     private List<RecordModel> tableRecordModels;
@@ -64,7 +52,7 @@ public class Model {
         VIDEOKE("videoke"),
         PARTIALPAYMENT("partial_payment"),
         FULLPAYMENT("full_payment"),
-        BALANCE("balance"),
+        BALANCE("(full_payment - partial_payment)"),
         STATUS("paid"),
         CHECKIN("checkIn"),
         CHECKOUT("checkOut"),
@@ -183,8 +171,6 @@ public class Model {
 
     public void setSelected(){
         Set<Integer> result = new HashSet<>();
-
-
         if (leftDate != null && rightDate != null) {
             if(leftDate.isBefore(rightDate)){
                 LocalDate tempDate = leftDate;
@@ -239,15 +225,16 @@ public class Model {
 
 
 
-    public List<Set<String>> getAvailableRoomsPerDayList() {
-        return availableRoomsPerDayList;
+    public List<Set<String>> getAvailableRoomsPerDayWithinTheMonthsList() {
+        return availableRoomsPerDayWithinTheMonthsList;
     }
 
-    public void setAvailableRoomsPerDayList(List<Set<String>> availableRoomsPerDayList) {
-        this.availableRoomsPerDayList = availableRoomsPerDayList;
+    public void setAvailableRoomsPerDayWithinTheMonthsList(List<Set<String>> availableRoomsPerDayWithinTheMonthsList) {
+        this.availableRoomsPerDayWithinTheMonthsList = availableRoomsPerDayWithinTheMonthsList;
     }
 
 
+    //for editing, will add the record's rooms to availables
     public Set<String> getAvailableInRangeInit(LocalDate checkIn, LocalDate checkOut, List<CheckBox> checkBoxList){
         Set<String> rooms = Rooms.manageCheckboxesSetAbbreviatedName(checkBoxList);
         int left = checkIn.getDayOfMonth() - 1;
@@ -259,10 +246,10 @@ public class Model {
 
         for(int i = left; i <= right; i++){
 
-            availableRoomsPerDayList.get(i).addAll(rooms);
-            result = availableRoomsPerDayList.get(i);
+            availableRoomsPerDayWithinTheMonthsList.get(i).addAll(rooms);
+            result = availableRoomsPerDayWithinTheMonthsList.get(i);
 
-            Text temp = viewFactory.getDayModelList().get(i + dateOffset).getRoomsText();
+            Text temp = viewFactory.getOnScreenCalendarDayModels().get(i + dateOffset).getRoomsText();
             StringBuilder desc = new StringBuilder();
             for(String string : result){
                 desc.append(Rooms.abbvToDisplay(string)).append("\n");
@@ -273,15 +260,14 @@ public class Model {
         return result;
     }
     public Set<String> getAvailableInRange(LocalDate checkIn, LocalDate checkOut){
-        Set<String> rooms = Rooms.getRoomAbbreviateNamesSet();
+        Set<String> result = Rooms.getRoomAbbreviateNamesSet();
         int left = checkIn.getDayOfMonth() - 1;
         int right = checkOut.getDayOfMonth() - 1;
 
         for(int i = left; i <= right; i++){
-            Set<String> result = availableRoomsPerDayList.get(i);
-            rooms.retainAll(result);
+            result.retainAll(availableRoomsPerDayWithinTheMonthsList.get(i));
         }
-        return rooms;
+        return result;
     }
 
 
