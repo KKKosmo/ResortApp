@@ -389,12 +389,12 @@ public class ViewFactory {
     }
     public void setSceneEdit(RecordModel recordModel){
         try {
+            Model.getInstance().getViewFactory().editing(Integer.parseInt(recordModel.getId()));
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Edit.fxml"));
             Parent root = loader.load();
 
             EditController editController = loader.getController();
             editController.setValues(recordModel);
-            Model.getInstance().getViewFactory().editing(Integer.parseInt(recordModel.getId()));
             stage.setScene(new Scene(root));
         } catch (Exception e) {
             e.printStackTrace();

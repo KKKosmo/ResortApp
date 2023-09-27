@@ -1,11 +1,6 @@
 if errors with sql, might be the plugins
 
-
-will do same for create
-will fix bug when retrieving book between 2 months
-
-visuals bugging when selecting another month
-bugging when selecting sept 29 - oct 1
+on edit, when moving a date to another month, it bugs
 
 scrape off calendar by room
 scrape off separate calendar

@@ -546,8 +546,8 @@ public class Model {
     public void initCalendarDates(){
         setCalendarLeftDate(LocalDate.now());
         setCalendarRightDate(LocalDate.now());
-//        setEdgeLeftDate(getCalendarLeftDate());
-//        setEdgeRightDate(getCalendarRightDate());
+        setEdgeLeftDate(getCalendarLeftDate().minusMonths(1));
+        setEdgeRightDate(getCalendarRightDate().plusMonths(1));
     }
 
     public void autoTurnMonth(LocalDate myDate){

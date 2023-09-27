@@ -78,6 +78,7 @@ public class EditController implements Initializable {
         if(Model.getInstance().getViewFactory().showConfirmPopup("Are you sure you want to edit this record?" + changes)){
             if(sqliteModel.updateRecord(newRecordModel, available, changes.trim().replace("\n", ", "))){
                 Model.getInstance().getViewFactory().setSceneTable();
+//                Model.getInstance().getViewFactory().notEditing();
             }
         }
     }
@@ -97,7 +98,10 @@ public class EditController implements Initializable {
         id = recordModel.fillInFields(name_fld, pax_fld, vehicle_textFld, petsYes_radio, petsNo_radio, videokeYes_radio, videokeNo_radio, partialPayment_fld, fullPayment_fld, paidYes_radio, paidNo_radio, checkIn_datePicker, checkOut_datePicker, roomCheckBoxes);
 
 
-        available = Model.getInstance().getAvailableInRangeEdit(checkIn_datePicker.getValue(), checkOut_datePicker.getValue(), roomCheckBoxes);
+        Model.getInstance().setAvailableRoomsPerDayWithinTheMonthsList(sqliteModel.getAvailableRoomsPerDayList(id));
+        available = Model.getInstance().getAvailableInRange(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
+
+        System.out.println(available);
 
         Model.getInstance().setSelectedLeftDate(recordModel.getCheckIn());
         Model.getInstance().setSelectedRightDate(recordModel.getCheckOut());
@@ -145,9 +149,9 @@ public class EditController implements Initializable {
 
         initRecordModel = newRecordModel();
 
-        Model.getInstance().setEdgeLeftDate(checkIn_datePicker.getValue().withDayOfMonth(1));
-
-        Model.getInstance().setEdgeRightDate(checkOut_datePicker.getValue().withDayOfMonth(checkOut_datePicker.getValue().lengthOfMonth()));
+//        Model.getInstance().setEdgeLeftDate(checkIn_datePicker.getValue().withDayOfMonth(1));
+//
+//        Model.getInstance().setEdgeRightDate(checkOut_datePicker.getValue().withDayOfMonth(checkOut_datePicker.getValue().lengthOfMonth()));
     }
 
     private void checkBoxAddListener(CheckBox checkBox){
