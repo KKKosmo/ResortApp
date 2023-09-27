@@ -82,6 +82,7 @@ public class sqliteModel {
         return  result;
     }
     public static List<String> getMonthSlots(Rooms rooms){
+        System.out.println("GETMONTHSLOTS");
         List<String> result = new ArrayList<>();
         int monthMaxDate = Model.getInstance().getMonthMaxDate();
 
@@ -125,6 +126,7 @@ public class sqliteModel {
         return  result;
     }
     public static List<Set<String>> getAvailableRoomsPerDayList(){
+        System.out.println("getAvailableRoomsPerdaylist");
         List<Set<String>> result = new ArrayList<>();
 
         LocalDate resultStartDate;
@@ -155,9 +157,11 @@ public class sqliteModel {
                 int startDate = checkIn.getDayOfMonth();
                 LocalDate temp = resultStartDate;
 
-                while (temp.getMonth() != checkIn.getMonth()){
-                    startDate += temp.lengthOfMonth();
-                    temp = temp.plusMonths(1);
+                if(checkIn.isAfter(temp)){
+                    while (temp.getMonth() != checkIn.getMonth()){
+                        startDate += temp.lengthOfMonth();
+                        temp = temp.plusMonths(1);
+                    }
                 }
                 long daysCount = ChronoUnit.DAYS.between(checkIn, checkOut);
 
@@ -189,6 +193,7 @@ public class sqliteModel {
         return  result;
     }
     public static List<Set<String>> getAvailableRoomsPerDayList(int id){
+        System.out.println("getavailableroomsperdaylistwithid");
 
         List<Set<String>> result = new ArrayList<>();
 
@@ -222,10 +227,14 @@ public class sqliteModel {
                 LocalDate temp = resultStartDate;
 //                System.out.println(temp);
 //                System.out.println(checkIn);
-                while (temp.getMonth() != checkIn.getMonth()){
-                    startDate += temp.lengthOfMonth();
-                    temp = temp.plusMonths(1);
+                if(checkIn.isAfter(temp)){
+                    while (temp.getMonth() != checkIn.getMonth()){
+                        startDate += temp.lengthOfMonth();
+                        temp = temp.plusMonths(1);
+                    }
                 }
+
+
                 long daysCount = ChronoUnit.DAYS.between(checkIn, checkOut);
 
                 //TODO REPLACE WITH ROOMS FUNCTION
@@ -234,9 +243,9 @@ public class sqliteModel {
 
                 Collections.addAll(roomSet, roomValue.split(", "));
 
-//                System.out.println("Startdate = " + startDate);
-//                System.out.println("daysCount = " + daysCount);
-//                System.out.println("daysCount + startDate = " + (daysCount + startDate));
+                System.out.println("Startdate = " + startDate);
+                System.out.println("daysCount = " + daysCount);
+                System.out.println("daysCount + startDate = " + (daysCount + startDate));
 
                 for(String room : roomSet){
                     for(int i = startDate - 1; i < daysCount + startDate; i++){
@@ -263,6 +272,7 @@ public class sqliteModel {
 
 
     public static boolean insertRecord(RecordModel recordModel, Set<String> available){
+        System.out.println("insertrecord");
 
 
         String name = recordModel.getName();
@@ -393,6 +403,7 @@ public class sqliteModel {
 
 
     public static boolean updateRecord(RecordModel recordModel, Set<String> available, String changes){
+        System.out.println("updaterecord");
         String name = recordModel.getName();
         String paxString = recordModel.getPax();
         String vehicle = recordModel.getVehicle();
@@ -546,6 +557,7 @@ public class sqliteModel {
 
 
     public static void queryTableRecords(){
+        System.out.println("querytablerecords");
         List<RecordModel> result = new ArrayList<>();
 //        AND room LIKE '%%'
         StringBuilder roomFilter = new StringBuilder();
@@ -642,6 +654,7 @@ public class sqliteModel {
 
 
     public static boolean deleteEntry(RecordModel recordModel){
+        System.out.println("deleteentry");
         int id = recordModel.getIdInt();
         try {
             String sql = String.format("DELETE FROM main WHERE id = %d", id);
@@ -692,6 +705,7 @@ public class sqliteModel {
     }
 
     public static List<EditHistoryModel> getEditHistory() {
+        System.out.println("getedithistory");
         List<EditHistoryModel> result = new ArrayList<>();
         try {
             String sql = "SELECT * FROM edit";

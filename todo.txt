@@ -2,11 +2,15 @@ if errors with sql, might be the plugins
 
 on edit, when moving a date to another month, it bugs
 
+in table, default should be getting latest and not by the current month
+same when editing, flip to month of book and not cuirrent month
+
+editing and submitting immediately still throws errors, see id 83 and 85
+database for some reason not getting closed when editing? see id 84
+
 scrape off calendar by room
 scrape off separate calendar
 
-in table, default should be getting latest and not by the current month
-same when editing, flip to month of book and not cuirrent month
 
 static list of users, and passwords, think about how to reset passwords
 

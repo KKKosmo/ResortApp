@@ -118,6 +118,9 @@ public class Model {
         setCalendarLeftDate(dateFocus);
         setCalendarRightDate(dateFocus);
         setEdgeRightDate(getCalendarRightDate());
+//        if(edgeLeftDate.getMonthValue() == edgeRightDate.getMonthValue() - 1){
+//            setEdgeRightDate(edgeRightDate.plusMonths(1));
+//        }
         System.out.println();
         System.out.println("CALENDAR LEFT DATE = " + edgeLeftDate.getMonthValue());
         System.out.println("CALENDAR RIGHT DATE = " + edgeRightDate.getMonthValue());
@@ -137,6 +140,9 @@ public class Model {
         setCalendarLeftDate(dateFocus);
         setCalendarRightDate(dateFocus);
         setEdgeLeftDate(getCalendarLeftDate());
+//        if(edgeLeftDate.getMonthValue() == edgeRightDate.getMonthValue() - 1){
+//            setEdgeLeftDate(edgeLeftDate.minusMonths(1));
+//        }
         System.out.println();
         System.out.println("CALENDAR LEFT DATE = " + edgeLeftDate.getMonthValue());
         System.out.println("CALENDAR RIGHT DATE = " + edgeRightDate.getMonthValue());
