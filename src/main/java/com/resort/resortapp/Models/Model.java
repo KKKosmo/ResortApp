@@ -330,10 +330,10 @@ public class Model {
     public Set<String> getAvailableInRange(LocalDate checkIn, LocalDate checkOut){
         Set<String> result = Rooms.getRoomAbbreviateNamesSet();
 
-        long count = ChronoUnit.DAYS.between(checkIn, checkOut)+1;
+        long count = ChronoUnit.DAYS.between(checkIn, checkOut);
         count += checkIn.getDayOfMonth();
-        for(int i = checkIn.getDayOfMonth(); i <= count; i++){
-            System.out.println("Day " + i + " Has : " + availableRoomsPerDayWithinTheMonthsList.get(i));
+        for(int i = checkIn.getDayOfMonth()-1; i < count; i++){
+            System.out.println("Day " + (i+1) + " Has : " + availableRoomsPerDayWithinTheMonthsList.get(i));
             result.retainAll(availableRoomsPerDayWithinTheMonthsList.get(i));
         }
         return result;

@@ -252,6 +252,9 @@ public class ViewFactory {
         }
     }
     public void colorize(){
+//        System.out.println("IN COLORIZE");
+//        System.out.println("CALENDAR DAY MODELS = " + onScreenCalendarDayModels.size());
+//        System.out.println("whole list = " + Model.getInstance().getAvailableRoomsPerDayWithinTheMonthsList().size());
         Set<String> roomsCheckBoxes = Rooms.manageCheckboxesSetAbbreviatedName(roomCheckBoxes);
         if(roomsCheckBoxes.isEmpty()){
             for(int i = 0; i < Model.getInstance().getMonthMaxDate(); i++){
@@ -260,12 +263,21 @@ public class ViewFactory {
             }
         }
         else{
+            int positionInList = 0;
+
+            if(Model.getInstance().getEdgeLeftDate() != null){
+                LocalDate temp2 = Model.getInstance().getEdgeLeftDate();
+                while (Model.getInstance().getCalendarLeftDate().isAfter(temp2)){
+                    positionInList += temp2.lengthOfMonth();
+                    temp2 = temp2.plusMonths(1);
+                }
+            }
+
             for(int i = 0; i < Model.getInstance().getMonthMaxDate(); i++){
                 StackPane temp = onScreenCalendarDayModels.get(i + Model.getInstance().getDateOffset()).getStackPane();
                 boolean available = true;
-//                System.out.println("Model.getInstance().getAvailableRoomsPerDayWithinTheMonthsList().size() = "  + Model.getInstance().getAvailableRoomsPerDayWithinTheMonthsList().size());
                 for (String room : roomsCheckBoxes) {
-                    if(!Model.getInstance().getAvailableRoomsPerDayWithinTheMonthsList().get(i).contains(room)){
+                    if(!Model.getInstance().getAvailableRoomsPerDayWithinTheMonthsList().get(i + positionInList).contains(room)){
                         available = false;
                         break;
                     }

@@ -164,7 +164,7 @@ public class sqliteModel {
                 LocalDate temp = resultStartDate;
 //                System.out.println(temp);
 //                System.out.println(checkIn);
-                while (temp.getMonth() != checkIn.getMonth()){
+                while (checkIn.isBefore(temp)){
                     startDate += temp.lengthOfMonth();
                     temp = temp.plusMonths(1);
                 }
@@ -239,10 +239,10 @@ public class sqliteModel {
 
 
                 int startDate = checkIn.getDayOfMonth();
-
                 LocalDate temp = resultStartDate;
 //                System.out.println(temp);
 //                System.out.println(checkIn);
+
                 while (temp.getMonth() != checkIn.getMonth()){
                     startDate += temp.lengthOfMonth();
                     temp = temp.plusMonths(1);
