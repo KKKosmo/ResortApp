@@ -242,13 +242,14 @@ public class sqliteModel {
                 LocalDate temp = resultStartDate;
 //                System.out.println(temp);
 //                System.out.println(checkIn);
-
+                int count = 0;
                 while (temp.getMonth() != checkIn.getMonth()){
                     startDate += temp.lengthOfMonth();
                     temp = temp.plusMonths(1);
+                    count++;
                 }
-
-
+//                System.out.println();
+//                System.out.println("COUNT = " + count + " FOR " + checkIn);
 //                System.out.println("STARTDATE OF THE BOOK = " + startDate);
 
                 long daysCount = ChronoUnit.DAYS.between(checkIn, checkOut);
@@ -273,11 +274,11 @@ public class sqliteModel {
             resultSet.close();
             closeDB();
 
-            for(int i = 0; i < result.size(); i++){
-                System.out.println();
-                System.out.println(i + 1);
-                System.out.println(result.get(i));
-            }
+//            for(int i = 0; i < result.size(); i++){
+//                System.out.println();
+//                System.out.println(i + 1);
+//                System.out.println(result.get(i));
+//            }
 
         } catch (SQLException e) {
             e.printStackTrace();

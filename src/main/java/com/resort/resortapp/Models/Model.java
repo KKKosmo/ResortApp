@@ -115,14 +115,16 @@ public class Model {
     public void nextMonth() {
         System.out.println("NEXXING");
         dateFocus = dateFocus.plusMonths(1);
-//        edgeLeftDate = getCalendarLeftDate();
         setCalendarLeftDate(dateFocus);
         setCalendarRightDate(dateFocus);
-
-
-
-//        setEdgeLeftDate(getCalendarLeftDate());
         setEdgeRightDate(getCalendarRightDate());
+        System.out.println();
+        System.out.println("CALENDAR LEFT DATE = " + edgeLeftDate.getMonthValue());
+        System.out.println("CALENDAR RIGHT DATE = " + edgeRightDate.getMonthValue());
+        if(edgeLeftDate.getMonthValue() == edgeRightDate.getMonthValue() && edgeLeftDate.getYear() != edgeRightDate.getYear()){
+            setEdgeLeftDate(getEdgeLeftDate().plusMonths(1));
+            System.out.println("ADJUSTING EHRE");
+        }
         fillFlowPaneMonths();
         getViewFactory().colorize();
         if(selectedLocalDates != null){
@@ -132,11 +134,16 @@ public class Model {
     public void prevMonth() {
         System.out.println("PREVVING");
         dateFocus = dateFocus.minusMonths(1);
-//        edgeLeftDate = getCalendarLeftDate();
         setCalendarLeftDate(dateFocus);
         setCalendarRightDate(dateFocus);
         setEdgeLeftDate(getCalendarLeftDate());
-//        setEdgeRightDate(getCalendarRightDate());
+        System.out.println();
+        System.out.println("CALENDAR LEFT DATE = " + edgeLeftDate.getMonthValue());
+        System.out.println("CALENDAR RIGHT DATE = " + edgeRightDate.getMonthValue());
+        if(edgeLeftDate.getMonthValue() == edgeRightDate.getMonthValue() && edgeLeftDate.getYear() != edgeRightDate.getYear()){
+            setEdgeRightDate(getEdgeRightDate().minusMonths(1));
+            System.out.println("ADJUSTING EHRE");
+        }
         fillFlowPaneMonths();
         getViewFactory().colorize();
         if(selectedLocalDates != null){

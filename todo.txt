@@ -1,10 +1,17 @@
 if errors with sql, might be the plugins
 
+
+will do same for create
+will fix bug when retrieving book between 2 months
+
 visuals bugging when selecting another month
 bugging when selecting sept 29 - oct 1
 
 scrape off calendar by room
 scrape off separate calendar
+
+in table, default should be getting latest and not by the current month
+same when editing, flip to month of book and not cuirrent month
 
 static list of users, and passwords, think about how to reset passwords
 
