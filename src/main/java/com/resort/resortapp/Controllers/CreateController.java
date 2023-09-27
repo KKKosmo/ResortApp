@@ -74,6 +74,7 @@ public class CreateController  implements Initializable{
                 Model.getInstance().setSelectedLeftDate(String.valueOf(newValue));
 
                 Model.getInstance().setCalendarLeftDate(newValue);
+//                Model.getInstance().setEdgeLeftDate(Model.getInstance().getCalendarLeftDate());
                 System.out.println("LEFT DATE = " + Model.getInstance().getCalendarLeftDate());
 
                 Model.getInstance().autoTurnMonth(Model.getInstance().getCalendarLeftDate());
@@ -91,6 +92,7 @@ public class CreateController  implements Initializable{
             if(newValue != null){
                 Model.getInstance().setSelectedRightDate(String.valueOf(newValue));
                 Model.getInstance().setCalendarRightDate(newValue);
+//                Model.getInstance().setEdgeRightDate(Model.getInstance().getCalendarRightDate());
                 System.out.println("RIGHT DATE = " + Model.getInstance().getCalendarRightDate());
 
                 Model.getInstance().autoTurnMonth(Model.getInstance().getCalendarRightDate());
@@ -155,6 +157,4 @@ public class CreateController  implements Initializable{
         return new RecordModel(name_fld, pax_fld, vehicle_textFld, petsYes_radio, videokeYes_radio,
                 payment_fld, fullPayment_fld, checkIn_datePicker, checkOut_datePicker, roomCheckBoxes);
     }
-
-
 }

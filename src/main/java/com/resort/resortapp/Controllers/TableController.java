@@ -63,7 +63,7 @@ public class TableController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("INITIALIZE");
+//        System.out.println("INITIALIZE");
 
         Model.getInstance().getViewFactory().setListTable(gridPane);
 //        myInit();
@@ -543,7 +543,7 @@ public class TableController implements Initializable {
     }
 
     public void myInit(){
-        System.out.println("MYINIT");
+//        System.out.println("MYINIT");
 //        Model.getInstance().getViewFactory().setListTable(gridPane);
         sqliteModel.queryTableRecords();
         Model.getInstance().getViewFactory().insertListRows();

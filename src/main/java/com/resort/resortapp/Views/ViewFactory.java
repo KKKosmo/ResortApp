@@ -51,6 +51,8 @@ public class ViewFactory {
     GridPane listTable;
     List<CheckBox> roomCheckBoxes = new ArrayList<>();
 
+    boolean editing = false;
+    int editId = -1;
     //    TODO listview settings
     Border borderUnselected = new Border(new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.SOLID, null, new BorderWidths(3)));
     Border normalBorder = new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, new BorderWidths(5)));
@@ -95,6 +97,7 @@ public class ViewFactory {
         tooltip.setShowDelay(Duration.millis(0));
         Tooltip.install(tableController.totalPayment_hBox, tooltip);
 
+        Model.getInstance().getViewFactory().notEditing();
         stage.setScene(table);
 
 
@@ -112,6 +115,7 @@ public class ViewFactory {
     public void setSceneLogin(){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Login.fxml"));
+            Model.getInstance().getViewFactory().notEditing();
             stage.setScene(new Scene(loader.load()));
         } catch (Exception e) {
             e.printStackTrace();
@@ -127,6 +131,7 @@ public class ViewFactory {
 //            stage.setScene(new Scene(root));
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/EditHistory.fxml"));
+            Model.getInstance().getViewFactory().notEditing();
             stage.setScene(new Scene(loader.load()));
 
         } catch (Exception e) {
@@ -138,6 +143,7 @@ public class ViewFactory {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Create.fxml"));
 //                create = new Scene(loader.load());
+            Model.getInstance().getViewFactory().notEditing();
             stage.setScene(new Scene(loader.load()));
         } catch (Exception e) {
             e.printStackTrace();
@@ -147,6 +153,7 @@ public class ViewFactory {
     public void setSceneMainMenu(){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/MainMenu.fxml"));
+            Model.getInstance().getViewFactory().notEditing();
             stage.setScene(new Scene(loader.load()));
         } catch (Exception e) {
             e.printStackTrace();
@@ -169,7 +176,16 @@ public class ViewFactory {
 
         int startDate = 0;
 
-        LocalDate tempDate = Model.getInstance().getCalendarLeftDate();
+        LocalDate tempDate;
+
+
+
+        if(Model.getInstance().getEdgeLeftDate() == null)
+            tempDate = Model.getInstance().getCalendarLeftDate();
+        else
+            tempDate = Model.getInstance().getEdgeLeftDate();
+
+
         if(tempDate.isBefore(Model.getInstance().getDateFocus())){
             while (tempDate.getMonth() != Model.getInstance().getDateFocus().getMonth()){
                 startDate += tempDate.lengthOfMonth();
@@ -185,23 +201,39 @@ public class ViewFactory {
         }
 
 
+
+
+
 //        System.out.println("========tempdate = " + tempDate);
 //        System.out.println("========datefocus  = " + Model.getInstance().getDateFocus());
+//        System.out.println("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
 
-        Model.getInstance().setAvailableRoomsPerDayWithinTheMonthsList(sqliteModel.getAvailableRoomsPerDayList());
-        int monthMaxDate = Model.getInstance().getAvailableRoomsPerDayWithinTheMonthsList().size();
+        if(editing && editId != -1){
+//            System.out.println("EDITING--------------------");
+            Model.getInstance().setAvailableRoomsPerDayWithinTheMonthsList(sqliteModel.getAvailableRoomsPerDayList(editId));
+        }
+        else{
+//            System.out.println("NOT EDITING---------------------");
+            Model.getInstance().setAvailableRoomsPerDayWithinTheMonthsList(sqliteModel.getAvailableRoomsPerDayList());
+        }
+
+        int monthMaxDate = Model.getInstance().getCalendarRightDate().getDayOfMonth();
 
 //        System.out.println("===========STARTDATE = " + startDate);
 //        System.out.println("==============MONTHMAXDATE = " + monthMaxDate);
 
         if(rooms == Rooms.ALL_ROOMS){
 
-            System.out.println(Model.getInstance().getAvailableRoomsPerDayWithinTheMonthsList().size());
-            System.out.println(monthMaxDate);
-            for(int i = startDate; i < monthMaxDate; i++){
+//            System.out.println("STARTDATE = " + startDate);
+//            System.out.println("monthmaxdate = " + monthMaxDate);
+            for(int i = 0; i < monthMaxDate; i++){
+                if(onScreenCalendarDayModels.get(i + dateOffset).getRoomsText() == null){
+                    System.out.println("NULL HERE" + (i + dateOffset));
+                }
                 Text temp = onScreenCalendarDayModels.get(i + dateOffset).getRoomsText();
                 StringBuilder desc = new StringBuilder();
-                Set<String> set = Model.getInstance().getAvailableRoomsPerDayWithinTheMonthsList().get(i);
+
+                Set<String> set = Model.getInstance().getAvailableRoomsPerDayWithinTheMonthsList().get(startDate + i);
                 for(String string : set){
                     desc.append(Rooms.abbvToDisplay(string)).append("\n");
                 }
@@ -221,7 +253,6 @@ public class ViewFactory {
     }
     public void colorize(){
         Set<String> roomsCheckBoxes = Rooms.manageCheckboxesSetAbbreviatedName(roomCheckBoxes);
-
         if(roomsCheckBoxes.isEmpty()){
             for(int i = 0; i < Model.getInstance().getMonthMaxDate(); i++){
                 StackPane temp = onScreenCalendarDayModels.get(i + Model.getInstance().getDateOffset()).getStackPane();
@@ -232,6 +263,7 @@ public class ViewFactory {
             for(int i = 0; i < Model.getInstance().getMonthMaxDate(); i++){
                 StackPane temp = onScreenCalendarDayModels.get(i + Model.getInstance().getDateOffset()).getStackPane();
                 boolean available = true;
+//                System.out.println("Model.getInstance().getAvailableRoomsPerDayWithinTheMonthsList().size() = "  + Model.getInstance().getAvailableRoomsPerDayWithinTheMonthsList().size());
                 for (String room : roomsCheckBoxes) {
                     if(!Model.getInstance().getAvailableRoomsPerDayWithinTheMonthsList().get(i).contains(room)){
                         available = false;
@@ -248,11 +280,11 @@ public class ViewFactory {
         }
     }
     public void highlight(){
-        System.out.println("HIGHLIGHTING");
+//        System.out.println("HIGHLIGHTING");
         Set<Integer> indexes = new HashSet<>();
 
         for(LocalDate localDate : Model.getInstance().getSelectedLocalDates()){
-            System.out.println(localDate);
+//            System.out.println(localDate);
             if(Model.getInstance().getViewFactory().onScreenLocalDates.contains(localDate)){
                 int index = Model.getInstance().getViewFactory().onScreenLocalDates.indexOf(localDate);
                 indexes.add(index + Model.getInstance().getDateOffset());
@@ -350,21 +382,22 @@ public class ViewFactory {
 
             EditController editController = loader.getController();
             editController.setValues(recordModel);
+            Model.getInstance().getViewFactory().editing(Integer.parseInt(recordModel.getId()));
             stage.setScene(new Scene(root));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     public void insertListRows(){
-        System.out.println("INSERTING TABLE");
+//        System.out.println("INSERTING TABLE");
         listTableChildren.removeIf(node -> listTableChildren.indexOf(node) > 8);
         List<RecordModel> list = Model.getInstance().getListRecordModels();
 //        System.out.println(list);
         int startIndex = Model.getInstance().getStartIndex();
         int endIndex = Model.getInstance().getInitEndIndex();
 
-        System.out.println(startIndex);
-        System.out.println(endIndex);
+//        System.out.println(startIndex);
+//        System.out.println(endIndex);
 
         for(int i = startIndex; i < endIndex; i++){
             for(int j = 0; j < 14; j++){
@@ -671,5 +704,13 @@ public class ViewFactory {
                 .setTextAlignment(com.itextpdf.layout.property.TextAlignment.CENTER)
                 .setVerticalAlignment(VerticalAlignment.MIDDLE)
                 .setBold();
+    }
+    public void editing(int id){
+        editId = id;
+        editing = true;
+    }
+    public void notEditing(){
+        editId = -1;
+        editing = false;
     }
 }

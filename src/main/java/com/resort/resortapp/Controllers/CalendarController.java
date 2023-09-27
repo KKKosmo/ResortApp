@@ -41,6 +41,7 @@ public class CalendarController implements Initializable{
         Model.getInstance().setDateFocus();
 
         setCalendarVariables();
+//        System.out.println("CALENDAR INITIALIZING?");
         fillFlowPaneMonths();
         next_month_btn.setOnAction(event ->
                 {

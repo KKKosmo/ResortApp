@@ -3,7 +3,6 @@ package com.resort.resortapp.Controllers;
 import com.resort.resortapp.Models.Model;
 import com.resort.resortapp.Models.RecordModel;
 import com.resort.resortapp.Models.sqliteModel;
-import com.resort.resortapp.Rooms;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -98,7 +97,7 @@ public class EditController implements Initializable {
         id = recordModel.fillInFields(name_fld, pax_fld, vehicle_textFld, petsYes_radio, petsNo_radio, videokeYes_radio, videokeNo_radio, partialPayment_fld, fullPayment_fld, paidYes_radio, paidNo_radio, checkIn_datePicker, checkOut_datePicker, roomCheckBoxes);
 
 
-        available = Model.getInstance().getAvailableInRangeInit(checkIn_datePicker.getValue(), checkOut_datePicker.getValue(), roomCheckBoxes);
+        available = Model.getInstance().getAvailableInRangeEdit(checkIn_datePicker.getValue(), checkOut_datePicker.getValue(), roomCheckBoxes);
 
         Model.getInstance().setSelectedLeftDate(recordModel.getCheckIn());
         Model.getInstance().setSelectedRightDate(recordModel.getCheckOut());
@@ -109,9 +108,13 @@ public class EditController implements Initializable {
         checkIn_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue != null){
                 Model.getInstance().setSelectedLeftDate(String.valueOf(newValue));
+                Model.getInstance().setCalendarLeftDate(newValue);
+                Model.getInstance().setEdgeLeftDate(Model.getInstance().getCalendarLeftDate());
+                Model.getInstance().autoTurnMonth(Model.getInstance().getCalendarLeftDate());
+
                 if(checkOut_datePicker.getValue() != null){
                     if(checkIn_datePicker.getValue().isBefore(checkOut_datePicker.getValue()) || checkIn_datePicker.getValue().equals(checkOut_datePicker.getValue())){
-//                        available = sqliteModel.getAvailableRoomsPerDayList(checkIn_datePicker.getValue(), checkOut_datePicker.getValue(), id);
+                        Model.getInstance().setAvailableRoomsPerDayWithinTheMonthsList(sqliteModel.getAvailableRoomsPerDayList(id));
                         available = Model.getInstance().getAvailableInRange(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
                     }
                     Model.getInstance().setSelected();
@@ -121,10 +124,15 @@ public class EditController implements Initializable {
         checkOut_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue != null){
                 Model.getInstance().setSelectedRightDate(String.valueOf(newValue));
+                Model.getInstance().setCalendarRightDate(newValue);
+                Model.getInstance().setEdgeRightDate(Model.getInstance().getCalendarRightDate());
+                Model.getInstance().autoTurnMonth(Model.getInstance().getCalendarRightDate());
+
                 if(checkIn_datePicker.getValue() != null){
                     if(checkIn_datePicker.getValue().isBefore(checkOut_datePicker.getValue()) || checkIn_datePicker.getValue().equals(checkOut_datePicker.getValue())){
-//                        available = sqliteModel.getAvailableRoomsPerDayList(checkIn_datePicker.getValue(), checkOut_datePicker.getValue(), id);
+                        Model.getInstance().setAvailableRoomsPerDayWithinTheMonthsList(sqliteModel.getAvailableRoomsPerDayList(id));
                         available = Model.getInstance().getAvailableInRange(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
+                        System.out.println(available);
                     }
                     Model.getInstance().setSelected();
                 }
@@ -137,6 +145,9 @@ public class EditController implements Initializable {
 
         initRecordModel = newRecordModel();
 
+        Model.getInstance().setEdgeLeftDate(checkIn_datePicker.getValue().withDayOfMonth(1));
+
+        Model.getInstance().setEdgeRightDate(checkOut_datePicker.getValue().withDayOfMonth(checkOut_datePicker.getValue().lengthOfMonth()));
     }
 
     private void checkBoxAddListener(CheckBox checkBox){

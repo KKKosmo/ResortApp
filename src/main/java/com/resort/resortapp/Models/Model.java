@@ -8,7 +8,6 @@ import javafx.scene.text.Text;
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -114,10 +113,16 @@ public class Model {
         viewFactory.fillFlowPaneMonths(rooms);
     }
     public void nextMonth() {
+        System.out.println("NEXXING");
         dateFocus = dateFocus.plusMonths(1);
 //        edgeLeftDate = getCalendarLeftDate();
         setCalendarLeftDate(dateFocus);
         setCalendarRightDate(dateFocus);
+
+
+
+//        setEdgeLeftDate(getCalendarLeftDate());
+        setEdgeRightDate(getCalendarRightDate());
         fillFlowPaneMonths();
         getViewFactory().colorize();
         if(selectedLocalDates != null){
@@ -125,10 +130,13 @@ public class Model {
         }
     }
     public void prevMonth() {
+        System.out.println("PREVVING");
         dateFocus = dateFocus.minusMonths(1);
 //        edgeLeftDate = getCalendarLeftDate();
         setCalendarLeftDate(dateFocus);
         setCalendarRightDate(dateFocus);
+        setEdgeLeftDate(getCalendarLeftDate());
+//        setEdgeRightDate(getCalendarRightDate());
         fillFlowPaneMonths();
         getViewFactory().colorize();
         if(selectedLocalDates != null){
@@ -297,12 +305,10 @@ public class Model {
 
 
     //for editing, will add the record's rooms to availables
-    public Set<String> getAvailableInRangeInit(LocalDate checkIn, LocalDate checkOut, List<CheckBox> checkBoxList){
+    public Set<String> getAvailableInRangeEdit(LocalDate checkIn, LocalDate checkOut, List<CheckBox> checkBoxList){
         Set<String> rooms = Rooms.manageCheckboxesSetAbbreviatedName(checkBoxList);
         int left = checkIn.getDayOfMonth() - 1;
         int right = checkOut.getDayOfMonth() - 1;
-
-//        System.out.println("Rooms = " + rooms);
 
         Set<String> result = new HashSet<>();
 
@@ -323,10 +329,11 @@ public class Model {
     }
     public Set<String> getAvailableInRange(LocalDate checkIn, LocalDate checkOut){
         Set<String> result = Rooms.getRoomAbbreviateNamesSet();
-        int left = checkIn.getDayOfMonth() - 1;
-        int right = checkOut.getDayOfMonth() - 1;
 
-        for(int i = left; i <= right; i++){
+        long count = ChronoUnit.DAYS.between(checkIn, checkOut)+1;
+        count += checkIn.getDayOfMonth();
+        for(int i = checkIn.getDayOfMonth(); i <= count; i++){
+            System.out.println("Day " + i + " Has : " + availableRoomsPerDayWithinTheMonthsList.get(i));
             result.retainAll(availableRoomsPerDayWithinTheMonthsList.get(i));
         }
         return result;
@@ -340,7 +347,7 @@ public class Model {
 
     public void initTableDates(){
         LocalDate temp = LocalDate.now();
-        System.out.println("RESETTING EHRE");
+//        System.out.println("RESETTING EHRE");
         tableStartDate = temp.withDayOfMonth(1);
         tableEndDate = temp.withDayOfMonth(temp.lengthOfMonth());
 //        setCurrentPage(1);
@@ -372,13 +379,13 @@ public class Model {
         tableRecordModels = listRecordModels;
         maxPage = (int) Math.ceil((float) listRecordModels.size() / getTableRowCount());
         endIndex = Math.min(startIndex + getTableRowCount(), tableRecordModels.size());
-        System.out.println("PLSW ORD");
+//        System.out.println("PLSW ORD");
     }
     public void setCurrentPage(int currentPage) {
         this.currentPage = currentPage;
         this.startIndex = getTableRowCount() * (currentPage - 1);
         this.endIndex = Math.min(startIndex + getTableRowCount(), tableRecordModels.size());
-        System.out.println("SETTING CURRENT OPAEG");
+//        System.out.println("SETTING CURRENT OPAEG");
 //
     }
 
@@ -533,7 +540,7 @@ public class Model {
         setCalendarLeftDate(LocalDate.now());
         setCalendarRightDate(LocalDate.now());
 //        setEdgeLeftDate(getCalendarLeftDate());
-//        setEdgeRightDate(LocalDate.now());
+//        setEdgeRightDate(getCalendarRightDate());
     }
 
     public void autoTurnMonth(LocalDate myDate){

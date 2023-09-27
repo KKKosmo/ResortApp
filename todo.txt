@@ -1,9 +1,7 @@
 if errors with sql, might be the plugins
 
-selected should not stay
-clearing values results to errors
-
-do same for edit
+visuals bugging when selecting another month
+bugging when selecting sept 29 - oct 1
 
 scrape off calendar by room
 scrape off separate calendar

@@ -128,11 +128,20 @@ public class sqliteModel {
 
         List<Set<String>> result = new ArrayList<>();
 
-        LocalDate resultStartDate = Model.getInstance().getCalendarLeftDate();
-        LocalDate resultEndDate = Model.getInstance().getCalendarRightDate();
+        LocalDate resultStartDate;
+        LocalDate resultEndDate;
+        resultStartDate = Model.getInstance().getCalendarLeftDate();
+        resultEndDate = Model.getInstance().getCalendarRightDate();
+
+//        resultStartDate = Model.getInstance().getEdgeLeftDate();
+//        resultEndDate = Model.getInstance().getEdgeRightDate();
 
         long resultSize = ChronoUnit.DAYS.between(resultStartDate, resultEndDate)+1;
-        System.out.println("DAYS = " + resultSize);
+//        System.out.println();
+//        System.out.println("datefocus = " + Model.getInstance().getDateFocus());
+//        System.out.println("RESULTSTARTDATE = " + resultStartDate);
+//        System.out.println("resultEndDate = " + resultEndDate);
+//        System.out.println("DAYS = " + resultSize);
         for (int i = 0; i < resultSize; i++) {
             result.add(Rooms.getRoomAbbreviateNamesSet());
         }
@@ -196,8 +205,85 @@ public class sqliteModel {
         }
         return  result;
     }
+    public static List<Set<String>> getAvailableRoomsPerDayList(int id){
+
+        List<Set<String>> result = new ArrayList<>();
+
+        LocalDate resultStartDate;
+        LocalDate resultEndDate;
+
+//        resultStartDate = Model.getInstance().getCalendarLeftDate();
+//        resultEndDate = Model.getInstance().getCalendarRightDate();
+
+        resultStartDate = Model.getInstance().getEdgeLeftDate();
+        resultEndDate = Model.getInstance().getEdgeRightDate();
 
 
+        long resultSize = ChronoUnit.DAYS.between(resultStartDate, resultEndDate)+1;
+//        System.out.println("DAYS = " + resultSize);
+        for (int i = 0; i < resultSize; i++) {
+            result.add(Rooms.getRoomAbbreviateNamesSet());
+        }
+
+//        System.out.println("22222222222222222222222222222222222222222222222");
+        System.out.println(resultStartDate);
+        System.out.println(resultEndDate);
+
+        String sql = "SELECT checkIn, checkOut, room FROM main where checkIn <= '" + resultEndDate + "' AND checkOut >= '" + resultStartDate + "' AND not id = "+id+";";
+        try {
+            PreparedStatement pStmt = openDB().prepareStatement(sql);
+            ResultSet resultSet = pStmt.executeQuery();
+            while(resultSet.next()){
+                LocalDate checkIn = LocalDate.parse(resultSet.getString("checkIn"));
+                LocalDate checkOut = LocalDate.parse(resultSet.getString("checkOut"));
+
+
+                int startDate = checkIn.getDayOfMonth();
+
+                LocalDate temp = resultStartDate;
+//                System.out.println(temp);
+//                System.out.println(checkIn);
+                while (temp.getMonth() != checkIn.getMonth()){
+                    startDate += temp.lengthOfMonth();
+                    temp = temp.plusMonths(1);
+                }
+
+
+//                System.out.println("STARTDATE OF THE BOOK = " + startDate);
+
+                long daysCount = ChronoUnit.DAYS.between(checkIn, checkOut);
+
+                //TODO REPLACE WITH ROOMS FUNCTION
+                String roomValue = resultSet.getString("room");
+                Set<String> roomSet = new HashSet<>();
+
+                Collections.addAll(roomSet, roomValue.split(", "));
+
+//                System.out.println("Startdate = " + startDate);
+//                System.out.println("daysCount = " + daysCount);
+//                System.out.println("daysCount + startDate = " + (daysCount + startDate));
+
+                for(String room : roomSet){
+                    for(int i = startDate - 1; i < daysCount + startDate; i++){
+                        result.get(i).remove(room);
+                    }
+                }
+            }
+
+            resultSet.close();
+            closeDB();
+
+            for(int i = 0; i < result.size(); i++){
+                System.out.println();
+                System.out.println(i + 1);
+                System.out.println(result.get(i));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return  result;
+    }
 
 
 
