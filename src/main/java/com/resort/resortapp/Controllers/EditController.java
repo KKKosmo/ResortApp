@@ -101,7 +101,7 @@ public class EditController implements Initializable {
         Model.getInstance().autoTurnMonth(LocalDate.parse(recordModel.getCheckIn()));
 
         Model.getInstance().setAvailablesForVisual(sqliteModel.getAvailableRoomsPerDayList(id));
-        available = Model.getInstance().getAvailableInRange(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
+        available = sqliteModel.getAvailablesForFunction(checkIn_datePicker.getValue(), checkOut_datePicker.getValue(), id);
 
         System.out.println(available);
 
@@ -121,7 +121,7 @@ public class EditController implements Initializable {
                 if(checkOut_datePicker.getValue() != null){
                     if(checkIn_datePicker.getValue().isBefore(checkOut_datePicker.getValue()) || checkIn_datePicker.getValue().equals(checkOut_datePicker.getValue())){
                         Model.getInstance().setAvailablesForVisual(sqliteModel.getAvailableRoomsPerDayList(id));
-                        available = Model.getInstance().getAvailableInRange(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
+                        available = sqliteModel.getAvailablesForFunction(checkIn_datePicker.getValue(), checkOut_datePicker.getValue(), id);
                     }
                     Model.getInstance().setSelected();
                 }
@@ -137,7 +137,7 @@ public class EditController implements Initializable {
                 if(checkIn_datePicker.getValue() != null){
                     if(checkIn_datePicker.getValue().isBefore(checkOut_datePicker.getValue()) || checkIn_datePicker.getValue().equals(checkOut_datePicker.getValue())){
                         Model.getInstance().setAvailablesForVisual(sqliteModel.getAvailableRoomsPerDayList(id));
-                        available = Model.getInstance().getAvailableInRange(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
+                        available = sqliteModel.getAvailablesForFunction(checkIn_datePicker.getValue(), checkOut_datePicker.getValue(), id);
                         System.out.println(available);
                     }
                     Model.getInstance().setSelected();
