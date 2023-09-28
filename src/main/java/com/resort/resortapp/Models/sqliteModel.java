@@ -157,15 +157,15 @@ public class sqliteModel {
                 int startDate = checkIn.getDayOfMonth();
                 LocalDate temp = resultStartDate;
 
-                System.out.println();
-                System.out.println("left edge = " + temp.getMonth());
-                System.out.println("CHECKIN = " + checkIn.getMonth());
+//                System.out.println();
+//                System.out.println("left edge = " + temp.getMonth());
+//                System.out.println("CHECKIN = " + checkIn.getMonth());
                 if(checkIn.isAfter(temp)){
                     while (temp.getMonth() != checkIn.getMonth()){
                         startDate += temp.lengthOfMonth();
                         temp = temp.plusMonths(1);
                     }
-                    System.out.println("STARTDATE = " + startDate);
+//                    System.out.println("STARTDATE = " + startDate);
                 }
                 long daysCount = ChronoUnit.DAYS.between(checkIn, checkOut);
 
@@ -259,9 +259,9 @@ public class sqliteModel {
 
                 Collections.addAll(roomSet, roomValue.split(", "));
 
-                System.out.println("Startdate = " + startDate);
-                System.out.println("daysCount = " + daysCount);
-                System.out.println("daysCount + startDate = " + (daysCount + startDate));
+//                System.out.println("Startdate = " + startDate);
+//                System.out.println("daysCount = " + daysCount);
+//                System.out.println("daysCount + startDate = " + (daysCount + startDate));
 
                 for(String room : roomSet){
                     for(int i = startDate - 1; i < daysCount + startDate; i++){

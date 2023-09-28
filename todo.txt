@@ -1,7 +1,5 @@
 if errors with sql, might be the plugins
 
-when editing, flip to month of book and not current month
-
 editing and submitting immediately still throws errors, see id 83 and 85
 database for some reason not getting closed when editing? see id 84
 

@@ -344,8 +344,31 @@ public class Model {
         Set<String> result = Rooms.getRoomAbbreviateNamesSet();
 
         long count = ChronoUnit.DAYS.between(checkIn, checkOut);
-        count += checkIn.getDayOfMonth();
-        for(int i = checkIn.getDayOfMonth()-1; i < count; i++){
+        System.out.println("THE SIZE IS " + availableRoomsPerDayWithinTheMonthsList.size());
+        System.out.println("LEFT EDGE IS " + edgeLeftDate);
+        System.out.println("RIGHT EDGE IS " + edgeRightDate);
+        System.out.println("CHECK IN IS " + checkIn);
+        System.out.println("CHECK OUT IS " + checkOut);
+
+        LocalDate temp = edgeLeftDate;
+        int startDate = checkIn.getDayOfMonth()-1;
+        if(temp.isBefore(checkIn)){
+            while (temp.getMonth() != checkIn.getMonth()){
+                startDate += temp.lengthOfMonth();
+                temp = temp.plusMonths(1);
+            }
+        }
+
+//        if(checkOut.isAfter(resultEndDate)){
+//            resultEndDate = resultEndDate.plusMonths(1);
+//            for (int i = 0; i < resultEndDate.lengthOfMonth(); i++) {
+//                result.add(Rooms.getRoomAbbreviateNamesSet());
+//            }
+//        }
+
+
+        count += startDate + 1;
+        for(int i = startDate; i < count; i++){
             System.out.println("Day " + (i+1) + " Has : " + availableRoomsPerDayWithinTheMonthsList.get(i));
             result.retainAll(availableRoomsPerDayWithinTheMonthsList.get(i));
         }
