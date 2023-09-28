@@ -131,14 +131,14 @@ public class sqliteModel {
 
         LocalDate resultStartDate;
         LocalDate resultEndDate;
-        if(Model.getInstance().getEdgeLeftDate() == null){
-            resultStartDate = Model.getInstance().getCalendarLeftDate();
-            resultEndDate = Model.getInstance().getCalendarRightDate();
-        }
-        else{
+//        if(Model.getInstance().getEdgeLeftDate() == null){
+//            resultStartDate = Model.getInstance().getCalendarLeftDate();
+//            resultEndDate = Model.getInstance().getCalendarRightDate();
+//        }
+//        else{
             resultStartDate = Model.getInstance().getEdgeLeftDate();
             resultEndDate = Model.getInstance().getEdgeRightDate();
-        }
+//        }
 
         long resultSize = ChronoUnit.DAYS.between(resultStartDate, resultEndDate)+1;
         for (int i = 0; i < resultSize; i++) {
@@ -157,13 +157,24 @@ public class sqliteModel {
                 int startDate = checkIn.getDayOfMonth();
                 LocalDate temp = resultStartDate;
 
+                System.out.println();
+                System.out.println("left edge = " + temp.getMonth());
+                System.out.println("CHECKIN = " + checkIn.getMonth());
                 if(checkIn.isAfter(temp)){
                     while (temp.getMonth() != checkIn.getMonth()){
                         startDate += temp.lengthOfMonth();
                         temp = temp.plusMonths(1);
                     }
+                    System.out.println("STARTDATE = " + startDate);
                 }
                 long daysCount = ChronoUnit.DAYS.between(checkIn, checkOut);
+
+                if(checkOut.isAfter(resultEndDate)){
+                    resultEndDate = resultEndDate.plusMonths(1);
+                    for (int i = 0; i < resultEndDate.lengthOfMonth(); i++) {
+                        result.add(Rooms.getRoomAbbreviateNamesSet());
+                    }
+                }
 
                 //TODO REPLACE WITH ROOMS FUNCTION
                 String roomValue = resultSet.getString("room");
@@ -190,7 +201,7 @@ public class sqliteModel {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return  result;
+        return result;
     }
     public static List<Set<String>> getAvailableRoomsPerDayList(int id){
         System.out.println("getavailableroomsperdaylistwithid");
