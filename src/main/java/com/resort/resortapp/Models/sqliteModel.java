@@ -244,7 +244,12 @@ public class sqliteModel {
                         temp = temp.plusMonths(1);
                     }
                 }
-
+                if(checkOut.isAfter(resultEndDate)){
+                    resultEndDate = resultEndDate.plusMonths(1);
+                    for (int i = 0; i < resultEndDate.lengthOfMonth(); i++) {
+                        result.add(Rooms.getRoomAbbreviateNamesSet());
+                    }
+                }
 
                 long daysCount = ChronoUnit.DAYS.between(checkIn, checkOut);
 

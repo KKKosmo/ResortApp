@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.*;
 
 public class EditController implements Initializable {
@@ -67,7 +68,6 @@ public class EditController implements Initializable {
         textFieldAddListener(fullPayment_fld);
 
 
-        Model.getInstance().getViewFactory().insertCalendar(month_pane);
     }
 
     public void updateRecord(){
@@ -97,6 +97,8 @@ public class EditController implements Initializable {
     public void setValues(RecordModel recordModel) {
         id = recordModel.fillInFields(name_fld, pax_fld, vehicle_textFld, petsYes_radio, petsNo_radio, videokeYes_radio, videokeNo_radio, partialPayment_fld, fullPayment_fld, paidYes_radio, paidNo_radio, checkIn_datePicker, checkOut_datePicker, roomCheckBoxes);
 
+        Model.getInstance().getViewFactory().insertCalendar(month_pane);
+        Model.getInstance().autoTurnMonth(LocalDate.parse(recordModel.getCheckIn()));
 
         Model.getInstance().setAvailableRoomsPerDayWithinTheMonthsList(sqliteModel.getAvailableRoomsPerDayList(id));
         available = Model.getInstance().getAvailableInRange(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
