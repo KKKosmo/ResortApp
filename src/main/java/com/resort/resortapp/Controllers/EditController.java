@@ -100,7 +100,7 @@ public class EditController implements Initializable {
         Model.getInstance().getViewFactory().insertCalendar(month_pane);
         Model.getInstance().autoTurnMonth(LocalDate.parse(recordModel.getCheckIn()));
 
-        Model.getInstance().setAvailableRoomsPerDayWithinTheMonthsList(sqliteModel.getAvailableRoomsPerDayList(id));
+        Model.getInstance().setAvailablesForVisual(sqliteModel.getAvailableRoomsPerDayList(id));
         available = Model.getInstance().getAvailableInRange(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
 
         System.out.println(available);
@@ -120,7 +120,7 @@ public class EditController implements Initializable {
 
                 if(checkOut_datePicker.getValue() != null){
                     if(checkIn_datePicker.getValue().isBefore(checkOut_datePicker.getValue()) || checkIn_datePicker.getValue().equals(checkOut_datePicker.getValue())){
-                        Model.getInstance().setAvailableRoomsPerDayWithinTheMonthsList(sqliteModel.getAvailableRoomsPerDayList(id));
+                        Model.getInstance().setAvailablesForVisual(sqliteModel.getAvailableRoomsPerDayList(id));
                         available = Model.getInstance().getAvailableInRange(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
                     }
                     Model.getInstance().setSelected();
@@ -136,7 +136,7 @@ public class EditController implements Initializable {
 
                 if(checkIn_datePicker.getValue() != null){
                     if(checkIn_datePicker.getValue().isBefore(checkOut_datePicker.getValue()) || checkIn_datePicker.getValue().equals(checkOut_datePicker.getValue())){
-                        Model.getInstance().setAvailableRoomsPerDayWithinTheMonthsList(sqliteModel.getAvailableRoomsPerDayList(id));
+                        Model.getInstance().setAvailablesForVisual(sqliteModel.getAvailableRoomsPerDayList(id));
                         available = Model.getInstance().getAvailableInRange(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
                         System.out.println(available);
                     }

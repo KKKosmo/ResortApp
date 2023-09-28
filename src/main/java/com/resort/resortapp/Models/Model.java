@@ -8,7 +8,6 @@ import javafx.scene.text.Text;
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -119,14 +118,6 @@ public class Model {
         dateFocus = dateFocus.plusMonths(1);
         setCalendarLeftDate(dateFocus);
         setCalendarRightDate(dateFocus);
-        setEdgeRightDate(getCalendarRightDate().plusMonths(1));
-        setEdgeLeftDate(calendarLeftDate.minusMonths(1));
-//        System.out.println();
-//        System.out.println("CALENDAR LEFT DATE = " + edgeLeftDate.getMonthValue());
-//        System.out.println("CALENDAR RIGHT DATE = " + edgeRightDate.getMonthValue());
-//        if(edgeLeftDate.getMonthValue() == edgeRightDate.getMonthValue() && edgeLeftDate.getYear() != edgeRightDate.getYear()){
-//            setTestLeftEdge(testLeftEdge.plusMonths(1));
-//        }
         fillFlowPaneMonths();
         getViewFactory().colorize();
         if(selectedLocalDates != null){
@@ -138,14 +129,6 @@ public class Model {
         dateFocus = dateFocus.minusMonths(1);
         setCalendarLeftDate(dateFocus);
         setCalendarRightDate(dateFocus);
-        setEdgeLeftDate(getCalendarLeftDate().minusMonths(1));
-        setEdgeRightDate(calendarRightDate.plusMonths(1));
-//        System.out.println();
-//        System.out.println("CALENDAR LEFT DATE = " + edgeLeftDate.getMonthValue());
-//        System.out.println("CALENDAR RIGHT DATE = " + edgeRightDate.getMonthValue());
-//        if(edgeLeftDate.getMonthValue() == edgeRightDate.getMonthValue() && edgeLeftDate.getYear() != edgeRightDate.getYear()){
-//            setTestRightEdge(testRightEdge.minusMonths(1));
-//        }
         fillFlowPaneMonths();
         getViewFactory().colorize();
         if(selectedLocalDates != null){
@@ -308,7 +291,7 @@ public class Model {
         return availableRoomsPerDayWithinTheMonthsList;
     }
 
-    public void setAvailableRoomsPerDayWithinTheMonthsList(List<Set<String>> availableRoomsPerDayWithinTheMonthsList) {
+    public void setAvailablesForVisual(List<Set<String>> availableRoomsPerDayWithinTheMonthsList) {
         this.availableRoomsPerDayWithinTheMonthsList = availableRoomsPerDayWithinTheMonthsList;
     }
 

@@ -130,49 +130,46 @@ public class sqliteModel {
         List<Set<String>> result = new ArrayList<>();
         Model.getInstance().setTestLeftEdge(Model.getInstance().getEdgeLeftDate());
 
-        LocalDate resultStartDate = Model.getInstance().getEdgeLeftDate();
-        LocalDate resultEndDate = Model.getInstance().getEdgeRightDate();
+        LocalDate resultStartDate = Model.getInstance().getCalendarLeftDate();
+        LocalDate resultEndDate = Model.getInstance().getCalendarRightDate();
 
-        long resultSize = ChronoUnit.DAYS.between(resultStartDate, resultEndDate)+1;
-        for (int i = 0; i < resultSize; i++) {
+        for (int i = 0; i < resultEndDate.lengthOfMonth(); i++) {
             result.add(Rooms.getRoomAbbreviateNamesSet());
         }
 
-        String sql = "SELECT checkIn, checkOut, room FROM main where checkIn <= '" + resultEndDate + "' AND checkOut >= '" + resultStartDate + "';";
-        System.out.println(sql);
         try {
+            String sql = "SELECT checkIn, checkOut, room FROM main where checkIn <= '" + resultEndDate + "' AND checkOut >= '" + resultStartDate + "';";
+            System.out.println(sql);
             PreparedStatement pStmt = openDB().prepareStatement(sql);
             ResultSet resultSet = pStmt.executeQuery();
             while(resultSet.next()){
                 LocalDate checkIn = LocalDate.parse(resultSet.getString("checkIn"));
                 LocalDate checkOut = LocalDate.parse(resultSet.getString("checkOut"));
 
-                int startDate = checkIn.getDayOfMonth();
-                LocalDate temp = resultStartDate;
-
-                if(checkIn.isAfter(temp)){
-                    while (temp.getMonth() != checkIn.getMonth()){
-                        startDate += temp.lengthOfMonth();
-                        temp = temp.plusMonths(1);
-                    }
-                }
-                if(checkOut.isAfter(resultEndDate)){
-                    resultEndDate = resultEndDate.plusMonths(1);
-                    for (int i = 0; i < resultEndDate.lengthOfMonth(); i++) {
-                        result.add(Rooms.getRoomAbbreviateNamesSet());
-                    }
-                }
-
-                long daysCount = ChronoUnit.DAYS.between(checkIn, checkOut);
+                long daysCount = ChronoUnit.DAYS.between(checkIn, checkOut) + 1;
 
                 //TODO REPLACE WITH ROOMS FUNCTION
                 String roomValue = resultSet.getString("room");
                 Set<String> roomSet = new HashSet<>();
 
                 Collections.addAll(roomSet, roomValue.split(", "));
+                System.out.println(checkIn + " - " + checkOut + ": " + roomSet);
 
+                int startDate;
+                if(checkIn.isBefore(Model.getInstance().getCalendarLeftDate())){
+                    startDate = 0;
+                    daysCount -= ChronoUnit.DAYS.between(checkIn, checkOut.withDayOfMonth(1)) - 1;
+                }else{
+                    startDate = checkIn.getDayOfMonth()-1;
+//                    daysCount = Math.min(Model.getInstance().getCalendarRightDate().getDayOfMonth(), daysCount + startDate);
+//                    daysCount += startDate;
+                }
+
+//                System.out.println("CALENDAR RIGHT DATE = " + Model.getInstance().getCalendarRightDate().getDayOfMonth());
+                System.out.println("DAYS COUNT = " + daysCount);
+                System.out.println("START DATE = " + startDate);
                 for(String room : roomSet){
-                    for(int i = startDate - 1; i < daysCount + startDate; i++){
+                    for(int i = startDate; i < daysCount ; i++){
                         result.get(i).remove(room);
                     }
                 }
@@ -181,52 +178,35 @@ public class sqliteModel {
             resultSet.close();
             closeDB();
 
-//            for(int i = 0; i < result.size(); i++){
-//                System.out.println((i + 1) + " " + result.get(i));
-//            }
-            Model.getInstance().setTestRightEdge(Model.getInstance().getEdgeRightDate());
+            for(int i = 0; i < result.size(); i++){
+                System.out.println((i + 1) + " " + result.get(i));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return result;
     }
     public static List<Set<String>> getAvailableRoomsPerDayList(int id){
-        System.out.println("getavailableroomsperdaylistwithid");
+        System.out.println("getAvailableRoomsPerdaylist(int id)");
         List<Set<String>> result = new ArrayList<>();
-
         Model.getInstance().setTestLeftEdge(Model.getInstance().getEdgeLeftDate());
-        LocalDate resultStartDate = Model.getInstance().getEdgeLeftDate();
-        LocalDate resultEndDate = Model.getInstance().getEdgeRightDate();
 
-        long resultSize = ChronoUnit.DAYS.between(resultStartDate, resultEndDate)+1;
-        for (int i = 0; i < resultSize; i++) {
+        LocalDate resultStartDate = Model.getInstance().getCalendarLeftDate();
+        LocalDate resultEndDate = Model.getInstance().getCalendarRightDate();
+
+        for (int i = 0; i < resultEndDate.lengthOfMonth(); i++) {
             result.add(Rooms.getRoomAbbreviateNamesSet());
         }
 
-        String sql = "SELECT checkIn, checkOut, room FROM main where checkIn <= '" + resultEndDate + "' AND checkOut >= '" + resultStartDate + "' AND not id = "+id+";";
-        System.out.println(sql);
         try {
+        String sql = "SELECT checkIn, checkOut, room FROM main where checkIn <= '" + resultEndDate + "' AND checkOut >= '" + resultStartDate + "' AND not id = "+id+";";
+            System.out.println(sql);
             PreparedStatement pStmt = openDB().prepareStatement(sql);
             ResultSet resultSet = pStmt.executeQuery();
             while(resultSet.next()){
                 LocalDate checkIn = LocalDate.parse(resultSet.getString("checkIn"));
                 LocalDate checkOut = LocalDate.parse(resultSet.getString("checkOut"));
 
-                int startDate = checkIn.getDayOfMonth();
-                LocalDate temp = resultStartDate;
-
-                if(checkIn.isAfter(temp)){
-                    while (temp.getMonth() != checkIn.getMonth()){
-                        startDate += temp.lengthOfMonth();
-                        temp = temp.plusMonths(1);
-                    }
-                }
-                if(checkOut.isAfter(resultEndDate)){
-                    resultEndDate = resultEndDate.plusMonths(1);
-                    for (int i = 0; i < resultEndDate.lengthOfMonth(); i++) {
-                        result.add(Rooms.getRoomAbbreviateNamesSet());
-                    }
-                }
 
                 long daysCount = ChronoUnit.DAYS.between(checkIn, checkOut);
 
@@ -235,9 +215,21 @@ public class sqliteModel {
                 Set<String> roomSet = new HashSet<>();
 
                 Collections.addAll(roomSet, roomValue.split(", "));
+                System.out.println(checkIn + " - " + checkOut + ": " + roomSet);
 
+                int startDate;
+                if(checkIn.isBefore(Model.getInstance().getCalendarLeftDate())){
+                    startDate = 0;
+                    daysCount -= ChronoUnit.DAYS.between(checkIn, checkOut.withDayOfMonth(1)) - 1;
+                }else{
+                    startDate = checkIn.getDayOfMonth()-1;
+                }
+                daysCount = Math.min(Model.getInstance().getCalendarRightDate().getDayOfMonth(), daysCount + startDate);
+
+                System.out.println(startDate);
+                System.out.println(daysCount);
                 for(String room : roomSet){
-                    for(int i = startDate - 1; i < daysCount + startDate; i++){
+                    for(int i = startDate; i < daysCount; i++){
                         result.get(i).remove(room);
                     }
                 }
@@ -246,14 +238,13 @@ public class sqliteModel {
             resultSet.close();
             closeDB();
 
-//            for(int i = 0; i < result.size(); i++){
-//                System.out.println((i + 1) + " " + result.get(i));
-//            }
-            Model.getInstance().setTestRightEdge(Model.getInstance().getTestRightEdge());
+            for(int i = 0; i < result.size(); i++){
+                System.out.println((i + 1) + " " + result.get(i));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return  result;
+        return result;
     }
 
 
@@ -321,10 +312,10 @@ public class sqliteModel {
             Model.getInstance().getViewFactory().showErrorPopup("Error: Check-in date must come before Check-out date.");
             return false;
         }
-        else if(ChronoUnit.DAYS.between(LocalDate.parse(checkIn), LocalDate.parse(checkOut))+1 > 28){
-            Model.getInstance().getViewFactory().showErrorPopup("Error: Booking days cannot be more than 28. This is a bug, will be fixed soon");
-            return false;
-        }
+//        else if(ChronoUnit.DAYS.between(LocalDate.parse(checkIn), LocalDate.parse(checkOut))+1 > 28){
+//            Model.getInstance().getViewFactory().showErrorPopup("Error: Booking days cannot be more than 28. This is a bug, will be fixed soon");
+//            return false;
+//        }
         else if(roomCheckboxes.get(0).isSelected() && !available.contains(Rooms.ROOM_J.getAbbreviatedName())){
             Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ROOM_J.getAbbreviatedName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
@@ -452,10 +443,11 @@ public class sqliteModel {
             Model.getInstance().getViewFactory().showErrorPopup("Error: Check-in date must come before Check-out date.");
             return false;
         }
-        else if(ChronoUnit.DAYS.between(LocalDate.parse(checkIn), LocalDate.parse(checkOut))+1 > 28){
-            Model.getInstance().getViewFactory().showErrorPopup("Error: Booking days cannot be more than 28. This is a bug, will be fixed soon");
-            return false;
-        }else if(roomCheckboxes.get(0).isSelected() && !available.contains(Rooms.ROOM_J.getAbbreviatedName())){
+//        else if(ChronoUnit.DAYS.between(LocalDate.parse(checkIn), LocalDate.parse(checkOut))+1 > 28){
+//            Model.getInstance().getViewFactory().showErrorPopup("Error: Booking days cannot be more than 28. This is a bug, will be fixed soon");
+//            return false;
+//        }
+        else if(roomCheckboxes.get(0).isSelected() && !available.contains(Rooms.ROOM_J.getAbbreviatedName())){
             Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ROOM_J.getAbbreviatedName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
         }else if(roomCheckboxes.get(1).isSelected() && !available.contains(Rooms.ROOM_G.getAbbreviatedName())){
@@ -720,6 +712,30 @@ public class sqliteModel {
             e.printStackTrace();
         }
 
+        return result;
+    }
+
+
+    public static Set<String> getAvailablesForFunction(LocalDate leftEdge, LocalDate rightEdge){
+        System.out.println("getAvailablesForFunction");
+        Set<String> result = Rooms.getRoomAbbreviateNamesSet();
+        try {
+            String sql = "SELECT room FROM main where checkIn <= '" + rightEdge + "' AND checkOut >= '" + leftEdge + "';";
+            System.out.println(sql);
+            PreparedStatement pStmt = openDB().prepareStatement(sql);
+            ResultSet resultSet = pStmt.executeQuery();
+            while(resultSet.next()){
+                String roomValue = resultSet.getString("room");
+                Set<String> roomSet = new HashSet<>();
+                Collections.addAll(roomSet, roomValue.split(", "));
+                result.removeAll(roomSet);
+            }
+            System.out.println("AVAILABLE FOR " + leftEdge + "-" + rightEdge + " IS " + result);
+            resultSet.close();
+            closeDB();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return result;
     }
 }

@@ -1,8 +1,9 @@
 if errors with sql, might be the plugins
-hjrex
+
 REMODELLING
-    get the current month on screen, calculate their availabilities, if there are excess left or right, store the value in the model, the excess is for checking the availabilities of offscreen dates, the whole month comes first before the selected date checking.
-    the daymodels should have their own localdate fields, not a separate list.
+    see sqliteModel lines 160~, if cant fix, brute force it, query availability per day
+
+
 
 
 editing and submitting immediately still throws errors, see id 83 and 85
@@ -51,5 +52,6 @@ room fxml
 inner room
 room menu fxml
 
+the daymodels should have their own localdate fields, not a separate list.
 
 getting bugged by booked daycount
