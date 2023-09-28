@@ -126,7 +126,7 @@ public class sqliteModel {
         return  result;
     }
     public static List<Set<String>> getAvailableRoomsPerDayList(){
-        System.out.println("getAvailableRoomsPerdaylist");
+        System.out.println("getAvailableRoomsPerdaylist------------");
         List<Set<String>> result = new ArrayList<>();
         Model.getInstance().setTestLeftEdge(Model.getInstance().getEdgeLeftDate());
 
@@ -388,10 +388,6 @@ public class sqliteModel {
             }
         }
     }
-
-
-
-
     public static boolean updateRecord(RecordModel recordModel, Set<String> available, String changes){
         System.out.println("updaterecord");
         String name = recordModel.getName();
@@ -545,8 +541,6 @@ public class sqliteModel {
             }
         }
     }
-
-
     public static void queryTableRecords(){
         System.out.println("querytablerecords");
         List<RecordModel> result = new ArrayList<>();
@@ -636,14 +630,6 @@ public class sqliteModel {
 
         Model.getInstance().setListRecordModels(result);
     }
-
-
-
-
-
-
-
-
     public static boolean deleteEntry(RecordModel recordModel){
         System.out.println("deleteentry");
         int id = recordModel.getIdInt();
@@ -694,7 +680,6 @@ public class sqliteModel {
             return false;
         }
     }
-
     public static List<EditHistoryModel> getEditHistory() {
         System.out.println("getedithistory");
         List<EditHistoryModel> result = new ArrayList<>();
@@ -726,8 +711,6 @@ public class sqliteModel {
 
         return result;
     }
-
-
     public static Set<String> getAvailablesForFunction(LocalDate leftEdge, LocalDate rightEdge){
         System.out.println("getAvailablesForFunction");
         Set<String> result = Rooms.getRoomAbbreviateNamesSet();
@@ -751,7 +734,7 @@ public class sqliteModel {
         return result;
     }
     public static Set<String> getAvailablesForFunction(LocalDate leftEdge, LocalDate rightEdge, int id){
-        System.out.println("getAvailablesForFunction");
+        System.out.println("getAvailablesForFunction(id)");
         Set<String> result = Rooms.getRoomAbbreviateNamesSet();
         try {
             String sql = "SELECT checkIn, checkOut, room FROM main where checkIn <= '" + rightEdge + "' AND checkOut >= '" + leftEdge + "' AND not id = "+id+";";

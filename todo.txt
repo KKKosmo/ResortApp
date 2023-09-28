@@ -1,4 +1,7 @@
 if errors with sql, might be the plugins
+if seem odd, might be because i tried to remove duplicates in controllers where they setAvailablesFotVisuals
+
+inefficient page panning(calculating everytime)
 
 REMODELLING
     see sqliteModel lines 160~, if cant fix, brute force it, query availability per day

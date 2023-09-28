@@ -80,7 +80,7 @@ public class CreateController  implements Initializable{
 
                 if(checkOut_datePicker.getValue() != null){
                     if(checkIn_datePicker.getValue().isBefore(checkOut_datePicker.getValue()) || checkIn_datePicker.getValue().equals(checkOut_datePicker.getValue())){
-                        Model.getInstance().setAvailablesForVisual(sqliteModel.getAvailableRoomsPerDayList());
+//                        Model.getInstance().setAvailablesForVisual(sqliteModel.getAvailableRoomsPerDayList());
                         available = sqliteModel.getAvailablesForFunction(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
                     }
                     Model.getInstance().setSelected();
@@ -98,7 +98,7 @@ public class CreateController  implements Initializable{
 
                 if(checkIn_datePicker.getValue() != null){
                     if(checkIn_datePicker.getValue().isBefore(checkOut_datePicker.getValue()) || checkIn_datePicker.getValue().equals(checkOut_datePicker.getValue())){
-                        Model.getInstance().setAvailablesForVisual(sqliteModel.getAvailableRoomsPerDayList());
+//                        Model.getInstance().setAvailablesForVisual(sqliteModel.getAvailableRoomsPerDayList());
                         available = sqliteModel.getAvailablesForFunction(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
                     }
                     Model.getInstance().setSelected();
