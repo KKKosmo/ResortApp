@@ -1,5 +1,10 @@
 if errors with sql, might be the plugins
 
+REMODELLING
+    get the current month on screen, calculate their availabilities, if there are excess left or right, store the value in the model, the excess is for checking the availabilities of offscreen dates, the whole month comes first before the selected date checking.
+    the daymodels should have their own localdate fields, not a separate list.
+
+
 editing and submitting immediately still throws errors, see id 83 and 85
 database for some reason not getting closed when editing? see id 84
 

@@ -30,6 +30,8 @@ public class Model {
     private LocalDate calendarRightDate;
     private LocalDate edgeLeftDate;
     private LocalDate edgeRightDate;
+    private LocalDate testLeftEdge;
+    private LocalDate testRightEdge;
 
     private LocalDate selectedLeftDate;
     private LocalDate selectedRightDate;
@@ -113,21 +115,18 @@ public class Model {
         viewFactory.fillFlowPaneMonths(rooms);
     }
     public void nextMonth() {
-        System.out.println("NEXXING");
+//        System.out.println("NEXXING");
         dateFocus = dateFocus.plusMonths(1);
         setCalendarLeftDate(dateFocus);
         setCalendarRightDate(dateFocus);
-        setEdgeRightDate(getCalendarRightDate());
-//        if(edgeLeftDate.getMonthValue() == edgeRightDate.getMonthValue() - 1){
-//            setEdgeRightDate(edgeRightDate.plusMonths(1));
+        setEdgeRightDate(getCalendarRightDate().plusMonths(1));
+        setEdgeLeftDate(calendarLeftDate.minusMonths(1));
+//        System.out.println();
+//        System.out.println("CALENDAR LEFT DATE = " + edgeLeftDate.getMonthValue());
+//        System.out.println("CALENDAR RIGHT DATE = " + edgeRightDate.getMonthValue());
+//        if(edgeLeftDate.getMonthValue() == edgeRightDate.getMonthValue() && edgeLeftDate.getYear() != edgeRightDate.getYear()){
+//            setTestLeftEdge(testLeftEdge.plusMonths(1));
 //        }
-        System.out.println();
-        System.out.println("CALENDAR LEFT DATE = " + edgeLeftDate.getMonthValue());
-        System.out.println("CALENDAR RIGHT DATE = " + edgeRightDate.getMonthValue());
-        if(edgeLeftDate.getMonthValue() == edgeRightDate.getMonthValue() && edgeLeftDate.getYear() != edgeRightDate.getYear()){
-            setEdgeLeftDate(getEdgeLeftDate().plusMonths(1));
-            System.out.println("ADJUSTING EHRE");
-        }
         fillFlowPaneMonths();
         getViewFactory().colorize();
         if(selectedLocalDates != null){
@@ -135,21 +134,18 @@ public class Model {
         }
     }
     public void prevMonth() {
-        System.out.println("PREVVING");
+//        System.out.println("PREVVING");
         dateFocus = dateFocus.minusMonths(1);
         setCalendarLeftDate(dateFocus);
         setCalendarRightDate(dateFocus);
-        setEdgeLeftDate(getCalendarLeftDate());
-//        if(edgeLeftDate.getMonthValue() == edgeRightDate.getMonthValue() - 1){
-//            setEdgeLeftDate(edgeLeftDate.minusMonths(1));
+        setEdgeLeftDate(getCalendarLeftDate().minusMonths(1));
+        setEdgeRightDate(calendarRightDate.plusMonths(1));
+//        System.out.println();
+//        System.out.println("CALENDAR LEFT DATE = " + edgeLeftDate.getMonthValue());
+//        System.out.println("CALENDAR RIGHT DATE = " + edgeRightDate.getMonthValue());
+//        if(edgeLeftDate.getMonthValue() == edgeRightDate.getMonthValue() && edgeLeftDate.getYear() != edgeRightDate.getYear()){
+//            setTestRightEdge(testRightEdge.minusMonths(1));
 //        }
-        System.out.println();
-        System.out.println("CALENDAR LEFT DATE = " + edgeLeftDate.getMonthValue());
-        System.out.println("CALENDAR RIGHT DATE = " + edgeRightDate.getMonthValue());
-        if(edgeLeftDate.getMonthValue() == edgeRightDate.getMonthValue() && edgeLeftDate.getYear() != edgeRightDate.getYear()){
-            setEdgeRightDate(getEdgeRightDate().minusMonths(1));
-            System.out.println("ADJUSTING EHRE");
-        }
         fillFlowPaneMonths();
         getViewFactory().colorize();
         if(selectedLocalDates != null){
@@ -343,12 +339,12 @@ public class Model {
     public Set<String> getAvailableInRange(LocalDate checkIn, LocalDate checkOut){
         Set<String> result = Rooms.getRoomAbbreviateNamesSet();
 
-        long count = ChronoUnit.DAYS.between(checkIn, checkOut);
-        System.out.println("THE SIZE IS " + availableRoomsPerDayWithinTheMonthsList.size());
-        System.out.println("LEFT EDGE IS " + edgeLeftDate);
-        System.out.println("RIGHT EDGE IS " + edgeRightDate);
-        System.out.println("CHECK IN IS " + checkIn);
-        System.out.println("CHECK OUT IS " + checkOut);
+//        long count = ChronoUnit.DAYS.between(checkIn, checkOut);
+//        System.out.println("THE SIZE IS " + availableRoomsPerDayWithinTheMonthsList.size());
+//        System.out.println("LEFT EDGE IS " + edgeLeftDate);
+//        System.out.println("RIGHT EDGE IS " + edgeRightDate);
+//        System.out.println("CHECK IN IS " + checkIn);
+//        System.out.println("CHECK OUT IS " + checkOut);
 
         LocalDate temp = edgeLeftDate;
         int startDate = checkIn.getDayOfMonth()-1;
@@ -367,11 +363,11 @@ public class Model {
 //        }
 
 
-        count += startDate + 1;
-        for(int i = startDate; i < count; i++){
-            System.out.println("Day " + (i+1) + " Has : " + availableRoomsPerDayWithinTheMonthsList.get(i));
-            result.retainAll(availableRoomsPerDayWithinTheMonthsList.get(i));
-        }
+//        count += startDate + 1;
+//        for(int i = startDate; i < count; i++){
+//            System.out.println("Day " + (i+1) + " Has : " + availableRoomsPerDayWithinTheMonthsList.get(i));
+//            result.retainAll(availableRoomsPerDayWithinTheMonthsList.get(i));
+//        }
         return result;
     }
 
@@ -577,6 +573,8 @@ public class Model {
         setCalendarRightDate(LocalDate.now());
         setEdgeLeftDate(getCalendarLeftDate().minusMonths(1));
         setEdgeRightDate(getCalendarRightDate().plusMonths(1));
+        setTestLeftEdge(edgeLeftDate);
+        setTestRightEdge(edgeRightDate);
     }
 
     public void autoTurnMonth(LocalDate myDate){
@@ -610,5 +608,21 @@ public class Model {
 
     public void setDateFocus(LocalDate dateFocus) {
         this.dateFocus = dateFocus;
+    }
+
+    public LocalDate getTestLeftEdge() {
+        return testLeftEdge;
+    }
+
+    public void setTestLeftEdge(LocalDate testLeftEdge) {
+        this.testLeftEdge = testLeftEdge;
+    }
+
+    public LocalDate getTestRightEdge() {
+        return testRightEdge;
+    }
+
+    public void setTestRightEdge(LocalDate testRightEdge) {
+        this.testRightEdge = testRightEdge;
     }
 }

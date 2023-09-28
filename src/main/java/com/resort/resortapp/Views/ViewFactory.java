@@ -168,46 +168,6 @@ public class ViewFactory {
         }
     }
     public void fillFlowPaneMonths(Rooms rooms){
-        flowPane.getChildren().clear();
-        //TODO clear daymodel list here?
-        setCalendarGrid();
-
-        int dateOffset = Model.getInstance().getDateOffset();
-
-        int startDate = 0;
-
-        LocalDate tempDate;
-
-
-
-        if(Model.getInstance().getEdgeLeftDate() == null)
-            tempDate = Model.getInstance().getCalendarLeftDate();
-        else
-            tempDate = Model.getInstance().getEdgeLeftDate();
-
-
-        if(tempDate.isBefore(Model.getInstance().getDateFocus())){
-            while (tempDate.getMonth() != Model.getInstance().getDateFocus().getMonth()){
-                startDate += tempDate.lengthOfMonth();
-                tempDate = tempDate.plusMonths(1);
-            }
-        }
-        else{
-            tempDate = Model.getInstance().getDateFocus();
-            while (tempDate.getMonth() != Model.getInstance().getDateFocus().getMonth()){
-                startDate += tempDate.lengthOfMonth();
-                tempDate = tempDate.plusMonths(1);
-            }
-        }
-
-
-
-
-
-//        System.out.println("========tempdate = " + tempDate);
-//        System.out.println("========datefocus  = " + Model.getInstance().getDateFocus());
-//        System.out.println("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
-
         if(editing && editId != -1){
 //            System.out.println("EDITING--------------------");
             Model.getInstance().setAvailableRoomsPerDayWithinTheMonthsList(sqliteModel.getAvailableRoomsPerDayList(editId));
@@ -216,40 +176,39 @@ public class ViewFactory {
 //            System.out.println("NOT EDITING---------------------");
             Model.getInstance().setAvailableRoomsPerDayWithinTheMonthsList(sqliteModel.getAvailableRoomsPerDayList());
         }
+        flowPane.getChildren().clear();
+        //TODO clear daymodel list here?
+        setCalendarGrid();
+
+        int dateOffset = Model.getInstance().getDateOffset();
+
+
+        LocalDate tempDate = Model.getInstance().getTestLeftEdge();
+        int startDate = 0;
+        while (tempDate.isBefore(Model.getInstance().getCalendarRightDate()) && tempDate.getMonth() != Model.getInstance().getCalendarRightDate().getMonth()){
+            System.out.println("ADJUSTING");
+            startDate += tempDate.lengthOfMonth();
+            tempDate = tempDate.plusMonths(1);
+        }
 
         int monthMaxDate = Model.getInstance().getCalendarRightDate().getDayOfMonth();
+        System.out.println(Model.getInstance().getAvailableRoomsPerDayWithinTheMonthsList().size());
+        System.out.println("START DATE = " + startDate);
+        System.out.println("TEST LEFT = " + Model.getInstance().getTestLeftEdge());
+        System.out.println("TEST RIGHT = " + Model.getInstance().getTestRightEdge());
 
-//        System.out.println("===========STARTDATE = " + startDate);
-//        System.out.println("==============MONTHMAXDATE = " + monthMaxDate);
-
-        if(rooms == Rooms.ALL_ROOMS){
-
-//            System.out.println("STARTDATE = " + startDate);
-//            System.out.println("monthmaxdate = " + monthMaxDate);
-            for(int i = 0; i < monthMaxDate; i++){
-                if(onScreenCalendarDayModels.get(i + dateOffset).getRoomsText() == null){
-                    System.out.println("NULL HERE" + (i + dateOffset));
-                }
-                Text temp = onScreenCalendarDayModels.get(i + dateOffset).getRoomsText();
-                StringBuilder desc = new StringBuilder();
-
-                Set<String> set = Model.getInstance().getAvailableRoomsPerDayWithinTheMonthsList().get(startDate + i);
-                for(String string : set){
-                    desc.append(Rooms.abbvToDisplay(string)).append("\n");
-                }
-
-                temp.setText(desc.toString());
-                temp.setTextAlignment(TextAlignment.CENTER);
+        for(int i = 0; i < monthMaxDate; i++){
+            Text temp = onScreenCalendarDayModels.get(i + dateOffset).getRoomsText();
+            StringBuilder desc = new StringBuilder();
+            Set<String> set = Model.getInstance().getAvailableRoomsPerDayWithinTheMonthsList().get(startDate + i);
+            for(String string : set){
+                desc.append(Rooms.abbvToDisplay(string)).append("\n");
             }
-        }
-        else{
-            List<String> slotsList = sqliteModel.getMonthSlots(rooms);
 
-            for(int i = 0; i < monthMaxDate; i++){
-                Text temp = onScreenCalendarDayModels.get(i + dateOffset).getRoomsText();
-                temp.setText(slotsList.get(i));
-            }
+            temp.setText(desc.toString());
+            temp.setTextAlignment(TextAlignment.CENTER);
         }
+
     }
     public void colorize(){
 //        System.out.println("IN COLORIZE");
