@@ -1,5 +1,5 @@
 if errors with sql, might be the plugins
-
+hjre
 REMODELLING
     get the current month on screen, calculate their availabilities, if there are excess left or right, store the value in the model, the excess is for checking the availabilities of offscreen dates, the whole month comes first before the selected date checking.
     the daymodels should have their own localdate fields, not a separate list.
