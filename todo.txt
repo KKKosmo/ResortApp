@@ -1,8 +1,8 @@
 if errors with sql, might be the plugins
 if seem odd, might be because i tried to remove duplicates in controllers where they setAvailablesFotVisuals
 
-
-static list of users, and passwords, when resetting passwords, export an encrypted file to be sent to me, will be salted, display the location of the exported file, say email or sum
+change pw
+forgot pw
 
 encrypt sql?
 

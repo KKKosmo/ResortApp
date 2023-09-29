@@ -1,0 +1,16 @@
+/* Default button styles */
+.toggle-button {
+    -fx-background-color: #f0f0f0; /* Default background color */
+    -fx-text-fill: black; /* Default text color */
+    -fx-font-weight: normal; /* Normal font weight for default buttons */
+    -fx-border-color: #ccc; /* Border color for default buttons */
+    -fx-border-width: 1px; /* Border width for default buttons */
+    -fx-padding: 5px 10px; /* Padding for buttons */
+}
+
+/* Selected button styles */
+.selected-button {
+    -fx-background-color: #007bff; /* Selected background color */
+    -fx-text-fill: white; /* Text color for the selected button */
+    -fx-font-weight: bold; /* Make text bold for selected button */
+}

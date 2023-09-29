@@ -3,6 +3,12 @@ package com.resort.resortapp.Models;
 import com.resort.resortapp.Rooms;
 import javafx.scene.control.*;
 
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -662,5 +668,56 @@ public class sqliteModel {
             e.printStackTrace();
         }
         return result;
+    }
+
+
+
+    public static boolean auth(String username, String password) {
+        boolean result = false;
+        try {
+            String sql = "SELECT password from users WHERE username = '"+username+"';";
+            System.out.println(sql);
+            PreparedStatement pStmt = openDB().prepareStatement(sql);
+            ResultSet resultSet = pStmt.executeQuery();
+            while(resultSet.next()){
+                String dbPassword = resultSet.getString("password");
+                if (dbPassword.equals(encrypt(password))){
+                    result = true;
+                }
+            }
+            resultSet.close();
+            closeDB();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    public static String encrypt(String data) {
+        try {
+            Cipher cipher = Cipher.getInstance("AES");
+            SecretKey secretKey = generateSecretKey();
+            cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+            byte[] encryptedBytes = cipher.doFinal(data.getBytes());
+            return Base64.getEncoder().encodeToString(encryptedBytes);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static SecretKey generateSecretKey() {
+        try {
+            List<Byte> keyBytesList = new ArrayList<>();
+            List<String> lines = Files.readAllLines(Paths.get("src/key.txt"));
+            for (String line : lines) {
+                byte byteValue = Byte.parseByte(line.trim());
+                keyBytesList.add(byteValue);
+            }
+            byte[] keyBytes = new byte[keyBytesList.size()];
+            for (int i = 0; i < keyBytesList.size(); i++) {
+                keyBytes[i] = keyBytesList.get(i);
+            }
+            return new SecretKeySpec(keyBytes, "AES");
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to read secret key from file", e);
+        }
     }
 }

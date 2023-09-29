@@ -1,6 +1,7 @@
 package com.resort.resortapp;
 
 import com.resort.resortapp.Models.Model;
+import com.resort.resortapp.Models.sqliteModel;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -11,8 +12,9 @@ public class HelloApplication extends Application {
         stage.setTitle("J&G Resort App");
         Model.getInstance().initTableDates();
         Model.getInstance().initCalendarDates();
-        Model.getInstance().getViewFactory().setSceneCreate();
+        Model.getInstance().getViewFactory().setSceneLogin();
 //        Model.getInstance().setCurrentPage(1);
+
         stage.setResizable(false);
         stage.show();
     }

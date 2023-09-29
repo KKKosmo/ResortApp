@@ -11,6 +11,8 @@ target/
 *.iws
 *.iml
 *.ipr
+src/key.txt
+src/sqlite.db
 
 ### Eclipse ###
 .apt_generated

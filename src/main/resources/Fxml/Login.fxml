@@ -3,28 +3,84 @@
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../Styles/login.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.resort.resortapp.Controllers.LoginController">
-   <ImageView fx:id="logo_img" fitHeight="100.0" fitWidth="100.0" layoutX="590.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@../Images/csharp.png" />
-      </image>
+   <ImageView fx:id="logo_img" fitHeight="100.0" fitWidth="100.0" layoutX="590.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
       <viewport>
          <Rectangle2D />
       </viewport>
+      <Image url="@../Images/csharp.png" />
    </ImageView>
-   <Text layoutX="538.0" layoutY="398.0" strokeType="OUTSIDE" strokeWidth="0.0" text="J&amp;G Resort" textAlignment="CENTER" wrappingWidth="203.81787109375">
+   <Text layoutX="538.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="J&amp;G Resort" textAlignment="CENTER" wrappingWidth="203.81787109375">
       <font>
          <Font size="31.0" />
       </font>
    </Text>
-   <PasswordField fx:id="password_field" alignment="CENTER" layoutX="490.0" layoutY="599.0" maxHeight="30.0" maxWidth="500.0" prefHeight="30.0" prefWidth="300.0" />
+   <HBox layoutX="205.0" layoutY="321.0" spacing="10.0">
+      <ToggleButton fx:id="user1_btn" mnemonicParsing="false">
+         <graphic>
+            <VBox alignment="CENTER" spacing="5.0">
+               <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../Images/user.png" />
+               </ImageView>
+               <Text fx:id="user1_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="user1" />
+            </VBox>
+         </graphic>
+         <toggleGroup>
+            <ToggleGroup fx:id="group" />
+         </toggleGroup>
+      </ToggleButton>
+      <ToggleButton fx:id="user2_btn" mnemonicParsing="false" toggleGroup="$group">
+         <graphic>
+            <VBox alignment="CENTER" spacing="5.0">
+               <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../Images/user.png" />
+               </ImageView>
+               <Text fx:id="user2_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="user2" />
+            </VBox>
+         </graphic>
+      </ToggleButton>
+      <ToggleButton fx:id="user3_btn" mnemonicParsing="false" toggleGroup="$group">
+         <graphic>
+            <VBox alignment="CENTER" spacing="5.0">
+               <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../Images/user.png" />
+               </ImageView>
+               <Text fx:id="user3_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="user3" />
+            </VBox>
+         </graphic>
+      </ToggleButton>
+      <ToggleButton fx:id="user4_btn" mnemonicParsing="false" toggleGroup="$group">
+         <graphic>
+            <VBox alignment="CENTER" spacing="5.0">
+               <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../Images/user.png" />
+               </ImageView>
+               <Text fx:id="user4_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="user4" />
+            </VBox>
+         </graphic>
+      </ToggleButton>
+      <ToggleButton fx:id="user5_btn" mnemonicParsing="false" toggleGroup="$group">
+         <graphic>
+            <VBox alignment="CENTER" spacing="5.0">
+               <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../Images/user.png" />
+               </ImageView>
+               <Text fx:id="user5_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="user5" />
+            </VBox>
+         </graphic>
+      </ToggleButton>
+   </HBox>
+   <PasswordField fx:id="password_field" alignment="CENTER" layoutX="490.0" layoutY="599.0" maxHeight="30.0" maxWidth="500.0" prefHeight="30.0" prefWidth="300.0" promptText="PASSWORD" />
    <Button fx:id="login_btn" alignment="CENTER" layoutX="552.0" layoutY="643.0" minHeight="25.0" minWidth="50.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="176.0" text="Log In" />
-   <Text fx:id="error_txt" layoutX="338.0" layoutY="578.0" strokeType="OUTSIDE" strokeWidth="0.0" text="aaaaaaaaaaaaaaaaaaa" textAlignment="CENTER" wrappingWidth="604.0" />
    <Button fx:id="exit_btn" layoutX="584.0" layoutY="729.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="112.0" text="Exit" />
 </AnchorPane>

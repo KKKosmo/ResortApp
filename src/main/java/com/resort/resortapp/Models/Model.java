@@ -6,12 +6,15 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
 
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 public class Model {
@@ -77,18 +80,24 @@ public class Model {
 
     private OrderCategory orderCategory = OrderCategory.ID;
     private boolean ASC = false;
-
     private Double totalPayment = 0.0;
     private int totalUnpaid = 0;
     private int recordCount = 0;
     private int tableRowCount = 15;
-
     private boolean tableJFilter = false;
     private boolean tableGFilter = false;
     private boolean tableAFilter = false;
     private boolean tableK1Filter = false;
     private boolean tableK2Filter = false;
-
+//    private enum user{
+//        noUser,
+//        user1,
+//        user2,
+//        user3,
+//        user4,
+//        user5;
+//    }
+//    private user currentUser = user.noUser;
     private Model(){
         this.viewFactory = new ViewFactory();
     }
@@ -457,4 +466,5 @@ public class Model {
     public void setDateFocus(LocalDate dateFocus) {
         this.dateFocus = dateFocus;
     }
+
 }
