@@ -1,28 +1,20 @@
 if errors with sql, might be the plugins
 if seem odd, might be because i tried to remove duplicates in controllers where they setAvailablesFotVisuals
 
-inefficient page panning(calculating everytime)
 
-REMODELLING
-    see sqliteModel lines 160~, if cant fix, brute force it, query availability per day
-
-
-
-
-editing and submitting immediately still throws errors, see id 83 and 85
 database for some reason not getting closed when editing? see id 84
-
-when editing, flip to month of book and not current month
 
 scrape off calendar by room
 scrape off separate calendar
 
 
-static list of users, and passwords, think about how to reset passwords
+static list of users, and passwords, when resetting passwords, export an encrypted file to be sent to me, will be salted, display the location of the exported file, say email or sum
+
+encrypt sql?
 
 containerize
 
-export location
+export location of pdf files, display the location of the exported pdf
 
 in edit history, it should say UPDATED ROW XX:
 in edit history, look into sorting by time
@@ -44,6 +36,7 @@ index my table
 
 
 
+inefficient page panning(calculating everytime)
 
 recordModel should be split into different inheriting classes
 recordModel should have a constructor that would take in an sql resultSet

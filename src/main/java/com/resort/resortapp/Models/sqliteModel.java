@@ -32,99 +32,6 @@ public class sqliteModel {
             }
         }
     }
-    public static List<Integer> getMonthSlots(){
-        List<Integer> result = new ArrayList<>();
-
-        int monthMaxDate = Model.getInstance().getMonthMaxDate();
-
-        for (int i = 0; i < monthMaxDate; i++) {
-            result.add(32);
-        }
-        DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MM");
-
-        LocalDate dateFocus = Model.getInstance().getDateFocus();
-
-        String twoDigitMonth = dateFocus.format(monthFormatter);
-
-        String monthStart = dateFocus.getYear() + "-" + twoDigitMonth + "-01";
-        String monthEnd = dateFocus.getYear() + "-" + twoDigitMonth + "-" + monthMaxDate;
-        String sql = "SELECT checkIn, checkOut, room FROM main where checkIn <= '" + monthEnd + "' AND checkOut >= '" + monthStart + "';";
-//        System.out.println("sql = " + sql);
-        try {
-            PreparedStatement pStmt = openDB().prepareStatement(sql);
-            ResultSet resultSet = pStmt.executeQuery();
-            while(resultSet.next()){
-                String checkInString = resultSet.getString("checkIn");
-                String checkOutString = resultSet.getString("checkOut");
-
-                String roomValue = resultSet.getString("room");
-                Rooms rooms = Rooms.fromString(roomValue);
-
-                int startDate = Integer.parseInt(checkInString.substring(8));
-                int daysCount = Integer.parseInt(checkOutString.substring(8)) - startDate + 1;
-
-
-                for(int i = startDate - 1; i < daysCount + startDate - 1; i++){
-                    result.set(i, result.get(i) - rooms.getPax());
-                }
-
-//                System.out.println("startDate = " + startDate);
-//                System.out.println("daysCount = " + daysCount);
-//                System.out.println(result);
-//                System.out.println(checkInString + ", " + checkOutString + ", " + rooms.getDisplayName());
-            }
-            resultSet.close();
-            closeDB();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return  result;
-    }
-    public static List<String> getMonthSlots(Rooms rooms){
-        System.out.println("GETMONTHSLOTS");
-        List<String> result = new ArrayList<>();
-        int monthMaxDate = Model.getInstance().getMonthMaxDate();
-
-        for (int i = 0; i < monthMaxDate; i++) {
-            result.add("AVAILABLE");
-        }
-
-        DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MM");
-
-
-        LocalDate dateFocus = Model.getInstance().getDateFocus();
-
-        String twoDigitMonth = dateFocus.format(monthFormatter);
-
-        String monthStart = dateFocus.getYear() + "-" + twoDigitMonth + "-01";
-        String monthEnd = dateFocus.getYear() + "-" + twoDigitMonth + "-" + monthMaxDate;
-        String sql = "SELECT checkIn, checkOut, room FROM main where checkIn <= '" + monthEnd + "' AND checkOut >= '" + monthStart + "' AND room LIKE '%" + rooms.getAbbreviatedName() + "%';";
-
-        System.out.println("sql = " + sql);
-        try {
-            PreparedStatement pStmt = openDB().prepareStatement(sql);
-            ResultSet resultSet = pStmt.executeQuery();
-            while(resultSet.next()){
-                String checkInString = resultSet.getString("checkIn");
-                String checkOutString = resultSet.getString("checkOut");
-
-                int startDate = Integer.parseInt(checkInString.substring(8));
-                int daysCount = Integer.parseInt(checkOutString.substring(8)) - startDate + 1;
-
-                for(int i = startDate - 1; i < daysCount + startDate - 1; i++){
-                    if(!result.get(i).equals("NOT AVAILABLE"))
-                        result.set(i, "NOT AVAILABLE");
-                }
-            }
-            resultSet.close();
-            closeDB();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return  result;
-    }
     public static List<Set<String>> getAvailableRoomsPerDayList(){
         System.out.println("getAvailableRoomsPerdaylist------------");
         List<Set<String>> result = new ArrayList<>();
@@ -138,13 +45,16 @@ public class sqliteModel {
         }
 
         try {
-            String sql = "SELECT checkIn, checkOut, room FROM main where checkIn <= '" + resultEndDate + "' AND checkOut >= '" + resultStartDate + "';";
+            String sql = "SELECT id, checkIn, checkOut, room FROM main where checkIn <= '" + resultEndDate + "' AND checkOut >= '" + resultStartDate + "';";
             System.out.println(sql);
             PreparedStatement pStmt = openDB().prepareStatement(sql);
             ResultSet resultSet = pStmt.executeQuery();
+            int rowCount = 0;
             while(resultSet.next()){
+                rowCount++;
                 LocalDate checkIn = LocalDate.parse(resultSet.getString("checkIn"));
                 LocalDate checkOut = LocalDate.parse(resultSet.getString("checkOut"));
+                int id = resultSet.getInt("id");
 
                 long daysCount = ChronoUnit.DAYS.between(checkIn, checkOut) + 1;
 
@@ -153,7 +63,7 @@ public class sqliteModel {
                 Set<String> roomSet = new HashSet<>();
 
                 Collections.addAll(roomSet, roomValue.split(", "));
-//                System.out.println(checkIn + " - " + checkOut + ": " + roomSet);
+                System.out.println("["+id+"] " + checkIn + " - " + checkOut + ": " + roomSet);
 
                 int startDate;
                 if(checkIn.isBefore(Model.getInstance().getCalendarLeftDate())){
@@ -162,19 +72,14 @@ public class sqliteModel {
                         daysCount = Model.getInstance().getCalendarLeftDate().lengthOfMonth();
                     }
                     else{
-                        daysCount = ChronoUnit.DAYS.between(checkOut, Model.getInstance().getCalendarLeftDate()) + 1;
+                        daysCount = ChronoUnit.DAYS.between(Model.getInstance().getCalendarLeftDate(), checkOut) + 1;
                     }
                 }else{
                     startDate = checkIn.getDayOfMonth()-1;
-
-//                    daysCount = Math.min(Model.getInstance().getCalendarRightDate().getDayOfMonth(), daysCount + startDate);
                     daysCount = Math.min(daysCount, checkIn.lengthOfMonth()-checkIn.getDayOfMonth() + 1);
                     daysCount += startDate;
-//                    daysCount += startDate;
                 }
-
-//                System.out.println("DAYS COUNT = " + daysCount);
-//                System.out.println("START DATE = " + startDate);
+                System.out.println("days " + (startDate+1) + " - " + (daysCount));
 
                     for(String room : roomSet){
                         for(int i = startDate; i < daysCount ; i++){
@@ -183,6 +88,7 @@ public class sqliteModel {
                     }
             }
 
+            System.out.println("Row count: " + rowCount);
             resultSet.close();
             closeDB();
 
@@ -207,13 +113,16 @@ public class sqliteModel {
         }
 
         try {
-        String sql = "SELECT checkIn, checkOut, room FROM main where checkIn <= '" + resultEndDate + "' AND checkOut >= '" + resultStartDate + "' AND not id = "+id+";";
+        String sql = "SELECT id, checkIn, checkOut, room FROM main where checkIn <= '" + resultEndDate + "' AND checkOut >= '" + resultStartDate + "' AND not id = "+id+";";
             System.out.println(sql);
             PreparedStatement pStmt = openDB().prepareStatement(sql);
             ResultSet resultSet = pStmt.executeQuery();
+            int rowCount = 0;
             while(resultSet.next()){
+                rowCount++;
                 LocalDate checkIn = LocalDate.parse(resultSet.getString("checkIn"));
                 LocalDate checkOut = LocalDate.parse(resultSet.getString("checkOut"));
+                int rowId = resultSet.getInt("id");
 
                 long daysCount = ChronoUnit.DAYS.between(checkIn, checkOut) + 1;
 
@@ -222,7 +131,7 @@ public class sqliteModel {
                 Set<String> roomSet = new HashSet<>();
 
                 Collections.addAll(roomSet, roomValue.split(", "));
-//                System.out.println(checkIn + " - " + checkOut + ": " + roomSet);
+                System.out.println("["+rowId+"] " + checkIn + " - " + checkOut + ": " + roomSet);
 
                 int startDate;
                 if(checkIn.isBefore(Model.getInstance().getCalendarLeftDate())){
@@ -231,14 +140,14 @@ public class sqliteModel {
                         daysCount = Model.getInstance().getCalendarLeftDate().lengthOfMonth();
                     }
                     else{
-                        daysCount = ChronoUnit.DAYS.between(checkOut, Model.getInstance().getCalendarLeftDate()) + 1;
+                        daysCount = ChronoUnit.DAYS.between(Model.getInstance().getCalendarLeftDate(), checkOut) + 1;
                     }
                 }else{
                     startDate = checkIn.getDayOfMonth()-1;
                     daysCount = Math.min(daysCount, checkIn.lengthOfMonth()-checkIn.getDayOfMonth() + 1);
                     daysCount += startDate;
                 }
-
+                System.out.println("days " + (startDate+1) + " - " + (daysCount));
 
                 for(String room : roomSet){
                     for(int i = startDate; i < daysCount ; i++){
@@ -247,6 +156,7 @@ public class sqliteModel {
                 }
             }
 
+            System.out.println("Row count: " + rowCount);
             resultSet.close();
             closeDB();
 
