@@ -591,9 +591,14 @@ public class ViewFactory {
 
                 float[] headerWidth = new float[5];
                 Table table = new Table(headerWidth);
-                table.addCell(new Cell().add(
-                                Model.getInstance().getTableStartDate() + " - " + Model.getInstance().getTableEndDate()).
-                        setBold().setFontSize(fontSize));
+                if(Model.getInstance().checkTableEdges()){
+                    table.addCell(new Cell().add(
+                                    Model.getInstance().getTableStartDate() + " - " + Model.getInstance().getTableEndDate()).
+                            setBold().setFontSize(fontSize));
+                }
+                else{
+                    table.addCell(new Cell().add("MOST RECENT").setBold().setFontSize(fontSize));
+                }
 
                 StringBuilder rooms;
 

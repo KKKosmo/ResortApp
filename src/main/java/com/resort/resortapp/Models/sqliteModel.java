@@ -489,9 +489,17 @@ public class sqliteModel {
 
         String sql;
 
-        sql = String.format("SELECT *, (full_payment - partial_payment) as balance FROM main WHERE checkIn <= '%s' AND checkOut >='%s' %s%sORDER BY %s %s;",
-                Model.getInstance().getTableEndDate(), Model.getInstance().getTableStartDate(), roomFilter, nameFilter,
-                Model.getInstance().getOrderCategory().getString(), direction);
+        if(Model.getInstance().checkTableEdges()){
+            sql = String.format("SELECT *, (full_payment - partial_payment) as balance FROM main WHERE checkIn <= '%s' AND checkOut >='%s' %s%sORDER BY %s %s;",
+                    Model.getInstance().getTableEndDate(), Model.getInstance().getTableStartDate(), roomFilter, nameFilter,
+                    Model.getInstance().getOrderCategory().getString(), direction);
+        }
+        else{
+            sql = String.format("SELECT *, (full_payment - partial_payment) as balance FROM main WHERE 1=1 %s%sORDER BY %s %s;",
+                    roomFilter, nameFilter, Model.getInstance().getOrderCategory().getString(), direction);
+        }
+
+
         System.out.println(sql);
         try {
             PreparedStatement pStmt = openDB().prepareStatement(sql);
@@ -520,14 +528,24 @@ public class sqliteModel {
             resultSet.close();
             closeDB();
 
+            if(Model.getInstance().checkTableEdges()){
+                sql = String.format("SELECT COUNT(*) as totalCount, " +
+                                "SUM(CASE WHEN paid = 1 THEN full_payment ELSE (full_payment - partial_payment) END) as totalPayment, " +
+                                "SUM(CASE WHEN paid = 0 THEN 1 ELSE 0 END) as totalUnpaid " +
+                                "FROM main WHERE checkIn <= '%s' AND checkOut >= '%s' %s%s " +
+                                "ORDER BY %s %s;",
+                        Model.getInstance().getTableEndDate(), Model.getInstance().getTableStartDate(), roomFilter, nameFilter,
+                        Model.getInstance().getOrderCategory().getString(), direction);
+            }
+            else{
+                sql = String.format("SELECT COUNT(*) as totalCount, " +
+                                "SUM(CASE WHEN paid = 1 THEN full_payment ELSE (full_payment - partial_payment) END) as totalPayment, " +
+                                "SUM(CASE WHEN paid = 0 THEN 1 ELSE 0 END) as totalUnpaid " +
+                                "FROM main WHERE 1=1 %s%s" +
+                                "ORDER BY %s %s;",
+                        roomFilter, nameFilter, Model.getInstance().getOrderCategory().getString(), direction);
+            }
 
-            sql = String.format("SELECT COUNT(*) as totalCount, " +
-                            "SUM(CASE WHEN paid = 1 THEN full_payment ELSE (full_payment - partial_payment) END) as totalPayment, " +
-                            "SUM(CASE WHEN paid = 0 THEN 1 ELSE 0 END) as totalUnpaid " +
-                            "FROM main WHERE checkIn <= '%s' AND checkOut >= '%s' %s%s " +
-                            "ORDER BY %s %s;",
-                    Model.getInstance().getTableEndDate(), Model.getInstance().getTableStartDate(), roomFilter, nameFilter,
-                    Model.getInstance().getOrderCategory().getString(), direction);
             System.out.println(sql);
 
 

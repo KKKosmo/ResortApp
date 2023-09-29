@@ -1,10 +1,6 @@
 if errors with sql, might be the plugins
 if seem odd, might be because i tried to remove duplicates in controllers where they setAvailablesFotVisuals
 
-
-
-in table, default should be most recent and not this month
-
 apply user changes to stuff, editing when it belongs to the user, inserting with proper user,
 
 

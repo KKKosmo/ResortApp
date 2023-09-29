@@ -241,15 +241,14 @@ public class Model {
         return tableRecordModels;
     }
 
-
-    public void initTableDates(){
-        LocalDate temp = LocalDate.now();
-//        System.out.println("RESETTING EHRE");
-        tableStartDate = temp.withDayOfMonth(1);
-        tableEndDate = temp.withDayOfMonth(temp.lengthOfMonth());
-//        setCurrentPage(1);
-//        maxPage = 1;
+    public boolean checkTableEdges(){
+        return (tableStartDate != null && tableEndDate != null);
     }
+//    public void initTableDates(){
+//        LocalDate temp = LocalDate.now();
+//        tableStartDate = temp.withDayOfMonth(1);
+//        tableEndDate = temp.withDayOfMonth(temp.lengthOfMonth());
+//    }
 
 
     public LocalDate getTableStartDate() {

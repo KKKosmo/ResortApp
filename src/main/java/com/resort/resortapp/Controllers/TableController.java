@@ -83,6 +83,7 @@ public class TableController implements Initializable {
 
         startDate_datePicker.setValue(Model.getInstance().getTableStartDate());
         endDate_datePicker.setValue(Model.getInstance().getTableEndDate());
+
         currentPage_txt.setText(String.valueOf(Model.getInstance().getCurrentPage()));
         page_fld.setText(String.valueOf(Model.getInstance().getCurrentPage()));
 
@@ -417,11 +418,15 @@ public class TableController implements Initializable {
 
         startDate_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             Model.getInstance().setTableStartDate(newValue);
-            refreshPage();
+            if(startDate_datePicker.getValue() != null && endDate_datePicker.getValue() != null){
+                refreshPage();
+            }
         });
         endDate_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             Model.getInstance().setTableEndDate(newValue);
-            refreshPage();
+            if(startDate_datePicker.getValue() != null && endDate_datePicker.getValue() != null){
+                refreshPage();
+            }
         });
         prevPage_btn.setOnAction(actionEvent -> {
             page_fld.setText(String.valueOf(Model.getInstance().getCurrentPage()-1));
@@ -517,9 +522,11 @@ public class TableController implements Initializable {
 
 
                 //date
-                Model.getInstance().initTableDates();
-                startDate_datePicker.setValue(Model.getInstance().getTableStartDate());
-                endDate_datePicker.setValue(Model.getInstance().getTableEndDate());
+//                Model.getInstance().initTableDates();
+//                startDate_datePicker.setValue(Model.getInstance().getTableStartDate());
+//                endDate_datePicker.setValue(Model.getInstance().getTableEndDate());
+                startDate_datePicker.setValue(null);
+                endDate_datePicker.setValue(null);
 
                 //rooms
                 j_chkBox.setSelected(false);
