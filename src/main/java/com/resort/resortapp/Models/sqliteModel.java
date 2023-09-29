@@ -35,7 +35,6 @@ public class sqliteModel {
     public static List<Set<String>> getAvailableRoomsPerDayList(){
         System.out.println("getAvailableRoomsPerdaylist------------");
         List<Set<String>> result = new ArrayList<>();
-        Model.getInstance().setTestLeftEdge(Model.getInstance().getEdgeLeftDate());
 
         LocalDate resultStartDate = Model.getInstance().getCalendarLeftDate();
         LocalDate resultEndDate = Model.getInstance().getCalendarRightDate();
@@ -103,7 +102,6 @@ public class sqliteModel {
     public static List<Set<String>> getAvailableRoomsPerDayList(int id){
         System.out.println("getAvailableRoomsPerdaylist(int id)");
         List<Set<String>> result = new ArrayList<>();
-        Model.getInstance().setTestLeftEdge(Model.getInstance().getEdgeLeftDate());
 
         LocalDate resultStartDate = Model.getInstance().getCalendarLeftDate();
         LocalDate resultEndDate = Model.getInstance().getCalendarRightDate();

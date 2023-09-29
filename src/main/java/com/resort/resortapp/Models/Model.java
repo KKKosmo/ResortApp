@@ -27,10 +27,6 @@ public class Model {
 
     private LocalDate calendarLeftDate;
     private LocalDate calendarRightDate;
-    private LocalDate edgeLeftDate;
-    private LocalDate edgeRightDate;
-    private LocalDate testLeftEdge;
-    private LocalDate testRightEdge;
 
     private LocalDate selectedLeftDate;
     private LocalDate selectedRightDate;
@@ -135,15 +131,6 @@ public class Model {
             Model.getInstance().getViewFactory().highlight();
         }
     }
-    public void nextRoom() {
-        rooms = rooms.next();
-        fillFlowPaneMonths();
-    }
-    public void prevRoom() {
-        rooms = rooms.prev();
-        fillFlowPaneMonths();
-    }
-
 
     public int getDateOffset() {
         return dateOffset;
@@ -195,10 +182,7 @@ public class Model {
         this.rooms = rooms;
     }
 
-
     public void setSelected(){
-
-
         if (selectedLeftDate != null && selectedRightDate != null) {
             List<LocalDate> result = new ArrayList<>();
 
@@ -217,52 +201,7 @@ public class Model {
             }
             selectedLocalDates = result;
             Model.getInstance().getViewFactory().highlight();
-
         }
-
-
-
-
-
-
-
-
-
-//        if (selectedLeftDate != null && selectedRightDate != null) {
-//            int count = 0;
-//
-//            LocalDate temp = calendarLeftDate;
-//            while (selectedLeftDate.getMonth() != temp.getMonth()){
-//                count += temp.lengthOfMonth();
-//                temp = temp.plusMonths(1);
-//            }
-//
-//            System.out.println(count + "]]]]]]]]]]]]]]]]]]");
-//
-//
-//            Set<Integer> result = new HashSet<>();
-//            if(selectedLeftDate.isBefore(selectedRightDate)){
-//                LocalDate tempDate = selectedLeftDate;
-//                while (tempDate.isBefore(selectedRightDate) || tempDate.isEqual(selectedRightDate)) {
-//                    int day = tempDate.getDayOfMonth();
-//                    if (day <= Model.getInstance().getMonthMaxDate()){
-//                        result.add(day + count);
-//                    }
-//                    tempDate = tempDate.plusDays(1);
-//                }
-//            }
-//            else{
-//                LocalDate tempDate = selectedRightDate;
-//                while (tempDate.isBefore(selectedLeftDate) || tempDate.isEqual(selectedLeftDate)) {
-//                    int day = tempDate.getDayOfMonth();
-//                    if (day <= Model.getInstance().getMonthMaxDate())
-//                        result.add(day + count);
-//                    tempDate = tempDate.plusDays(1);
-//                }
-//            }
-//            selected = result;
-//            Model.getInstance().getViewFactory().highlight();
-//        }
     }
 
     //while focusdate > calendarfirstdate
@@ -295,64 +234,6 @@ public class Model {
         this.availableRoomsPerDayWithinTheMonthsList = availableRoomsPerDayWithinTheMonthsList;
     }
 
-
-    //for editing, will add the record's rooms to availables
-    public Set<String> getAvailableInRangeEdit(LocalDate checkIn, LocalDate checkOut, List<CheckBox> checkBoxList){
-        Set<String> rooms = Rooms.manageCheckboxesSetAbbreviatedName(checkBoxList);
-        int left = checkIn.getDayOfMonth() - 1;
-        int right = checkOut.getDayOfMonth() - 1;
-
-        Set<String> result = new HashSet<>();
-
-        for(int i = left; i <= right; i++){
-
-            availableRoomsPerDayWithinTheMonthsList.get(i).addAll(rooms);
-            result = availableRoomsPerDayWithinTheMonthsList.get(i);
-
-            Text temp = viewFactory.getOnScreenCalendarDayModels().get(i + dateOffset).getRoomsText();
-            StringBuilder desc = new StringBuilder();
-            for(String string : result){
-                desc.append(Rooms.abbvToDisplay(string)).append("\n");
-            }
-            temp.setText(desc.toString());
-            temp.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
-        }
-        return result;
-    }
-    public Set<String> getAvailableInRange(LocalDate checkIn, LocalDate checkOut){
-        Set<String> result = Rooms.getRoomAbbreviateNamesSet();
-
-//        long count = ChronoUnit.DAYS.between(checkIn, checkOut);
-//        System.out.println("THE SIZE IS " + availableRoomsPerDayWithinTheMonthsList.size());
-//        System.out.println("LEFT EDGE IS " + edgeLeftDate);
-//        System.out.println("RIGHT EDGE IS " + edgeRightDate);
-//        System.out.println("CHECK IN IS " + checkIn);
-//        System.out.println("CHECK OUT IS " + checkOut);
-
-        LocalDate temp = edgeLeftDate;
-        int startDate = checkIn.getDayOfMonth()-1;
-        if(temp.isBefore(checkIn)){
-            while (temp.getMonth() != checkIn.getMonth()){
-                startDate += temp.lengthOfMonth();
-                temp = temp.plusMonths(1);
-            }
-        }
-
-//        if(checkOut.isAfter(resultEndDate)){
-//            resultEndDate = resultEndDate.plusMonths(1);
-//            for (int i = 0; i < resultEndDate.lengthOfMonth(); i++) {
-//                result.add(Rooms.getRoomAbbreviateNamesSet());
-//            }
-//        }
-
-
-//        count += startDate + 1;
-//        for(int i = startDate; i < count; i++){
-//            System.out.println("Day " + (i+1) + " Has : " + availableRoomsPerDayWithinTheMonthsList.get(i));
-//            result.retainAll(availableRoomsPerDayWithinTheMonthsList.get(i));
-//        }
-        return result;
-    }
 
 
     public List<RecordModel> getListRecordModels() {
@@ -554,10 +435,6 @@ public class Model {
     public void initCalendarDates(){
         setCalendarLeftDate(LocalDate.now());
         setCalendarRightDate(LocalDate.now());
-        setEdgeLeftDate(getCalendarLeftDate().minusMonths(1));
-        setEdgeRightDate(getCalendarRightDate().plusMonths(1));
-        setTestLeftEdge(edgeLeftDate);
-        setTestRightEdge(edgeRightDate);
     }
 
     public void autoTurnMonth(LocalDate myDate){
@@ -577,40 +454,7 @@ public class Model {
             prevMonth();
         }
     }
-
-    public LocalDate getEdgeLeftDate() {
-        return edgeLeftDate;
-    }
-
-    public void setEdgeLeftDate(LocalDate edgeLeftDate) {
-        this.edgeLeftDate = edgeLeftDate;
-    }
-
-    public LocalDate getEdgeRightDate() {
-        return edgeRightDate;
-    }
-
-    public void setEdgeRightDate(LocalDate edgeRightDate) {
-        this.edgeRightDate = edgeRightDate;
-    }
-
     public void setDateFocus(LocalDate dateFocus) {
         this.dateFocus = dateFocus;
-    }
-
-    public LocalDate getTestLeftEdge() {
-        return testLeftEdge;
-    }
-
-    public void setTestLeftEdge(LocalDate testLeftEdge) {
-        this.testLeftEdge = testLeftEdge;
-    }
-
-    public LocalDate getTestRightEdge() {
-        return testRightEdge;
-    }
-
-    public void setTestRightEdge(LocalDate testRightEdge) {
-        this.testRightEdge = testRightEdge;
     }
 }
