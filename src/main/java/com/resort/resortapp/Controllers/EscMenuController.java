@@ -10,7 +10,6 @@ import java.util.ResourceBundle;
 
 public class EscMenuController implements Initializable {
     public Button add;
-    public Button calendar;
     public Button list;
     public Button signOut;
     public Button exit;
@@ -24,10 +23,6 @@ public class EscMenuController implements Initializable {
         });
         add.setOnAction(actionEvent -> {
             Model.getInstance().getViewFactory().setSceneCreate();
-            pane.setVisible(false);
-        });
-        calendar.setOnAction(actionEvent -> {
-            Model.getInstance().getViewFactory().setSceneMainMenu();
             pane.setVisible(false);
         });
         list.setOnAction(actionEvent -> {

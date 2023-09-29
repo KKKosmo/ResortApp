@@ -15,7 +15,6 @@ public enum Rooms{
     final String abbreviatedName;
     final int pax;
 
-    static public final Rooms[] values = values();
 
     Rooms(String abbreviatedName, int pax) {
         this.abbreviatedName = abbreviatedName;
@@ -27,13 +26,6 @@ public enum Rooms{
         return pax;
     }
 
-    public Rooms prev() {
-        return values[(ordinal() - 1  + values.length) % values.length];
-    }
-
-    public Rooms next() {
-        return values[(ordinal() + 1) % values.length];
-    }
     public String getDisplayName() {
         return this.name().replace("_", " ");
     }
@@ -66,16 +58,6 @@ public enum Rooms{
             }
         }
         return ALL_ROOMS; // Default value if no matching enum constant is found
-    }
-    public static List<String> getRoomDisplayNameList(){
-        List<String> result = new ArrayList<>();
-
-        for(int i = 0; i < 6; i++){
-            result.add(values[i].getDisplayName());
-        }
-        result.remove(0);
-
-        return result;
     }
     public static Set<String> getRoomAbbreviateNamesSet(){
         Set<String> result = new HashSet<>();

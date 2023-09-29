@@ -150,15 +150,6 @@ public class ViewFactory {
         }
 //        }
     }
-    public void setSceneMainMenu(){
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/MainMenu.fxml"));
-            Model.getInstance().getViewFactory().notEditing();
-            stage.setScene(new Scene(loader.load()));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
     public void insertCalendar(Pane pane){
         try {
             AnchorPane childPane = FXMLLoader.load(getClass().getResource("/Fxml/Calendar.fxml"));

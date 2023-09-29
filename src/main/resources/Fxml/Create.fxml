@@ -16,68 +16,65 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="parentPane" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.resort.resortapp.Controllers.CreateController">
-   <AnchorPane prefHeight="800.0" prefWidth="280.0" style="-fx-background-color: #AA0000;" stylesheets="@../Styles/create.css">
-      <VBox alignment="CENTER" layoutY="28.0" prefHeight="708.0" prefWidth="280.0" spacing="15.0"
-            style="-fx-background-color: #FFFFFF;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-            AnchorPane.topAnchor="28.0">
+   <AnchorPane prefHeight="800.0" prefWidth="280.0" style="-fx-background-color: rgba(150, 150, 150, 0.8);" stylesheets="@../Styles/create.css">
+      <VBox alignment="CENTER" prefHeight="736.0" prefWidth="280.0" spacing="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <VBox alignment="CENTER">
             <padding>
-               <Insets left="25.0" right="25.0"/>
+               <Insets left="25.0" right="25.0" />
             </padding>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
                <font>
-                  <Font size="16.0"/>
+                  <Font size="16.0" />
                </font>
                <VBox.margin>
-                  <Insets/>
+                  <Insets />
                </VBox.margin>
             </Text>
-            <TextField fx:id="name_fld" alignment="CENTER" prefHeight="39.0" prefWidth="172.0"
-                       text="First Name Last Name">
+            <TextField fx:id="name_fld" alignment="CENTER" prefHeight="39.0" prefWidth="172.0" text="First Name Last Name">
                <font>
-                  <Font size="16.0"/>
+                  <Font size="16.0" />
                </font>
                <VBox.margin>
-                  <Insets/>
+                  <Insets />
                </VBox.margin>
             </TextField>
          </VBox>
          <VBox alignment="CENTER" prefHeight="38.0" prefWidth="280.0">
             <padding>
-               <Insets left="75.0" right="75.0"/>
+               <Insets left="75.0" right="75.0" />
             </padding>
             <VBox.margin>
-               <Insets/>
+               <Insets />
             </VBox.margin>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="No. of Person">
                <font>
-                  <Font size="16.0"/>
+                  <Font size="16.0" />
                </font>
             </Text>
             <TextField fx:id="pax_fld" alignment="CENTER" prefHeight="0.0" prefWidth="123.0" text="5">
                <font>
-                  <Font size="16.0"/>
+                  <Font size="16.0" />
                </font>
                <VBox.margin>
-                  <Insets left="35.0" right="35.0"/>
+                  <Insets left="35.0" right="35.0" />
                </VBox.margin>
             </TextField>
          </VBox>
          <HBox alignment="CENTER" prefHeight="91.0" prefWidth="98.0">
             <VBox alignment="CENTER" prefHeight="123.0" prefWidth="460.0" spacing="15.0">
                <padding>
-                  <Insets left="40.0" right="40.0"/>
+                  <Insets left="40.0" right="40.0" />
                </padding>
                <HBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="329.0">
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Vehicle">
                      <font>
-                        <Font size="16.0"/>
+                        <Font size="16.0" />
                      </font>
                   </Text>
                   <HBox alignment="CENTER" prefHeight="39.0" prefWidth="79.0" spacing="30.0">
                      <TextField fx:id="vehicle_textFld" prefHeight="0.0" prefWidth="41.0">
                         <font>
-                           <Font size="16.0"/>
+                           <Font size="16.0" />
                         </font>
                      </TextField>
                   </HBox>
@@ -85,23 +82,21 @@
                <HBox prefHeight="27.0" prefWidth="211.0">
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pets">
                      <font>
-                        <Font size="16.0"/>
+                        <Font size="16.0" />
                      </font>
                   </Text>
                   <HBox alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="274.0">
-                     <RadioButton fx:id="petsNo_radio" mnemonicParsing="false" prefHeight="27.0"
-                                  prefWidth="64.0" text="No">
+                     <RadioButton fx:id="petsNo_radio" mnemonicParsing="false" prefHeight="27.0" prefWidth="64.0" text="No">
                         <toggleGroup>
-                           <ToggleGroup fx:id="pets"/>
+                           <ToggleGroup fx:id="pets" />
                         </toggleGroup>
                         <font>
-                           <Font size="16.0"/>
+                           <Font size="16.0" />
                         </font>
                      </RadioButton>
-                     <RadioButton fx:id="petsYes_radio" mnemonicParsing="false" prefHeight="27.0"
-                                  prefWidth="62.0" text="Yes" toggleGroup="$pets">
+                     <RadioButton fx:id="petsYes_radio" mnemonicParsing="false" prefHeight="27.0" prefWidth="62.0" text="Yes" toggleGroup="$pets">
                         <font>
-                           <Font size="16.0"/>
+                           <Font size="16.0" />
                         </font>
                      </RadioButton>
                   </HBox>
@@ -109,124 +104,121 @@
                <HBox>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Videoke">
                      <font>
-                        <Font size="16.0"/>
+                        <Font size="16.0" />
                      </font>
                   </Text>
                   <HBox alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="231.0">
-                     <RadioButton fx:id="videokeNo_radio" mnemonicParsing="false" prefHeight="27.0"
-                                  prefWidth="64.0" text="No">
+                     <RadioButton fx:id="videokeNo_radio" mnemonicParsing="false" prefHeight="27.0" prefWidth="64.0" text="No">
                         <toggleGroup>
-                           <ToggleGroup fx:id="videoke"/>
+                           <ToggleGroup fx:id="videoke" />
                         </toggleGroup>
                         <font>
-                           <Font size="16.0"/>
+                           <Font size="16.0" />
                         </font>
                      </RadioButton>
-                     <RadioButton fx:id="videokeYes_radio" mnemonicParsing="false" prefHeight="27.0"
-                                  prefWidth="62.0" text="Yes" toggleGroup="$videoke">
+                     <RadioButton fx:id="videokeYes_radio" mnemonicParsing="false" prefHeight="27.0" prefWidth="62.0" text="Yes" toggleGroup="$videoke">
                         <font>
-                           <Font size="16.0"/>
+                           <Font size="16.0" />
                         </font>
                      </RadioButton>
                   </HBox>
                </HBox>
             </VBox>
-            <VBox alignment="CENTER_LEFT" prefHeight="105.0" prefWidth="157.0" spacing="6.0"/>
+            <VBox alignment="CENTER_LEFT" prefHeight="105.0" prefWidth="157.0" spacing="6.0" />
          </HBox>
          <VBox alignment="CENTER">
             <padding>
-               <Insets left="75.0" right="75.0"/>
+               <Insets left="75.0" right="75.0" />
             </padding>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Partial Payment">
                <font>
-                  <Font size="16.0"/>
+                  <Font size="16.0" />
                </font>
             </Text>
             <TextField fx:id="payment_fld" alignment="CENTER" prefHeight="25.0" prefWidth="90.0" text="5000">
                <font>
-                  <Font size="16.0"/>
+                  <Font size="16.0" />
                </font>
                <VBox.margin>
-                  <Insets left="20.0" right="20.0"/>
+                  <Insets left="20.0" right="20.0" />
                </VBox.margin>
             </TextField>
          </VBox>
          <VBox alignment="CENTER">
             <padding>
-               <Insets left="75.0" right="75.0"/>
+               <Insets left="75.0" right="75.0" />
             </padding>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Full Payment">
                <font>
-                  <Font size="16.0"/>
+                  <Font size="16.0" />
                </font>
             </Text>
             <TextField fx:id="fullPayment_fld" alignment="CENTER" prefHeight="25.0" prefWidth="90.0" text="10000">
                <font>
-                  <Font size="16.0"/>
+                  <Font size="16.0" />
                </font>
                <VBox.margin>
-                  <Insets left="20.0" right="20.0"/>
+                  <Insets left="20.0" right="20.0" />
                </VBox.margin>
             </TextField>
          </VBox>
          <VBox alignment="CENTER">
             <padding>
-               <Insets left="50.0" right="50.0"/>
+               <Insets left="50.0" right="50.0" />
             </padding>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Check In">
                <font>
-                  <Font size="16.0"/>
+                  <Font size="16.0" />
                </font>
             </Text>
-            <DatePicker fx:id="checkIn_datePicker" editable="false"/>
+            <DatePicker fx:id="checkIn_datePicker" editable="false" />
          </VBox>
          <VBox alignment="CENTER">
             <VBox.margin>
-               <Insets/>
+               <Insets />
             </VBox.margin>
             <padding>
-               <Insets left="50.0" right="50.0"/>
+               <Insets left="50.0" right="50.0" />
             </padding>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Check Out">
                <font>
-                  <Font size="16.0"/>
+                  <Font size="16.0" />
                </font>
             </Text>
-            <DatePicker fx:id="checkOut_datePicker" editable="false"/>
+            <DatePicker fx:id="checkOut_datePicker" editable="false" />
          </VBox>
          <HBox alignment="CENTER" prefHeight="152.0" prefWidth="280.0">
             <VBox alignment="CENTER" prefHeight="169.0" prefWidth="129.0" style="-fx-border-color: #000000;">
                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room">
                   <font>
-                     <Font size="16.0"/>
+                     <Font size="16.0" />
                   </font>
                </Text>
                <HBox alignment="CENTER" prefHeight="85.0" prefWidth="217.0">
                   <VBox prefHeight="155.0" prefWidth="107.0" spacing="5.0">
-                     <CheckBox fx:id="roomG_ChkBox" mnemonicParsing="false" prefHeight="27.0"
-                               prefWidth="107.0" text="ROOM G">
+                     <CheckBox fx:id="roomG_ChkBox" mnemonicParsing="false" prefHeight="27.0" prefWidth="107.0" text="ROOM G">
                         <font>
-                           <Font size="14.0"/>
+                           <Font size="14.0" />
                         </font>
                      </CheckBox>
                      <CheckBox fx:id="roomJ_ChkBox" mnemonicParsing="false" text="ROOM J">
                         <font>
-                           <Font size="14.0"/>
+                           <Font size="14.0" />
                         </font>
                      </CheckBox>
                      <CheckBox fx:id="attic_ChkBox" mnemonicParsing="false" text="ATTIC">
                         <font>
-                           <Font size="14.0"/>
+                           <Font size="14.0" />
                         </font>
                      </CheckBox>
                      <CheckBox fx:id="kubo1_ChkBox" mnemonicParsing="false" text="KUBO 1">
                         <font>
-                           <Font size="14.0"/>
+                           <Font size="14.0" />
                         </font>
                      </CheckBox>
                      <CheckBox fx:id="kubo2_ChkBox" mnemonicParsing="false" text="KUBO 2">
                         <font>
-                           <Font size="14.0"/>
+                           <Font size="14.0" />
                         </font>
                      </CheckBox>
                   </VBox>
@@ -236,9 +228,14 @@
       </VBox>
       <Button fx:id="clr_btn" layoutX="8.0" layoutY="736.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="CLEAR" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="26.0" />
       <Button fx:id="done_btn" layoutX="173.0" layoutY="736.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="DONE" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="26.0" />
+      <Button fx:id="back_btn" layoutX="-1.0" layoutY="-2.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="42.0">
+         <graphic>
+            <FontAwesomeIconView glyphName="ARROW_LEFT" />
+         </graphic>
+      </Button>
    </AnchorPane>
    <FlowPane fx:id="month_pane" alignment="CENTER" layoutX="280.0" prefHeight="800.0" prefWidth="1000.0" />
-   <Button fx:id="burger_btn" mnemonicParsing="false">
+   <Button fx:id="burger_btn" layoutX="1236.0" layoutY="10.0" mnemonicParsing="false">
       <graphic>
          <FontAwesomeIconView glyphName="BARS" size="20" />
       </graphic>

@@ -22,7 +22,7 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         login_btn.setOnAction(event ->
             {
-                Model.getInstance().getViewFactory().setSceneMainMenu();
+                Model.getInstance().getViewFactory().setSceneTable();
             }
         );
     }

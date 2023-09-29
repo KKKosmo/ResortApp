@@ -18,8 +18,6 @@ public class CalendarController implements Initializable{
     public Text month;
     public Button prev_month_btn;
     public Button next_month_btn;
-    public Button next_room_btn;
-    public Button prev_room_btn;
     public Text room;
 
     private void fillFlowPaneMonths(){
@@ -53,12 +51,6 @@ public class CalendarController implements Initializable{
                     prevMonth();
                 }
         );
-        next_room_btn.setOnAction(event ->{
-            nextRoom();
-        });
-        prev_room_btn.setOnAction(event ->{
-            prevRoom();
-        });
     }
 
     public void setCalendarVariables(){
@@ -69,11 +61,5 @@ public class CalendarController implements Initializable{
     }
     public void prevMonth() {
         Model.getInstance().prevMonth();
-    }
-    public void nextRoom() {
-        Model.getInstance().nextRoom();
-    }
-    public void prevRoom() {
-        Model.getInstance().prevRoom();
     }
 }

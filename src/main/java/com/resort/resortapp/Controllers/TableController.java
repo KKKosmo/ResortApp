@@ -60,6 +60,7 @@ public class TableController implements Initializable {
     public Text unpaid_txt;
     public HBox totalPayment_hBox;
     public Button history_btn;
+    public Button add_btn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -117,6 +118,9 @@ public class TableController implements Initializable {
 
         burger_btn.setOnAction(actionEvent -> {
             escMenu.setVisible(true);
+        });
+        add_btn.setOnAction(actionEvent -> {
+            Model.getInstance().getViewFactory().setSceneCreate();
         });
 
         hBoxList = new ArrayList<>();

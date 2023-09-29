@@ -314,10 +314,11 @@
          <Label prefHeight="41.0" prefWidth="80.0" text="Edit History" textAlignment="CENTER" wrapText="true" />
       </graphic>
    </Button>
-   <Button fx:id="burger_btn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false">
+   <Button fx:id="default_btn" layoutX="70.0" layoutY="21.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="62.0" text="Default Filters" textAlignment="CENTER" wrapText="true" />
+   <Button fx:id="add_btn" layoutX="10.0" layoutY="98.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="ADD" />
+   <Button fx:id="burger_btn" layoutX="1237.0" layoutY="9.0" mnemonicParsing="false">
       <graphic>
          <FontAwesomeIconView glyphName="BARS" size="20" />
       </graphic>
    </Button>
-   <Button fx:id="default_btn" layoutX="70.0" layoutY="21.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="62.0" text="Default Filters" textAlignment="CENTER" wrapText="true" />
 </AnchorPane>

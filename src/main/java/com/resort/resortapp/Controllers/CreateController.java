@@ -36,6 +36,7 @@ public class CreateController  implements Initializable{
     public CheckBox kubo2_ChkBox;
     public TextField vehicle_textFld;
     public TextField fullPayment_fld;
+    public Button back_btn;
     Set<String> available;
     public AnchorPane escMenu;
     List<CheckBox> roomCheckBoxes = new ArrayList<>();
@@ -59,6 +60,9 @@ public class CreateController  implements Initializable{
 
         done_btn.setOnAction(actionEvent -> {
             insertRecord();
+        });
+        back_btn.setOnAction(actionEvent -> {
+            Model.getInstance().getViewFactory().setSceneTable();
         });
         clr_btn.setOnAction(actionEvent -> {
             if(Model.getInstance().getViewFactory().showConfirmPopup("Are you sure you want to clear the values?"))
