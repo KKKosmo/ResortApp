@@ -33,6 +33,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -476,7 +477,7 @@ public class ViewFactory {
     public void showForgotPwPopup(String filename, String filePath) {
         VBox root = new VBox();
 
-        Label label = new Label("A file (" + filename + ") has been exported to: " + filePath);
+        Label label = new Label("A file (" + filename + ") has been exported as: " + filePath);
         root.getChildren().add(label);
 
         Hyperlink openExplorerLink = new Hyperlink("Click to open in explorer");
@@ -529,6 +530,30 @@ public class ViewFactory {
         alert.showAndWait();
     }
 
+    public void showReportLocation(String filename, String filePath){
+        VBox root = new VBox();
+
+        Label label = new Label("A file (" + filename + ") has been exported as: " + filePath);
+        root.getChildren().add(label);
+
+        Hyperlink openExplorerLink = new Hyperlink("Click to open in explorer");
+        openExplorerLink.setOnAction(event -> {
+            try {
+                Runtime.getRuntime().exec("explorer.exe /select," + filePath);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        root.getChildren().add(openExplorerLink);
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Report PDF exported notice");
+        alert.setHeaderText(null);
+
+        alert.getDialogPane().setContent(root);
+        alert.showAndWait();
+    }
+
 
     public List<DayModel> getOnScreenCalendarDayModels() {
         return onScreenCalendarDayModels;
@@ -547,14 +572,12 @@ public class ViewFactory {
 
     float fontSize = 9.4f;
     public void generateReportPDF(){
+        int reportID = sqliteModel.getReportID();
         try {
-            String path = "Report.pdf";
+            String path = "Report"+reportID+".pdf";
             PdfWriter pdfWriter = new PdfWriter(path);
             PdfDocument pdfDocument = new PdfDocument(pdfWriter);
             pdfDocument.setDefaultPageSize(PageSize.LETTER.rotate());
-
-
-
 
             Document document = new Document(pdfDocument);
             float margin = 20;
@@ -696,11 +719,18 @@ public class ViewFactory {
             }
             document.close();
 
-            try {
-                Runtime.getRuntime().exec("rundll32 url.dll, FileProtocolHandler " + "D:\\work\\Java\\Projects\\ResortApp\\Report.pdf");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            sqliteModel.incrementReportID();
+
+            String filename = "Report"+reportID+".pdf";
+            File file = new File(filename);
+
+            showReportLocation(filename, file.getAbsolutePath());
+
+//            try {
+//                Runtime.getRuntime().exec("rundll32 url.dll, FileProtocolHandler " + "D:\\work\\Java\\Projects\\ResortApp\\Report.pdf");
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
 
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);

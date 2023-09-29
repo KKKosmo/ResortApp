@@ -95,6 +95,7 @@ public class sqliteModel {
             }
 
             System.out.println("Row count: " + rowCount);
+            pStmt.close();
             resultSet.close();
             closeDB();
 
@@ -162,6 +163,7 @@ public class sqliteModel {
             }
 
             System.out.println("Row count: " + rowCount);
+            pStmt.close();
             resultSet.close();
             closeDB();
 
@@ -292,6 +294,7 @@ public class sqliteModel {
                 PreparedStatement pStmt = openDB().prepareStatement(sql);
                 pStmt.executeUpdate();
 
+                pStmt.close();
                 closeDB();
                 Model.getInstance().getViewFactory().showSuccessPopup("Successfully inserted a record.");
                 return true;
@@ -428,6 +431,7 @@ public class sqliteModel {
                 PreparedStatement pStmt = openDB().prepareStatement(sql);
                 pStmt.executeUpdate();
 
+                pStmt.close();
                 closeDB();
 
 
@@ -445,6 +449,7 @@ public class sqliteModel {
                 pStmt = openDB().prepareStatement(sql);
                 pStmt.executeUpdate();
 
+                pStmt.close();
                 closeDB();
 
                 Model.getInstance().getViewFactory().showSuccessPopup("Successfully updated this record.");
@@ -511,6 +516,7 @@ public class sqliteModel {
                 RecordModel recordModel = new RecordModel(id, dateInserted, name, pax, vehicle, pets, videoke, partial_payment, full_payment, balance, payStatus, checkInString, checkOutString, room, user);
                 result.add(recordModel);
             }
+            pStmt.close();
             resultSet.close();
             closeDB();
 
@@ -533,7 +539,7 @@ public class sqliteModel {
             Model.getInstance().setTotalPayment(resultSet.getDouble("totalPayment"));
             Model.getInstance().setTotalUnpaid(resultSet.getInt("totalUnpaid"));
 
-
+            pStmt.close();
             resultSet.close();
             closeDB();
 
@@ -553,6 +559,7 @@ public class sqliteModel {
             System.out.println("sql = " + sql);
             PreparedStatement pStmt = openDB().prepareStatement(sql);
             pStmt.executeUpdate();
+            pStmt.close();
             closeDB();
 
             String changes = "DELETED ROW: ";
@@ -585,6 +592,7 @@ public class sqliteModel {
             pStmt = openDB().prepareStatement(sql);
             pStmt.executeUpdate();
 
+            pStmt.close();
             closeDB();
 
             Model.getInstance().getViewFactory().showSuccessPopup("Row successfully deleted.");
@@ -617,6 +625,7 @@ public class sqliteModel {
 
                 result.add(editHistoryModel);
             }
+            pStmt.close();
             resultSet.close();
             closeDB();
 
@@ -641,6 +650,7 @@ public class sqliteModel {
                 result.removeAll(roomSet);
             }
             System.out.println("AVAILABLE FOR " + leftEdge + "-" + rightEdge + " IS " + result);
+            pStmt.close();
             resultSet.close();
             closeDB();
         } catch (SQLException e) {
@@ -663,6 +673,7 @@ public class sqliteModel {
                 result.removeAll(roomSet);
             }
             System.out.println("AVAILABLE FOR " + leftEdge + "-" + rightEdge + " IS " + result);
+            pStmt.close();
             resultSet.close();
             closeDB();
         } catch (SQLException e) {
@@ -686,6 +697,7 @@ public class sqliteModel {
                     result = true;
                 }
             }
+            pStmt.close();
             resultSet.close();
             closeDB();
         } catch (SQLException e) {
@@ -773,12 +785,45 @@ public class sqliteModel {
                 }
             }
             writer.close();
+            pStmt.close();
             resultSet.close();
             closeDB();
 
             File file = new File(fileName);
             Model.getInstance().getViewFactory().showForgotPwPopup(fileName, file.getAbsolutePath());
         } catch (SQLException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static int getReportID(){
+        int result = 0;
+        try {
+            String sql = "SELECT max(id) as id FROM report";
+            System.out.println(sql);
+            PreparedStatement pStmt = openDB().prepareStatement(sql);
+            ResultSet resultSet = pStmt.executeQuery();
+            if (resultSet.next()) {
+                result = resultSet.getInt("id");
+            }
+            pStmt.close();
+            resultSet.close();
+            closeDB();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public static void incrementReportID(){
+        try {
+            String sql = "INSERT INTO report (dateInserted) VALUES ('"+LocalDateTime.now().format(formatter)+"');";
+            PreparedStatement pStmt = openDB().prepareStatement(sql);
+            pStmt.executeUpdate();
+
+            pStmt.close();
+            closeDB();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

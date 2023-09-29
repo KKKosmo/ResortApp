@@ -1,14 +1,14 @@
 if errors with sql, might be the plugins
 if seem odd, might be because i tried to remove duplicates in controllers where they setAvailablesFotVisuals
 
-forgot pw
 
-encrypt sql?
 
-containerize
+in table, default should be most recent and not this month
 
-export location of pdf files, display the location of the exported pdf
+apply user changes to stuff, editing when it belongs to the user, inserting with proper user,
 
+
+editing without changes should not put it into edit history
 in edit history, it should say UPDATED ROW XX:
 in edit history, look into sorting by time
 add order by to pdf
@@ -21,6 +21,11 @@ button mouse appearances
 check proper popups, a warning should not be the same as information
 are u sure u want to delete this row -> ID =
 
+encrypt sql?
+
+containerize
+
+where do the files go? sql, creds, and reports
 
 if query more than 100 or sum, split into 2
 dont init list everytime
