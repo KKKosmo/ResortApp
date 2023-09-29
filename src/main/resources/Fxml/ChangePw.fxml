@@ -24,9 +24,9 @@
    </Text>
    <VBox alignment="CENTER" layoutX="565.0" layoutY="301.0" spacing="5.0">
       <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-         <Image url="@../Images/user.png"/>
+         <Image url="@../Images/user.png" />
       </ImageView>
-      <Text fx:id="user_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="user5"/>
+      <Text fx:id="user_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="user5" />
    </VBox>
    <PasswordField fx:id="newPassword_fld" alignment="CENTER" layoutX="490.0" layoutY="599.0" maxHeight="30.0" maxWidth="500.0" prefHeight="30.0" prefWidth="300.0" promptText="NEW PASSWORD" />
    <Button fx:id="submit_btn" alignment="CENTER" layoutX="552.0" layoutY="643.0" minHeight="25.0" minWidth="50.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="176.0" text="Submit" />

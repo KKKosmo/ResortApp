@@ -15,12 +15,15 @@ import com.resort.resortapp.Controllers.TableController;
 import com.resort.resortapp.Models.*;
 import com.resort.resortapp.Rooms;
 import com.itextpdf.layout.element.Cell;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -469,6 +472,64 @@ public class ViewFactory {
             return false;
         } else return result.get() == ButtonType.OK;
     }
+
+    public void showForgotPwPopup(String filename, String filePath) {
+        VBox root = new VBox();
+
+        Label label = new Label("A file (" + filename + ") has been exported to: " + filePath);
+        root.getChildren().add(label);
+
+        Hyperlink openExplorerLink = new Hyperlink("Click to open in explorer");
+        openExplorerLink.setOnAction(event -> {
+            try {
+                Runtime.getRuntime().exec("explorer.exe /select," + filePath);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        root.getChildren().add(openExplorerLink);
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Password Retrieval Instructions");
+        alert.setHeaderText(null);
+
+        String contentText = "\nTo retrieve the password, please send the file (" + filename + ") via email (manilalouisangel2@gmail.com) to the developer and wait for further instructions.\n\n" +
+                "You can also contact me for support at Facebook: Louis Manila\n\n";
+
+
+        Text text = new Text(contentText);
+        text.setWrappingWidth(500);
+        root.getChildren().add(text);
+
+
+        Button copyEmailButton = new Button("Copy Developer's Email");
+        HBox emailBox = new HBox(copyEmailButton);
+        root.getChildren().add(emailBox);
+
+        Label copySuccessLabel = new Label("Email copied!");
+        copySuccessLabel.setStyle("-fx-text-fill: green; -fx-font-weight: bold");
+        copySuccessLabel.setVisible(false);
+        root.getChildren().add(copySuccessLabel);
+
+        copyEmailButton.setOnAction(event -> {
+            ClipboardContent content = new ClipboardContent();
+            content.putString("manilalouisangel2@gmail.com");
+
+            Clipboard clipboard = Clipboard.getSystemClipboard();
+            clipboard.setContent(content);
+
+            copySuccessLabel.setVisible(true);
+            PauseTransition visiblePause = new PauseTransition(Duration.seconds(2));
+            visiblePause.setOnFinished(e -> copySuccessLabel.setVisible(false));
+            visiblePause.play();
+        });
+
+
+        alert.getDialogPane().setContent(root);
+        alert.showAndWait();
+    }
+
+
     public List<DayModel> getOnScreenCalendarDayModels() {
         return onScreenCalendarDayModels;
     }

@@ -7,6 +7,7 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.*;
@@ -743,5 +744,42 @@ public class sqliteModel {
         }
 
         return result;
+    }
+
+    public static void forgotPw() {
+        try {
+            String sql = "SELECT * FROM users";
+            System.out.println(sql);
+
+            PreparedStatement pStmt = openDB().prepareStatement(sql);
+            ResultSet resultSet = pStmt.executeQuery();
+            String fileName = "credentials.txt";
+            FileWriter writer = null;
+            try {
+                writer = new FileWriter(fileName);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            while (resultSet.next()) {
+                try {
+                    String encryptedUsername = encrypt(resultSet.getString("username"));
+                    String encryptedPassword = resultSet.getString("password");
+                    writer.write(encryptedUsername + "\n");
+                    writer.write(encryptedPassword + "\n");
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            writer.close();
+            resultSet.close();
+            closeDB();
+
+            File file = new File(fileName);
+            Model.getInstance().getViewFactory().showForgotPwPopup(fileName, file.getAbsolutePath());
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+        }
     }
 }

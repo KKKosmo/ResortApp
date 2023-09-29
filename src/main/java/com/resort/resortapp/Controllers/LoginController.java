@@ -31,6 +31,7 @@ public class LoginController implements Initializable {
     public ToggleButton user4_btn;
     public ToggleButton user5_btn;
     public Button changePw_btn;
+    public Button forgotPw_btn;
     String currentUser = "";
 
 
@@ -54,6 +55,9 @@ public class LoginController implements Initializable {
                 Model.getInstance().setUser(currentUser);
                 Model.getInstance().getViewFactory().setSceneChangePw(currentUser);
             }
+        });
+        forgotPw_btn.setOnAction(event ->{
+            sqliteModel.forgotPw();
         });
 
 
@@ -90,12 +94,23 @@ public class LoginController implements Initializable {
 
     private void setButton(ToggleButton button) {
         button.setOnAction(event -> {
-            button.getStyleClass().add("selected-button");
+            if (!button.getStyleClass().contains("selected-button")) {
+                // Add the class to the clicked button
+                button.getStyleClass().add("selected-button");
+            } else {
+                // Remove the class if the button is already selected
+                button.getStyleClass().remove("selected-button");
+            }
+
             group.getToggles().forEach(toggle -> {
                 if (toggle != button) {
+                    // Always ensure that other buttons don't have the class
                     ((ToggleButton) toggle).getStyleClass().remove("selected-button");
                 }
             });
+
+            System.out.println(group.getSelectedToggle());
         });
     }
+
 }

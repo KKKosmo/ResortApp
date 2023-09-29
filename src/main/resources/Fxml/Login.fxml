@@ -84,4 +84,5 @@
    <Button fx:id="login_btn" alignment="CENTER" layoutX="552.0" layoutY="643.0" minHeight="25.0" minWidth="50.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="176.0" text="Log In" />
    <Button fx:id="exit_btn" layoutX="584.0" layoutY="729.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="112.0" text="Exit" />
    <Button fx:id="changePw_btn" layoutX="1156.0" layoutY="761.0" mnemonicParsing="false" text="Change Password" />
+   <Button fx:id="forgotPw_btn" layoutX="1156.0" layoutY="717.0" mnemonicParsing="false" text="Forgot Password?" underline="true" />
 </AnchorPane>

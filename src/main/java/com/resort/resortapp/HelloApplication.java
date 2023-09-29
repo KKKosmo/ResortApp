@@ -15,10 +15,10 @@ public class HelloApplication extends Application {
         Model.getInstance().getViewFactory().setSceneLogin();
 //        Model.getInstance().setCurrentPage(1);
 
-
         stage.setResizable(false);
         stage.show();
     }
+
 
     public static void main(String[] args) {
 
