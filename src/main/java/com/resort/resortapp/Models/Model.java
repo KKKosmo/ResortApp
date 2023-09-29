@@ -89,15 +89,7 @@ public class Model {
     private boolean tableAFilter = false;
     private boolean tableK1Filter = false;
     private boolean tableK2Filter = false;
-//    private enum user{
-//        noUser,
-//        user1,
-//        user2,
-//        user3,
-//        user4,
-//        user5;
-//    }
-//    private user currentUser = user.noUser;
+    private String user;
     private Model(){
         this.viewFactory = new ViewFactory();
     }
@@ -467,4 +459,11 @@ public class Model {
         this.dateFocus = dateFocus;
     }
 
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
 }

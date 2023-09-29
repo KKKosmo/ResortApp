@@ -30,6 +30,8 @@ public class EscMenuController implements Initializable {
             pane.setVisible(false);
         });
         signOut.setOnAction(actionEvent -> {
+            pane.setVisible(false);
+            Model.getInstance().getViewFactory().setSceneLogin();
             //TODO USERS
         });
         exit.setOnAction(actionEvent -> {

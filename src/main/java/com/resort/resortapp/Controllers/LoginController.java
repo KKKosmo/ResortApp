@@ -30,6 +30,7 @@ public class LoginController implements Initializable {
     public ToggleButton user3_btn;
     public ToggleButton user4_btn;
     public ToggleButton user5_btn;
+    public Button changePw_btn;
     String currentUser = "";
 
 
@@ -39,6 +40,7 @@ public class LoginController implements Initializable {
             {
                 if(getUser()){
                     if(sqliteModel.auth(currentUser, password_field.getText())){
+                        Model.getInstance().setUser(currentUser);
                         Model.getInstance().getViewFactory().setSceneTable();
                     }
                     else{
@@ -47,7 +49,12 @@ public class LoginController implements Initializable {
                 }
             }
         );
-
+        changePw_btn.setOnAction(event ->{
+            if(getUser()){
+                Model.getInstance().setUser(currentUser);
+                Model.getInstance().getViewFactory().setSceneChangePw(currentUser);
+            }
+        });
 
 
         setButton(user1_btn);

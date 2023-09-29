@@ -9,6 +9,7 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.VerticalAlignment;
+import com.resort.resortapp.Controllers.ChangePwController;
 import com.resort.resortapp.Controllers.EditController;
 import com.resort.resortapp.Controllers.TableController;
 import com.resort.resortapp.Models.*;
@@ -323,6 +324,18 @@ public class ViewFactory {
 
             EditController editController = loader.getController();
             editController.setValues(recordModel);
+            stage.setScene(new Scene(root));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void setSceneChangePw(String user){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/ChangePw.fxml"));
+            Parent root = loader.load();
+
+            ChangePwController changePwController = loader.getController();
+            changePwController.setValues(user);
             stage.setScene(new Scene(root));
         } catch (Exception e) {
             e.printStackTrace();

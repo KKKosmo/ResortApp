@@ -720,4 +720,28 @@ public class sqliteModel {
             throw new RuntimeException("Failed to read secret key from file", e);
         }
     }
+
+    public static boolean changePw(String username, String newPW) {
+        boolean result = false;
+        try {
+            String updateSql = "UPDATE users SET password = ? WHERE username = ?";
+            PreparedStatement updateStmt = openDB().prepareStatement(updateSql);
+            updateStmt.setString(1, encrypt(newPW));
+            updateStmt.setString(2, username);
+            int rowsUpdated = updateStmt.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                result = true;
+            }
+
+            updateStmt.close();
+            closeDB();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            result = false;
+            Model.getInstance().getViewFactory().showErrorPopup("ERROR: " + e);
+        }
+
+        return result;
+    }
 }
