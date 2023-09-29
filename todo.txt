@@ -36,7 +36,6 @@ index my table
 
 
 
-inefficient page panning(calculating everytime)
 
 recordModel should be split into different inheriting classes
 recordModel should have a constructor that would take in an sql resultSet

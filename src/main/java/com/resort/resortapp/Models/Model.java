@@ -561,15 +561,20 @@ public class Model {
     }
 
     public void autoTurnMonth(LocalDate myDate){
-        if(myDate.isBefore(getDateFocus())){
-            while (myDate.getMonth() != getDateFocus().getMonth()){
-                prevMonth();
-            }
+        if(myDate.isBefore(getCalendarRightDate())){
+//            while (myDate.getMonth() != getDateFocus().getMonth()){
+//            }
+            int adjust = calendarRightDate.getMonthValue() - myDate.getMonthValue() - 1;
+            dateFocus = dateFocus.minusMonths(adjust);
+            prevMonth();
         }
         else{
-            while (myDate.getMonth() != getDateFocus().getMonth()){
-                nextMonth();
-            }
+//            while (myDate.getMonth() != getDateFocus().getMonth()){
+//                nextMonth();
+//            }
+            int adjust = myDate.getMonthValue() - calendarRightDate.getMonthValue() + 1;
+            dateFocus = dateFocus.plusMonths(adjust);
+            prevMonth();
         }
     }
 

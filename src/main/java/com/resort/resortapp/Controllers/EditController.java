@@ -90,15 +90,12 @@ public class EditController implements Initializable {
             }
         });
     }
-    public void setAvailable(Set<String> available) {
-        this.available = available;
-    }
 
     public void setValues(RecordModel recordModel) {
         id = recordModel.fillInFields(name_fld, pax_fld, vehicle_textFld, petsYes_radio, petsNo_radio, videokeYes_radio, videokeNo_radio, partialPayment_fld, fullPayment_fld, paidYes_radio, paidNo_radio, checkIn_datePicker, checkOut_datePicker, roomCheckBoxes);
 
         Model.getInstance().getViewFactory().insertCalendar(month_pane);
-        Model.getInstance().autoTurnMonth(LocalDate.parse(recordModel.getCheckIn()));
+        Model.getInstance().autoTurnMonth(LocalDate.parse(recordModel.getCheckIn()).withDayOfMonth(1));
 
 //        Model.getInstance().setAvailablesForVisual(sqliteModel.getAvailableRoomsPerDayList(id));
         available = sqliteModel.getAvailablesForFunction(checkIn_datePicker.getValue(), checkOut_datePicker.getValue(), id);
@@ -115,7 +112,6 @@ public class EditController implements Initializable {
             if(newValue != null){
                 Model.getInstance().setSelectedLeftDate(String.valueOf(newValue));
                 Model.getInstance().setCalendarLeftDate(newValue);
-                Model.getInstance().setEdgeLeftDate(Model.getInstance().getCalendarLeftDate());
                 Model.getInstance().autoTurnMonth(Model.getInstance().getCalendarLeftDate());
 
                 if(checkOut_datePicker.getValue() != null){
@@ -130,9 +126,8 @@ public class EditController implements Initializable {
         checkOut_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue != null){
                 Model.getInstance().setSelectedRightDate(String.valueOf(newValue));
-                Model.getInstance().setCalendarRightDate(newValue);
-                Model.getInstance().setEdgeRightDate(Model.getInstance().getCalendarRightDate());
-                Model.getInstance().autoTurnMonth(Model.getInstance().getCalendarRightDate());
+                Model.getInstance().setCalendarLeftDate(newValue);
+                Model.getInstance().autoTurnMonth(Model.getInstance().getCalendarLeftDate());
 
                 if(checkIn_datePicker.getValue() != null){
                     if(checkIn_datePicker.getValue().isBefore(checkOut_datePicker.getValue()) || checkIn_datePicker.getValue().equals(checkOut_datePicker.getValue())){
@@ -150,11 +145,7 @@ public class EditController implements Initializable {
         }
 
         initRecordModel = newRecordModel();
-
-//        Model.getInstance().setEdgeLeftDate(checkIn_datePicker.getValue().withDayOfMonth(1));
-//
-//        Model.getInstance().setEdgeRightDate(checkOut_datePicker.getValue().withDayOfMonth(checkOut_datePicker.getValue().lengthOfMonth()));
-    }
+   }
 
     private void checkBoxAddListener(CheckBox checkBox){
         checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {

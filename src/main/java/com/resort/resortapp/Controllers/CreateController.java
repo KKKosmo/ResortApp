@@ -71,11 +71,7 @@ public class CreateController  implements Initializable{
         checkIn_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue != null){
                 Model.getInstance().setSelectedLeftDate(String.valueOf(newValue));
-
                 Model.getInstance().setCalendarLeftDate(newValue);
-//                Model.getInstance().setEdgeLeftDate(Model.getInstance().getCalendarLeftDate());
-                System.out.println("LEFT DATE = " + Model.getInstance().getCalendarLeftDate());
-
                 Model.getInstance().autoTurnMonth(Model.getInstance().getCalendarLeftDate());
 
                 if(checkOut_datePicker.getValue() != null){
@@ -90,11 +86,8 @@ public class CreateController  implements Initializable{
         checkOut_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue != null){
                 Model.getInstance().setSelectedRightDate(String.valueOf(newValue));
-                Model.getInstance().setCalendarRightDate(newValue);
-//                Model.getInstance().setEdgeRightDate(Model.getInstance().getCalendarRightDate());
-                System.out.println("RIGHT DATE = " + Model.getInstance().getCalendarRightDate());
-
-                Model.getInstance().autoTurnMonth(Model.getInstance().getCalendarRightDate());
+                Model.getInstance().setCalendarLeftDate(newValue);
+                Model.getInstance().autoTurnMonth(Model.getInstance().getCalendarLeftDate());
 
                 if(checkIn_datePicker.getValue() != null){
                     if(checkIn_datePicker.getValue().isBefore(checkOut_datePicker.getValue()) || checkIn_datePicker.getValue().equals(checkOut_datePicker.getValue())){
