@@ -66,13 +66,13 @@
                   <Insets left="40.0" right="40.0" />
                </padding>
                <HBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="329.0">
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Vehicle">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Vehicle Count">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Text>
                   <HBox alignment="CENTER" prefHeight="39.0" prefWidth="79.0" spacing="30.0">
-                     <TextField fx:id="vehicle_textFld" prefHeight="0.0" prefWidth="41.0">
+                     <TextField fx:id="vehicle_textFld" alignment="CENTER" prefHeight="35.0" prefWidth="56.0">
                         <font>
                            <Font size="16.0" />
                         </font>
@@ -228,7 +228,7 @@
       </VBox>
       <Button fx:id="clr_btn" layoutX="8.0" layoutY="736.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="CLEAR" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="26.0" />
       <Button fx:id="done_btn" layoutX="173.0" layoutY="736.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="DONE" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="26.0" />
-      <Button fx:id="back_btn" layoutX="-1.0" layoutY="-2.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="42.0">
+      <Button fx:id="back_btn" mnemonicParsing="false" prefHeight="35.0" prefWidth="42.0">
          <graphic>
             <FontAwesomeIconView glyphName="ARROW_LEFT" />
          </graphic>

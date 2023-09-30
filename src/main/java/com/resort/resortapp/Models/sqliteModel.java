@@ -201,109 +201,143 @@ public class sqliteModel {
             Model.getInstance().getViewFactory().showErrorPopup("Error: Name is empty.");
             return false;
         }
-        else if (paxString.isEmpty()){
+
+        if (paxString.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Number of persons is empty.");
             return false;
         }
-        else if(vehicle.isEmpty()){
+
+        if(vehicle.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Vehicle count is empty.");
             return false;
         }
-        else if(recordModel.getPetsYes_radio().getToggleGroup().getSelectedToggle() == null){
+
+        if(recordModel.getPetsYes_radio().getToggleGroup().getSelectedToggle() == null){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Pets choice is empty.");
             return false;
         }
-        else if(recordModel.getVideokeYes_radio().getToggleGroup().getSelectedToggle() == null){
+
+        if(recordModel.getVideokeYes_radio().getToggleGroup().getSelectedToggle() == null){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Videoke choice is empty.");
             return false;
         }
-        else if(partial_paymentString.isEmpty()){
+
+        if(partial_paymentString.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Partial payment is empty.");
             return false;
         }
-        else if(fullPaymentString.isEmpty()){
+
+        if(fullPaymentString.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Full payment is empty.");
             return false;
         }
-        else if(checkIn.isEmpty()){
+
+        if(checkIn.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Check-in date is empty.");
             return false;
         }
-        else if(checkOut.isEmpty()){
+
+        if(checkOut.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Check-out date is empty.");
             return false;
         }
-        else if(roomUnformatted.isEmpty()){
+
+        if(roomUnformatted.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: A room must be selected.");
             return false;
         }
-        else if(LocalDate.parse(checkIn).isAfter(LocalDate.parse(checkOut))){
+
+        if(name.length() > 30){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Name should be less than 30 characters.");
+            return false;
+        }
+
+        if(LocalDate.parse(checkIn).isAfter(LocalDate.parse(checkOut))){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Check-in date must come before Check-out date.");
             return false;
         }
-//        else if(ChronoUnit.DAYS.between(LocalDate.parse(checkIn), LocalDate.parse(checkOut))+1 > 28){
+
+//        if(ChronoUnit.DAYS.between(LocalDate.parse(checkIn), LocalDate.parse(checkOut))+1 > 28){
 //            Model.getInstance().getViewFactory().showErrorPopup("Error: Booking days cannot be more than 28. This is a bug, will be fixed soon");
 //            return false;
 //        }
-        else if(roomCheckboxes.get(0).isSelected() && !available.contains(Rooms.ROOM_J.getAbbreviatedName())){
+
+        if(roomCheckboxes.get(0).isSelected() && !available.contains(Rooms.ROOM_J.getAbbreviatedName())){
             Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ROOM_J.getAbbreviatedName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
-        }else if(roomCheckboxes.get(1).isSelected() && !available.contains(Rooms.ROOM_G.getAbbreviatedName())){
+        }
+        if(roomCheckboxes.get(1).isSelected() && !available.contains(Rooms.ROOM_G.getAbbreviatedName())){
             Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ROOM_G.getAbbreviatedName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
-        }else if(roomCheckboxes.get(2).isSelected() && !available.contains(Rooms.ATTIC.getAbbreviatedName())){
+        }
+        if(roomCheckboxes.get(2).isSelected() && !available.contains(Rooms.ATTIC.getAbbreviatedName())){
             Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ATTIC.getAbbreviatedName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
-        }else if(roomCheckboxes.get(3).isSelected() && !available.contains(Rooms.KUBO_1.getAbbreviatedName())){
+        }
+        if(roomCheckboxes.get(3).isSelected() && !available.contains(Rooms.KUBO_1.getAbbreviatedName())){
             Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.KUBO_1.getAbbreviatedName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
-        }else if(roomCheckboxes.get(4).isSelected() && !available.contains(Rooms.KUBO_2.getAbbreviatedName())){
+        }
+        if(roomCheckboxes.get(4).isSelected() && !available.contains(Rooms.KUBO_2.getAbbreviatedName())){
             Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.KUBO_2.getAbbreviatedName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
         }
-        else{
-            String currentDate = LocalDateTime.now().format(formatter);
-            int paxInt = Integer.parseInt(paxString);
-            boolean paid = false;
+        String currentDate = LocalDateTime.now().format(formatter);
+        int paxInt = Integer.parseInt(paxString);
+        boolean paid = false;
 
-            if(paxInt <= 0){
-                Model.getInstance().getViewFactory().showErrorPopup("Error: Number of people must be more than 0.");
-                return false;
-            }
+        if(paxInt <= 0){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Number of people must be more than 0.");
+            return false;
+        }
 
-            double partial_paymentDouble = Double.parseDouble(partial_paymentString);
-            double fullPaymentDouble = Double.parseDouble(fullPaymentString);
+        double partial_paymentDouble = Double.parseDouble(partial_paymentString);
+        double fullPaymentDouble = Double.parseDouble(fullPaymentString);
 
-            if(partial_paymentDouble > fullPaymentDouble){
-                Model.getInstance().getViewFactory().showErrorPopup("Error: Partial payment must be less than full payment.");
-                return false;
-//            } else if (partial_paymentDouble == fullPaymentDouble && !paid) {
+        if(partial_paymentDouble > fullPaymentDouble){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Partial payment must be less than full payment.");
+            return false;
+//            } if (partial_paymentDouble == fullPaymentDouble && !paid) {
 //                paid = Model.getInstance().getViewFactory().showConfirmPopup("Confirm: Partial payment is the same as full payment, do you want to consider it as paid?");
 //            }
-            } else if (partial_paymentDouble == fullPaymentDouble) {
+        }
+        if (partial_paymentDouble == fullPaymentDouble) {
                 paid = true;
             }
 
-
-            String sql = String.format("INSERT INTO main (dateInserted, name, pax, vehicle, pets, videoke, partial_payment, full_payment, paid, checkIn, checkOut, room, user) " +
-                            "VALUES ('%s','%s', %d, %d, %b, %b, %.2f, %.2f, %b, '%s', '%s', '%s', '%s');",
-                    currentDate, name, paxInt, Integer.parseInt(vehicle), pets, videoke, partial_paymentDouble, fullPaymentDouble, paid, checkIn, checkOut, roomUnformatted, Model.getInstance().getUser());
-
-            System.out.println("sql = " + sql);
-            try {
-                PreparedStatement pStmt = openDB().prepareStatement(sql);
-                pStmt.executeUpdate();
-
-                pStmt.close();
-                closeDB();
-                Model.getInstance().getViewFactory().showSuccessPopup("Successfully inserted a record.");
-                return true;
-            } catch (SQLException e) {
-                e.printStackTrace();
-
-                Model.getInstance().getViewFactory().showErrorPopup("Error: " + e);
+        if(paxInt > 99){
+                Model.getInstance().getViewFactory().showErrorPopup("Error: No. of person should be less than 100.");
                 return false;
             }
+
+        if(Integer.parseInt(vehicle) > 99){
+                Model.getInstance().getViewFactory().showErrorPopup("Error: Vehicle count should be less than 100.");
+                return false;
+        }
+        if(fullPaymentDouble >= 1000000){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Full Payment should be less than 1,000,000.");
+            return false;
+        }
+
+
+        String sql = String.format("INSERT INTO main (dateInserted, name, pax, vehicle, pets, videoke, partial_payment, full_payment, paid, checkIn, checkOut, room, user) " +
+                        "VALUES ('%s','%s', %d, %d, %b, %b, %.2f, %.2f, %b, '%s', '%s', '%s', '%s');",
+                currentDate, name, paxInt, Integer.parseInt(vehicle), pets, videoke, partial_paymentDouble, fullPaymentDouble, paid, checkIn, checkOut, roomUnformatted, Model.getInstance().getUser());
+
+        System.out.println("sql = " + sql);
+        try {
+            PreparedStatement pStmt = openDB().prepareStatement(sql);
+            pStmt.executeUpdate();
+
+            pStmt.close();
+            closeDB();
+            Model.getInstance().getViewFactory().showSuccessPopup("Successfully inserted a record.");
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+            Model.getInstance().getViewFactory().showErrorPopup("Error: " + e);
+            return false;
         }
     }
     public static boolean updateRecord(RecordModel recordModel, Set<String> available, String changes){
@@ -325,47 +359,63 @@ public class sqliteModel {
             Model.getInstance().getViewFactory().showErrorPopup("Error: Name is empty.");
             return false;
         }
-        else if (paxString.isEmpty()){
+
+        if (paxString.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Number of persons is empty.");
             return false;
         }
-        else if(vehicle.isEmpty()){
+
+        if(vehicle.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Vehicle count is empty.");
             return false;
         }
-        else if(recordModel.getPetsYes_radio().getToggleGroup().getSelectedToggle() == null){
+
+        if(recordModel.getPetsYes_radio().getToggleGroup().getSelectedToggle() == null){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Pets choice is empty.");
             return false;
         }
-        else if(recordModel.getVideokeYes_radio().getToggleGroup().getSelectedToggle() == null){
+
+        if(recordModel.getVideokeYes_radio().getToggleGroup().getSelectedToggle() == null){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Videoke choice is empty.");
             return false;
         }
-        else if(recordModel.getPaidYes_radio().getToggleGroup().getSelectedToggle() == null){
+
+        if(recordModel.getPaidYes_radio().getToggleGroup().getSelectedToggle() == null){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Paid status choice is empty.");
             return false;
         }
-        else if(partial_paymentString.isEmpty()){
+
+        if(partial_paymentString.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Partial payment is empty.");
             return false;
         }
-        else if(fullPaymentString.isEmpty()){
+
+        if(fullPaymentString.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Full payment is empty.");
             return false;
         }
-        else if(checkIn.isEmpty()){
+
+        if(checkIn.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Check-in date is empty.");
             return false;
         }
-        else if(checkOut.isEmpty()){
+
+        if(checkOut.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Check-out date is empty.");
             return false;
         }
-        else if(roomUnformatted.isEmpty()){
+
+        if(roomUnformatted.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: A room must be selected.");
             return false;
         }
-        else if(LocalDate.parse(checkIn).isAfter(LocalDate.parse(checkOut))){
+
+        if(name.length() > 30){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Name should be less than 30 characters.");
+            return false;
+        }
+
+        if(LocalDate.parse(checkIn).isAfter(LocalDate.parse(checkOut))){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Check-in date must come before Check-out date.");
             return false;
         }
@@ -373,92 +423,115 @@ public class sqliteModel {
 //            Model.getInstance().getViewFactory().showErrorPopup("Error: Booking days cannot be more than 28. This is a bug, will be fixed soon");
 //            return false;
 //        }
-        else if(roomCheckboxes.get(0).isSelected() && !available.contains(Rooms.ROOM_J.getAbbreviatedName())){
+
+        if(roomCheckboxes.get(0).isSelected() && !available.contains(Rooms.ROOM_J.getAbbreviatedName())){
             Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ROOM_J.getAbbreviatedName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
-        }else if(roomCheckboxes.get(1).isSelected() && !available.contains(Rooms.ROOM_G.getAbbreviatedName())){
+        }
+        if(roomCheckboxes.get(1).isSelected() && !available.contains(Rooms.ROOM_G.getAbbreviatedName())){
             Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ROOM_G.getAbbreviatedName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
-        }else if(roomCheckboxes.get(2).isSelected() && !available.contains(Rooms.ATTIC.getAbbreviatedName())){
+        }
+        if(roomCheckboxes.get(2).isSelected() && !available.contains(Rooms.ATTIC.getAbbreviatedName())){
             Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ATTIC.getAbbreviatedName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
-        }else if(roomCheckboxes.get(3).isSelected() && !available.contains(Rooms.KUBO_1.getAbbreviatedName())){
+        }
+        if(roomCheckboxes.get(3).isSelected() && !available.contains(Rooms.KUBO_1.getAbbreviatedName())){
             Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.KUBO_1.getAbbreviatedName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
-        }else if(roomCheckboxes.get(4).isSelected() && !available.contains(Rooms.KUBO_2.getAbbreviatedName())){
+        }
+        if(roomCheckboxes.get(4).isSelected() && !available.contains(Rooms.KUBO_2.getAbbreviatedName())){
             Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.KUBO_2.getAbbreviatedName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
         }
-        else{
-            int paxInt = Integer.parseInt(paxString);
 
-            if(paxInt <= 0){
-                Model.getInstance().getViewFactory().showErrorPopup("Error: Number of people must be more than 0.");
-                return false;
-            }
 
-            double partial_paymentDouble = Double.parseDouble(partial_paymentString);
-            double fullPaymentDouble = Double.parseDouble(fullPaymentString);
+        int paxInt = Integer.parseInt(paxString);
 
-            if(partial_paymentDouble > fullPaymentDouble){
-                Model.getInstance().getViewFactory().showErrorPopup("Error: Partial payment must be less than full payment.");
-                return false;
+        if(paxInt <= 0){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Number of people must be more than 0.");
+            return false;
+        }
+
+        double partial_paymentDouble = Double.parseDouble(partial_paymentString);
+        double fullPaymentDouble = Double.parseDouble(fullPaymentString);
+
+        if(partial_paymentDouble > fullPaymentDouble){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Partial payment must be less than full payment.");
+            return false;
 //            } else if (partial_paymentDouble == fullPaymentDouble && !paid) {
 //                paid = Model.getInstance().getViewFactory().showConfirmPopup("Confirm: Partial payment is the same as full payment, do you want to consider it as paid?");
 //            }
-            } else if (partial_paymentDouble == fullPaymentDouble) {
-                paid = true;
-            }
+        }
+        if (partial_paymentDouble == fullPaymentDouble) {
+            paid = true;
+        }
+        if(paxInt > 99){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: No. of person should be less than 100.");
+            return false;
+        }
+        if(Integer.parseInt(vehicle) > 99){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Vehicle count should be less than 100.");
+            return false;
+        }
+        if(fullPaymentDouble >= 1000000){
+            Model.getInstance().getViewFactory().showErrorPopup("Error: Full Payment should be less than 1,000,000.");
+            return false;
+        }
 
-            try {
-                String sql = String.format("UPDATE main SET " +
-                                "name = '%s', " +
-                                "pax = %d, " +
-                                "vehicle = %d, " +
-                                "pets = %b, " +
-                                "videoke = %b, " +
-                                "partial_payment = %.2f, " +
-                                "full_payment = %.2f, " +
-                                "paid = %b, " +
-                                "checkIn = '%s', " +
-                                "checkOut = '%s', " +
-                                "room = '%s' " +
-                                "WHERE id = '%d';",
-                        name, paxInt, Integer.parseInt(vehicle), pets, videoke, partial_paymentDouble, fullPaymentDouble, paid, checkIn, checkOut, roomUnformatted, recordModel.getIdInt());
+        //head
+        //vehicle
+        //payment
+        //balance
 
-                System.out.println("sql = " + sql);
+        try {
+            String sql = String.format("UPDATE main SET " +
+                            "name = '%s', " +
+                            "pax = %d, " +
+                            "vehicle = %d, " +
+                            "pets = %b, " +
+                            "videoke = %b, " +
+                            "partial_payment = %.2f, " +
+                            "full_payment = %.2f, " +
+                            "paid = %b, " +
+                            "checkIn = '%s', " +
+                            "checkOut = '%s', " +
+                            "room = '%s' " +
+                            "WHERE id = '%d';",
+                    name, paxInt, Integer.parseInt(vehicle), pets, videoke, partial_paymentDouble, fullPaymentDouble, paid, checkIn, checkOut, roomUnformatted, recordModel.getIdInt());
 
-                PreparedStatement pStmt = openDB().prepareStatement(sql);
-                pStmt.executeUpdate();
+            System.out.println("sql = " + sql);
 
-                pStmt.close();
-                closeDB();
+            PreparedStatement pStmt = openDB().prepareStatement(sql);
+            pStmt.executeUpdate();
+
+            pStmt.close();
+            closeDB();
 
 
-                //TODO EDIT HISTORY
+            //TODO EDIT HISTORY
 
-                sql = String.format("INSERT INTO edit (record_id, edit_timestamp, summary, user) VALUES ('%d', '%s', '%s', '%s');",
-                        recordModel.getIdInt(),
-                        LocalDateTime.now().format(formatter),
-                        "UPDATED ROW: " + changes,
-                        Model.getInstance().getUser()
-                );
+            sql = String.format("INSERT INTO edit (record_id, edit_timestamp, summary, user) VALUES ('%d', '%s', '%s', '%s');",
+                    recordModel.getIdInt(),
+                    LocalDateTime.now().format(formatter),
+                    "UPDATED BOOKING: " + changes,
+                    Model.getInstance().getUser()
+            );
 
-                System.out.println("sql = " + sql);
+            System.out.println("sql = " + sql);
 
-                pStmt = openDB().prepareStatement(sql);
-                pStmt.executeUpdate();
+            pStmt = openDB().prepareStatement(sql);
+            pStmt.executeUpdate();
 
-                pStmt.close();
-                closeDB();
+            pStmt.close();
+            closeDB();
 
-                Model.getInstance().getViewFactory().showSuccessPopup("Successfully updated this record.");
-                return true;
-            } catch (SQLException e) {
-                e.printStackTrace();
-                Model.getInstance().getViewFactory().showErrorPopup("Error: " + e);
-                return false;
-            }
+            Model.getInstance().getViewFactory().showSuccessPopup("Successfully updated this record.");
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Model.getInstance().getViewFactory().showErrorPopup("Error: " + e);
+            return false;
         }
     }
     public static void queryTableRecords(){
@@ -580,7 +653,7 @@ public class sqliteModel {
             pStmt.close();
             closeDB();
 
-            String changes = "DELETED ROW: ";
+            String changes = "DELETED BOOKING: ";
             changes += "id = " + recordModel.getIdInt();
             changes += ", dateInserted = " + recordModel.getDateInserted();
             changes += ", name = " + recordModel.getName();

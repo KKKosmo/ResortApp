@@ -35,6 +35,7 @@ public class EditController implements Initializable {
     public CheckBox attic_ChkBox;
     public CheckBox kubo2_ChkBox;
     public TextField vehicle_textFld;
+    public Button back_btn;
     private Set<String> available;
     private int id;
     private boolean payStatus;
@@ -62,10 +63,14 @@ public class EditController implements Initializable {
         done_btn.setOnAction(actionEvent -> {
             updateRecord();
         });
+        back_btn.setOnAction(actionEvent -> {
+            Model.getInstance().getViewFactory().setSceneTable();
+        });
 
         textFieldAddListener(pax_fld);
         textFieldAddListener(partialPayment_fld);
         textFieldAddListener(fullPayment_fld);
+        textFieldAddListener(vehicle_textFld);
 
 
     }
@@ -76,9 +81,13 @@ public class EditController implements Initializable {
         RecordModel newRecordModel = newRecordModel();
         String changes = initRecordModel.checkDifferences(newRecordModel);
         if(Model.getInstance().getViewFactory().showConfirmPopup("Are you sure you want to edit this record?" + changes)){
-            if(sqliteModel.updateRecord(newRecordModel, available, changes.trim().replace("\n", ", "))){
+            if(changes.equals("\nThere are no changes")){
                 Model.getInstance().getViewFactory().setSceneTable();
-//                Model.getInstance().getViewFactory().notEditing();
+            }
+            else{
+                if(sqliteModel.updateRecord(newRecordModel, available, changes.trim().replace("\n", ", "))){
+                    Model.getInstance().getViewFactory().setSceneTable();
+                }
             }
         }
     }

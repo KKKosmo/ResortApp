@@ -8,6 +8,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.text.Text;
 
 import java.net.URL;
@@ -59,7 +60,12 @@ public class LoginController implements Initializable {
         forgotPw_btn.setOnAction(event ->{
             sqliteModel.forgotPw();
         });
-
+        password_field.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                // When Enter key is pressed, trigger the login button's action
+                login_btn.fire();
+            }
+        });
 
         setButton(user1_btn);
         setButton(user2_btn);

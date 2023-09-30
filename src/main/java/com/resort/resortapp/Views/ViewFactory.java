@@ -594,7 +594,7 @@ public class ViewFactory {
 
             for (int currentPage = 1; currentPage <= totalPages; currentPage++){
 
-                float[] headerWidth = new float[5];
+                float[] headerWidth = new float[6];
                 Table table = new Table(headerWidth);
                 if(Model.getInstance().checkTableEdges()){
                     table.addCell(new Cell().add(
@@ -618,6 +618,8 @@ public class ViewFactory {
                 }
                 table.addCell(rooms.toString()).setBold().setFontSize(fontSize);
                 table.addCell("Total Bookings: " + Model.getInstance().getRecordCount()).setBold().setFontSize(fontSize);
+
+                table.addCell("Sorted by: " + Model.getInstance().getOrderCategory() + " " + (Model.getInstance().isASC() ? "ASC" : "DESC")).setBold().setFontSize(fontSize);
                 table.addCell("Page " + currentPage + "/" + totalPages).setBold().setFontSize(fontSize);
                 table.addCell("Total Payment Received: " + Model.getInstance().getTotalPayment() + " (" + Model.getInstance().getTotalUnpaid() + " UNPAID)").setBold().setFontSize(fontSize);
 

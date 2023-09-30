@@ -16,8 +16,8 @@
    <TableView fx:id="tableview" layoutX="20.0" layoutY="70.0" prefHeight="708.0" prefWidth="1240.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
      <columns>
        <TableColumn fx:id="editId_col" editable="false" prefWidth="55.0" resizable="false" sortType="DESCENDING" text="Edit ID" />
-       <TableColumn fx:id="bookId_col" editable="false" prefWidth="61.0" resizable="false" text="Book ID" />
          <TableColumn fx:id="dateTime_col" editable="false" prefWidth="133.0" resizable="false" sortType="DESCENDING" sortable="false" text="Date &amp; Time" />
+       <TableColumn fx:id="bookId_col" editable="false" prefWidth="61.0" resizable="false" sortType="DESCENDING" text="Book ID" />
          <TableColumn fx:id="user_col" editable="false" minWidth="0.0" prefWidth="129.0" resizable="false" text="User" />
          <TableColumn fx:id="changes_col" editable="false" maxWidth="10000.0" prefWidth="1863.0" sortable="false">
             <graphic>

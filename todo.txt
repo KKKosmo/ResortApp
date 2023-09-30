@@ -1,15 +1,6 @@
 if errors with sql, might be the plugins
 if seem odd, might be because i tried to remove duplicates in controllers where they setAvailablesFotVisuals
 
-login enter should enter
-
-editing without changes should not put it into edit history
-in edit history, it should say UPDATED ROW XX:
-in edit history, look into sorting by time
-add order by to pdf
-text fields should be alphanumeric
-text field lengths should be limited
-vehicle field number only
 button mouse appearances
 "j is not available for" when room unavailable, it should say the display name
 
@@ -43,3 +34,5 @@ room menu fxml
 the daymodels should have their own localdate fields, not a separate list.
 
 getting bugged by booked daycount
+
+in edit history, look into sorting by time

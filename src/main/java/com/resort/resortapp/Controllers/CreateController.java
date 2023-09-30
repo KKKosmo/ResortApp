@@ -71,6 +71,7 @@ public class CreateController  implements Initializable{
         textFieldAddListener(pax_fld);
         textFieldAddListener(payment_fld);
         textFieldAddListener(fullPayment_fld);
+        textFieldAddListener(vehicle_textFld);
 
         checkIn_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue != null){

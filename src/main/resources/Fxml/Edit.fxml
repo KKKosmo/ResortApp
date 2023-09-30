@@ -16,8 +16,8 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="parentPane" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.resort.resortapp.Controllers.EditController">
-   <AnchorPane prefHeight="800.0" prefWidth="280.0" style="-fx-background-color: #AA0000;" stylesheets="@../Styles/create.css">
-      <VBox alignment="CENTER" layoutY="28.0" prefHeight="708.0" prefWidth="280.0" spacing="15.0" style="-fx-background-color: #FFFFFF;">
+   <AnchorPane prefHeight="800.0" prefWidth="280.0" style="-fx-background-color: rgba(150, 150, 150, 0.8);" stylesheets="@../Styles/create.css">
+      <VBox alignment="CENTER" layoutY="28.0" prefHeight="708.0" prefWidth="280.0" spacing="15.0">
          <VBox alignment="CENTER">
             <padding>
                <Insets left="25.0" right="25.0" />
@@ -66,13 +66,13 @@
                   <Insets left="40.0" right="40.0" />
                </padding>
                <HBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="329.0">
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Vehicle">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Vehicle Count">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Text>
                   <HBox alignment="CENTER" prefHeight="39.0" prefWidth="79.0" spacing="30.0">
-                     <TextField fx:id="vehicle_textFld" prefHeight="0.0" prefWidth="41.0">
+                     <TextField fx:id="vehicle_textFld" alignment="CENTER" prefHeight="35.0" prefWidth="56.0">
                         <font>
                            <Font size="16.0" />
                         </font>
@@ -130,30 +130,30 @@
             <VBox alignment="CENTER">
                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Partial Payment">
                   <font>
-                     <Font size="16.0"/>
+                     <Font size="16.0" />
                   </font>
                </Text>
                <TextField fx:id="partialPayment_fld" alignment="CENTER" prefHeight="25.0" prefWidth="90.0" text="5000">
                   <font>
-                     <Font size="16.0"/>
+                     <Font size="16.0" />
                   </font>
                   <VBox.margin>
-                     <Insets left="20.0" right="20.0"/>
+                     <Insets left="20.0" right="20.0" />
                   </VBox.margin>
                </TextField>
             </VBox>
             <VBox alignment="CENTER">
                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Full Payment">
                   <font>
-                     <Font size="16.0"/>
+                     <Font size="16.0" />
                   </font>
                </Text>
                <TextField fx:id="fullPayment_fld" alignment="CENTER" prefHeight="25.0" prefWidth="90.0" text="10000">
                   <font>
-                     <Font size="16.0"/>
+                     <Font size="16.0" />
                   </font>
                   <VBox.margin>
-                     <Insets left="20.0" right="20.0"/>
+                     <Insets left="20.0" right="20.0" />
                   </VBox.margin>
                </TextField>
             </VBox>
@@ -161,23 +161,21 @@
          <HBox prefHeight="27.0" prefWidth="211.0">
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Paid" textAlignment="CENTER" wrappingWidth="108.5390625">
                <font>
-                  <Font size="16.0"/>
+                  <Font size="16.0" />
                </font>
             </Text>
             <HBox alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="134.0">
-               <RadioButton fx:id="paidNo_radio" mnemonicParsing="false" prefHeight="27.0" prefWidth="64.0"
-                            text="No">
+               <RadioButton fx:id="paidNo_radio" mnemonicParsing="false" prefHeight="27.0" prefWidth="64.0" text="No">
                   <font>
-                     <Font size="16.0"/>
+                     <Font size="16.0" />
                   </font>
                   <toggleGroup>
-                     <ToggleGroup fx:id="paid"/>
+                     <ToggleGroup fx:id="paid" />
                   </toggleGroup>
                </RadioButton>
-               <RadioButton fx:id="paidYes_radio" mnemonicParsing="false" prefHeight="27.0" prefWidth="62.0"
-                            text="Yes" toggleGroup="$paid">
+               <RadioButton fx:id="paidYes_radio" mnemonicParsing="false" prefHeight="27.0" prefWidth="62.0" text="Yes" toggleGroup="$paid">
                   <font>
-                     <Font size="16.0"/>
+                     <Font size="16.0" />
                   </font>
                </RadioButton>
             </HBox>
@@ -249,9 +247,14 @@
       <Button fx:id="done_btn" layoutX="88.0" layoutY="736.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="DONE" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="92.0" />
    </AnchorPane>
    <FlowPane fx:id="month_pane" alignment="CENTER" layoutX="280.0" prefHeight="800.0" prefWidth="1000.0" />
-   <Button fx:id="burger_btn" mnemonicParsing="false">
+   <Button fx:id="burger_btn" layoutX="1236.0" layoutY="10.0" mnemonicParsing="false">
       <graphic>
          <FontAwesomeIconView glyphName="BARS" size="20" />
+      </graphic>
+   </Button>
+   <Button fx:id="back_btn" mnemonicParsing="false" prefHeight="35.0" prefWidth="42.0">
+      <graphic>
+         <FontAwesomeIconView glyphName="ARROW_LEFT" />
       </graphic>
    </Button>
 </AnchorPane>
