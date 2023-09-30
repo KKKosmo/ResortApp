@@ -409,31 +409,36 @@ public class ViewFactory {
             }
 
 
-            Button editButton = new Button("Edit");
-            Button deleteButton = new Button("X");
-
             RecordModel recordModel = list.get(i);
-            editButton.setOnAction(actionEvent -> {
-                setSceneEdit(recordModel);
-            });
 
-            deleteButton.setOnAction(actionEvent -> {
-                if(showConfirmPopup("Are you sure you want to delete this row?")){
-                    if(sqliteModel.deleteEntry(recordModel)){
-                        listTableChildren.removeIf(node -> listTableChildren.indexOf(node) > 8);
-                        setSceneTable();
+            if(recordModel.getUser().equals(Model.getInstance().getUser())){
+                Button editButton = new Button("Edit");
+                Button deleteButton = new Button("X");
+
+                editButton.setOnAction(actionEvent -> {
+                    setSceneEdit(recordModel);
+                });
+
+                deleteButton.setOnAction(actionEvent -> {
+                    if(showConfirmPopup("Are you sure you want to delete this row?")){
+                        if(sqliteModel.deleteEntry(recordModel)){
+                            listTableChildren.removeIf(node -> listTableChildren.indexOf(node) > 8);
+                            setSceneTable();
+                        }
                     }
-                }
-            });
+                });
 
 
-            GridPane.setColumnIndex(editButton, 14);
-            GridPane.setColumnIndex(deleteButton, 15);
+                GridPane.setColumnIndex(editButton, 14);
+                GridPane.setColumnIndex(deleteButton, 15);
 
-            GridPane.setRowIndex(editButton, i - startIndex);
-            GridPane.setRowIndex(deleteButton, i - startIndex);
+                GridPane.setRowIndex(editButton, i - startIndex);
+                GridPane.setRowIndex(deleteButton, i - startIndex);
 
-            listTable.getChildren().addAll(editButton, deleteButton);
+                listTable.getChildren().addAll(editButton, deleteButton);
+            }
+
+
         }
     }
     public boolean showDialog(Alert.AlertType type) {

@@ -285,9 +285,9 @@ public class sqliteModel {
             }
 
 
-            String sql = String.format("INSERT INTO main (dateInserted, name, pax, vehicle, pets, videoke, partial_payment, full_payment, paid, checkIn, checkOut, room) " +
-                            "VALUES ('%s','%s', %d, %d, %b, %b, %.2f, %.2f, %b, '%s', '%s', '%s');",
-                    currentDate, name, paxInt, Integer.parseInt(vehicle), pets, videoke, partial_paymentDouble, fullPaymentDouble, paid, checkIn, checkOut, roomUnformatted);
+            String sql = String.format("INSERT INTO main (dateInserted, name, pax, vehicle, pets, videoke, partial_payment, full_payment, paid, checkIn, checkOut, room, user) " +
+                            "VALUES ('%s','%s', %d, %d, %b, %b, %.2f, %.2f, %b, '%s', '%s', '%s', '%s');",
+                    currentDate, name, paxInt, Integer.parseInt(vehicle), pets, videoke, partial_paymentDouble, fullPaymentDouble, paid, checkIn, checkOut, roomUnformatted, Model.getInstance().getUser());
 
             System.out.println("sql = " + sql);
             try {
@@ -441,7 +441,7 @@ public class sqliteModel {
                         recordModel.getIdInt(),
                         LocalDateTime.now().format(formatter),
                         "UPDATED ROW: " + changes,
-                        "user"
+                        Model.getInstance().getUser()
                 );
 
                 System.out.println("sql = " + sql);
@@ -595,14 +595,13 @@ public class sqliteModel {
             changes += ", checkIn = " + recordModel.getCheckIn();
             changes += ", checkOut = " + recordModel.getCheckOut();
             changes += ", rooms = " + recordModel.getRooms();
-            changes += ", user = " + recordModel.getUser();
 
 
             sql = String.format("INSERT INTO edit (record_id, edit_timestamp, summary, user) VALUES ('%d', '%s', '%s', '%s');",
                     id,
                     LocalDateTime.now().format(formatter),
                     changes,
-                    "user"
+                    Model.getInstance().getUser()
             );
 
             System.out.println("sql = " + sql);

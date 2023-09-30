@@ -1,8 +1,7 @@
 if errors with sql, might be the plugins
 if seem odd, might be because i tried to remove duplicates in controllers where they setAvailablesFotVisuals
 
-apply user changes to stuff, editing when it belongs to the user, inserting with proper user,
-
+login enter should enter
 
 editing without changes should not put it into edit history
 in edit history, it should say UPDATED ROW XX:
