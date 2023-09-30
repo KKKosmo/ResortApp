@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
@@ -69,9 +70,6 @@ public class TableController implements Initializable {
         Model.getInstance().getViewFactory().setListTable(gridPane);
 //        myInit();
 
-
-
-        //rooms
 
         j_chkBox.setSelected(Model.getInstance().isTableJFilter());
         g_chkBox.setSelected(Model.getInstance().isTableGFilter());

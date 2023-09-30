@@ -347,14 +347,12 @@ public class ViewFactory {
     }
     public void insertListRows(){
 //        System.out.println("INSERTING TABLE");
-        listTableChildren.removeIf(node -> listTableChildren.indexOf(node) > 8);
+        listTableChildren.removeIf(node -> listTableChildren.indexOf(node) > 16);
         List<RecordModel> list = Model.getInstance().getListRecordModels();
 //        System.out.println(list);
         int startIndex = Model.getInstance().getStartIndex();
         int endIndex = Model.getInstance().getInitEndIndex();
 
-//        System.out.println(startIndex);
-//        System.out.println(endIndex);
 
         for(int i = startIndex; i < endIndex; i++){
             for(int j = 0; j < 14; j++){
@@ -415,14 +413,17 @@ public class ViewFactory {
                 Button editButton = new Button("Edit");
                 Button deleteButton = new Button("X");
 
+                rowButtonOnHover(editButton, i - startIndex);
+                rowButtonOnHover(deleteButton, i - startIndex);
+
                 editButton.setOnAction(actionEvent -> {
                     setSceneEdit(recordModel);
                 });
 
                 deleteButton.setOnAction(actionEvent -> {
-                    if(showConfirmPopup("Are you sure you want to delete this row?")){
+                    if(showConfirmPopup("Are you sure you want to delete this booking? (ID = " + recordModel.getId() + ")")){
                         if(sqliteModel.deleteEntry(recordModel)){
-                            listTableChildren.removeIf(node -> listTableChildren.indexOf(node) > 8);
+                            listTableChildren.removeIf(node -> listTableChildren.indexOf(node) > 16);
                             setSceneTable();
                         }
                     }
@@ -441,6 +442,46 @@ public class ViewFactory {
 
         }
     }
+
+    private void rowButtonOnHover(Button button, int index){
+        button.setOnMouseEntered(mouseEvent -> {
+            listTableChildren.get(index).setStyle("-fx-background-color: lightyellow;");
+        });
+
+        boolean isEvenRow = index % 2 == 0;
+
+        button.setOnMouseExited(mouseEvent -> {
+            if (isEvenRow) {
+                listTableChildren.get(index).setStyle("-fx-background-color: white;");
+            } else {
+                listTableChildren.get(index).setStyle("-fx-background-color: lightgrey;");
+            }
+        });
+
+//        for (int i = 0; i < 15; i++) {
+////            Region region = (Region) listTable.getChildren().get(i);
+//            Region region = (Region) listTableChildren.get(i);
+//
+//            // Check if the row number is even or odd
+//            boolean isEvenRow = i % 2 == 0;
+//
+//            region.setOnMouseEntered(mouseEvent -> {
+//                // Change the background color to light yellow on hover
+//                region.setStyle("-fx-background-color: lightyellow;");
+//            });
+//
+//            region.setOnMouseExited(mouseEvent -> {
+//                // Restore the default background color when the mouse exits
+//                if (isEvenRow) {
+//                    region.setStyle("-fx-background-color: white;");
+//                } else {
+//                    region.setStyle("-fx-background-color: lightgrey;");
+//                }
+//            });
+//        }
+    }
+
+
     public boolean showDialog(Alert.AlertType type) {
         Alert alert = new Alert(type);
         alert.setTitle("Alert!");

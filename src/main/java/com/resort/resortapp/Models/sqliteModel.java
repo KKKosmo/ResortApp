@@ -263,23 +263,23 @@ public class sqliteModel {
 //        }
 
         if(roomCheckboxes.get(0).isSelected() && !available.contains(Rooms.ROOM_J.getAbbreviatedName())){
-            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ROOM_J.getAbbreviatedName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
+            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ROOM_J.getDisplayName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
         }
         if(roomCheckboxes.get(1).isSelected() && !available.contains(Rooms.ROOM_G.getAbbreviatedName())){
-            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ROOM_G.getAbbreviatedName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
+            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ROOM_G.getDisplayName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
         }
         if(roomCheckboxes.get(2).isSelected() && !available.contains(Rooms.ATTIC.getAbbreviatedName())){
-            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ATTIC.getAbbreviatedName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
+            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ATTIC.getDisplayName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
         }
         if(roomCheckboxes.get(3).isSelected() && !available.contains(Rooms.KUBO_1.getAbbreviatedName())){
-            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.KUBO_1.getAbbreviatedName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
+            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.KUBO_1.getDisplayName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
         }
         if(roomCheckboxes.get(4).isSelected() && !available.contains(Rooms.KUBO_2.getAbbreviatedName())){
-            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.KUBO_2.getAbbreviatedName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
+            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.KUBO_2.getDisplayName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
         }
         String currentDate = LocalDateTime.now().format(formatter);
@@ -425,23 +425,23 @@ public class sqliteModel {
 //        }
 
         if(roomCheckboxes.get(0).isSelected() && !available.contains(Rooms.ROOM_J.getAbbreviatedName())){
-            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ROOM_J.getAbbreviatedName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
+            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ROOM_J.getDisplayName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
         }
         if(roomCheckboxes.get(1).isSelected() && !available.contains(Rooms.ROOM_G.getAbbreviatedName())){
-            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ROOM_G.getAbbreviatedName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
+            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ROOM_G.getDisplayName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
         }
         if(roomCheckboxes.get(2).isSelected() && !available.contains(Rooms.ATTIC.getAbbreviatedName())){
-            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ATTIC.getAbbreviatedName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
+            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ATTIC.getDisplayName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
         }
         if(roomCheckboxes.get(3).isSelected() && !available.contains(Rooms.KUBO_1.getAbbreviatedName())){
-            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.KUBO_1.getAbbreviatedName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
+            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.KUBO_1.getDisplayName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
         }
         if(roomCheckboxes.get(4).isSelected() && !available.contains(Rooms.KUBO_2.getAbbreviatedName())){
-            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.KUBO_2.getAbbreviatedName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
+            Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.KUBO_2.getDisplayName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
         }
 

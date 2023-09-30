@@ -90,12 +90,19 @@
       <!--         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="45000.0" GridPane.columnIndex="8" />-->
       <!--               </children>-->
       <Region prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnSpan="16" />
+      <Region prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="16" GridPane.rowIndex="1" />
       <Region prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnSpan="16" GridPane.rowIndex="2" />
+      <Region prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="16" GridPane.rowIndex="3" />
       <Region prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnSpan="16" GridPane.rowIndex="4" />
+      <Region prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="16" GridPane.rowIndex="5" />
       <Region prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnSpan="16" GridPane.rowIndex="6" />
+      <Region prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="16" GridPane.rowIndex="7" />
       <Region prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnSpan="16" GridPane.rowIndex="8" />
+      <Region prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="16" GridPane.rowIndex="9" />
       <Region prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnSpan="16" GridPane.rowIndex="10" />
+      <Region prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="16" GridPane.rowIndex="11" />
       <Region prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnSpan="16" GridPane.rowIndex="12" />
+      <Region prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="16" GridPane.rowIndex="13" />
       <Region prefHeight="37.0" prefWidth="191.0" style="-fx-background-color: white;" GridPane.columnSpan="16" GridPane.rowIndex="14" />
    </GridPane>
    <Text layoutX="495.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date" />

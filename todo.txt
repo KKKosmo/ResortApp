@@ -1,23 +1,21 @@
 if errors with sql, might be the plugins
 if seem odd, might be because i tried to remove duplicates in controllers where they setAvailablesFotVisuals
 
-button mouse appearances
-"j is not available for" when room unavailable, it should say the display name
-
-check proper popups, a warning should not be the same as information
-are u sure u want to delete this row -> ID =
-
 encrypt sql?
+
+DESIGN
+button mouse appearances
+
+index my table
 
 containerize
 
 where do the files go? sql, creds, and reports
 
 if query more than 100 or sum, split into 2
+
+
 dont init list everytime
-index my table
-
-
 
 
 
