@@ -347,7 +347,7 @@ public class ViewFactory {
     }
     public void insertListRows(){
 //        System.out.println("INSERTING TABLE");
-        listTableChildren.removeIf(node -> listTableChildren.indexOf(node) > 16);
+        listTableChildren.removeIf(node -> listTableChildren.indexOf(node) > 15);
         List<RecordModel> list = Model.getInstance().getListRecordModels();
 //        System.out.println(list);
         int startIndex = Model.getInstance().getStartIndex();
@@ -423,7 +423,7 @@ public class ViewFactory {
                 deleteButton.setOnAction(actionEvent -> {
                     if(showConfirmPopup("Are you sure you want to delete this booking? (ID = " + recordModel.getId() + ")")){
                         if(sqliteModel.deleteEntry(recordModel)){
-                            listTableChildren.removeIf(node -> listTableChildren.indexOf(node) > 16);
+//                            listTableChildren.removeIf(node -> listTableChildren.indexOf(node) > 15);
                             setSceneTable();
                         }
                     }

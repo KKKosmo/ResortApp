@@ -3,34 +3,31 @@ if seem odd, might be because i tried to remove duplicates in controllers where 
 
 encrypt sql?
 
+
+containerize
+where do the files go? sql, creds, and reports
+how to install?
+what if data wanted to be reset?
+what if there are updates and i dont want the data to be cleared?
+
 DESIGN
 button mouse appearances
 
-index my table
-
-containerize
-
-where do the files go? sql, creds, and reports
-
-if query more than 100 or sum, split into 2
-
-
-dont init list everytime
 
 
 
-recordModel should be split into different inheriting classes
-recordModel should have a constructor that would take in an sql resultSet
-recordModel is supposed to make the code more readable, but i have no time and its working so its not really implemented well.
 
 
+Would be nice but will not do due to time:
+    recordModel should be split into different inheriting classes
+    recordModel should have a constructor that would take in an sql resultSet
+    recordModel is supposed to make the code more readable, but i have no time and its working so its not really implemented well.
 
-room fxml
-inner room
-room menu fxml
+    the daymodels should have their own localdate fields, not a separate list.
+    in edit history, look into sorting by time
 
-the daymodels should have their own localdate fields, not a separate list.
+    dont init list everytime
 
-getting bugged by booked daycount
 
-in edit history, look into sorting by time
+Will be needed for future?:
+    if query more than 100 or sum, split into 2
