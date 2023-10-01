@@ -99,14 +99,14 @@ public class TableController implements Initializable {
         // Create a formatter for abbreviated month and year
         DateTimeFormatter monthYearFormatter = DateTimeFormatter.ofPattern("MMM yyyy", Locale.US);
 
-        while (startDate.isAfter(YearMonth.of(2023, 10).atEndOfMonth())) {
+        while (startDate.isAfter(YearMonth.of(2023, 9).atEndOfMonth())) {
             String monthYearString = startDate.format(monthYearFormatter);
             yearMonth_box.getItems().add(monthYearString);
             startDate = startDate.minusMonths(1);
         }
 
         // Add "Oct 2023" at the bottom
-        yearMonth_box.getItems().add("Oct 2023");
+        yearMonth_box.getItems().add("Sep 2023");
 
 
         yearMonth_box.valueProperty().addListener((observable, oldValue, newValue) -> {
