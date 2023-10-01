@@ -5,6 +5,8 @@ import com.resort.resortapp.Models.RecordModel;
 import com.resort.resortapp.Models.sqliteModel;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 
@@ -55,8 +57,17 @@ public class CreateController  implements Initializable{
 
         escMenu =  Model.getInstance().getViewFactory().getEscMenu(parentPane);
         burger_btn.setOnAction(actionEvent -> {
-            escMenu.setVisible(true);
+            escMenu.setVisible(!escMenu.isVisible());
         });
+
+
+        parentPane.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                // When Escape key is pressed, trigger the button's action
+                burger_btn.fire();
+            }
+        });
+
 
         done_btn.setOnAction(actionEvent -> {
             insertRecord();

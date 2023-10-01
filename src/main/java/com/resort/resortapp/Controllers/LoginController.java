@@ -2,6 +2,7 @@ package com.resort.resortapp.Controllers;
 
 import com.resort.resortapp.Models.Model;
 import com.resort.resortapp.Models.sqliteModel;
+import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -62,6 +63,8 @@ public class LoginController implements Initializable {
         forgotPw_btn.setOnAction(event ->{
             sqliteModel.forgotPw();
         });
+        exit_btn.setOnAction(actionEvent -> Platform.exit());
+
         password_field.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 // When Enter key is pressed, trigger the login button's action

@@ -1,11 +1,6 @@
 if errors with sql, might be the plugins
 if seem odd, might be because i tried to remove duplicates in controllers where they setAvailablesFotVisuals
 
-add creating to edit history
-reset pw new pw confiorm
-esc button functionality
-exit buttons functionality
-
 does it include sdk already?
 
 think about folder structure, should sqlite be separate in its own folder?

@@ -1,8 +1,11 @@
 package com.resort.resortapp.Controllers;
 
 import com.resort.resortapp.Models.Model;
+import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
@@ -17,6 +20,7 @@ public class EscMenuController implements Initializable {
     public Button burger;
     public AnchorPane pane;
     public Text user_txt;
+    public Button editHistory;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -34,10 +38,13 @@ public class EscMenuController implements Initializable {
         signOut.setOnAction(actionEvent -> {
             pane.setVisible(false);
             Model.getInstance().getViewFactory().setSceneLogin();
-            //TODO USERS
         });
         exit.setOnAction(actionEvent -> {
-            //TODO EXIT FUNCTION
+            Platform.exit();
+        });
+        editHistory.setOnAction(actionEvent -> {
+            pane.setVisible(false);
+            Model.getInstance().getViewFactory().setSceneEditHistory();
         });
         user_txt.setText(Model.getInstance().getUser());
     }

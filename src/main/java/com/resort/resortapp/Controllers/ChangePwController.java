@@ -16,6 +16,7 @@ public class ChangePwController implements Initializable {
     public Button submit_btn;
     public Button cancel_btn;
     public PasswordField oldPassword_fld;
+    public PasswordField confirmNewPassword_fld;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -24,9 +25,14 @@ public class ChangePwController implements Initializable {
         });
         submit_btn.setOnAction(actionEvent -> {
             if(sqliteModel.auth(user_txt.getText(), oldPassword_fld.getText())){
-                if(sqliteModel.changePw(user_txt.getText(), newPassword_fld.getText())){
-                    Model.getInstance().getViewFactory().showSuccessPopup("Password for user " + user_txt.getText() + " changed successfully.");
-                    Model.getInstance().getViewFactory().setSceneLogin();
+                if(newPassword_fld.getText().equals(confirmNewPassword_fld.getText())){
+                    if(sqliteModel.changePw(user_txt.getText(), newPassword_fld.getText())){
+                        Model.getInstance().getViewFactory().showSuccessPopup("Password for user " + user_txt.getText() + " changed successfully.");
+                        Model.getInstance().getViewFactory().setSceneLogin();
+                    }
+                }
+                else{
+                    Model.getInstance().getViewFactory().showErrorPopup("Error: NEW PASSWORD FIELDS DO NOT MATCH.");
                 }
             }
             else{

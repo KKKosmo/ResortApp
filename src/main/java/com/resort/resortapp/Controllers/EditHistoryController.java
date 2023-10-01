@@ -8,6 +8,8 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 
@@ -25,10 +27,24 @@ public class EditHistoryController implements Initializable {
     public TableColumn<EditHistoryModel, String> changes_col;
     public TableColumn<EditHistoryModel, String> user_col;
     public AnchorPane parent;
+    public Button burger_btn;
     List<EditHistoryModel> list;
+    public AnchorPane escMenu;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        escMenu =  Model.getInstance().getViewFactory().getEscMenu(parent);
+        burger_btn.setOnAction(actionEvent -> {
+            escMenu.setVisible(!escMenu.isVisible());
+        });
+
+        parent.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                // When Escape key is pressed, trigger the button's action
+                burger_btn.fire();
+            }
+        });
+
         list = sqliteModel.getEditHistory();
 
         back_btn.setOnAction(actionEvent -> Model.getInstance().getViewFactory().setSceneTable());

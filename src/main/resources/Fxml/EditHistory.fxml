@@ -26,4 +26,9 @@
          </TableColumn>
      </columns>
    </TableView>
+   <Button fx:id="burger_btn" layoutX="1236.0" layoutY="10.0" mnemonicParsing="false">
+      <graphic>
+         <FontAwesomeIconView glyphName="BARS" size="20" />
+      </graphic>
+   </Button>
 </AnchorPane>

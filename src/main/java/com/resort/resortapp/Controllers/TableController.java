@@ -6,6 +6,8 @@ import com.resort.resortapp.Rooms;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -151,8 +153,17 @@ public class TableController implements Initializable {
 
 
         burger_btn.setOnAction(actionEvent -> {
-            escMenu.setVisible(true);
+            escMenu.setVisible(!escMenu.isVisible());
         });
+
+
+        parentPane.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                // When Escape key is pressed, trigger the button's action
+                burger_btn.fire();
+            }
+        });
+
         add_btn.setOnAction(actionEvent -> {
             Model.getInstance().getViewFactory().setSceneCreate();
         });
