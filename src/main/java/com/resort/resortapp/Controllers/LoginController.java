@@ -33,6 +33,8 @@ public class LoginController implements Initializable {
     public ToggleButton user5_btn;
     public Button changePw_btn;
     public Button forgotPw_btn;
+    public Text user6_txt;
+    public ToggleButton user6_btn;
     String currentUser = "";
 
 
@@ -72,6 +74,7 @@ public class LoginController implements Initializable {
         setButton(user3_btn);
         setButton(user4_btn);
         setButton(user5_btn);
+        setButton(user6_btn);
     }
 
     private boolean getUser(){
@@ -88,10 +91,12 @@ public class LoginController implements Initializable {
         else if(group.getSelectedToggle() == user4_btn){
             currentUser = user4_txt.getText();
         }
-        else if(group.getSelectedToggle() == user5_btn){
+        else if(group.getSelectedToggle() == user5_btn) {
             currentUser = user5_txt.getText();
         }
-        else {
+        else if(group.getSelectedToggle() == user6_btn){
+                currentUser = user6_txt.getText();
+        } else {
             Model.getInstance().getViewFactory().showErrorPopup("Error: NO USER SELECTED");
             result = false;
         }
@@ -118,5 +123,4 @@ public class LoginController implements Initializable {
             System.out.println(group.getSelectedToggle());
         });
     }
-
 }

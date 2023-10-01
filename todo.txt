@@ -1,7 +1,10 @@
 if errors with sql, might be the plugins
 if seem odd, might be because i tried to remove duplicates in controllers where they setAvailablesFotVisuals
 
-user names revamp
+add creating to edit history
+reset pw new pw confiorm
+esc button functionality
+exit buttons functionality
 
 does it include sdk already?
 
@@ -15,9 +18,6 @@ what if data wanted to be reset? -reinstall
 what if there are updates and i dont want the data to be cleared? -make a separate installer without the outside files
 can i make it so that sql cant be extracted
 
-reset pw new pw confiorm
-esc button functionality
-exit buttons functionality
 
 print errors to log file how
 

@@ -4,6 +4,7 @@ import com.resort.resortapp.Models.Model;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,6 +16,7 @@ public class EscMenuController implements Initializable {
     public Button exit;
     public Button burger;
     public AnchorPane pane;
+    public Text user_txt;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -37,5 +39,6 @@ public class EscMenuController implements Initializable {
         exit.setOnAction(actionEvent -> {
             //TODO EXIT FUNCTION
         });
+        user_txt.setText(Model.getInstance().getUser());
     }
 }

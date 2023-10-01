@@ -25,14 +25,14 @@
          <Font size="31.0" />
       </font>
    </Text>
-   <HBox layoutX="205.0" layoutY="321.0" spacing="10.0">
+   <HBox layoutX="99.0" layoutY="320.0" spacing="10.0">
       <ToggleButton fx:id="user1_btn" mnemonicParsing="false">
          <graphic>
             <VBox alignment="CENTER" spacing="5.0">
                <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                   <Image url="@../Images/user.png" />
                </ImageView>
-               <Text fx:id="user1_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="user1" />
+               <Text fx:id="user1_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="Glorifina" />
             </VBox>
          </graphic>
          <toggleGroup>
@@ -45,7 +45,7 @@
                <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                   <Image url="@../Images/user.png" />
                </ImageView>
-               <Text fx:id="user2_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="user2" />
+               <Text fx:id="user2_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="Gianne" />
             </VBox>
          </graphic>
       </ToggleButton>
@@ -55,7 +55,7 @@
                <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                   <Image url="@../Images/user.png" />
                </ImageView>
-               <Text fx:id="user3_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="user3" />
+               <Text fx:id="user3_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="Regina" />
             </VBox>
          </graphic>
       </ToggleButton>
@@ -65,7 +65,7 @@
                <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                   <Image url="@../Images/user.png" />
                </ImageView>
-               <Text fx:id="user4_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="user4" />
+               <Text fx:id="user4_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="Roy" />
             </VBox>
          </graphic>
       </ToggleButton>
@@ -75,7 +75,17 @@
                <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                   <Image url="@../Images/user.png" />
                </ImageView>
-               <Text fx:id="user5_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="user5" />
+               <Text fx:id="user5_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="Marvin" />
+            </VBox>
+         </graphic>
+      </ToggleButton>
+      <ToggleButton fx:id="user6_btn" mnemonicParsing="false" toggleGroup="$group">
+         <graphic>
+            <VBox alignment="CENTER" spacing="5.0">
+               <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../Images/user.png" />
+               </ImageView>
+               <Text fx:id="user6_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="Marie" />
             </VBox>
          </graphic>
       </ToggleButton>
