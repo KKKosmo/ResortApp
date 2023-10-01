@@ -324,6 +324,9 @@ public class sqliteModel {
                         "VALUES ('%s','%s', %d, %d, %b, %b, %.2f, %.2f, %b, '%s', '%s', '%s', '%s');",
                 currentDate, name, paxInt, Integer.parseInt(vehicle), pets, videoke, partial_paymentDouble, fullPaymentDouble, paid, checkIn, checkOut, roomUnformatted, Model.getInstance().getUser());
 
+
+
+
         System.out.println("sql = " + sql);
         try {
             PreparedStatement pStmt = openDB().prepareStatement(sql);
@@ -331,6 +334,48 @@ public class sqliteModel {
 
             pStmt.close();
             closeDB();
+
+
+
+            String changes = "CREATED BOOKING: ";
+            changes += "Time Created = " + currentDate;
+            changes += ", Name = " + recordModel.getName();
+            changes += ", Pax = " + recordModel.getPax();
+            changes += ", Vehicle Count = " + recordModel.getVehicle();
+            changes += ", Pets = " + recordModel.getPets();
+            changes += ", Videoke = " + recordModel.getVideoke();
+            changes += ", Partial Payment = " + recordModel.getPartialPayment();
+            changes += ", Full Payment = " + recordModel.getFullPayment();
+            changes += ", Balance = " + (fullPaymentDouble - partial_paymentDouble);
+            changes += ", Pay Status = " + paid;
+            changes += ", Check In = " + recordModel.getCheckIn();
+            changes += ", Check Out = " + recordModel.getCheckOut();
+            changes += ", Rooms = " + recordModel.getRooms();
+
+
+            sql = String.format("INSERT INTO edit (record_id, edit_timestamp, summary, user) SELECT (MAX(id)), '%s', '%s', '%s' FROM main;",
+                    LocalDateTime.now().format(formatter),
+                    changes,
+                    Model.getInstance().getUser()
+            );
+
+
+//        INSERT INTO edit (record_id, edit_timestamp, summary, user)
+//        SELECT (MAX(id) + 1), '2023-10-01 23:06:27', 'CREATED BOOKING: id = 0, dateInserted = 2023-10-01 23:06:27, name = First Name Last Name, pax = 5, vehicle = 2, pets = NO, videoke = YES, partialPayment = 5000, fullPayment = 10000, balance = 5000.0, payStatus = false, checkIn = 2023-10-13, checkOut = 2023-10-13, rooms = g, attic', 'Marvin'
+//        FROM main;
+
+            System.out.println("sql = " + sql);
+
+            pStmt = openDB().prepareStatement(sql);
+            pStmt.executeUpdate();
+
+            pStmt.close();
+            closeDB();
+
+
+
+
+
             Model.getInstance().getViewFactory().showSuccessPopup("Successfully inserted a record.");
             return true;
         } catch (SQLException e) {
@@ -659,20 +704,19 @@ public class sqliteModel {
             closeDB();
 
             String changes = "DELETED BOOKING: ";
-            changes += "id = " + recordModel.getIdInt();
-            changes += ", dateInserted = " + recordModel.getDateInserted();
-            changes += ", name = " + recordModel.getName();
-            changes += ", pax = " + recordModel.getPax();
-            changes += ", vehicle = " + recordModel.getVehicle();
-            changes += ", pets = " + recordModel.getPets();
-            changes += ", videoke = " + recordModel.getVideoke();
-            changes += ", partialPayment = " + recordModel.getPartialPayment();
-            changes += ", fullPayment = " + recordModel.getFullPayment();
-            changes += ", balance = " + recordModel.getBalance();
-            changes += ", payStatus = " + recordModel.getPayStatus();
-            changes += ", checkIn = " + recordModel.getCheckIn();
-            changes += ", checkOut = " + recordModel.getCheckOut();
-            changes += ", rooms = " + recordModel.getRooms();
+            changes += "Time Created = " + recordModel.getDateInserted();
+            changes += ", Name = " + recordModel.getName();
+            changes += ", Pax = " + recordModel.getPax();
+            changes += ", Vehicle = " + recordModel.getVehicle();
+            changes += ", Pets = " + recordModel.getPets();
+            changes += ", Videoke = " + recordModel.getVideoke();
+            changes += ", Partial Payment = " + recordModel.getPartialPayment();
+            changes += ", Full Payment = " + recordModel.getFullPayment();
+            changes += ", Balance = " + recordModel.getBalance();
+            changes += ", Pay Status = " + recordModel.getPayStatus();
+            changes += ", Check In = " + recordModel.getCheckIn();
+            changes += ", Check Out = " + recordModel.getCheckOut();
+            changes += ", Rooms = " + recordModel.getRooms();
 
 
             sql = String.format("INSERT INTO edit (record_id, edit_timestamp, summary, user) VALUES ('%d', '%s', '%s', '%s');",
