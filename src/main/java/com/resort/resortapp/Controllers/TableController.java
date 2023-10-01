@@ -14,8 +14,12 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class TableController implements Initializable {
@@ -62,6 +66,7 @@ public class TableController implements Initializable {
     public HBox totalPayment_hBox;
     public Button history_btn;
     public Button add_btn;
+    public ComboBox yearMonth_box;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -84,6 +89,36 @@ public class TableController implements Initializable {
 
         currentPage_txt.setText(String.valueOf(Model.getInstance().getCurrentPage()));
         page_fld.setText(String.valueOf(Model.getInstance().getCurrentPage()));
+
+
+        LocalDate currentDate = LocalDate.now();
+
+        // Initialize the date three months from now
+        LocalDate startDate = currentDate.plusMonths(3);
+
+        // Create a formatter for abbreviated month and year
+        DateTimeFormatter monthYearFormatter = DateTimeFormatter.ofPattern("MMM yyyy", Locale.US);
+
+        while (startDate.isAfter(YearMonth.of(2023, 10).atEndOfMonth())) {
+            String monthYearString = startDate.format(monthYearFormatter);
+            yearMonth_box.getItems().add(monthYearString);
+            startDate = startDate.minusMonths(1);
+        }
+
+        // Add "Oct 2023" at the bottom
+        yearMonth_box.getItems().add("Oct 2023");
+
+
+        yearMonth_box.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue != null){
+                YearMonth yearMonth = YearMonth.parse(newValue.toString(), monthYearFormatter);
+                System.out.println(yearMonth);
+                startDate_datePicker.setValue(null);
+                endDate_datePicker.setValue(null);
+                startDate_datePicker.setValue(yearMonth.atDay(1));
+                endDate_datePicker.setValue(yearMonth.atEndOfMonth());
+            }
+        });
 
 
         if(!Model.getInstance().isASC() && Model.getInstance().getOrderCategory() != Model.OrderCategory.ID){
@@ -417,15 +452,36 @@ public class TableController implements Initializable {
         startDate_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             Model.getInstance().setTableStartDate(newValue);
             if(startDate_datePicker.getValue() != null && endDate_datePicker.getValue() != null){
+                if(newValue.withDayOfMonth(1).equals(newValue)
+                &&
+                newValue.withDayOfMonth(newValue.lengthOfMonth()).equals(endDate_datePicker.getValue())){
+                    Model.getInstance().setTableYearMonth(YearMonth.of(newValue.getYear(), newValue.getMonthValue()));
+                }
+                else{
+                    yearMonth_box.setValue(null);
+                    Model.getInstance().setTableYearMonth(null);
+                }
                 refreshPage();
             }
         });
         endDate_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             Model.getInstance().setTableEndDate(newValue);
             if(startDate_datePicker.getValue() != null && endDate_datePicker.getValue() != null){
+                if(newValue.withDayOfMonth(newValue.lengthOfMonth()).equals(newValue)
+                &&
+                newValue.withDayOfMonth(1).equals(startDate_datePicker.getValue())
+                ){
+                    Model.getInstance().setTableYearMonth(YearMonth.of(newValue.getYear(), newValue.getMonthValue()));
+                }
+                else{
+                    yearMonth_box.setValue(null);
+                    Model.getInstance().setTableYearMonth(null);
+                }
                 refreshPage();
             }
         });
+
+
         prevPage_btn.setOnAction(actionEvent -> {
             page_fld.setText(String.valueOf(Model.getInstance().getCurrentPage()-1));
         });
@@ -525,6 +581,7 @@ public class TableController implements Initializable {
 //                endDate_datePicker.setValue(Model.getInstance().getTableEndDate());
                 startDate_datePicker.setValue(null);
                 endDate_datePicker.setValue(null);
+                yearMonth_box.setValue(null);
 
                 //rooms
                 j_chkBox.setSelected(false);

@@ -5,6 +5,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -12,6 +13,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
@@ -21,16 +23,32 @@
 
 <AnchorPane fx:id="parentPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.resort.resortapp.Controllers.TableController">
    <TextField fx:id="searchBar_fld" alignment="CENTER" layoutX="126.0" layoutY="98.0" prefHeight="25.0" prefWidth="365.0" promptText="NAME SEARCH BAR" />
-   <DatePicker fx:id="startDate_datePicker" editable="false" layoutX="457.0" layoutY="28.0" prefHeight="25.0" prefWidth="129.0">
-      <cursor>
-         <Cursor fx:constant="DEFAULT" />
-      </cursor>
-   </DatePicker>
-   <DatePicker fx:id="endDate_datePicker" editable="false" layoutX="597.0" layoutY="28.0" prefHeight="25.0" prefWidth="129.0">
-      <cursor>
-         <Cursor fx:constant="DEFAULT" />
-      </cursor>
-   </DatePicker>
+   <Pane layoutX="510.0" layoutY="22.0" prefHeight="84.0" prefWidth="521.0" style="-fx-border-color: black;">
+      <children>
+         <Pane layoutX="230.0" layoutY="5.0" prefHeight="75.0" prefWidth="286.0" style="-fx-border-color: black;">
+            <children>
+               <DatePicker fx:id="startDate_datePicker" editable="false" layoutX="8.0" layoutY="45.0" prefHeight="25.0" prefWidth="129.0">
+                  <cursor>
+                     <Cursor fx:constant="DEFAULT" />
+                  </cursor>
+               </DatePicker>
+               <DatePicker fx:id="endDate_datePicker" editable="false" layoutX="148.0" layoutY="45.0" prefHeight="25.0" prefWidth="129.0">
+                  <cursor>
+                     <Cursor fx:constant="DEFAULT" />
+                  </cursor>
+               </DatePicker>
+               <Text layoutX="46.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date" textAlignment="CENTER" />
+               <Text layoutX="188.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Date" textAlignment="CENTER" />
+               <Text layoutX="72.0" layoutY="16.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECT BY SPECIFIC DATES" />
+            </children>
+         </Pane>
+         <Pane layoutX="4.0" layoutY="5.0" prefHeight="75.0" prefWidth="149.0" style="-fx-border-color: black;">
+            <Text layoutX="7.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECT BY YEAR&amp;MONTH" />
+            <ComboBox fx:id="yearMonth_box" layoutX="24.0" layoutY="45.0" prefHeight="25.0" prefWidth="102.0" />
+         </Pane>
+         <Text layoutX="186.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OR" />
+      </children>
+   </Pane>
    <GridPane fx:id="gridPane" alignment="CENTER" gridLinesVisible="true" layoutX="9.0" layoutY="163.0" prefHeight="592.0" prefWidth="1262.0" style="-fx-background-color: #D8D8D8;">
       <columnConstraints>
          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="37.0" minWidth="37.0" prefWidth="37.0" />
@@ -105,8 +123,6 @@
       <Region prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="16" GridPane.rowIndex="13" />
       <Region prefHeight="37.0" prefWidth="191.0" style="-fx-background-color: white;" GridPane.columnSpan="16" GridPane.rowIndex="14" />
    </GridPane>
-   <Text layoutX="495.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date" />
-   <Text layoutX="637.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Date" />
    <HBox layoutX="564.0" layoutY="766.0" spacing="5.0">
       <Button fx:id="prevPage_btn" mnemonicParsing="false" text="&lt;" />
       <TextField fx:id="page_fld" alignment="CENTER" prefHeight="25.0" prefWidth="25.0" text="1" />
@@ -278,18 +294,18 @@
          </cursor>
       </HBox>
    </GridPane>
-   <HBox layoutX="989.0" layoutY="41.0" spacing="10.0">
-      <VBox spacing="10.0">
-         <CheckBox fx:id="j_chkBox" mnemonicParsing="false" text="Room J" />
+   <HBox alignment="CENTER" layoutX="1064.0" layoutY="20.0" prefHeight="94.0" prefWidth="167.0" spacing="10.0" style="-fx-border-color: black;">
+      <VBox alignment="CENTER" prefHeight="71.0" prefWidth="65.0" spacing="10.0">
+         <CheckBox fx:id="j_chkBox" mnemonicParsing="false" prefHeight="17.0" prefWidth="71.0" text="Room J" />
          <CheckBox fx:id="g_chkBox" mnemonicParsing="false" text="Room G" />
-         <CheckBox fx:id="a_chkBox" mnemonicParsing="false" text="ATTIC" />
+         <CheckBox fx:id="a_chkBox" mnemonicParsing="false" prefHeight="17.0" prefWidth="73.0" text="ATTIC" />
       </VBox>
-      <VBox spacing="10.0">
+      <VBox alignment="CENTER" spacing="10.0">
          <CheckBox fx:id="k1_chkBox" mnemonicParsing="false" text="KUBO 1" />
          <CheckBox fx:id="k2_chkBox" mnemonicParsing="false" text="KUBO 2" />
       </VBox>
    </HBox>
-   <VBox layoutX="748.0" layoutY="13.0" prefHeight="49.0" prefWidth="179.0" spacing="5.0" style="-fx-border-color: black; -fx-padding: 5;">
+   <VBox layoutX="188.0" layoutY="40.0" prefHeight="49.0" prefWidth="179.0" spacing="5.0" style="-fx-border-color: black; -fx-padding: 5;">
       <opaqueInsets>
          <Insets />
       </opaqueInsets>

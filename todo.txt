@@ -1,17 +1,37 @@
 if errors with sql, might be the plugins
 if seem odd, might be because i tried to remove duplicates in controllers where they setAvailablesFotVisuals
 
+user names revamp
+
+does it include sdk already?
+
+think about folder structure, should sqlite be separate in its own folder?
+should i really not encrypt key
+proper folder location, src should only have key, sqlite, credentials(not there yet.)
+then a folder for reports
+
+how to install? -download installer from gdrive or some shit
+what if data wanted to be reset? -reinstall
+what if there are updates and i dont want the data to be cleared? -make a separate installer without the outside files
+can i make it so that sql cant be extracted
+
+reset pw new pw confiorm
+esc button functionality
+exit buttons functionality
+
+print errors to log file how
+
 encrypt sql?
-
-
-containerize
-where do the files go? sql, creds, and reports
-how to install?
-what if data wanted to be reset?
-what if there are updates and i dont want the data to be cleared?
 
 DESIGN
 button mouse appearances
+
+
+
+
+
+
+
 
 
 

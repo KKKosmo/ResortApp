@@ -14,6 +14,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.Year;
+import java.time.YearMonth;
 import java.util.*;
 
 
@@ -43,6 +45,7 @@ public class Model {
 
     private LocalDate tableStartDate;
     private LocalDate tableEndDate;
+    private YearMonth tableYearMonth;
     private int currentPage = 1;
     private int maxPage;
     private int startIndex;
@@ -464,5 +467,14 @@ public class Model {
 
     public void setUser(String user) {
         this.user = user;
+    }
+
+
+    public YearMonth getTableYearMonth() {
+        return tableYearMonth;
+    }
+
+    public void setTableYearMonth(YearMonth tableYearMonth) {
+        this.tableYearMonth = tableYearMonth;
     }
 }

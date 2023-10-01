@@ -567,6 +567,11 @@ public class sqliteModel {
                     Model.getInstance().getTableEndDate(), Model.getInstance().getTableStartDate(), roomFilter, nameFilter,
                     Model.getInstance().getOrderCategory().getString(), direction);
         }
+//        else if (Model.getInstance().getTableYearMonth() != null) {
+//            sql = String.format("SELECT *, (full_payment - partial_payment) as balance FROM main WHERE checkIn <= '%s' AND checkOut >='%s' %s%sORDER BY %s %s;",
+//                    Model.getInstance().getTableYearMonth().atEndOfMonth(), Model.getInstance().getTableYearMonth().atDay(1), roomFilter, nameFilter,
+//                    Model.getInstance().getOrderCategory().getString(), direction);
+//        }
         else{
             sql = String.format("SELECT *, (full_payment - partial_payment) as balance FROM main WHERE 1=1 %s%sORDER BY %s %s;",
                     roomFilter, nameFilter, Model.getInstance().getOrderCategory().getString(), direction);

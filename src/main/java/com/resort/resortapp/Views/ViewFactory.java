@@ -38,6 +38,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class ViewFactory {
@@ -618,166 +619,177 @@ public class ViewFactory {
 
     float fontSize = 9.4f;
     public void generateReportPDF(){
-        int reportID = sqliteModel.getReportID();
-        try {
-            String path = "Report"+reportID+".pdf";
-            PdfWriter pdfWriter = new PdfWriter(path);
-            PdfDocument pdfDocument = new PdfDocument(pdfWriter);
-            pdfDocument.setDefaultPageSize(PageSize.LETTER.rotate());
+        int totalPages = Model.getInstance().getMaxPage();
 
-            Document document = new Document(pdfDocument);
-            float margin = 20;
-            document.setMargins(margin, margin, margin, margin);
+        if(totalPages == 0){
+            showErrorPopup("ERROR: Cannot export a report with no content.");
+        }
+        else{
+            try {
+                int reportID = sqliteModel.getReportID();
+                String path = "Report"+reportID+".pdf";
+                PdfWriter pdfWriter = new PdfWriter(path);
+                PdfDocument pdfDocument = new PdfDocument(pdfWriter);
+                pdfDocument.setDefaultPageSize(PageSize.LETTER.rotate());
+
+                Document document = new Document(pdfDocument);
+                float margin = 20;
+                document.setMargins(margin, margin, margin, margin);
 //            document.setTopMargin(20);
 //            document.setBottomMargin(20);
 
-            int totalPages = Model.getInstance().getMaxPage();
 
-            for (int currentPage = 1; currentPage <= totalPages; currentPage++){
+                for (int currentPage = 1; currentPage <= totalPages; currentPage++){
 
-                float[] headerWidth = new float[6];
-                Table table = new Table(headerWidth);
-                if(Model.getInstance().checkTableEdges()){
-                    table.addCell(new Cell().add(
-                                    Model.getInstance().getTableStartDate() + " - " + Model.getInstance().getTableEndDate()).
-                            setBold().setFontSize(fontSize));
-                }
-                else{
-                    table.addCell(new Cell().add("MOST RECENT").setBold().setFontSize(fontSize));
-                }
+                    float[] headerWidth = new float[6];
+                    Table table = new Table(headerWidth);
 
-                StringBuilder rooms;
 
-                if(Model.getInstance().getTableRooms().isEmpty()){
-                    rooms = new StringBuilder("All rooms");
-                }
-                else{
-                    rooms = new StringBuilder("Rooms : ");
-                    for (String string : Model.getInstance().getTableRooms()){
-                        rooms.append(string).append(" ");
+
+                    if (Model.getInstance().getTableYearMonth() != null) {
+                        table.addCell(new Cell().add("Time Range: " + Model.getInstance().getTableYearMonth().format(DateTimeFormatter.ofPattern("MMM yyyy", Locale.US))).setBold().setFontSize(fontSize));
                     }
-                }
-                table.addCell(rooms.toString()).setBold().setFontSize(fontSize);
-                table.addCell("Total Bookings: " + Model.getInstance().getRecordCount()).setBold().setFontSize(fontSize);
+                    else if(Model.getInstance().checkTableEdges()){
+                        table.addCell(new Cell().add("Time Range: " +
+                                        Model.getInstance().getTableStartDate() + " - " + Model.getInstance().getTableEndDate()).
+                                setBold().setFontSize(fontSize));
+                    }
+                    else{
+                        table.addCell(new Cell().add("Time Range: ALL TIME").setBold().setFontSize(fontSize));
+                    }
 
-                table.addCell("Sorted by: " + Model.getInstance().getOrderCategory() + " " + (Model.getInstance().isASC() ? "ASC" : "DESC")).setBold().setFontSize(fontSize);
-                table.addCell("Page " + currentPage + "/" + totalPages).setBold().setFontSize(fontSize);
-                table.addCell("Total Payment Received: " + Model.getInstance().getTotalPayment() + " (" + Model.getInstance().getTotalUnpaid() + " UNPAID)").setBold().setFontSize(fontSize);
+                    StringBuilder rooms;
+
+                    if(Model.getInstance().getTableRooms().isEmpty()){
+                        rooms = new StringBuilder("All rooms");
+                    }
+                    else{
+                        rooms = new StringBuilder("Rooms : ");
+                        for (String string : Model.getInstance().getTableRooms()){
+                            rooms.append(string).append(" ");
+                        }
+                    }
+                    table.addCell(rooms.toString()).setBold().setFontSize(fontSize);
+                    table.addCell("Total Bookings: " + Model.getInstance().getRecordCount()).setBold().setFontSize(fontSize);
+
+                    table.addCell("Sorted by: " + Model.getInstance().getOrderCategory() + " " + (Model.getInstance().isASC() ? "ASC" : "DESC")).setBold().setFontSize(fontSize);
+                    table.addCell("Page " + currentPage + "/" + totalPages).setBold().setFontSize(fontSize);
+                    table.addCell("Total Payment Received: " + Model.getInstance().getTotalPayment() + " (" + Model.getInstance().getTotalUnpaid() + " UNPAID)").setBold().setFontSize(fontSize);
 
 
-                document.add(table.setHorizontalAlignment(HorizontalAlignment.CENTER));
+                    document.add(table.setHorizontalAlignment(HorizontalAlignment.CENTER));
 
 //            document.add(new Paragraph("").setBold().setTextAlignment(com.itextpdf.layout.property.TextAlignment.CENTER));
-                document.add(new Paragraph(""));
-                float[] columnWidthsInPoints = {
-                        45.8f, //id
-                        90.4f, //date
-                        215.2f, //name
-                        35.2f, //pax
-                        41.7f, //vehicle
-                        30.9f, //pets
-                        42.7f, //videoke
-                        125.0f, //payment
-                        55.8f, //balance
-                        44.4f, //status
-                        100.5f, //checkin
-                        100.5f, //chekcout
-                        64.6f, //room
-                        125.6f //user
-                };
-                Table body = new Table(columnWidthsInPoints);
+                    document.add(new Paragraph(""));
+                    float[] columnWidthsInPoints = {
+                            45.8f, //id
+                            90.4f, //date
+                            215.2f, //name
+                            35.2f, //pax
+                            41.7f, //vehicle
+                            30.9f, //pets
+                            42.7f, //videoke
+                            125.0f, //payment
+                            55.8f, //balance
+                            44.4f, //status
+                            100.5f, //checkin
+                            100.5f, //chekcout
+                            64.6f, //room
+                            125.6f //user
+                    };
+                    Table body = new Table(columnWidthsInPoints);
 
-                body.addCell(createCellBold("ID"));
-                body.addCell(createCellBold("Time Created"));
-                body.addCell(createCellBold("Name"));
-                body.addCell(createCellBold("No. of Heads"));
-                body.addCell(createCellBold("Vehicle"));
-                body.addCell(createCellBold("Pets"));
-                body.addCell(createCellBold("Videoke"));
-
-
-
-                Table headerPayment = new Table(new float[1]).setMargin(0f).setPadding(0f);
-
-                headerPayment.addCell(createCellBold("Partial Payment").setMargin(0f).setPadding(0f)
-                        .setBorderBottom(new SolidBorder(com.itextpdf.kernel.color.Color.BLACK, 1f))
-                        .setBorderLeft(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f))
-                        .setBorderRight(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f))
-                        .setBorderTop(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f)));
-                headerPayment.addCell(createCellBold("Full Payment").setMargin(0f).setPadding(0f)
-                        .setBorderBottom(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f))
-                        .setBorderLeft(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f))
-                        .setBorderRight(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f))
-                        .setBorderTop(new SolidBorder(com.itextpdf.kernel.color.Color.BLACK, 1f)));
-
-                body.addCell(headerPayment);
+                    body.addCell(createCellBold("ID"));
+                    body.addCell(createCellBold("Time Created"));
+                    body.addCell(createCellBold("Name"));
+                    body.addCell(createCellBold("No. of Heads"));
+                    body.addCell(createCellBold("Vehicle"));
+                    body.addCell(createCellBold("Pets"));
+                    body.addCell(createCellBold("Videoke"));
 
 
 
-                body.addCell(createCellBold("Balance"));
-                body.addCell(createCellBold("Status"));
-                body.addCell(createCellBold("Check-In"));
-                body.addCell(createCellBold("Check-Out"));
-                body.addCell(createCellBold("Room"));
-                body.addCell(createCellBold("User"));
+                    Table headerPayment = new Table(new float[1]).setMargin(0f).setPadding(0f);
+
+                    headerPayment.addCell(createCellBold("Partial Payment").setMargin(0f).setPadding(0f)
+                            .setBorderBottom(new SolidBorder(com.itextpdf.kernel.color.Color.BLACK, 1f))
+                            .setBorderLeft(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f))
+                            .setBorderRight(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f))
+                            .setBorderTop(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f)));
+                    headerPayment.addCell(createCellBold("Full Payment").setMargin(0f).setPadding(0f)
+                            .setBorderBottom(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f))
+                            .setBorderLeft(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f))
+                            .setBorderRight(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f))
+                            .setBorderTop(new SolidBorder(com.itextpdf.kernel.color.Color.BLACK, 1f)));
+
+                    body.addCell(headerPayment);
 
 
-                List<RecordModel> list = Model.getInstance().getListRecordModels();
 
-                System.out.println(currentPage);
+                    body.addCell(createCellBold("Balance"));
+                    body.addCell(createCellBold("Status"));
+                    body.addCell(createCellBold("Check-In"));
+                    body.addCell(createCellBold("Check-Out"));
+                    body.addCell(createCellBold("Room"));
+                    body.addCell(createCellBold("User"));
 
-                int startIndex = Model.getInstance().getTableRowCount() * (currentPage - 1);
-                int end = Math.min(startIndex + Model.getInstance().getTableRowCount(), Model.getInstance().getListRecordModels().size());
-                System.out.println(Model.getInstance().getTableRowCount());
-                System.out.println(startIndex + " - " + end);
+
+                    List<RecordModel> list = Model.getInstance().getListRecordModels();
+
+                    System.out.println(currentPage);
+
+                    int startIndex = Model.getInstance().getTableRowCount() * (currentPage - 1);
+                    int end = Math.min(startIndex + Model.getInstance().getTableRowCount(), Model.getInstance().getListRecordModels().size());
+                    System.out.println(Model.getInstance().getTableRowCount());
+                    System.out.println(startIndex + " - " + end);
 //                int end = Math.min(15 * currentPage, Model.getInstance().getTableRowCount());
-                for(int i = startIndex; i < end; i++){
-                    for(int j = 0; j < 14; j++){
+                    for(int i = startIndex; i < end; i++){
+                        for(int j = 0; j < 14; j++){
 
-                        List<String> recordList = list.get(i).getList();
-                        if (j == 7) {
-                            //partial payment
-                            //line
-                            //full payment
+                            List<String> recordList = list.get(i).getList();
+                            if (j == 7) {
+                                //partial payment
+                                //line
+                                //full payment
 //                        temp.setText(recordList.get(14));
 //                        body.addCell(createCell(recordList.get(j)));
 
 
-                            Table rowPayment = new Table(new float[1]).setMargin(0f).setPadding(0f);
+                                Table rowPayment = new Table(new float[1]).setMargin(0f).setPadding(0f);
 
-                            rowPayment.addCell(createCell(recordList.get(j)).setMargin(0f).setPadding(0f)
-                                    .setBorderBottom(new SolidBorder(com.itextpdf.kernel.color.Color.BLACK, 1f))
-                                    .setBorderLeft(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f))
-                                    .setBorderRight(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f))
-                                    .setBorderTop(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f)));
-                            rowPayment.addCell(createCell(recordList.get(14)).setMargin(0f).setPadding(0f)
-                                    .setBorderBottom(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f))
-                                    .setBorderLeft(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f))
-                                    .setBorderRight(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f))
-                                    .setBorderTop(new SolidBorder(com.itextpdf.kernel.color.Color.BLACK, 1f)));
+                                rowPayment.addCell(createCell(recordList.get(j)).setMargin(0f).setPadding(0f)
+                                        .setBorderBottom(new SolidBorder(com.itextpdf.kernel.color.Color.BLACK, 1f))
+                                        .setBorderLeft(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f))
+                                        .setBorderRight(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f))
+                                        .setBorderTop(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f)));
+                                rowPayment.addCell(createCell(recordList.get(14)).setMargin(0f).setPadding(0f)
+                                        .setBorderBottom(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f))
+                                        .setBorderLeft(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f))
+                                        .setBorderRight(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f))
+                                        .setBorderTop(new SolidBorder(com.itextpdf.kernel.color.Color.BLACK, 1f)));
 
-                            body.addCell(rowPayment.setHorizontalAlignment(HorizontalAlignment.CENTER));
+                                body.addCell(rowPayment.setHorizontalAlignment(HorizontalAlignment.CENTER));
 
 
-                        } else if (j == 2) {
-                            body.addCell(createCell(recordList.get(j)));
-                        }
-                        else{
-                            body.addCell(createCell(recordList.get(j)));
+                            } else if (j == 2) {
+                                body.addCell(createCell(recordList.get(j)));
+                            }
+                            else{
+                                body.addCell(createCell(recordList.get(j)));
+                            }
                         }
                     }
+
+                    document.add(body);
                 }
+                document.close();
 
-                document.add(body);
-            }
-            document.close();
+                sqliteModel.incrementReportID();
 
-            sqliteModel.incrementReportID();
+                String filename = "Report"+reportID+".pdf";
+                File file = new File(filename);
 
-            String filename = "Report"+reportID+".pdf";
-            File file = new File(filename);
-
-            showReportLocation(filename, file.getAbsolutePath());
+                showReportLocation(filename, file.getAbsolutePath());
 
 //            try {
 //                Runtime.getRuntime().exec("rundll32 url.dll, FileProtocolHandler " + "D:\\work\\Java\\Projects\\ResortApp\\Report.pdf");
@@ -785,9 +797,11 @@ public class ViewFactory {
 //                throw new RuntimeException(e);
 //            }
 
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
         }
+
     }
     public Cell createCell(String text) {
         return new Cell().add(text)
