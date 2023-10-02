@@ -631,6 +631,13 @@ public class ViewFactory {
         else{
             try {
                 int reportID = sqliteModel.getReportID();
+
+                File folder = new File("Reports");
+                if (!folder.exists()) {
+                    folder.mkdirs();
+                }
+
+
                 String path = "Reports/Report"+reportID+".pdf";
                 PdfWriter pdfWriter = new PdfWriter(path);
                 PdfDocument pdfDocument = new PdfDocument(pdfWriter);

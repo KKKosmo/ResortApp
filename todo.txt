@@ -1,8 +1,6 @@
 if errors with sql, might be the plugins
 if seem odd, might be because i tried to remove duplicates in controllers where they setAvailablesFotVisuals
 
-how to make a reports folder
-
 should sqlite be outside for updates? or can i update when sqlite is inside?
 encrypt sql?
 can i make it so that sql cant be extracted
