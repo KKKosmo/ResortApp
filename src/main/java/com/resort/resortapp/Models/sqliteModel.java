@@ -2,6 +2,7 @@ package com.resort.resortapp.Models;
 
 import com.resort.resortapp.Rooms;
 import javafx.scene.control.*;
+import org.sqlite.SQLiteDataSource;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
@@ -21,16 +22,21 @@ import java.util.*;
 public class sqliteModel {
     static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private static Connection con = null;
+
+
     private static Connection openDB() {
         try {
-//            List<String> lines = Files.readAllLines(Paths.get("src/main/java/com/resort/resortapp/key.txt"));
-            String url = "jdbc:sqlite:src/main/java/com/resort/resortapp/sqlite.db";
-            con = DriverManager.getConnection(url);
+            String url = "jdbc:sqlite:src/sqlite.db";
+
+            con = DriverManager.getConnection(url, "", "car");
         } catch (SQLException e) {
             e.printStackTrace();
+            Model.getInstance().getViewFactory().showErrorPopup(e.toString());
         }
         return con;
     }
+
+
     private static void closeDB(){
         if(con != null){
             try{

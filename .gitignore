@@ -12,7 +12,7 @@ target/
 *.iml
 *.ipr
 src/main/java/com/resort/resortapp/key.txt
-src/main/java/com/resort/resortapp/sqlite.db
+src/sqlite.db
 credentials.txt
 
 ### Eclipse ###
