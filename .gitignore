@@ -11,8 +11,8 @@ target/
 *.iws
 *.iml
 *.ipr
-src/key.txt
-src/sqlite.db
+src/main/java/com/resort/resortapp/key.txt
+src/main/java/com/resort/resortapp/sqlite.db
 credentials.txt
 
 ### Eclipse ###

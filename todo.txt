@@ -1,25 +1,26 @@
 if errors with sql, might be the plugins
 if seem odd, might be because i tried to remove duplicates in controllers where they setAvailablesFotVisuals
 
-does it include sdk already?
+how to make a reports folder
 
-think about folder structure, should sqlite be separate in its own folder?
-should i really not encrypt key
-proper folder location, src should only have key, sqlite, credentials(not there yet.)
-then a folder for reports
+should sqlite be outside for updates? or can i update when sqlite is inside?
+encrypt sql?
+can i make it so that sql cant be extracted
 
+how to include sdk
+
+installer should include an empty Reports folder?
 how to install? -download installer from gdrive or some shit
 what if data wanted to be reset? -reinstall
-what if there are updates and i dont want the data to be cleared? -make a separate installer without the outside files
-can i make it so that sql cant be extracted
+what if there are updates and i dont want the data to be cleared? -make a separate installer without the outside files?
 
 
 print errors to log file how
 
-encrypt sql?
 
 DESIGN
-button mouse appearances
+    what is first selected when entered scene
+    button mouse appearances
 
 
 
@@ -43,6 +44,7 @@ Would be nice but will not do due to time:
 
     dont init list everytime
 
+    encrypt key
 
 Will be needed for future?:
     if query more than 100 or sum, split into 2

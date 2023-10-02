@@ -11,6 +11,7 @@ import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.VerticalAlignment;
 import com.resort.resortapp.Controllers.ChangePwController;
 import com.resort.resortapp.Controllers.EditController;
+import com.resort.resortapp.Controllers.EscMenuController;
 import com.resort.resortapp.Controllers.TableController;
 import com.resort.resortapp.Models.*;
 import com.resort.resortapp.Rooms;
@@ -62,6 +63,7 @@ public class ViewFactory {
     //    TODO listview settings
     Border borderUnselected = new Border(new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.SOLID, null, new BorderWidths(3)));
     Border normalBorder = new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, new BorderWidths(5)));
+    EscMenuController escMenuController;
     public void setCalendarVariables(FlowPane flowPane, Text yearText, Text monthText, Text roomText) {
         this.flowPane = flowPane;
         this.yearText = yearText;
@@ -71,7 +73,9 @@ public class ViewFactory {
     public AnchorPane getEscMenu(Pane parentPane){
         if (escMenu == null) {
             try {
-                escMenu = FXMLLoader.load(getClass().getResource("/Fxml/EscMenu.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/EscMenu.fxml"));
+                escMenu = loader.load();
+                escMenuController = loader.getController();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -627,7 +631,7 @@ public class ViewFactory {
         else{
             try {
                 int reportID = sqliteModel.getReportID();
-                String path = "Report"+reportID+".pdf";
+                String path = "Reports/Report"+reportID+".pdf";
                 PdfWriter pdfWriter = new PdfWriter(path);
                 PdfDocument pdfDocument = new PdfDocument(pdfWriter);
                 pdfDocument.setDefaultPageSize(PageSize.LETTER.rotate());
@@ -786,10 +790,9 @@ public class ViewFactory {
 
                 sqliteModel.incrementReportID();
 
-                String filename = "Report"+reportID+".pdf";
-                File file = new File(filename);
+                File file = new File(path);
 
-                showReportLocation(filename, file.getAbsolutePath());
+                showReportLocation(file.getName(), file.getAbsolutePath());
 
 //            try {
 //                Runtime.getRuntime().exec("rundll32 url.dll, FileProtocolHandler " + "D:\\work\\Java\\Projects\\ResortApp\\Report.pdf");
@@ -823,5 +826,9 @@ public class ViewFactory {
     public void notEditing(){
         editId = -1;
         editing = false;
+    }
+
+    public EscMenuController getEscMenuController() {
+        return escMenuController;
     }
 }

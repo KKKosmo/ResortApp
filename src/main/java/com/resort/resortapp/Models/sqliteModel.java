@@ -23,7 +23,8 @@ public class sqliteModel {
     private static Connection con = null;
     private static Connection openDB() {
         try {
-            String url = "jdbc:sqlite:src/sqlite.db";
+//            List<String> lines = Files.readAllLines(Paths.get("src/main/java/com/resort/resortapp/key.txt"));
+            String url = "jdbc:sqlite:src/main/java/com/resort/resortapp/sqlite.db";
             con = DriverManager.getConnection(url);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -858,7 +859,7 @@ public class sqliteModel {
     public static SecretKey generateSecretKey() {
         try {
             List<Byte> keyBytesList = new ArrayList<>();
-            List<String> lines = Files.readAllLines(Paths.get("src/key.txt"));
+            List<String> lines = Files.readAllLines(Paths.get("src/main/java/com/resort/resortapp/key.txt"));
             for (String line : lines) {
                 byte byteValue = Byte.parseByte(line.trim());
                 keyBytesList.add(byteValue);

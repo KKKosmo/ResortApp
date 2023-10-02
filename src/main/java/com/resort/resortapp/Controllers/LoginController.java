@@ -46,6 +46,9 @@ public class LoginController implements Initializable {
                 if(getUser()){
                     if(sqliteModel.auth(currentUser, password_field.getText())){
                         Model.getInstance().setUser(currentUser);
+                        if(Model.getInstance().getViewFactory().getEscMenuController() != null){
+                            Model.getInstance().getViewFactory().getEscMenuController().setUser(currentUser);
+                        }
                         Model.getInstance().getViewFactory().setSceneTable();
                     }
                     else{

@@ -48,4 +48,8 @@ public class EscMenuController implements Initializable {
         });
         user_txt.setText(Model.getInstance().getUser());
     }
+
+    public void setUser(String user){
+        user_txt.setText(user);
+    }
 }
