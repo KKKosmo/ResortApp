@@ -1,6 +1,7 @@
 package com.resort.resortapp.Models;
 
 import com.resort.resortapp.Rooms;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import org.sqlite.SQLiteDataSource;
 
@@ -9,6 +10,7 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.*;
@@ -18,6 +20,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class sqliteModel {
     static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -26,9 +29,9 @@ public class sqliteModel {
 
     private static Connection openDB() {
         try {
-            String url = "jdbc:sqlite:src/sqlite.db";
+            String url = "jdbc:sqlite:data/sqlite.db";
 
-            con = DriverManager.getConnection(url, "", "car");
+            con = DriverManager.getConnection(url);
         } catch (SQLException e) {
             e.printStackTrace();
             Model.getInstance().getViewFactory().showErrorPopup(e.toString());
@@ -46,6 +49,126 @@ public class sqliteModel {
             }
         }
     }
+
+    public static void sqlInit(){
+        String folder = "data";
+        File srcFolder = new File(folder);
+        if (!srcFolder.exists()) {
+            srcFolder.mkdir();
+        }
+
+        String databasePath = folder + "/sqlite.db";
+        File databaseFile = new File(databasePath);
+
+        if (!databaseFile.exists()) {
+            try {
+                Connection connection = DriverManager.getConnection("jdbc:sqlite:" + databasePath);
+                Statement statement = connection.createStatement();
+
+                // Define the SQL structure and create tables
+                String sql = "CREATE TABLE IF NOT EXISTS edit (" +
+                        "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        "record_id INTEGER NOT NULL," +
+                        "edit_timestamp SMALLDATETIME NOT NULL," +
+                        "summary VARCHAR(100)," +
+                        "user VARCHAR(20) NOT NULL," +
+                        "FOREIGN KEY (record_id) REFERENCES main(id))";
+
+                statement.execute(sql);
+
+                sql = "CREATE TABLE IF NOT EXISTS main (id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        "dateInserted SMALLDATETIME," +
+                        "name VARCHAR(50)," +
+                        "pax INTEGER," +
+                        "vehicle INTEGER," +
+                        "pets BOOLEAN," +
+                        "videoke BOOLEAN," +
+                        "partial_payment NUMERIC(6, 2)," +
+                        "full_payment NUMERIC(6, 2)," +
+                        "paid BOOLEAN," +
+                        "checkIn DATE," +
+                        "checkOut DATE," +
+                        "room VARCHAR(10)," +
+                        "user VARCHAR(20))";
+
+                statement.execute(sql);
+
+                sql = "CREATE TABLE IF NOT EXISTS report (id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        "dateInserted SMALLDATETIME)";
+
+                statement.execute(sql);
+
+                sql = "INSERT INTO report (dateInserted) VALUES ('"+LocalDateTime.now().format(formatter)+"');";
+                statement.execute(sql);
+
+
+                sql = "CREATE TABLE IF NOT EXISTS users (" +
+                        "user_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        "username VARCHAR(10) UNIQUE NOT NULL," +
+                        "password VARCHAR(255) NOT NULL)";
+
+                statement.execute(sql);
+
+
+                sql = "INSERT INTO users (user_id, username, password) VALUES (?, ?, ?)";
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+
+                preparedStatement.setInt(1, 1);
+                preparedStatement.setString(2, "Glorifina");
+                preparedStatement.setString(3, "LonsF/hS+zQ6iXI4pjLdnA==");
+                preparedStatement.executeUpdate();
+
+                preparedStatement.setInt(1, 2);
+                preparedStatement.setString(2, "Gianne");
+                preparedStatement.setString(3, "mSQcyxZpkQL2ZU2b9MGnJg==");
+                preparedStatement.executeUpdate();
+
+                preparedStatement.setInt(1, 3);
+                preparedStatement.setString(2, "Regina");
+                preparedStatement.setString(3, "omignY2OreJc2MR+/6g9Jg==");
+                preparedStatement.executeUpdate();
+
+                preparedStatement.setInt(1, 4);
+                preparedStatement.setString(2, "Roy");
+                preparedStatement.setString(3, "WVKymHNS4zdWeVQjQMFvLQ==");
+                preparedStatement.executeUpdate();
+
+                preparedStatement.setInt(1, 5);
+                preparedStatement.setString(2, "Marvin");
+                preparedStatement.setString(3, "E6fgHzvEVgM8EoaptMs4pQ==");
+                preparedStatement.executeUpdate();
+
+                preparedStatement.setInt(1, 6);
+                preparedStatement.setString(2, "Marie");
+                preparedStatement.setString(3, "Gk/kp8C+C3EdZBOTryudKQ==");
+                preparedStatement.executeUpdate();
+
+                preparedStatement.close();
+
+
+
+
+                sql = "CREATE INDEX IF NOT EXISTS idIndex ON main (id)";
+                statement.execute(sql);
+
+                sql = "CREATE INDEX IF NOT EXISTS mainIndex ON main (checkIn, checkOut, room, name)";
+                statement.execute(sql);
+
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+
+
+
+
+
+
     public static List<Set<String>> getAvailableRoomsPerDayList(){
         System.out.println("getAvailableRoomsPerdaylist------------");
         List<Set<String>> result = new ArrayList<>();
@@ -862,14 +985,26 @@ public class sqliteModel {
             throw new RuntimeException(e);
         }
     }
+
     public static SecretKey generateSecretKey() {
         try {
             List<Byte> keyBytesList = new ArrayList<>();
-            List<String> lines = Files.readAllLines(Paths.get("src/main/java/com/resort/resortapp/key.txt"));
-            for (String line : lines) {
-                byte byteValue = Byte.parseByte(line.trim());
-                keyBytesList.add(byteValue);
+
+            // Use ClassLoader.getResourceAsStream to access the resource
+            InputStream inputStream = sqliteModel.class.getResourceAsStream("/key.txt");
+
+            if (inputStream != null) {
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
+                    List<String> lines = reader.lines().collect(Collectors.toList());
+                    for (String line : lines) {
+                        byte byteValue = Byte.parseByte(line.trim());
+                        keyBytesList.add(byteValue);
+                    }
+                }
+            } else {
+                throw new IOException("Resource 'key.txt' not found.");
             }
+
             byte[] keyBytes = new byte[keyBytesList.size()];
             for (int i = 0; i < keyBytesList.size(); i++) {
                 keyBytes[i] = keyBytesList.get(i);
