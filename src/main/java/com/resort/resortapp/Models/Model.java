@@ -17,6 +17,10 @@ import java.time.Month;
 import java.time.Year;
 import java.time.YearMonth;
 import java.util.*;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 
 public class Model {
@@ -52,7 +56,6 @@ public class Model {
     private int endIndex;
     private Set<String> tableRooms = new HashSet<>();
     private String nameFilter = "";
-
     public enum OrderCategory{
         ID("id"),
         DATEINSERTED("dateInserted"),
@@ -93,6 +96,29 @@ public class Model {
     private boolean tableK1Filter = false;
     private boolean tableK2Filter = false;
     private String user;
+    Logger logger = Logger.getLogger("ResortApp");
+    String logFilePath = "error.log";
+    FileHandler fileHandler;
+    public void initLogger(){
+        try {
+            fileHandler = new FileHandler(logFilePath, 10 * 1024 * 1024, 1, true);
+            fileHandler.setFormatter(new SimpleFormatter());
+            logger.addHandler(fileHandler);
+            logger.setLevel(Level.SEVERE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void printLog(Exception e){
+        logger.log(Level.SEVERE, "An error occurred:", e);
+    }
+
+    public void closeLogger(){
+        logger.removeHandler(fileHandler);
+        fileHandler.close();
+    }
+
     private Model(){
         this.viewFactory = new ViewFactory();
     }

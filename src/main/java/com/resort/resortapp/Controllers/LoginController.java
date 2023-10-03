@@ -66,7 +66,9 @@ public class LoginController implements Initializable {
         forgotPw_btn.setOnAction(event ->{
             sqliteModel.forgotPw();
         });
-        exit_btn.setOnAction(actionEvent -> Platform.exit());
+        exit_btn.setOnAction(actionEvent -> {
+            Platform.exit();
+        });
 
         password_field.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {

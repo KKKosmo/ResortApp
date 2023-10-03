@@ -33,7 +33,7 @@ public class sqliteModel {
 
             con = DriverManager.getConnection(url);
         } catch (SQLException e) {
-            e.printStackTrace();
+            Model.getInstance().printLog(e);
             Model.getInstance().getViewFactory().showErrorPopup(e.toString());
         }
         return con;
@@ -45,7 +45,7 @@ public class sqliteModel {
             try{
                 con.close();
             }catch (SQLException e){
-                e.printStackTrace();
+                Model.getInstance().printLog(e);
             }
         }
     }
@@ -157,7 +157,7 @@ public class sqliteModel {
 
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                Model.getInstance().printLog(e);
             }
         }
     }
@@ -233,7 +233,7 @@ public class sqliteModel {
 //                System.out.println((i + 1) + " " + result.get(i));
 //            }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Model.getInstance().printLog(e);
         }
         return result;
     }
@@ -301,7 +301,7 @@ public class sqliteModel {
 //                System.out.println((i + 1) + " " + result.get(i));
 //            }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Model.getInstance().printLog(e);
         }
         return result;
     }
@@ -509,7 +509,7 @@ public class sqliteModel {
             Model.getInstance().getViewFactory().showSuccessPopup("Successfully inserted a record.");
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
+            Model.getInstance().printLog(e);
 
             Model.getInstance().getViewFactory().showErrorPopup("Error: " + e);
             return false;
@@ -704,7 +704,7 @@ public class sqliteModel {
             Model.getInstance().getViewFactory().showSuccessPopup("Successfully updated this record.");
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
+            Model.getInstance().printLog(e);
             Model.getInstance().getViewFactory().showErrorPopup("Error: " + e);
             return false;
         }
@@ -815,7 +815,7 @@ public class sqliteModel {
             closeDB();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            Model.getInstance().printLog(e);
         }
 
 
@@ -867,7 +867,7 @@ public class sqliteModel {
             Model.getInstance().getViewFactory().showSuccessPopup("Row successfully deleted.");
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
+            Model.getInstance().printLog(e);
             Model.getInstance().getViewFactory().showErrorPopup("Failed to delete row: " + e);
             return false;
         }
@@ -899,7 +899,7 @@ public class sqliteModel {
             closeDB();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            Model.getInstance().printLog(e);
         }
 
         return result;
@@ -923,7 +923,7 @@ public class sqliteModel {
             resultSet.close();
             closeDB();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Model.getInstance().printLog(e);
         }
         return result;
     }
@@ -946,7 +946,7 @@ public class sqliteModel {
             resultSet.close();
             closeDB();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Model.getInstance().printLog(e);
         }
         return result;
     }
@@ -970,7 +970,7 @@ public class sqliteModel {
             resultSet.close();
             closeDB();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Model.getInstance().printLog(e);
         }
         return result;
     }
@@ -1031,7 +1031,7 @@ public class sqliteModel {
             updateStmt.close();
             closeDB();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Model.getInstance().printLog(e);
             result = false;
             Model.getInstance().getViewFactory().showErrorPopup("ERROR: " + e);
         }
@@ -1062,7 +1062,7 @@ public class sqliteModel {
                     writer.write(encryptedPassword + "\n");
 
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Model.getInstance().printLog(e);
                 }
             }
             writer.close();
@@ -1073,7 +1073,7 @@ public class sqliteModel {
             File file = new File(fileName);
             Model.getInstance().getViewFactory().showForgotPwPopup(fileName, file.getAbsolutePath());
         } catch (SQLException | IOException e) {
-            e.printStackTrace();
+            Model.getInstance().printLog(e);
         }
     }
 
@@ -1091,7 +1091,7 @@ public class sqliteModel {
             resultSet.close();
             closeDB();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Model.getInstance().printLog(e);
         }
         return result;
     }
@@ -1105,7 +1105,7 @@ public class sqliteModel {
             pStmt.close();
             closeDB();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Model.getInstance().printLog(e);
         }
     }
 }

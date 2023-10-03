@@ -8,12 +8,16 @@ import javafx.stage.Stage;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage){
+        Model.getInstance().initLogger();
         sqliteModel.sqlInit();
         Model.getInstance().getViewFactory().setStage(stage);
         stage.setTitle("J&G Resort App");
         Model.getInstance().initCalendarDates();
         Model.getInstance().getViewFactory().setSceneLogin();
 
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            Model.getInstance().closeLogger();
+        }));
 
         stage.setResizable(false);
         stage.show();

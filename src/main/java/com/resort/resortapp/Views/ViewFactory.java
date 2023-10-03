@@ -89,12 +89,12 @@ public class ViewFactory {
         try {
             root = loader.load();
         } catch (IOException e) {
-            e.printStackTrace();
+            Model.getInstance().printLog(e);
         }
 //        if(table == null){
 //            try {
 //            } catch (Exception e) {
-//                e.printStackTrace();
+//                Model.getInstance().printLog(e);
 //            }
 //        }
 
@@ -117,7 +117,7 @@ public class ViewFactory {
 //                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Table.fxml"));
 //                stage.setScene(new Scene(loader.load()));
 //            } catch (Exception e) {
-//                e.printStackTrace();
+//                Model.getInstance().printLog(e);
 //            }
 
 
@@ -128,7 +128,7 @@ public class ViewFactory {
             Model.getInstance().getViewFactory().notEditing();
             stage.setScene(new Scene(loader.load()));
         } catch (Exception e) {
-            e.printStackTrace();
+            Model.getInstance().printLog(e);
         }
     }
     public void setSceneEditHistory(){
@@ -145,7 +145,7 @@ public class ViewFactory {
             stage.setScene(new Scene(loader.load()));
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Model.getInstance().printLog(e);
         }
     }
     public void setSceneCreate(){
@@ -156,7 +156,7 @@ public class ViewFactory {
             Model.getInstance().getViewFactory().notEditing();
             stage.setScene(new Scene(loader.load()));
         } catch (Exception e) {
-            e.printStackTrace();
+            Model.getInstance().printLog(e);
         }
 //        }
     }
@@ -335,7 +335,7 @@ public class ViewFactory {
             editController.setValues(recordModel);
             stage.setScene(new Scene(root));
         } catch (Exception e) {
-            e.printStackTrace();
+            Model.getInstance().printLog(e);
         }
     }
     public void setSceneChangePw(String user){
@@ -347,7 +347,7 @@ public class ViewFactory {
             changePwController.setValues(user);
             stage.setScene(new Scene(root));
         } catch (Exception e) {
-            e.printStackTrace();
+            Model.getInstance().printLog(e);
         }
     }
     public void insertListRows(){
@@ -536,7 +536,7 @@ public class ViewFactory {
             try {
                 Runtime.getRuntime().exec("explorer.exe /select," + filePath);
             } catch (Exception e) {
-                e.printStackTrace();
+                Model.getInstance().printLog(e);
             }
         });
         root.getChildren().add(openExplorerLink);
@@ -592,7 +592,7 @@ public class ViewFactory {
             try {
                 Runtime.getRuntime().exec("explorer.exe /select," + filePath);
             } catch (Exception e) {
-                e.printStackTrace();
+                Model.getInstance().printLog(e);
             }
         });
         root.getChildren().add(openExplorerLink);
