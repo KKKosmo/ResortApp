@@ -36,8 +36,7 @@ public class LoginController implements Initializable {
     public Button forgotPw_btn;
     public Text user6_txt;
     public ToggleButton user6_btn;
-    String currentUser = "";
-
+    String currentUser;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -63,16 +62,11 @@ public class LoginController implements Initializable {
                 Model.getInstance().getViewFactory().setSceneChangePw(currentUser);
             }
         });
-        forgotPw_btn.setOnAction(event ->{
-            sqliteModel.forgotPw();
-        });
-        exit_btn.setOnAction(actionEvent -> {
-            Platform.exit();
-        });
+        forgotPw_btn.setOnAction(event -> sqliteModel.forgotPw());
+        exit_btn.setOnAction(actionEvent -> Platform.exit());
 
         password_field.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
-                // When Enter key is pressed, trigger the login button's action
                 login_btn.fire();
             }
         });
@@ -114,16 +108,13 @@ public class LoginController implements Initializable {
     private void setButton(ToggleButton button) {
         button.setOnAction(event -> {
             if (!button.getStyleClass().contains("selected-button")) {
-                // Add the class to the clicked button
                 button.getStyleClass().add("selected-button");
             } else {
-                // Remove the class if the button is already selected
                 button.getStyleClass().remove("selected-button");
             }
 
             group.getToggles().forEach(toggle -> {
                 if (toggle != button) {
-                    // Always ensure that other buttons don't have the class
                     ((ToggleButton) toggle).getStyleClass().remove("selected-button");
                 }
             });

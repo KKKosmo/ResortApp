@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -46,7 +47,6 @@ public class CreateController  implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        Model.getInstance().getViewFactory().getOnScreenCalendarDayModels().clear();
         roomCheckBoxes.add(roomJ_ChkBox);
         roomCheckBoxes.add(roomG_ChkBox);
         roomCheckBoxes.add(attic_ChkBox);
@@ -54,27 +54,18 @@ public class CreateController  implements Initializable{
         roomCheckBoxes.add(kubo2_ChkBox);
         Model.getInstance().getViewFactory().setRoomCheckBoxes(roomCheckBoxes);
 
-
         escMenu =  Model.getInstance().getViewFactory().getEscMenu(parentPane);
-        burger_btn.setOnAction(actionEvent -> {
-            escMenu.setVisible(!escMenu.isVisible());
-        });
-
+        burger_btn.setOnAction(actionEvent -> escMenu.setVisible(!escMenu.isVisible()));
 
         parentPane.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.ESCAPE) {
-                // When Escape key is pressed, trigger the button's action
                 burger_btn.fire();
             }
         });
 
 
-        done_btn.setOnAction(actionEvent -> {
-            insertRecord();
-        });
-        back_btn.setOnAction(actionEvent -> {
-            Model.getInstance().getViewFactory().setSceneTable();
-        });
+        done_btn.setOnAction(actionEvent -> insertRecord());
+        back_btn.setOnAction(actionEvent -> Model.getInstance().getViewFactory().setSceneTable());
         clr_btn.setOnAction(actionEvent -> {
             if(Model.getInstance().getViewFactory().showConfirmPopup("Are you sure you want to clear the values?"))
                 clearForm();
@@ -89,11 +80,11 @@ public class CreateController  implements Initializable{
                 Model.getInstance().setSelectedLeftDate(String.valueOf(newValue));
                 Model.getInstance().setCalendarLeftDate(newValue);
                 Model.getInstance().autoTurnMonth(Model.getInstance().getCalendarLeftDate());
+                LocalDate checkOutValue = checkOut_datePicker.getValue();
 
-                if(checkOut_datePicker.getValue() != null){
-                    if(checkIn_datePicker.getValue().isBefore(checkOut_datePicker.getValue()) || checkIn_datePicker.getValue().equals(checkOut_datePicker.getValue())){
-//                        Model.getInstance().setAvailablesForVisual(sqliteModel.getAvailableRoomsPerDayList());
-                        available = sqliteModel.getAvailablesForFunction(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
+                if(checkOutValue != null){
+                    if(newValue.isBefore(checkOutValue) || newValue.equals(checkOutValue)){
+                        available = sqliteModel.getAvailablesForFunction(newValue, checkOutValue);
                     }
                     Model.getInstance().setSelected();
                 }
@@ -104,20 +95,19 @@ public class CreateController  implements Initializable{
                 Model.getInstance().setSelectedRightDate(String.valueOf(newValue));
                 Model.getInstance().setCalendarLeftDate(newValue);
                 Model.getInstance().autoTurnMonth(Model.getInstance().getCalendarLeftDate());
+                LocalDate checkInValue = checkIn_datePicker.getValue();
 
-                if(checkIn_datePicker.getValue() != null){
-                    if(checkIn_datePicker.getValue().isBefore(checkOut_datePicker.getValue()) || checkIn_datePicker.getValue().equals(checkOut_datePicker.getValue())){
-//                        Model.getInstance().setAvailablesForVisual(sqliteModel.getAvailableRoomsPerDayList());
-                        available = sqliteModel.getAvailablesForFunction(checkIn_datePicker.getValue(), checkOut_datePicker.getValue());
+                if(checkInValue != null){
+                    if(checkInValue.isBefore(newValue) || checkInValue.equals(newValue)){
+                        available = sqliteModel.getAvailablesForFunction(checkInValue, newValue);
                     }
                     Model.getInstance().setSelected();
                 }
             }
         });
 
-
         Model.getInstance().getViewFactory().insertCalendar(month_pane);
-        if(Model.getInstance().getSelectedLocalDates()!= null)
+        if(Model.getInstance().getSelectedLocalDates() != null)
             Model.getInstance().getSelectedLocalDates().clear();
         for (CheckBox checkBox : roomCheckBoxes){
             checkBoxAddListener(checkBox);
@@ -139,13 +129,10 @@ public class CreateController  implements Initializable{
         payment_fld.clear();
         fullPayment_fld.clear();
         checkIn_datePicker.setValue(null);
-//        Model.getInstance().setSelectedLeftDate(null);
         checkOut_datePicker.setValue(null);
-//        Model.getInstance().setSelectedRightDate(null);
         for (CheckBox checkBox: roomCheckBoxes) {
             checkBox.setSelected(false);
         }
-//        Model.getInstance().getViewFactory().clear();
     }
     private void textFieldAddListener(TextField textField){
         textField.textProperty().addListener((observable, oldValue, newValue) -> {

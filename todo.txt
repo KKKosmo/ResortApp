@@ -1,8 +1,7 @@
 if errors with sql, might be the plugins
 if seem odd, might be because i tried to remove duplicates in controllers where they setAvailablesFotVisuals
 
-print errors to log file how
-
+polish code
 
 DESIGN
     what is first selected when entered scene

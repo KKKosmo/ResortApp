@@ -34,13 +34,10 @@ public class EditHistoryController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         escMenu =  Model.getInstance().getViewFactory().getEscMenu(parent);
-        burger_btn.setOnAction(actionEvent -> {
-            escMenu.setVisible(!escMenu.isVisible());
-        });
+        burger_btn.setOnAction(actionEvent -> escMenu.setVisible(!escMenu.isVisible()));
 
         parent.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.ESCAPE) {
-                // When Escape key is pressed, trigger the button's action
                 burger_btn.fire();
             }
         });

@@ -20,9 +20,7 @@ public class ChangePwController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        cancel_btn.setOnAction(actionEvent -> {
-            Model.getInstance().getViewFactory().setSceneLogin();
-        });
+        cancel_btn.setOnAction(actionEvent -> Model.getInstance().getViewFactory().setSceneLogin());
         submit_btn.setOnAction(actionEvent -> {
             if(sqliteModel.auth(user_txt.getText(), oldPassword_fld.getText())){
                 if(newPassword_fld.getText().equals(confirmNewPassword_fld.getText())){

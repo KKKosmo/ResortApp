@@ -56,38 +56,26 @@ public class EditController implements Initializable {
         roomCheckBoxes.add(kubo2_ChkBox);
         Model.getInstance().getViewFactory().setRoomCheckBoxes(roomCheckBoxes);
 
-
         escMenu =  Model.getInstance().getViewFactory().getEscMenu(parentPane);
-        burger_btn.setOnAction(actionEvent -> {
-            escMenu.setVisible(!escMenu.isVisible());
-        });
+        burger_btn.setOnAction(actionEvent -> escMenu.setVisible(!escMenu.isVisible()));
 
 
         parentPane.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.ESCAPE) {
-                // When Escape key is pressed, trigger the button's action
                 burger_btn.fire();
             }
         });
 
-        done_btn.setOnAction(actionEvent -> {
-            updateRecord();
-        });
-        back_btn.setOnAction(actionEvent -> {
-            Model.getInstance().getViewFactory().setSceneTable();
-        });
+        done_btn.setOnAction(actionEvent -> updateRecord());
+        back_btn.setOnAction(actionEvent -> Model.getInstance().getViewFactory().setSceneTable());
 
         textFieldAddListener(pax_fld);
         textFieldAddListener(partialPayment_fld);
         textFieldAddListener(fullPayment_fld);
         textFieldAddListener(vehicle_textFld);
-
-
     }
 
     public void updateRecord(){
-//        initRecordModel.printStringFields();
-//        newRecordModel().printStringFields();
         RecordModel newRecordModel = newRecordModel();
         String changes = initRecordModel.checkDifferences(newRecordModel);
         if(Model.getInstance().getViewFactory().showConfirmPopup("Are you sure you want to edit this record?" + changes)){
@@ -116,7 +104,6 @@ public class EditController implements Initializable {
         Model.getInstance().getViewFactory().insertCalendar(month_pane);
         Model.getInstance().autoTurnMonth(LocalDate.parse(recordModel.getCheckIn()).withDayOfMonth(1));
 
-//        Model.getInstance().setAvailablesForVisual(sqliteModel.getAvailableRoomsPerDayList(id));
         available = sqliteModel.getAvailablesForFunction(checkIn_datePicker.getValue(), checkOut_datePicker.getValue(), id);
 
         System.out.println(available);
@@ -125,18 +112,17 @@ public class EditController implements Initializable {
         Model.getInstance().setSelectedRightDate(recordModel.getCheckOut());
         Model.getInstance().setSelected();
         Model.getInstance().getViewFactory().colorize();
-
-
+        
         checkIn_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue != null){
                 Model.getInstance().setSelectedLeftDate(String.valueOf(newValue));
                 Model.getInstance().setCalendarLeftDate(newValue);
                 Model.getInstance().autoTurnMonth(Model.getInstance().getCalendarLeftDate());
+                LocalDate checkOutValue = checkOut_datePicker.getValue();
 
-                if(checkOut_datePicker.getValue() != null){
-                    if(checkIn_datePicker.getValue().isBefore(checkOut_datePicker.getValue()) || checkIn_datePicker.getValue().equals(checkOut_datePicker.getValue())){
-//                        Model.getInstance().setAvailablesForVisual(sqliteModel.getAvailableRoomsPerDayList(id));
-                        available = sqliteModel.getAvailablesForFunction(checkIn_datePicker.getValue(), checkOut_datePicker.getValue(), id);
+                if(checkOutValue != null){
+                    if(newValue.isBefore(checkOutValue) || newValue.equals(checkOutValue)){
+                        available = sqliteModel.getAvailablesForFunction(newValue, checkOutValue, id);
                     }
                     Model.getInstance().setSelected();
                 }
@@ -147,12 +133,11 @@ public class EditController implements Initializable {
                 Model.getInstance().setSelectedRightDate(String.valueOf(newValue));
                 Model.getInstance().setCalendarLeftDate(newValue);
                 Model.getInstance().autoTurnMonth(Model.getInstance().getCalendarLeftDate());
+                LocalDate checkInValue = checkIn_datePicker.getValue();
 
-                if(checkIn_datePicker.getValue() != null){
-                    if(checkIn_datePicker.getValue().isBefore(checkOut_datePicker.getValue()) || checkIn_datePicker.getValue().equals(checkOut_datePicker.getValue())){
-//                        Model.getInstance().setAvailablesForVisual(sqliteModel.getAvailableRoomsPerDayList(id));
-                        available = sqliteModel.getAvailablesForFunction(checkIn_datePicker.getValue(), checkOut_datePicker.getValue(), id);
-//                        System.out.println(available);
+                if(checkInValue != null){
+                    if(checkInValue.isBefore(newValue) || checkInValue.equals(newValue)){
+                        available = sqliteModel.getAvailablesForFunction(checkInValue, newValue, id);
                     }
                     Model.getInstance().setSelected();
                 }
@@ -167,11 +152,8 @@ public class EditController implements Initializable {
    }
 
     private void checkBoxAddListener(CheckBox checkBox){
-        checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            Model.getInstance().getViewFactory().colorize();
-        });
+        checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> Model.getInstance().getViewFactory().colorize());
     }
-
 
     private RecordModel newRecordModel(){
         return new RecordModel(id, payStatus, name_fld, pax_fld, vehicle_textFld, petsYes_radio, videokeYes_radio,

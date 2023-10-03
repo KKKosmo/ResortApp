@@ -11,9 +11,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -68,7 +66,7 @@ public class TableController implements Initializable {
     public HBox totalPayment_hBox;
     public Button history_btn;
     public Button add_btn;
-    public ComboBox yearMonth_box;
+    public ComboBox<String> yearMonth_box;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -94,10 +92,8 @@ public class TableController implements Initializable {
 
         LocalDate currentDate = LocalDate.now();
 
-        // Initialize the date three months from now
         LocalDate startDate = currentDate.plusMonths(3);
 
-        // Create a formatter for abbreviated month and year
         DateTimeFormatter monthYearFormatter = DateTimeFormatter.ofPattern("MMM yyyy", Locale.US);
 
         while (startDate.isAfter(YearMonth.of(2023, 9).atEndOfMonth())) {
@@ -106,13 +102,11 @@ public class TableController implements Initializable {
             startDate = startDate.minusMonths(1);
         }
 
-        // Add "Oct 2023" at the bottom
         yearMonth_box.getItems().add("Sep 2023");
-
 
         yearMonth_box.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue != null){
-                YearMonth yearMonth = YearMonth.parse(newValue.toString(), monthYearFormatter);
+                YearMonth yearMonth = YearMonth.parse(newValue, monthYearFormatter);
                 System.out.println(yearMonth);
                 startDate_datePicker.setValue(null);
                 endDate_datePicker.setValue(null);
@@ -121,14 +115,13 @@ public class TableController implements Initializable {
             }
         });
 
-
         if(!Model.getInstance().isASC() && Model.getInstance().getOrderCategory() != Model.OrderCategory.ID){
             if (Model.getInstance().isASC()) {
                 sort_icon.setGlyphName("SORT_UP");
             } else {
                 sort_icon.setGlyphName("SORT_DOWN");
             }
-            System.out.println(Model.getInstance().getOrderCategory() + "===================================");
+//            System.out.println(Model.getInstance().getOrderCategory() + "===================================");
             switch (Model.getInstance().getOrderCategory()) {
                 case DATEINSERTED -> timeCreated_pane.getChildren().add(sort_icon);
                 case NAME -> name_pane.getChildren().add(sort_icon);
@@ -149,23 +142,15 @@ public class TableController implements Initializable {
             }
         }
 
-
-
-        burger_btn.setOnAction(actionEvent -> {
-            escMenu.setVisible(!escMenu.isVisible());
-        });
-
+        burger_btn.setOnAction(actionEvent -> escMenu.setVisible(!escMenu.isVisible()));
 
         parentPane.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.ESCAPE) {
-                // When Escape key is pressed, trigger the button's action
                 burger_btn.fire();
             }
         });
 
-        add_btn.setOnAction(actionEvent -> {
-            Model.getInstance().getViewFactory().setSceneCreate();
-        });
+        add_btn.setOnAction(actionEvent -> Model.getInstance().getViewFactory().setSceneCreate());
 
         hBoxList = new ArrayList<>();
         hBoxList.add(id_pane);
@@ -183,7 +168,6 @@ public class TableController implements Initializable {
         hBoxList.add(room_pane);
         hBoxList.add(user_pane);
         hBoxList.add(status_pane);
-
 
         id_pane.setOnMouseClicked(event -> {
             if(Model.getInstance().getOrderCategory() != Model.OrderCategory.ID){
@@ -461,10 +445,11 @@ public class TableController implements Initializable {
 
         startDate_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             Model.getInstance().setTableStartDate(newValue);
-            if(startDate_datePicker.getValue() != null && endDate_datePicker.getValue() != null){
+            LocalDate endDateValue = endDate_datePicker.getValue();
+            if(newValue != null && endDateValue != null){
                 if(newValue.withDayOfMonth(1).equals(newValue)
                 &&
-                newValue.withDayOfMonth(newValue.lengthOfMonth()).equals(endDate_datePicker.getValue())){
+                newValue.withDayOfMonth(newValue.lengthOfMonth()).equals(endDateValue)){
                     Model.getInstance().setTableYearMonth(YearMonth.of(newValue.getYear(), newValue.getMonthValue()));
                 }
                 else{
@@ -474,12 +459,14 @@ public class TableController implements Initializable {
                 refreshPage();
             }
         });
+
         endDate_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             Model.getInstance().setTableEndDate(newValue);
-            if(startDate_datePicker.getValue() != null && endDate_datePicker.getValue() != null){
+            LocalDate startDateValue = startDate_datePicker.getValue();
+            if(startDateValue != null && newValue != null){
                 if(newValue.withDayOfMonth(newValue.lengthOfMonth()).equals(newValue)
                 &&
-                newValue.withDayOfMonth(1).equals(startDate_datePicker.getValue())
+                newValue.withDayOfMonth(1).equals(startDateValue)
                 ){
                     Model.getInstance().setTableYearMonth(YearMonth.of(newValue.getYear(), newValue.getMonthValue()));
                 }
@@ -492,12 +479,8 @@ public class TableController implements Initializable {
         });
 
 
-        prevPage_btn.setOnAction(actionEvent -> {
-            page_fld.setText(String.valueOf(Model.getInstance().getCurrentPage()-1));
-        });
-        nextPage_btn.setOnAction(actionEvent -> {
-            page_fld.setText(String.valueOf(Model.getInstance().getCurrentPage()+1));
-        });
+        prevPage_btn.setOnAction(actionEvent -> page_fld.setText(String.valueOf(Model.getInstance().getCurrentPage()-1)));
+        nextPage_btn.setOnAction(actionEvent -> page_fld.setText(String.valueOf(Model.getInstance().getCurrentPage()+1)));
         page_fld.textProperty().addListener((observable, oldValue, newValue) -> {
             if(!newValue.isEmpty()){
                 int temp = Integer.parseInt(newValue);
@@ -509,7 +492,6 @@ public class TableController implements Initializable {
                     page_fld.setText(String.valueOf(temp));
                 }
                 else{
-                    System.out.println("HERE");
                     currentPage_txt.setText(String.valueOf(temp));
                     Model.getInstance().setCurrentPage(temp);
                     Model.getInstance().getViewFactory().insertListRows();
@@ -586,12 +568,10 @@ public class TableController implements Initializable {
 
 
                 //date
-//                Model.getInstance().initTableDates();
-//                startDate_datePicker.setValue(Model.getInstance().getTableStartDate());
-//                endDate_datePicker.setValue(Model.getInstance().getTableEndDate());
                 startDate_datePicker.setValue(null);
                 endDate_datePicker.setValue(null);
                 yearMonth_box.setValue(null);
+
 
                 //rooms
                 j_chkBox.setSelected(false);
@@ -599,6 +579,7 @@ public class TableController implements Initializable {
                 a_chkBox.setSelected(false);
                 k1_chkBox.setSelected(false);
                 k2_chkBox.setSelected(false);
+
 
                 //searchbar
                 searchBar_fld.setText("");
@@ -609,13 +590,9 @@ public class TableController implements Initializable {
             }
         });
 
-        export_btn.setOnAction(actionEvent -> {
-            Model.getInstance().getViewFactory().generateReportPDF();
-        });
+        export_btn.setOnAction(actionEvent -> Model.getInstance().getViewFactory().generateReportPDF());
 
-        history_btn.setOnAction(actionEvent -> {
-            Model.getInstance().getViewFactory().setSceneEditHistory();
-        });
+        history_btn.setOnAction(actionEvent -> Model.getInstance().getViewFactory().setSceneEditHistory());
     }
 
     public void myInit(){
@@ -633,14 +610,8 @@ public class TableController implements Initializable {
         escMenu =  Model.getInstance().getViewFactory().getEscMenu(parentPane);
     }
     private void onHover(HBox hBox){
-        hBox.setOnMouseEntered(event -> {
-//            mediaPlayer.play();
-            hBox.getStyleClass().add("pane");
-        });
-
-        hBox.setOnMouseExited(event -> {
-            hBox.getStyleClass().remove("pane");
-        });
+        hBox.setOnMouseEntered(event -> hBox.getStyleClass().add("pane"));
+        hBox.setOnMouseExited(event -> hBox.getStyleClass().remove("pane"));
     }
     
     private void refreshPage(){
