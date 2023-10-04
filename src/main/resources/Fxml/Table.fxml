@@ -21,33 +21,34 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="parentPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.resort.resortapp.Controllers.TableController">
-   <TextField fx:id="searchBar_fld" alignment="CENTER" layoutX="126.0" layoutY="98.0" prefHeight="25.0" prefWidth="365.0" promptText="NAME SEARCH BAR" />
-   <Pane layoutX="510.0" layoutY="22.0" prefHeight="84.0" prefWidth="521.0" style="-fx-border-color: black;">
+<AnchorPane fx:id="parentPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../Styles/table.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.resort.resortapp.Controllers.TableController">
+   <Button fx:id="burger_btn" layoutX="1237.0" layoutY="9.0" mnemonicParsing="false">
+      <graphic>
+         <FontAwesomeIconView glyphName="BARS" size="20" />
+      </graphic>
+   </Button>
+   <TextField fx:id="searchBar_fld" alignment="CENTER" layoutX="126.0" layoutY="97.0" prefHeight="25.0" prefWidth="365.0" promptText="SEARCH FOR A NAME" />
+   <Pane layoutX="510.0" layoutY="12.0" prefHeight="85.0" prefWidth="521.0" style="-fx-border-color: black;">
       <Pane layoutX="230.0" layoutY="5.0" prefHeight="75.0" prefWidth="286.0" style="-fx-border-color: black;">
-         <DatePicker fx:id="startDate_datePicker" editable="false" layoutX="8.0" layoutY="45.0" prefHeight="25.0"
-                     prefWidth="129.0">
+         <DatePicker fx:id="startDate_datePicker" editable="false" layoutX="8.0" layoutY="45.0" prefHeight="25.0" prefWidth="129.0">
             <cursor>
-               <Cursor fx:constant="DEFAULT"/>
+               <Cursor fx:constant="DEFAULT" />
             </cursor>
          </DatePicker>
-         <DatePicker fx:id="endDate_datePicker" editable="false" layoutX="148.0" layoutY="45.0" prefHeight="25.0"
-                     prefWidth="129.0">
+         <DatePicker fx:id="endDate_datePicker" editable="false" layoutX="148.0" layoutY="45.0" prefHeight="25.0" prefWidth="129.0">
             <cursor>
-               <Cursor fx:constant="DEFAULT"/>
+               <Cursor fx:constant="DEFAULT" />
             </cursor>
          </DatePicker>
-         <Text layoutX="46.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date"
-               textAlignment="CENTER"/>
-         <Text layoutX="188.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Date"
-               textAlignment="CENTER"/>
-         <Text layoutX="72.0" layoutY="16.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECT BY SPECIFIC DATES"/>
+         <Text layoutX="46.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date" textAlignment="CENTER" />
+         <Text layoutX="188.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Date" textAlignment="CENTER" />
+         <Text layoutX="72.0" layoutY="16.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECT BY SPECIFIC DATES" />
       </Pane>
       <Pane layoutX="4.0" layoutY="5.0" prefHeight="75.0" prefWidth="149.0" style="-fx-border-color: black;">
-         <Text layoutX="7.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECT BY YEAR&amp;MONTH"/>
-         <ComboBox fx:id="yearMonth_box" layoutX="24.0" layoutY="45.0" prefHeight="25.0" prefWidth="102.0"/>
+         <Text layoutX="7.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECT BY YEAR&amp;MONTH" />
+         <ComboBox fx:id="yearMonth_box" layoutX="24.0" layoutY="45.0" prefHeight="25.0" prefWidth="102.0" />
       </Pane>
-      <Text layoutX="186.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OR"/>
+      <Text layoutX="182.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OR" />
    </Pane>
    <GridPane fx:id="gridPane" alignment="CENTER" gridLinesVisible="true" layoutX="9.0" layoutY="163.0" prefHeight="592.0" prefWidth="1262.0" style="-fx-background-color: #D8D8D8;">
       <columnConstraints>
@@ -272,7 +273,7 @@
          </cursor>
       </HBox>
    </GridPane>
-   <HBox alignment="CENTER" layoutX="1064.0" layoutY="20.0" prefHeight="94.0" prefWidth="167.0" spacing="10.0" style="-fx-border-color: black;">
+   <HBox alignment="CENTER" layoutX="1057.0" layoutY="17.0" prefHeight="94.0" prefWidth="167.0" spacing="10.0" style="-fx-border-color: black;">
       <VBox alignment="CENTER" prefHeight="71.0" prefWidth="65.0" spacing="10.0">
          <CheckBox fx:id="j_chkBox" mnemonicParsing="false" prefHeight="17.0" prefWidth="71.0" text="Room J" />
          <CheckBox fx:id="g_chkBox" mnemonicParsing="false" text="Room G" />
@@ -283,7 +284,7 @@
          <CheckBox fx:id="k2_chkBox" mnemonicParsing="false" text="KUBO 2" />
       </VBox>
    </HBox>
-   <VBox layoutX="188.0" layoutY="40.0" prefHeight="49.0" prefWidth="179.0" spacing="5.0" style="-fx-border-color: black; -fx-padding: 5;">
+   <VBox layoutX="140.0" layoutY="30.0" prefHeight="49.0" prefWidth="179.0" spacing="5.0" style="-fx-border-color: black; -fx-padding: 5;">
       <opaqueInsets>
          <Insets />
       </opaqueInsets>
@@ -310,16 +311,11 @@
       <Text fx:id="lastPage_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="#" />
    </HBox>
    <Button fx:id="export_btn" layoutX="1177.0" layoutY="766.0" mnemonicParsing="false" text="Export to PDF" />
-   <Button fx:id="history_btn" layoutX="1191.0" layoutY="114.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="80.0">
+   <Button fx:id="history_btn" layoutX="1193.0" layoutY="113.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="80.0">
       <graphic>
          <Label prefHeight="41.0" prefWidth="80.0" text="Edit History" textAlignment="CENTER" wrapText="true" />
       </graphic>
    </Button>
-   <Button fx:id="default_btn" layoutX="70.0" layoutY="21.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="62.0" text="Default Filters" textAlignment="CENTER" wrapText="true" />
-   <Button fx:id="add_btn" layoutX="10.0" layoutY="98.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="ADD" />
-   <Button fx:id="burger_btn" layoutX="1237.0" layoutY="9.0" mnemonicParsing="false">
-      <graphic>
-         <FontAwesomeIconView glyphName="BARS" size="20" />
-      </graphic>
-   </Button>
+   <Button fx:id="default_btn" layoutX="19.0" layoutY="16.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="62.0" text="Default Filters" textAlignment="CENTER" wrapText="true" />
+   <Button fx:id="add_btn" layoutX="10.0" layoutY="95.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="ADD" />
 </AnchorPane>

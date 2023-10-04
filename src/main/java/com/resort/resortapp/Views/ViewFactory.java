@@ -80,7 +80,7 @@ public class ViewFactory {
         parentPane.getChildren().add(escMenu);
         return escMenu;
     }
-    public void setSceneTable() {
+    public void setSceneTable(boolean def) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Table.fxml"));
         Parent root = null;
         try {
@@ -99,6 +99,8 @@ public class ViewFactory {
         TableController tableController = loader.getController();
         tableController.myInit();
         tableController.setEscMenu();
+        if(def)
+            tableController.clear();
 
         Tooltip tooltip = new Tooltip("IF NOT PAID, THEN THE PARTIAL PAYMENT INSTEAD OF THE FULL PAYMENT GETS ADDED TO THE TOTAL PAYMENT");
         tooltip.setShowDelay(Duration.millis(0));
@@ -407,12 +409,12 @@ public class ViewFactory {
 
             RecordModel recordModel = list.get(i);
 
-            if(recordModel.getUser().equals(Model.getInstance().getUser())){
-                Button editButton = new Button("Edit");
-                Button deleteButton = new Button("X");
+            Button editButton = new Button("Edit");
+            Button deleteButton = new Button("X");
 
-                rowButtonOnHover(editButton, i - startIndex);
-                rowButtonOnHover(deleteButton, i - startIndex);
+            rowButtonOnHover(editButton, i - startIndex);
+            rowButtonOnHover(deleteButton, i - startIndex);
+            if(recordModel.getUser().equals(Model.getInstance().getUser())){
 
                 editButton.setOnAction(actionEvent -> setSceneEdit(recordModel));
 
@@ -420,20 +422,28 @@ public class ViewFactory {
                     if(showConfirmPopup("Are you sure you want to delete this booking? (ID = " + recordModel.getId() + ")")){
                         if(sqliteModel.deleteEntry(recordModel)){
 //                            listTableChildren.removeIf(node -> listTableChildren.indexOf(node) > 15);
-                            setSceneTable();
+                            setSceneTable(false);
                         }
                     }
                 });
 
 
-                GridPane.setColumnIndex(editButton, 14);
-                GridPane.setColumnIndex(deleteButton, 15);
-
-                GridPane.setRowIndex(editButton, i - startIndex);
-                GridPane.setRowIndex(deleteButton, i - startIndex);
-
-                listTable.getChildren().addAll(editButton, deleteButton);
             }
+            else{
+                editButton.getStyleClass().add("red-disabled-button");
+                deleteButton.getStyleClass().add("red-disabled-button");
+
+                editButton.setOnAction(actionEvent -> Model.getInstance().getViewFactory().showErrorPopup("Error: You are not USER "+recordModel.getUser()+", cannot modify this booking"));
+
+                deleteButton.setOnAction(actionEvent -> Model.getInstance().getViewFactory().showErrorPopup("Error: You are not USER "+recordModel.getUser()+", cannot modify this booking"));
+            }
+            GridPane.setColumnIndex(editButton, 14);
+            GridPane.setColumnIndex(deleteButton, 15);
+
+            GridPane.setRowIndex(editButton, i - startIndex);
+            GridPane.setRowIndex(deleteButton, i - startIndex);
+
+            listTable.getChildren().addAll(editButton, deleteButton);
 
 
         }

@@ -1,12 +1,10 @@
 if errors with sql, might be the plugins
 if seem odd, might be because i tried to remove duplicates in controllers where they setAvailablesFotVisuals
 
-fix page 1 of 0 bug
-
 DESIGN
-    what is first selected when entered scene
     button mouse appearances
-
+    structures
+    colors
 
 
 

@@ -28,7 +28,7 @@ public class EscMenuController implements Initializable {
             pane.setVisible(false);
         });
         list.setOnAction(actionEvent -> {
-            Model.getInstance().getViewFactory().setSceneTable();
+            Model.getInstance().getViewFactory().setSceneTable(false);
             pane.setVisible(false);
         });
         signOut.setOnAction(actionEvent -> {

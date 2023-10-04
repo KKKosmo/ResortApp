@@ -171,7 +171,7 @@
                   <Font size="16.0" />
                </font>
             </Text>
-            <DatePicker fx:id="checkIn_datePicker" editable="false" />
+            <DatePicker fx:id="checkIn_datePicker" editable="false" prefWidth="125.0" />
          </VBox>
          <VBox alignment="CENTER">
             <VBox.margin>
@@ -185,7 +185,7 @@
                   <Font size="16.0" />
                </font>
             </Text>
-            <DatePicker fx:id="checkOut_datePicker" editable="false" />
+            <DatePicker fx:id="checkOut_datePicker" editable="false" prefWidth="125.0" />
          </VBox>
          <HBox alignment="CENTER" prefHeight="152.0" prefWidth="280.0">
             <VBox alignment="CENTER" prefHeight="169.0" prefWidth="129.0" style="-fx-border-color: #000000;">

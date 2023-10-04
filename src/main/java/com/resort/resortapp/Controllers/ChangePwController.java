@@ -3,8 +3,11 @@ package com.resort.resortapp.Controllers;
 import com.resort.resortapp.Models.Model;
 import com.resort.resortapp.Models.sqliteModel;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
 import java.net.URL;
@@ -23,18 +26,30 @@ public class ChangePwController implements Initializable {
         cancel_btn.setOnAction(actionEvent -> Model.getInstance().getViewFactory().setSceneLogin());
         submit_btn.setOnAction(actionEvent -> {
             if(sqliteModel.auth(user_txt.getText(), oldPassword_fld.getText())){
-                if(newPassword_fld.getText().equals(confirmNewPassword_fld.getText())){
-                    if(sqliteModel.changePw(user_txt.getText(), newPassword_fld.getText())){
-                        Model.getInstance().getViewFactory().showSuccessPopup("Password for user " + user_txt.getText() + " changed successfully.");
-                        Model.getInstance().getViewFactory().setSceneLogin();
-                    }
+                if(newPassword_fld.getText().isEmpty()){
+                    Model.getInstance().getViewFactory().showErrorPopup("Error: NEW PASSWORD CANNOT BE EMPTY.");
                 }
                 else{
-                    Model.getInstance().getViewFactory().showErrorPopup("Error: NEW PASSWORD FIELDS DO NOT MATCH.");
+                    if(newPassword_fld.getText().equals(confirmNewPassword_fld.getText())){
+                        if(sqliteModel.changePw(user_txt.getText(), newPassword_fld.getText())){
+                            Model.getInstance().getViewFactory().showSuccessPopup("Password for user " + user_txt.getText() + " changed successfully.");
+                            Model.getInstance().getViewFactory().setSceneLogin();
+                        }
+                    }
+                    else{
+                        Model.getInstance().getViewFactory().showErrorPopup("Error: NEW PASSWORD FIELDS DO NOT MATCH.");
+                    }
                 }
             }
             else{
                 Model.getInstance().getViewFactory().showErrorPopup("Error: OLD PASSWORD IS INCORRECT.");
+            }
+        });
+
+
+        oldPassword_fld.getParent().setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                submit_btn.fire();
             }
         });
     }

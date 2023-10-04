@@ -571,41 +571,46 @@ public class TableController implements Initializable {
 
         default_btn.setOnAction(actionEvent -> {
             if(Model.getInstance().getViewFactory().showConfirmPopup("Do you really want to reset the settings?")){
-                //sort
-                if(Model.getInstance().getOrderCategory() != Model.OrderCategory.ID){
-                    id_pane.getChildren().add(sort_icon);
-                    Model.getInstance().setOrderCategory(Model.OrderCategory.ID);
-                }
-                Model.getInstance().setASC(false);
-                sort_icon.setGlyphName("SORT_DOWN");
-
-
-                //date
-                startDate_datePicker.setValue(null);
-                endDate_datePicker.setValue(null);
-                yearMonth_box.setValue(null);
-
-
-                //rooms
-                j_chkBox.setSelected(false);
-                g_chkBox.setSelected(false);
-                a_chkBox.setSelected(false);
-                k1_chkBox.setSelected(false);
-                k2_chkBox.setSelected(false);
-
-
-                //searchbar
-                searchBar_fld.setText("");
-
-
-                sqliteModel.queryTableRecords();
-                Model.getInstance().getViewFactory().insertListRows();
+                clear();
             }
         });
 
         export_btn.setOnAction(actionEvent -> Model.getInstance().getViewFactory().generateReportPDF());
 
         history_btn.setOnAction(actionEvent -> Model.getInstance().getViewFactory().setSceneEditHistory());
+    }
+
+    public void clear(){
+        //sort
+        if(Model.getInstance().getOrderCategory() != Model.OrderCategory.ID){
+            id_pane.getChildren().add(sort_icon);
+            Model.getInstance().setOrderCategory(Model.OrderCategory.ID);
+        }
+        Model.getInstance().setASC(false);
+        sort_icon.setGlyphName("SORT_DOWN");
+
+
+        //date
+        startDate_datePicker.setValue(null);
+        endDate_datePicker.setValue(null);
+        yearMonth_box.setValue(null);
+
+
+        //rooms
+        j_chkBox.setSelected(false);
+        g_chkBox.setSelected(false);
+        a_chkBox.setSelected(false);
+        k1_chkBox.setSelected(false);
+        k2_chkBox.setSelected(false);
+
+
+        //searchbar
+        searchBar_fld.setText("");
+
+
+        sqliteModel.queryTableRecords();
+        Model.getInstance().getViewFactory().insertListRows();
+
     }
 
     public void myInit(){
@@ -620,6 +625,9 @@ public class TableController implements Initializable {
         int initialPage = Math.max(0, Model.getInstance().getMaxPage());
         page_fld.setText(String.valueOf(initialPage));
         currentPage_txt.setText(String.valueOf(initialPage));
+        if(Model.getInstance().getTableYearMonth() != null){
+            yearMonth_box.setValue(Model.getInstance().getTableYearMonth().format(DateTimeFormatter.ofPattern("MMM yyyy", Locale.US)));
+        }
     }
 
     public void setEscMenu(){

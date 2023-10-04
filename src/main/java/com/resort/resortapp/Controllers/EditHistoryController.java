@@ -46,7 +46,7 @@ public class EditHistoryController implements Initializable {
 
         list = sqliteModel.getEditHistory();
 
-        back_btn.setOnAction(actionEvent -> Model.getInstance().getViewFactory().setSceneTable());
+        back_btn.setOnAction(actionEvent -> Model.getInstance().getViewFactory().setSceneTable(false));
 
         editId_col.setComparator(Integer::compareTo);
         editId_col.setSortType(TableColumn.SortType.DESCENDING);

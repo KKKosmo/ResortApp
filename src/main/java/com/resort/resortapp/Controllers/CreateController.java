@@ -65,7 +65,7 @@ public class CreateController  implements Initializable{
 
 
         done_btn.setOnAction(actionEvent -> insertRecord());
-        back_btn.setOnAction(actionEvent -> Model.getInstance().getViewFactory().setSceneTable());
+        back_btn.setOnAction(actionEvent -> Model.getInstance().getViewFactory().setSceneTable(false));
         clr_btn.setOnAction(actionEvent -> {
             if(Model.getInstance().getViewFactory().showConfirmPopup("Are you sure you want to clear the values?"))
                 clearForm();
@@ -115,7 +115,7 @@ public class CreateController  implements Initializable{
     }
     private void insertRecord(){
         if(sqliteModel.insertRecord(newRecordModel(), available)){
-            Model.getInstance().getViewFactory().setSceneTable();
+            Model.getInstance().getViewFactory().setSceneTable(true);
         }
     }
     private void clearForm(){

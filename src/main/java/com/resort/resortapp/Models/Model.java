@@ -128,14 +128,14 @@ public class Model {
     }
     public void setCalendarVariables(FlowPane flowPane, Text year, Text month) {
         viewFactory.setCalendarVariables(flowPane, year, month);
-        setDateFocus();
+        setDateFocus(LocalDate.now());
     }
     public void fillFlowPaneMonths(){
         DayModelSetters();
         viewFactory.fillFlowPaneMonths();
     }
     public void nextMonth() {
-//        System.out.println("NEXXING");
+        System.out.println("NEXXING");
         dateFocus = dateFocus.plusMonths(1);
         setCalendarLeftDate(dateFocus);
         setCalendarRightDate(dateFocus);
@@ -146,7 +146,7 @@ public class Model {
         }
     }
     public void prevMonth() {
-//        System.out.println("PREVVING");
+        System.out.println("PREVVING");
         dateFocus = dateFocus.minusMonths(1);
         setCalendarLeftDate(dateFocus);
         setCalendarRightDate(dateFocus);
@@ -193,8 +193,8 @@ public class Model {
         return dateFocus;
     }
 
-    public void setDateFocus() {
-        dateFocus = LocalDate.now();
+    public void setDateFocus(LocalDate localDate) {
+        dateFocus = localDate;
     }
 
 
@@ -447,25 +447,9 @@ public class Model {
     }
 
     public void autoTurnMonth(LocalDate myDate){
-        int adjust;
-        if(myDate.isBefore(getCalendarRightDate())){
-//            while (myDate.getMonth() != getDateFocus().getMonth()){
-//            }
-            adjust = calendarRightDate.getMonthValue() - myDate.getMonthValue() - 1;
-            dateFocus = dateFocus.minusMonths(adjust);
-        }
-        else{
-//            while (myDate.getMonth() != getDateFocus().getMonth()){
-//                nextMonth();
-//            }
-            adjust = myDate.getMonthValue() - calendarRightDate.getMonthValue() + 1;
-            dateFocus = dateFocus.plusMonths(adjust);
-        }
+        Model.getInstance().setDateFocus(myDate.plusMonths(1));
         prevMonth();
     }
-//    public void setDateFocus(LocalDate dateFocus) {
-//        this.dateFocus = dateFocus;
-//    }
 
     public String getUser() {
         return user;

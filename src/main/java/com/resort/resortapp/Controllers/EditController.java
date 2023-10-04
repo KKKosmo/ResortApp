@@ -67,7 +67,7 @@ public class EditController implements Initializable {
         });
 
         done_btn.setOnAction(actionEvent -> updateRecord());
-        back_btn.setOnAction(actionEvent -> Model.getInstance().getViewFactory().setSceneTable());
+        back_btn.setOnAction(actionEvent -> Model.getInstance().getViewFactory().setSceneTable(false));
 
         textFieldAddListener(pax_fld);
         textFieldAddListener(partialPayment_fld);
@@ -80,11 +80,11 @@ public class EditController implements Initializable {
         String changes = initRecordModel.checkDifferences(newRecordModel);
         if(Model.getInstance().getViewFactory().showConfirmPopup("Are you sure you want to edit this record?" + changes)){
             if(changes.equals("\nThere are no changes")){
-                Model.getInstance().getViewFactory().setSceneTable();
+                Model.getInstance().getViewFactory().setSceneTable(false);
             }
             else{
                 if(sqliteModel.updateRecord(newRecordModel, available, changes.trim().replace("\n", ", "))){
-                    Model.getInstance().getViewFactory().setSceneTable();
+                    Model.getInstance().getViewFactory().setSceneTable(false);
                 }
             }
         }
@@ -101,6 +101,7 @@ public class EditController implements Initializable {
     public void setValues(RecordModel recordModel) {
         id = recordModel.fillInFields(name_fld, pax_fld, vehicle_textFld, petsYes_radio, petsNo_radio, videokeYes_radio, videokeNo_radio, partialPayment_fld, fullPayment_fld, paidYes_radio, paidNo_radio, checkIn_datePicker, checkOut_datePicker, roomCheckBoxes);
 
+//        Model.getInstance().setDateFocus(LocalDate.parse(recordModel.getCheckIn()).withDayOfMonth(1));
         Model.getInstance().getViewFactory().insertCalendar(month_pane);
         Model.getInstance().autoTurnMonth(LocalDate.parse(recordModel.getCheckIn()).withDayOfMonth(1));
 
