@@ -26,18 +26,21 @@
       <graphic>
          <FontAwesomeIconView glyphName="BARS" size="20" />
       </graphic>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
    </Button>
    <TextField fx:id="searchBar_fld" alignment="CENTER" layoutX="126.0" layoutY="97.0" prefHeight="25.0" prefWidth="365.0" promptText="SEARCH FOR A NAME" />
    <Pane layoutX="510.0" layoutY="12.0" prefHeight="85.0" prefWidth="521.0" style="-fx-border-color: black;">
       <Pane layoutX="230.0" layoutY="5.0" prefHeight="75.0" prefWidth="286.0" style="-fx-border-color: black;">
-         <DatePicker fx:id="startDate_datePicker" editable="false" layoutX="8.0" layoutY="45.0" prefHeight="25.0" prefWidth="129.0">
+         <DatePicker fx:id="startDate_datePicker" editable="false" focusTraversable="false" layoutX="8.0" layoutY="45.0" prefHeight="25.0" prefWidth="129.0">
             <cursor>
-               <Cursor fx:constant="DEFAULT" />
+               <Cursor fx:constant="HAND" />
             </cursor>
          </DatePicker>
-         <DatePicker fx:id="endDate_datePicker" editable="false" layoutX="148.0" layoutY="45.0" prefHeight="25.0" prefWidth="129.0">
+         <DatePicker fx:id="endDate_datePicker" editable="false" focusTraversable="false" layoutX="148.0" layoutY="45.0" prefHeight="25.0" prefWidth="129.0">
             <cursor>
-               <Cursor fx:constant="DEFAULT" />
+               <Cursor fx:constant="HAND" />
             </cursor>
          </DatePicker>
          <Text layoutX="46.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date" textAlignment="CENTER" />
@@ -46,7 +49,10 @@
       </Pane>
       <Pane layoutX="4.0" layoutY="5.0" prefHeight="75.0" prefWidth="149.0" style="-fx-border-color: black;">
          <Text layoutX="7.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECT BY YEAR&amp;MONTH" />
-         <ComboBox fx:id="yearMonth_box" layoutX="24.0" layoutY="45.0" prefHeight="25.0" prefWidth="102.0" />
+         <ComboBox fx:id="yearMonth_box" layoutX="24.0" layoutY="45.0" prefHeight="25.0" prefWidth="102.0">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor></ComboBox>
       </Pane>
       <Text layoutX="182.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OR" />
    </Pane>
@@ -103,9 +109,15 @@
       <Region prefHeight="37.0" prefWidth="191.0" style="-fx-background-color: white;" GridPane.columnSpan="16" GridPane.rowIndex="14" />
    </GridPane>
    <HBox layoutX="564.0" layoutY="766.0" spacing="5.0">
-      <Button fx:id="prevPage_btn" mnemonicParsing="false" text="&lt;" />
+      <Button fx:id="prevPage_btn" mnemonicParsing="false" text="&lt;">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
       <TextField fx:id="page_fld" alignment="CENTER" prefHeight="25.0" prefWidth="25.0" text="1" />
-      <Button fx:id="nextPage_btn" mnemonicParsing="false" text="&gt;" />
+      <Button fx:id="nextPage_btn" mnemonicParsing="false" text="&gt;">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
    </HBox>
    <GridPane fx:id="header" alignment="CENTER" gridLinesVisible="true" layoutX="9.0" layoutY="124.0" prefHeight="38.0" prefWidth="1182.0" style="-fx-background-color: #D8D8D8;" stylesheets="@../Styles/list.css">
       <columnConstraints>
@@ -275,13 +287,28 @@
    </GridPane>
    <HBox alignment="CENTER" layoutX="1057.0" layoutY="17.0" prefHeight="94.0" prefWidth="167.0" spacing="10.0" style="-fx-border-color: black;">
       <VBox alignment="CENTER" prefHeight="71.0" prefWidth="65.0" spacing="10.0">
-         <CheckBox fx:id="j_chkBox" mnemonicParsing="false" prefHeight="17.0" prefWidth="71.0" text="Room J" />
-         <CheckBox fx:id="g_chkBox" mnemonicParsing="false" text="Room G" />
-         <CheckBox fx:id="a_chkBox" mnemonicParsing="false" prefHeight="17.0" prefWidth="73.0" text="ATTIC" />
+         <CheckBox fx:id="j_chkBox" mnemonicParsing="false" prefHeight="17.0" prefWidth="71.0" text="Room J">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor></CheckBox>
+         <CheckBox fx:id="g_chkBox" mnemonicParsing="false" text="Room G">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor></CheckBox>
+         <CheckBox fx:id="a_chkBox" mnemonicParsing="false" prefHeight="17.0" prefWidth="73.0" text="ATTIC">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor></CheckBox>
       </VBox>
       <VBox alignment="CENTER" spacing="10.0">
-         <CheckBox fx:id="k1_chkBox" mnemonicParsing="false" text="KUBO 1" />
-         <CheckBox fx:id="k2_chkBox" mnemonicParsing="false" text="KUBO 2" />
+         <CheckBox fx:id="k1_chkBox" mnemonicParsing="false" text="KUBO 1">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor></CheckBox>
+         <CheckBox fx:id="k2_chkBox" mnemonicParsing="false" text="KUBO 2">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor></CheckBox>
       </VBox>
    </HBox>
    <VBox layoutX="140.0" layoutY="30.0" prefHeight="49.0" prefWidth="179.0" spacing="5.0" style="-fx-border-color: black; -fx-padding: 5;">
@@ -300,7 +327,7 @@
          <Text fx:id="unpaid_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="#" />
          <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" UNPAID)" />
          <cursor>
-            <Cursor fx:constant="HAND" />
+            <Cursor fx:constant="DEFAULT" />
          </cursor>
       </HBox>
    </VBox>
@@ -310,12 +337,24 @@
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="of" />
       <Text fx:id="lastPage_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="#" />
    </HBox>
-   <Button fx:id="export_btn" layoutX="1177.0" layoutY="766.0" mnemonicParsing="false" text="Export to PDF" />
+   <Button fx:id="export_btn" layoutX="1177.0" layoutY="766.0" mnemonicParsing="false" text="Export to PDF">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor></Button>
    <Button fx:id="history_btn" layoutX="1193.0" layoutY="113.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="80.0">
       <graphic>
          <Label prefHeight="41.0" prefWidth="80.0" text="Edit History" textAlignment="CENTER" wrapText="true" />
       </graphic>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
    </Button>
-   <Button fx:id="default_btn" layoutX="19.0" layoutY="16.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="62.0" text="Default Filters" textAlignment="CENTER" wrapText="true" />
-   <Button fx:id="add_btn" layoutX="10.0" layoutY="95.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="ADD" />
+   <Button fx:id="default_btn" layoutX="19.0" layoutY="16.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="62.0" text="Default Filters" textAlignment="CENTER" wrapText="true">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor></Button>
+   <Button fx:id="add_btn" layoutX="10.0" layoutY="95.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="ADD">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor></Button>
 </AnchorPane>

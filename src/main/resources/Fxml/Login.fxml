@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.ToggleButton?>
@@ -38,6 +39,9 @@
          <toggleGroup>
             <ToggleGroup fx:id="group" />
          </toggleGroup>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </ToggleButton>
       <ToggleButton fx:id="user2_btn" mnemonicParsing="false" toggleGroup="$group">
          <graphic>
@@ -48,6 +52,9 @@
                <Text fx:id="user2_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="Gianne" />
             </VBox>
          </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </ToggleButton>
       <ToggleButton fx:id="user3_btn" mnemonicParsing="false" toggleGroup="$group">
          <graphic>
@@ -58,6 +65,9 @@
                <Text fx:id="user3_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="Regina" />
             </VBox>
          </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </ToggleButton>
       <ToggleButton fx:id="user4_btn" mnemonicParsing="false" toggleGroup="$group">
          <graphic>
@@ -68,6 +78,9 @@
                <Text fx:id="user4_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="Roy" />
             </VBox>
          </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </ToggleButton>
       <ToggleButton fx:id="user5_btn" mnemonicParsing="false" toggleGroup="$group">
          <graphic>
@@ -78,6 +91,9 @@
                <Text fx:id="user5_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="Marvin" />
             </VBox>
          </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </ToggleButton>
       <ToggleButton fx:id="user6_btn" mnemonicParsing="false" toggleGroup="$group">
          <graphic>
@@ -88,11 +104,26 @@
                <Text fx:id="user6_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="Marie" />
             </VBox>
          </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </ToggleButton>
    </HBox>
    <PasswordField fx:id="password_field" alignment="CENTER" layoutX="490.0" layoutY="599.0" maxHeight="30.0" maxWidth="500.0" prefHeight="30.0" prefWidth="300.0" promptText="PASSWORD" />
-   <Button fx:id="login_btn" alignment="CENTER" layoutX="552.0" layoutY="643.0" minHeight="25.0" minWidth="50.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="176.0" text="Log In" />
-   <Button fx:id="exit_btn" layoutX="584.0" layoutY="729.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="112.0" text="Exit" />
-   <Button fx:id="changePw_btn" layoutX="1156.0" layoutY="761.0" mnemonicParsing="false" text="Change Password" />
-   <Button fx:id="forgotPw_btn" layoutX="1156.0" layoutY="717.0" mnemonicParsing="false" text="Forgot Password?" underline="true" />
+   <Button fx:id="login_btn" alignment="CENTER" layoutX="552.0" layoutY="643.0" minHeight="25.0" minWidth="50.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="176.0" text="Log In">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor></Button>
+   <Button fx:id="exit_btn" layoutX="584.0" layoutY="729.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="112.0" text="Exit">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor></Button>
+   <Button fx:id="changePw_btn" layoutX="1156.0" layoutY="761.0" mnemonicParsing="false" text="Change Password">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor></Button>
+   <Button fx:id="forgotPw_btn" layoutX="1156.0" layoutY="717.0" mnemonicParsing="false" text="Forgot Password?" underline="true">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor></Button>
 </AnchorPane>

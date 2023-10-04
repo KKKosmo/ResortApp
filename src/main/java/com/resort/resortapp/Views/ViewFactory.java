@@ -22,6 +22,7 @@ import com.itextpdf.layout.element.Cell;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -411,6 +412,9 @@ public class ViewFactory {
 
             Button editButton = new Button("Edit");
             Button deleteButton = new Button("X");
+
+            editButton.setCursor(Cursor.HAND);
+            deleteButton.setCursor(Cursor.HAND);
 
             rowButtonOnHover(editButton, i - startIndex);
             rowButtonOnHover(deleteButton, i - startIndex);
