@@ -24,30 +24,30 @@
 <AnchorPane fx:id="parentPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.resort.resortapp.Controllers.TableController">
    <TextField fx:id="searchBar_fld" alignment="CENTER" layoutX="126.0" layoutY="98.0" prefHeight="25.0" prefWidth="365.0" promptText="NAME SEARCH BAR" />
    <Pane layoutX="510.0" layoutY="22.0" prefHeight="84.0" prefWidth="521.0" style="-fx-border-color: black;">
-      <children>
-         <Pane layoutX="230.0" layoutY="5.0" prefHeight="75.0" prefWidth="286.0" style="-fx-border-color: black;">
-            <children>
-               <DatePicker fx:id="startDate_datePicker" editable="false" layoutX="8.0" layoutY="45.0" prefHeight="25.0" prefWidth="129.0">
-                  <cursor>
-                     <Cursor fx:constant="DEFAULT" />
-                  </cursor>
-               </DatePicker>
-               <DatePicker fx:id="endDate_datePicker" editable="false" layoutX="148.0" layoutY="45.0" prefHeight="25.0" prefWidth="129.0">
-                  <cursor>
-                     <Cursor fx:constant="DEFAULT" />
-                  </cursor>
-               </DatePicker>
-               <Text layoutX="46.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date" textAlignment="CENTER" />
-               <Text layoutX="188.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Date" textAlignment="CENTER" />
-               <Text layoutX="72.0" layoutY="16.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECT BY SPECIFIC DATES" />
-            </children>
-         </Pane>
-         <Pane layoutX="4.0" layoutY="5.0" prefHeight="75.0" prefWidth="149.0" style="-fx-border-color: black;">
-            <Text layoutX="7.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECT BY YEAR&amp;MONTH" />
-            <ComboBox fx:id="yearMonth_box" layoutX="24.0" layoutY="45.0" prefHeight="25.0" prefWidth="102.0" />
-         </Pane>
-         <Text layoutX="186.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OR" />
-      </children>
+      <Pane layoutX="230.0" layoutY="5.0" prefHeight="75.0" prefWidth="286.0" style="-fx-border-color: black;">
+         <DatePicker fx:id="startDate_datePicker" editable="false" layoutX="8.0" layoutY="45.0" prefHeight="25.0"
+                     prefWidth="129.0">
+            <cursor>
+               <Cursor fx:constant="DEFAULT"/>
+            </cursor>
+         </DatePicker>
+         <DatePicker fx:id="endDate_datePicker" editable="false" layoutX="148.0" layoutY="45.0" prefHeight="25.0"
+                     prefWidth="129.0">
+            <cursor>
+               <Cursor fx:constant="DEFAULT"/>
+            </cursor>
+         </DatePicker>
+         <Text layoutX="46.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date"
+               textAlignment="CENTER"/>
+         <Text layoutX="188.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Date"
+               textAlignment="CENTER"/>
+         <Text layoutX="72.0" layoutY="16.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECT BY SPECIFIC DATES"/>
+      </Pane>
+      <Pane layoutX="4.0" layoutY="5.0" prefHeight="75.0" prefWidth="149.0" style="-fx-border-color: black;">
+         <Text layoutX="7.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECT BY YEAR&amp;MONTH"/>
+         <ComboBox fx:id="yearMonth_box" layoutX="24.0" layoutY="45.0" prefHeight="25.0" prefWidth="102.0"/>
+      </Pane>
+      <Text layoutX="186.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OR"/>
    </Pane>
    <GridPane fx:id="gridPane" alignment="CENTER" gridLinesVisible="true" layoutX="9.0" layoutY="163.0" prefHeight="592.0" prefWidth="1262.0" style="-fx-background-color: #D8D8D8;">
       <columnConstraints>
@@ -85,28 +85,6 @@
          <RowConstraints minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
          <RowConstraints minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
       </rowConstraints>
-      <!--               <children>-->
-      <!--                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="1234" />-->
-      <!--                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="2023/09/19 2:34 PM" textAlignment="CENTER" wrappingWidth="65.1796875" GridPane.columnIndex="1" />-->
-      <!--                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Louis Angel Ayson Manila" GridPane.columnIndex="2" />-->
-      <!--                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="100" GridPane.columnIndex="3" />-->
-      <!--                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="YES" GridPane.columnIndex="5" />-->
-      <!--                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="YES" GridPane.columnIndex="6" />-->
-      <!--                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="2023/09/19" GridPane.columnIndex="10" />-->
-      <!--                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="2023/09/19" GridPane.columnIndex="11" />-->
-      <!--                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="J, G, A, K1, K2" textAlignment="CENTER" wrappingWidth="49.669921875" GridPane.columnIndex="12" />-->
-      <!--                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Kevinnn" GridPane.columnIndex="13" />-->
-      <!--                  <Button mnemonicParsing="false" text="X" GridPane.columnIndex="15" />-->
-      <!--                  <Button mnemonicParsing="false" text="Edit" GridPane.columnIndex="14" />-->
-      <!--                  <VBox alignment="CENTER" GridPane.columnIndex="7">-->
-      <!--                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="5000" />-->
-      <!--                     <Line endX="100.61520385742188" startX="47.82231140136719" />-->
-      <!--                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="50000" />-->
-      <!--                  </VBox>-->
-      <!--                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="100" GridPane.columnIndex="4" />-->
-      <!--            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="UNPAID" GridPane.columnIndex="9" />-->
-      <!--         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="45000.0" GridPane.columnIndex="8" />-->
-      <!--               </children>-->
       <Region prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnSpan="16" />
       <Region prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="16" GridPane.rowIndex="1" />
       <Region prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnSpan="16" GridPane.rowIndex="2" />

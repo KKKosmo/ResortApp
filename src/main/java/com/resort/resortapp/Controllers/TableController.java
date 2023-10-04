@@ -483,21 +483,34 @@ public class TableController implements Initializable {
         nextPage_btn.setOnAction(actionEvent -> page_fld.setText(String.valueOf(Model.getInstance().getCurrentPage()+1)));
         page_fld.textProperty().addListener((observable, oldValue, newValue) -> {
             if(!newValue.isEmpty()){
-                int temp = Integer.parseInt(newValue);
-                if(temp < 1){
-                    temp = 1;
-                    page_fld.setText(String.valueOf(temp));
-                } else if (temp > Model.getInstance().getMaxPage()) {
-                    temp = Model.getInstance().getMaxPage();
-                    page_fld.setText(String.valueOf(temp));
+                if (!newValue.matches("\\d*")) {
+                    page_fld.setText(newValue.replaceAll("\\D", ""));
                 }
                 else{
-                    currentPage_txt.setText(String.valueOf(temp));
-                    Model.getInstance().setCurrentPage(temp);
-                    Model.getInstance().getViewFactory().insertListRows();
+                    int temp = Integer.parseInt(newValue);
+                    if(Model.getInstance().getMaxPage() == 0){
+                        page_fld.setText("0");
+                        currentPage_txt.setText("0");
+                        lastPage_txt.setText("0");
+                    }
+                    else{
+                        if(temp < 1){
+                            temp = 1;
+                            page_fld.setText(String.valueOf(temp));
+                        } else if (temp > Model.getInstance().getMaxPage()) {
+                            temp = Model.getInstance().getMaxPage();
+                            page_fld.setText(String.valueOf(temp));
+                        }
+                        else{
+                            currentPage_txt.setText(String.valueOf(temp));
+                            Model.getInstance().setCurrentPage(temp);
+                            Model.getInstance().getViewFactory().insertListRows();
+                        }
+                    }
                 }
             }
         });
+
 
         j_chkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue){
@@ -604,6 +617,9 @@ public class TableController implements Initializable {
         totalPayment_txt.setText(String.valueOf(Model.getInstance().getTotalPayment()));
         unpaid_txt.setText(String.valueOf(Model.getInstance().getTotalUnpaid()));
         lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
+        int initialPage = Math.max(0, Model.getInstance().getMaxPage());
+        page_fld.setText(String.valueOf(initialPage));
+        currentPage_txt.setText(String.valueOf(initialPage));
     }
 
     public void setEscMenu(){

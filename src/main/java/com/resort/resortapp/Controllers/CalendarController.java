@@ -16,7 +16,6 @@ public class CalendarController implements Initializable{
     public Text month;
     public Button prev_month_btn;
     public Button next_month_btn;
-    public Text room;
 
     private void fillFlowPaneMonths(){
         Model.getInstance().fillFlowPaneMonths();
@@ -24,7 +23,7 @@ public class CalendarController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Model.getInstance().setCalendarVariables(flowPane, year, month, room);
+        Model.getInstance().setCalendarVariables(flowPane, year, month);
         fillFlowPaneMonths();
         next_month_btn.setOnAction(event -> Model.getInstance().nextMonth());
         prev_month_btn.setOnAction(event -> Model.getInstance().prevMonth());

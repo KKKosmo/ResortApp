@@ -1,26 +1,19 @@
 package com.resort.resortapp.Models;
 
 import com.resort.resortapp.Rooms;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
-import org.sqlite.SQLiteDataSource;
 
 import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class sqliteModel {
     static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -34,7 +27,6 @@ public class sqliteModel {
             con = DriverManager.getConnection(url);
         } catch (SQLException e) {
             Model.getInstance().printLog(e);
-            Model.getInstance().getViewFactory().showErrorPopup(e.toString());
         }
         return con;
     }
@@ -51,9 +43,11 @@ public class sqliteModel {
     }
 
     public static void sqlInit(){
+        System.out.println("sqlInit");
         String folder = "data";
         File srcFolder = new File(folder);
         if (!srcFolder.exists()) {
+            System.out.println("making sql folder");
             srcFolder.mkdir();
         }
 
@@ -61,11 +55,11 @@ public class sqliteModel {
         File databaseFile = new File(databasePath);
 
         if (!databaseFile.exists()) {
+            System.out.println("making sql file");
             try {
                 Connection connection = DriverManager.getConnection("jdbc:sqlite:" + databasePath);
                 Statement statement = connection.createStatement();
 
-                // Define the SQL structure and create tables
                 String sql = "CREATE TABLE IF NOT EXISTS edit (" +
                         "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                         "record_id INTEGER NOT NULL," +
@@ -147,8 +141,6 @@ public class sqliteModel {
                 preparedStatement.close();
 
 
-
-
                 sql = "CREATE INDEX IF NOT EXISTS idIndex ON main (id)";
                 statement.execute(sql);
 
@@ -163,14 +155,8 @@ public class sqliteModel {
     }
 
 
-
-
-
-
-
-
     public static List<Set<String>> getAvailableRoomsPerDayList(){
-        System.out.println("getAvailableRoomsPerdaylist------------");
+        System.out.println("getAvailableRoomsPerDayList------------");
         List<Set<String>> result = new ArrayList<>();
 
         LocalDate resultStartDate = Model.getInstance().getCalendarLeftDate();
@@ -185,12 +171,9 @@ public class sqliteModel {
             System.out.println(sql);
             PreparedStatement pStmt = openDB().prepareStatement(sql);
             ResultSet resultSet = pStmt.executeQuery();
-            int rowCount = 0;
             while(resultSet.next()){
-                rowCount++;
                 LocalDate checkIn = LocalDate.parse(resultSet.getString("checkIn"));
                 LocalDate checkOut = LocalDate.parse(resultSet.getString("checkOut"));
-                int id = resultSet.getInt("id");
 
                 long daysCount = ChronoUnit.DAYS.between(checkIn, checkOut) + 1;
 
@@ -199,23 +182,24 @@ public class sqliteModel {
                 Set<String> roomSet = new HashSet<>();
 
                 Collections.addAll(roomSet, roomValue.split(", "));
-                System.out.println("["+id+"] " + checkIn + " - " + checkOut + ": " + roomSet);
+//                int id = resultSet.getInt("id");
+//                System.out.println("["+id+"] " + checkIn + " - " + checkOut + ": " + roomSet);
 
                 int startDate;
-                if(checkIn.isBefore(Model.getInstance().getCalendarLeftDate())){
+                if(checkIn.isBefore(resultStartDate)){
                     startDate = 0;
-                    if(Model.getInstance().getCalendarRightDate().isBefore(checkOut)){
-                        daysCount = Model.getInstance().getCalendarLeftDate().lengthOfMonth();
+                    if(resultEndDate.isBefore(checkOut)){
+                        daysCount = resultStartDate.lengthOfMonth();
                     }
                     else{
-                        daysCount = ChronoUnit.DAYS.between(Model.getInstance().getCalendarLeftDate(), checkOut) + 1;
+                        daysCount = ChronoUnit.DAYS.between(resultStartDate, checkOut) + 1;
                     }
                 }else{
                     startDate = checkIn.getDayOfMonth()-1;
                     daysCount = Math.min(daysCount, checkIn.lengthOfMonth()-checkIn.getDayOfMonth() + 1);
                     daysCount += startDate;
                 }
-                System.out.println("days " + (startDate+1) + " - " + (daysCount));
+//                System.out.println("days " + (startDate+1) + " - " + (daysCount));
 
                     for(String room : roomSet){
                         for(int i = startDate; i < daysCount ; i++){
@@ -224,7 +208,6 @@ public class sqliteModel {
                     }
             }
 
-            System.out.println("Row count: " + rowCount);
             pStmt.close();
             resultSet.close();
             closeDB();
@@ -238,7 +221,7 @@ public class sqliteModel {
         return result;
     }
     public static List<Set<String>> getAvailableRoomsPerDayList(int id){
-        System.out.println("getAvailableRoomsPerdaylist(int id)");
+        System.out.println("getAvailableRoomsPerDayList(int id)");
         List<Set<String>> result = new ArrayList<>();
 
         LocalDate resultStartDate = Model.getInstance().getCalendarLeftDate();
@@ -249,41 +232,38 @@ public class sqliteModel {
         }
 
         try {
-        String sql = "SELECT id, checkIn, checkOut, room FROM main where checkIn <= '" + resultEndDate + "' AND checkOut >= '" + resultStartDate + "' AND not id = "+id+";";
+        String sql = "SELECT checkIn, checkOut, room FROM main where checkIn <= '" + resultEndDate + "' AND checkOut >= '" + resultStartDate + "' AND not id = "+id+";";
             System.out.println(sql);
             PreparedStatement pStmt = openDB().prepareStatement(sql);
             ResultSet resultSet = pStmt.executeQuery();
-            int rowCount = 0;
             while(resultSet.next()){
-                rowCount++;
                 LocalDate checkIn = LocalDate.parse(resultSet.getString("checkIn"));
                 LocalDate checkOut = LocalDate.parse(resultSet.getString("checkOut"));
-                int rowId = resultSet.getInt("id");
 
                 long daysCount = ChronoUnit.DAYS.between(checkIn, checkOut) + 1;
 
-                //TODO REPLACE WITH ROOMS FUNCTION
                 String roomValue = resultSet.getString("room");
                 Set<String> roomSet = new HashSet<>();
 
                 Collections.addAll(roomSet, roomValue.split(", "));
-                System.out.println("["+rowId+"] " + checkIn + " - " + checkOut + ": " + roomSet);
+//                int rowId = resultSet.getInt("id");
+//                System.out.println("["+rowId+"] " + checkIn + " - " + checkOut + ": " + roomSet);
 
                 int startDate;
-                if(checkIn.isBefore(Model.getInstance().getCalendarLeftDate())){
+                if(checkIn.isBefore(resultStartDate)){
                     startDate = 0;
-                    if(Model.getInstance().getCalendarRightDate().isBefore(checkOut)){
-                        daysCount = Model.getInstance().getCalendarLeftDate().lengthOfMonth();
+                    if(resultEndDate.isBefore(checkOut)){
+                        daysCount = resultStartDate.lengthOfMonth();
                     }
                     else{
-                        daysCount = ChronoUnit.DAYS.between(Model.getInstance().getCalendarLeftDate(), checkOut) + 1;
+                        daysCount = ChronoUnit.DAYS.between(resultStartDate, checkOut) + 1;
                     }
                 }else{
                     startDate = checkIn.getDayOfMonth()-1;
                     daysCount = Math.min(daysCount, checkIn.lengthOfMonth()-checkIn.getDayOfMonth() + 1);
                     daysCount += startDate;
                 }
-                System.out.println("days " + (startDate+1) + " - " + (daysCount));
+//                System.out.println("days " + (startDate+1) + " - " + (daysCount));
 
                 for(String room : roomSet){
                     for(int i = startDate; i < daysCount ; i++){
@@ -292,7 +272,6 @@ public class sqliteModel {
                 }
             }
 
-            System.out.println("Row count: " + rowCount);
             pStmt.close();
             resultSet.close();
             closeDB();
@@ -309,8 +288,7 @@ public class sqliteModel {
 
 
     public static boolean insertRecord(RecordModel recordModel, Set<String> available){
-        System.out.println("insertrecord");
-
+        System.out.println("insertRecord");
 
         String name = recordModel.getName();
         String paxString = recordModel.getPax();
@@ -325,73 +303,58 @@ public class sqliteModel {
         List<CheckBox> roomCheckboxes = recordModel.getRoomCheckBoxes();
         
 
-
-
         if (name.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Name is empty.");
             return false;
         }
-
         if (paxString.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Number of persons is empty.");
             return false;
         }
-
         if(vehicle.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Vehicle count is empty.");
             return false;
         }
-
         if(recordModel.getPetsYes_radio().getToggleGroup().getSelectedToggle() == null){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Pets choice is empty.");
             return false;
         }
-
         if(recordModel.getVideokeYes_radio().getToggleGroup().getSelectedToggle() == null){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Videoke choice is empty.");
             return false;
         }
-
         if(partial_paymentString.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Partial payment is empty.");
             return false;
         }
-
         if(fullPaymentString.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Full payment is empty.");
             return false;
         }
-
         if(checkIn.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Check-in date is empty.");
             return false;
         }
-
         if(checkOut.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Check-out date is empty.");
             return false;
         }
-
         if(roomUnformatted.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: A room must be selected.");
             return false;
         }
-
         if(name.length() > 30){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Name should be less than 30 characters.");
             return false;
         }
-
         if(LocalDate.parse(checkIn).isAfter(LocalDate.parse(checkOut))){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Check-in date must come before Check-out date.");
             return false;
         }
-
 //        if(ChronoUnit.DAYS.between(LocalDate.parse(checkIn), LocalDate.parse(checkOut))+1 > 28){
 //            Model.getInstance().getViewFactory().showErrorPopup("Error: Booking days cannot be more than 28. This is a bug, will be fixed soon");
 //            return false;
 //        }
-
         if(roomCheckboxes.get(0).isSelected() && !available.contains(Rooms.ROOM_J.getAbbreviatedName())){
             Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ROOM_J.getDisplayName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
@@ -415,15 +378,12 @@ public class sqliteModel {
         String currentDate = LocalDateTime.now().format(formatter);
         int paxInt = Integer.parseInt(paxString);
         boolean paid = false;
-
         if(paxInt <= 0){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Number of people must be more than 0.");
             return false;
         }
-
         double partial_paymentDouble = Double.parseDouble(partial_paymentString);
         double fullPaymentDouble = Double.parseDouble(fullPaymentString);
-
         if(partial_paymentDouble > fullPaymentDouble){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Partial payment must be less than full payment.");
             return false;
@@ -434,12 +394,10 @@ public class sqliteModel {
         if (partial_paymentDouble == fullPaymentDouble) {
                 paid = true;
             }
-
         if(paxInt > 99){
                 Model.getInstance().getViewFactory().showErrorPopup("Error: No. of person should be less than 100.");
                 return false;
             }
-
         if(Integer.parseInt(vehicle) > 99){
                 Model.getInstance().getViewFactory().showErrorPopup("Error: Vehicle count should be less than 100.");
                 return false;
@@ -448,14 +406,11 @@ public class sqliteModel {
             Model.getInstance().getViewFactory().showErrorPopup("Error: Full Payment should be less than 1,000,000.");
             return false;
         }
-
+        String user = Model.getInstance().getUser();
 
         String sql = String.format("INSERT INTO main (dateInserted, name, pax, vehicle, pets, videoke, partial_payment, full_payment, paid, checkIn, checkOut, room, user) " +
                         "VALUES ('%s','%s', %d, %d, %b, %b, %.2f, %.2f, %b, '%s', '%s', '%s', '%s');",
-                currentDate, name, paxInt, Integer.parseInt(vehicle), pets, videoke, partial_paymentDouble, fullPaymentDouble, paid, checkIn, checkOut, roomUnformatted, Model.getInstance().getUser());
-
-
-
+                currentDate, name, paxInt, Integer.parseInt(vehicle), pets, videoke, partial_paymentDouble, fullPaymentDouble, paid, checkIn, checkOut, roomUnformatted, user);
 
         System.out.println("sql = " + sql);
         try {
@@ -464,8 +419,6 @@ public class sqliteModel {
 
             pStmt.close();
             closeDB();
-
-
 
             String changes = "CREATED BOOKING: ";
             changes += "Time Created = " + currentDate;
@@ -482,17 +435,11 @@ public class sqliteModel {
             changes += ", Check Out = " + recordModel.getCheckOut();
             changes += ", Rooms = " + recordModel.getRooms();
 
-
             sql = String.format("INSERT INTO edit (record_id, edit_timestamp, summary, user) SELECT (MAX(id)), '%s', '%s', '%s' FROM main;",
                     LocalDateTime.now().format(formatter),
                     changes,
-                    Model.getInstance().getUser()
+                    user
             );
-
-
-//        INSERT INTO edit (record_id, edit_timestamp, summary, user)
-//        SELECT (MAX(id) + 1), '2023-10-01 23:06:27', 'CREATED BOOKING: id = 0, dateInserted = 2023-10-01 23:06:27, name = First Name Last Name, pax = 5, vehicle = 2, pets = NO, videoke = YES, partialPayment = 5000, fullPayment = 10000, balance = 5000.0, payStatus = false, checkIn = 2023-10-13, checkOut = 2023-10-13, rooms = g, attic', 'Marvin'
-//        FROM main;
 
             System.out.println("sql = " + sql);
 
@@ -502,21 +449,15 @@ public class sqliteModel {
             pStmt.close();
             closeDB();
 
-
-
-
-
             Model.getInstance().getViewFactory().showSuccessPopup("Successfully inserted a record.");
             return true;
         } catch (SQLException e) {
             Model.getInstance().printLog(e);
-
-            Model.getInstance().getViewFactory().showErrorPopup("Error: " + e);
             return false;
         }
     }
     public static boolean updateRecord(RecordModel recordModel, Set<String> available, String changes){
-        System.out.println("updaterecord");
+        System.out.println("updateRecord");
         String name = recordModel.getName();
         String paxString = recordModel.getPax();
         String vehicle = recordModel.getVehicle();
@@ -534,62 +475,50 @@ public class sqliteModel {
             Model.getInstance().getViewFactory().showErrorPopup("Error: Name is empty.");
             return false;
         }
-
         if (paxString.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Number of persons is empty.");
             return false;
         }
-
         if(vehicle.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Vehicle count is empty.");
             return false;
         }
-
         if(recordModel.getPetsYes_radio().getToggleGroup().getSelectedToggle() == null){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Pets choice is empty.");
             return false;
         }
-
         if(recordModel.getVideokeYes_radio().getToggleGroup().getSelectedToggle() == null){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Videoke choice is empty.");
             return false;
         }
-
         if(recordModel.getPaidYes_radio().getToggleGroup().getSelectedToggle() == null){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Paid status choice is empty.");
             return false;
         }
-
         if(partial_paymentString.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Partial payment is empty.");
             return false;
         }
-
         if(fullPaymentString.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Full payment is empty.");
             return false;
         }
-
         if(checkIn.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Check-in date is empty.");
             return false;
         }
-
         if(checkOut.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Check-out date is empty.");
             return false;
         }
-
         if(roomUnformatted.isEmpty()){
             Model.getInstance().getViewFactory().showErrorPopup("Error: A room must be selected.");
             return false;
         }
-
         if(name.length() > 30){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Name should be less than 30 characters.");
             return false;
         }
-
         if(LocalDate.parse(checkIn).isAfter(LocalDate.parse(checkOut))){
             Model.getInstance().getViewFactory().showErrorPopup("Error: Check-in date must come before Check-out date.");
             return false;
@@ -598,7 +527,6 @@ public class sqliteModel {
 //            Model.getInstance().getViewFactory().showErrorPopup("Error: Booking days cannot be more than 28. This is a bug, will be fixed soon");
 //            return false;
 //        }
-
         if(roomCheckboxes.get(0).isSelected() && !available.contains(Rooms.ROOM_J.getAbbreviatedName())){
             Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.ROOM_J.getDisplayName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
@@ -619,7 +547,6 @@ public class sqliteModel {
             Model.getInstance().getViewFactory().showErrorPopup("Error: " + Rooms.KUBO_2.getDisplayName() + " is unavailable for " + checkIn + " - " + checkOut + ".");
             return false;
         }
-
 
         int paxInt = Integer.parseInt(paxString);
 
@@ -654,11 +581,6 @@ public class sqliteModel {
             return false;
         }
 
-        //head
-        //vehicle
-        //payment
-        //balance
-
         try {
             String sql = String.format("UPDATE main SET " +
                             "name = '%s', " +
@@ -683,9 +605,6 @@ public class sqliteModel {
             pStmt.close();
             closeDB();
 
-
-            //TODO EDIT HISTORY
-
             sql = String.format("INSERT INTO edit (record_id, edit_timestamp, summary, user) VALUES ('%d', '%s', '%s', '%s');",
                     recordModel.getIdInt(),
                     LocalDateTime.now().format(formatter),
@@ -705,14 +624,12 @@ public class sqliteModel {
             return true;
         } catch (SQLException e) {
             Model.getInstance().printLog(e);
-            Model.getInstance().getViewFactory().showErrorPopup("Error: " + e);
             return false;
         }
     }
     public static void queryTableRecords(){
-        System.out.println("querytablerecords");
+        System.out.println("queryTableRecords");
         List<RecordModel> result = new ArrayList<>();
-//        AND room LIKE '%%'
         StringBuilder roomFilter = new StringBuilder();
         for(String string : Model.getInstance().getTableRooms()){
             roomFilter.append("AND room LIKE '%").append(string).append("%' ");
@@ -720,8 +637,9 @@ public class sqliteModel {
 
         String nameFilter;
 
-        if (!Model.getInstance().getNameFilter().isEmpty()){
-            nameFilter = "AND name LIKE '%"+Model.getInstance().getNameFilter()+"%'";
+        String modelDateFilter = Model.getInstance().getNameFilter();
+        if (!modelDateFilter.isEmpty()){
+            nameFilter = "AND name LIKE '%"+modelDateFilter+"%'";
         }
         else nameFilter = "";
         String direction;
@@ -731,27 +649,31 @@ public class sqliteModel {
         else{
             direction = "DESC";
         }
+
+        String orderCategoryString = Model.getInstance().getOrderCategory().getString();
         if(Model.getInstance().getOrderCategory() != Model.OrderCategory.ID){
             direction += ", id DESC";
         }
 
+
+        LocalDate tableStartDate = Model.getInstance().getTableStartDate();
+        LocalDate tableEndDate = Model.getInstance().getTableEndDate();
         String sql;
 
         if(Model.getInstance().checkTableEdges()){
             sql = String.format("SELECT *, (full_payment - partial_payment) as balance FROM main WHERE checkIn <= '%s' AND checkOut >='%s' %s%sORDER BY %s %s;",
-                    Model.getInstance().getTableEndDate(), Model.getInstance().getTableStartDate(), roomFilter, nameFilter,
-                    Model.getInstance().getOrderCategory().getString(), direction);
+                    tableEndDate, tableStartDate, roomFilter, nameFilter,
+                    orderCategoryString, direction);
         }
 //        else if (Model.getInstance().getTableYearMonth() != null) {
 //            sql = String.format("SELECT *, (full_payment - partial_payment) as balance FROM main WHERE checkIn <= '%s' AND checkOut >='%s' %s%sORDER BY %s %s;",
 //                    Model.getInstance().getTableYearMonth().atEndOfMonth(), Model.getInstance().getTableYearMonth().atDay(1), roomFilter, nameFilter,
-//                    Model.getInstance().getOrderCategory().getString(), direction);
+//                    orderCategoryString, direction);
 //        }
         else{
             sql = String.format("SELECT *, (full_payment - partial_payment) as balance FROM main WHERE 1=1 %s%sORDER BY %s %s;",
-                    roomFilter, nameFilter, Model.getInstance().getOrderCategory().getString(), direction);
+                    roomFilter, nameFilter, orderCategoryString, direction);
         }
-
 
         System.out.println(sql);
         try {
@@ -787,8 +709,8 @@ public class sqliteModel {
                                 "SUM(CASE WHEN paid = 0 THEN 1 ELSE 0 END) as totalUnpaid " +
                                 "FROM main WHERE checkIn <= '%s' AND checkOut >= '%s' %s%s " +
                                 "ORDER BY %s %s;",
-                        Model.getInstance().getTableEndDate(), Model.getInstance().getTableStartDate(), roomFilter, nameFilter,
-                        Model.getInstance().getOrderCategory().getString(), direction);
+                        tableEndDate, tableStartDate, roomFilter, nameFilter,
+                        orderCategoryString, direction);
             }
             else{
                 sql = String.format("SELECT COUNT(*) as totalCount, " +
@@ -796,12 +718,10 @@ public class sqliteModel {
                                 "SUM(CASE WHEN paid = 0 THEN 1 ELSE 0 END) as totalUnpaid " +
                                 "FROM main WHERE 1=1 %s%s" +
                                 "ORDER BY %s %s;",
-                        roomFilter, nameFilter, Model.getInstance().getOrderCategory().getString(), direction);
+                        roomFilter, nameFilter, orderCategoryString, direction);
             }
 
             System.out.println(sql);
-
-
 
             pStmt = openDB().prepareStatement(sql);
             resultSet = pStmt.executeQuery();
@@ -818,12 +738,10 @@ public class sqliteModel {
             Model.getInstance().printLog(e);
         }
 
-
-
         Model.getInstance().setListRecordModels(result);
     }
     public static boolean deleteEntry(RecordModel recordModel){
-        System.out.println("deleteentry");
+        System.out.println("deleteEntry");
         int id = recordModel.getIdInt();
         try {
             String sql = String.format("DELETE FROM main WHERE id = %d", id);
@@ -868,12 +786,12 @@ public class sqliteModel {
             return true;
         } catch (SQLException e) {
             Model.getInstance().printLog(e);
-            Model.getInstance().getViewFactory().showErrorPopup("Failed to delete row: " + e);
+//            Model.getInstance().getViewFactory().showErrorPopup("Failed to delete row: " + e);
             return false;
         }
     }
     public static List<EditHistoryModel> getEditHistory() {
-        System.out.println("getedithistory");
+        System.out.println("getEditHistory");
         List<EditHistoryModel> result = new ArrayList<>();
         try {
             String sql = "SELECT * FROM edit";
@@ -918,7 +836,7 @@ public class sqliteModel {
                 Collections.addAll(roomSet, roomValue.split(", "));
                 result.removeAll(roomSet);
             }
-            System.out.println("AVAILABLE FOR " + leftEdge + "-" + rightEdge + " IS " + result);
+//            System.out.println("AVAILABLE FOR " + leftEdge + "-" + rightEdge + " IS " + result);
             pStmt.close();
             resultSet.close();
             closeDB();
@@ -941,7 +859,7 @@ public class sqliteModel {
                 Collections.addAll(roomSet, roomValue.split(", "));
                 result.removeAll(roomSet);
             }
-            System.out.println("AVAILABLE FOR " + leftEdge + "-" + rightEdge + " IS " + result);
+//            System.out.println("AVAILABLE FOR " + leftEdge + "-" + rightEdge + " IS " + result);
             pStmt.close();
             resultSet.close();
             closeDB();
@@ -982,6 +900,7 @@ public class sqliteModel {
             byte[] encryptedBytes = cipher.doFinal(data.getBytes());
             return Base64.getEncoder().encodeToString(encryptedBytes);
         } catch (Exception e) {
+            Model.getInstance().printLog(new RuntimeException(e));
             throw new RuntimeException(e);
         }
     }
@@ -990,18 +909,18 @@ public class sqliteModel {
         try {
             List<Byte> keyBytesList = new ArrayList<>();
 
-            // Use ClassLoader.getResourceAsStream to access the resource
             InputStream inputStream = sqliteModel.class.getResourceAsStream("/key.txt");
 
             if (inputStream != null) {
                 try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
-                    List<String> lines = reader.lines().collect(Collectors.toList());
+                    List<String> lines = reader.lines().toList();
                     for (String line : lines) {
                         byte byteValue = Byte.parseByte(line.trim());
                         keyBytesList.add(byteValue);
                     }
                 }
             } else {
+                Model.getInstance().printLog(new IOException("Resource 'key.txt' not found."));
                 throw new IOException("Resource 'key.txt' not found.");
             }
 
@@ -1011,6 +930,7 @@ public class sqliteModel {
             }
             return new SecretKeySpec(keyBytes, "AES");
         } catch (Exception e) {
+            Model.getInstance().printLog(new RuntimeException("Failed to read secret key from file", e));
             throw new RuntimeException("Failed to read secret key from file", e);
         }
     }
@@ -1033,7 +953,7 @@ public class sqliteModel {
         } catch (SQLException e) {
             Model.getInstance().printLog(e);
             result = false;
-            Model.getInstance().getViewFactory().showErrorPopup("ERROR: " + e);
+//            Model.getInstance().getViewFactory().showErrorPopup("ERROR: " + e);
         }
 
         return result;
@@ -1047,10 +967,11 @@ public class sqliteModel {
             PreparedStatement pStmt = openDB().prepareStatement(sql);
             ResultSet resultSet = pStmt.executeQuery();
             String fileName = "credentials.txt";
-            FileWriter writer = null;
+            FileWriter writer;
             try {
                 writer = new FileWriter(fileName);
             } catch (IOException e) {
+                Model.getInstance().printLog(new RuntimeException(e));
                 throw new RuntimeException(e);
             }
 

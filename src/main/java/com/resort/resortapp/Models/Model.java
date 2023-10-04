@@ -1,22 +1,16 @@
 package com.resort.resortapp.Models;
 
-import com.resort.resortapp.Rooms;
 import com.resort.resortapp.Views.ViewFactory;
-import javafx.scene.control.CheckBox;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
 
-import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.time.Month;
-import java.time.Year;
 import java.time.YearMonth;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,11 +20,10 @@ import java.util.logging.SimpleFormatter;
 public class Model {
     private static Model model;
     private final ViewFactory viewFactory;
-    Rooms rooms = Rooms.ALL_ROOMS;
     private int dateOffset;
     private int monthMaxDate;
     private int year;
-    private int monthValue;
+//    private int monthValue;
     private Month month;
     private LocalDate dateFocus;
 
@@ -54,7 +47,7 @@ public class Model {
     private int maxPage;
     private int startIndex;
     private int endIndex;
-    private Set<String> tableRooms = new HashSet<>();
+    private final Set<String> tableRooms = new HashSet<>();
     private String nameFilter = "";
     public enum OrderCategory{
         ID("id"),
@@ -89,7 +82,7 @@ public class Model {
     private Double totalPayment = 0.0;
     private int totalUnpaid = 0;
     private int recordCount = 0;
-    private int tableRowCount = 15;
+    private final int tableRowCount = 15;
     private boolean tableJFilter = false;
     private boolean tableGFilter = false;
     private boolean tableAFilter = false;
@@ -106,11 +99,13 @@ public class Model {
             logger.addHandler(fileHandler);
             logger.setLevel(Level.SEVERE);
         } catch (Exception e) {
+            Model.getInstance().getViewFactory().showErrorPopup(e.toString());
             e.printStackTrace();
         }
     }
 
     public void printLog(Exception e){
+        viewFactory.showErrorPopup(e.toString());
         logger.log(Level.SEVERE, "An error occurred:", e);
     }
 
@@ -131,13 +126,13 @@ public class Model {
     public ViewFactory getViewFactory(){
         return  viewFactory;
     }
-    public void setCalendarVariables(FlowPane flowPane, Text year, Text month, Text roomText) {
-        viewFactory.setCalendarVariables(flowPane, year, month, roomText);
+    public void setCalendarVariables(FlowPane flowPane, Text year, Text month) {
+        viewFactory.setCalendarVariables(flowPane, year, month);
         setDateFocus();
     }
     public void fillFlowPaneMonths(){
         DayModelSetters();
-        viewFactory.fillFlowPaneMonths(rooms);
+        viewFactory.fillFlowPaneMonths();
     }
     public void nextMonth() {
 //        System.out.println("NEXXING");
@@ -168,7 +163,7 @@ public class Model {
 
     public void DayModelSetters(){
         year = dateFocus.getYear();
-        monthValue = dateFocus.getMonthValue();
+//        monthValue = dateFocus.getMonthValue();
         month =  dateFocus.getMonth();
         monthMaxDate = month.maxLength();
         if(year % 4 != 0 && monthMaxDate == 29){
@@ -176,8 +171,6 @@ public class Model {
         }
 
         dateOffset = dateFocus.withDayOfMonth(1).getDayOfWeek().getValue();
-
-//        dateOffset = ZonedDateTime.of(year, monthValue, 1,0,0,0,0,dateFocus.getZone()).getDayOfWeek().getValue();
 
         if(dateOffset >= 7){
             dateOffset = 0;
@@ -204,13 +197,7 @@ public class Model {
         dateFocus = LocalDate.now();
     }
 
-    public Rooms getRooms() {
-        return rooms;
-    }
 
-    public void setRooms(Rooms rooms) {
-        this.rooms = rooms;
-    }
 
     public void setSelected(){
         if (selectedLeftDate != null && selectedRightDate != null) {
@@ -233,19 +220,15 @@ public class Model {
             Model.getInstance().getViewFactory().highlight();
         }
     }
-
-    //while focusdate > calendarfirstdate
-
-    public LocalDate getSelectedLeftDate() {
-        return selectedLeftDate;
-    }
+//    public LocalDate getSelectedLeftDate() {
+//        return selectedLeftDate;
+//    }
+//    public LocalDate getSelectedRightDate() {
+//        return selectedRightDate;
+//    }
 
     public void setSelectedLeftDate(String selectedLeftDate) {
         this.selectedLeftDate = LocalDate.parse(selectedLeftDate);
-    }
-
-    public LocalDate getSelectedRightDate() {
-        return selectedRightDate;
     }
 
     public void setSelectedRightDate(String selectedRightDate) {
@@ -264,8 +247,6 @@ public class Model {
         this.availableRoomsPerDayWithinTheMonthsList = availableRoomsPerDayWithinTheMonthsList;
     }
 
-
-
     public List<RecordModel> getListRecordModels() {
         return tableRecordModels;
     }
@@ -278,7 +259,6 @@ public class Model {
 //        tableStartDate = temp.withDayOfMonth(1);
 //        tableEndDate = temp.withDayOfMonth(temp.lengthOfMonth());
 //    }
-
 
     public LocalDate getTableStartDate() {
         return tableStartDate;
@@ -318,17 +298,17 @@ public class Model {
         return maxPage;
     }
 
-    public void setMaxPage(int maxPage) {
-        this.maxPage = maxPage;
-    }
+//    public void setMaxPage(int maxPage) {
+//        this.maxPage = maxPage;
+//    }
 
     public int getStartIndex() {
         return startIndex;
     }
 
-    public int getEndIndex() {
-        return endIndex;
-    }
+//    public int getEndIndex() {
+//        return endIndex;
+//    }
 
     public int getInitEndIndex(){
         if(endIndex == 0){
@@ -343,9 +323,9 @@ public class Model {
         return tableRooms;
     }
 
-    public void setTableRooms(Set<String> tableRooms) {
-        this.tableRooms = tableRooms;
-    }
+//    public void setTableRooms(Set<String> tableRooms) {
+//        this.tableRooms = tableRooms;
+//    }
 
     public String getNameFilter() {
         return nameFilter;
@@ -399,9 +379,9 @@ public class Model {
         return tableRowCount;
     }
 
-    public void setTableRowCount(int tableRowCount) {
-        this.tableRowCount = tableRowCount;
-    }
+//    public void setTableRowCount(int tableRowCount) {
+//        this.tableRowCount = tableRowCount;
+//    }
 
     public boolean isTableJFilter() {
         return tableJFilter;
@@ -467,25 +447,25 @@ public class Model {
     }
 
     public void autoTurnMonth(LocalDate myDate){
+        int adjust;
         if(myDate.isBefore(getCalendarRightDate())){
 //            while (myDate.getMonth() != getDateFocus().getMonth()){
 //            }
-            int adjust = calendarRightDate.getMonthValue() - myDate.getMonthValue() - 1;
+            adjust = calendarRightDate.getMonthValue() - myDate.getMonthValue() - 1;
             dateFocus = dateFocus.minusMonths(adjust);
-            prevMonth();
         }
         else{
 //            while (myDate.getMonth() != getDateFocus().getMonth()){
 //                nextMonth();
 //            }
-            int adjust = myDate.getMonthValue() - calendarRightDate.getMonthValue() + 1;
+            adjust = myDate.getMonthValue() - calendarRightDate.getMonthValue() + 1;
             dateFocus = dateFocus.plusMonths(adjust);
-            prevMonth();
         }
+        prevMonth();
     }
-    public void setDateFocus(LocalDate dateFocus) {
-        this.dateFocus = dateFocus;
-    }
+//    public void setDateFocus(LocalDate dateFocus) {
+//        this.dateFocus = dateFocus;
+//    }
 
     public String getUser() {
         return user;

@@ -2,7 +2,11 @@ package com.resort.resortapp;
 
 import javafx.scene.control.CheckBox;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 
 public enum Rooms{
     ALL_ROOMS("all", 32),
@@ -39,7 +43,6 @@ public enum Rooms{
                 return room.getDisplayName();
             }
         }
-        // If no match is found, you can return the input string as is or any other default value
         return abbreviatedName;
     }
     public static String displayToAbbv(String displayName) {
@@ -48,7 +51,6 @@ public enum Rooms{
                 return room.getAbbreviatedName();
             }
         }
-        // If no match is found, you can return the input string as is or any other default value
         return displayName;
     }
     public static Rooms fromString(String roomValue) {
@@ -167,5 +169,4 @@ public enum Rooms{
             roomCheckBoxes.get(4).setSelected(true);
         }
     }
-
 }

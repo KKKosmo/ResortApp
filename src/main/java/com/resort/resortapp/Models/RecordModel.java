@@ -8,14 +8,26 @@ import javafx.scene.control.TextField;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RecordModel {
-
-    private String id, dateInserted, name, pax, vehicle, pets, videoke, partialPayment, fullPayment, balance, payStatus, checkIn, checkOut, rooms, user;
+    private String id;
+    private String dateInserted;
+    private final String name;
+    private final String pax;
+    private final String vehicle;
+    private final String pets;
+    private final String videoke;
+    private final String partialPayment;
+    private final String fullPayment;
+    private String balance;
+    private String payStatus;
+    private final String checkIn;
+    private final String checkOut;
+    private final String rooms;
+    private String user;
 //    private TextField name_fld;
 //    private TextField pax_fld;
 //    private TextField vehicle_fld;
@@ -26,14 +38,13 @@ public class RecordModel {
 //    private DatePicker checkIn_datePicker;
 //    private DatePicker checkOut_datePicker;
     private List<CheckBox> roomCheckBoxes;
-    private List<String> list = new ArrayList<>();
+    private final List<String> list = new ArrayList<>();
 
     private int idInt;
-    private double balanceDouble;
-//    private int paxInt;
+    //    private int paxInt;
 //    private int vehicleInt;
-    private boolean petsBool;
-    private boolean videokeBool;
+    private final boolean petsBool;
+    private final boolean videokeBool;
     private boolean payStatusBool;
 //    private double partial_paymentDouble;
 //    private LocalDate checkInLD;
@@ -53,8 +64,7 @@ public class RecordModel {
         this.videoke = videoke ? "YES" : "NO";
         this.partialPayment = Double.toString(partialPayment);
         this.fullPayment = Double.toString(fullPayment);
-        this.balanceDouble = balance;
-        this.balance = String.valueOf(balanceDouble);
+        this.balance = String.valueOf(balance);
         this.checkIn = checkIn.toString();
         this.checkOut = checkOut.toString();
         this.rooms = room;
@@ -106,21 +116,6 @@ public class RecordModel {
         this.videokeYes_radio = videokeYes_radio;
 
 
-//        if (pax.isEmpty()) {
-//            this.paxInt = 0;
-//        } else {
-//            this.paxInt = Integer.parseInt(pax);
-//        }
-//        if (vehicle.isEmpty()) {
-//            vehicleInt = 0;
-//        } else {
-//            vehicleInt = Integer.parseInt(vehicle);
-//        }
-//        if (payment.isEmpty()) {
-//            partial_paymentDouble = 0;
-//        } else {
-//            partial_paymentDouble = Integer.parseInt(payment);
-//        }
         if(checkIn_datePicker.getValue() == null){
             checkIn = "";
         } else{
@@ -132,12 +127,8 @@ public class RecordModel {
             this.checkOut = checkOut_datePicker.getValue().toString();
         }
 
-
-
         this.petsBool = petsYes_radio.isSelected();
         this.videokeBool = videokeYes_radio.isSelected();
-//        this.checkInLD = LocalDate.parse(checkIn);
-//        this.checkOutLD = LocalDate.parse(checkOut);
     }
 
     public List<String> getList() {
@@ -163,21 +154,8 @@ public class RecordModel {
         this.petsYes_radio = petsYes_radio;
         this.videokeYes_radio = videokeYes_radio;
         this.paidYes_radio = paidYes_radio;
-//        if (pax.isEmpty()) {
-//            this.paxInt = 0;
-//        } else {
-//            this.paxInt = Integer.parseInt(pax);
-//        }
-//        if (vehicle.isEmpty()) {
-//            vehicleInt = 0;
-//        } else {
-//            vehicleInt = Integer.parseInt(vehicle);
-//        }
-//        if (payment.isEmpty()) {
-//            partial_paymentDouble = 0;
-//        } else {
-//            partial_paymentDouble = Integer.parseInt(payment);
-//        }
+
+
         if(checkIn_datePicker.getValue() == null){
             checkIn = "";
         } else{
@@ -192,8 +170,6 @@ public class RecordModel {
         this.petsBool = petsYes_radio.isSelected();
         this.videokeBool = videokeYes_radio.isSelected();
         this.payStatusBool = paidYes_radio.isSelected();
-//        this.checkInLD = LocalDate.parse(checkIn);
-//        this.checkOutLD = LocalDate.parse(checkOut);
     }
 
 
@@ -213,7 +189,7 @@ public class RecordModel {
 
         StringBuilder sb = new StringBuilder();
         if(!this.name.equals(arg.name)){
-            sb.append("\n").append(this.name).append(" -> ").append(arg.name);
+            sb.append("\n").append("Name: ").append(this.name).append(" -> ").append(arg.name);
         }
         if (!this.pax.equals(arg.pax)) {
             sb.append("\n").append("Pax: ").append(this.pax).append(" -> ").append(arg.pax);
@@ -270,131 +246,84 @@ public class RecordModel {
         return Integer.parseInt(id);
     }
 
+    //    public void setName(String name) {
+//        this.name = name;
+//    }
+//    public void setVehicle(String vehicle) {
+//        this.vehicle = vehicle;
+//    }
+//    public void setPets(String pets) {
+//        this.pets = pets;
+//    }
+//    public void setVideoke(String videoke) {
+//        this.videoke = videoke;
+//    }
     public String getName() {
         return name;
     }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getVehicle() {
         return vehicle;
     }
-
-    public void setVehicle(String vehicle) {
-        this.vehicle = vehicle;
-    }
-
     public String getPets() {
         return pets;
     }
-
-    public void setPets(String pets) {
-        this.pets = pets;
-    }
-
     public String getVideoke() {
         return videoke;
     }
-
-    public void setVideoke(String videoke) {
-        this.videoke = videoke;
-    }
-
-//    public LocalDate getCheckInLD() {
-//        return checkInLD;
-//    }
-//
-//    public LocalDate getCheckOutLD() {
-//        return checkOutLD;
-//    }
-
     public int getIdInt() {
         return idInt;
     }
-
     public String getPax() {
         return pax;
     }
-
     public String getPartialPayment() {
         return partialPayment;
     }
-
-
     public String getCheckIn() {
         return checkIn;
     }
-
-
     public String getCheckOut() {
         return checkOut;
     }
-
-
     public String getRooms() {
         return rooms;
     }
-
     public RadioButton getPetsYes_radio() {
         return petsYes_radio;
     }
-
     public RadioButton getVideokeYes_radio() {
         return videokeYes_radio;
     }
-
     public List<CheckBox> getRoomCheckBoxes() {
         return roomCheckBoxes;
     }
-
     public boolean isPetsBool() {
         return petsBool;
     }
-
     public boolean isVideokeBool() {
         return videokeBool;
     }
-
-
     public String getFullPayment() {
         return fullPayment;
     }
-
-    public void setFullPayment(String fullPayment) {
-        this.fullPayment = fullPayment;
-    }
-
     public boolean isPayStatusBool() {
         return payStatusBool;
     }
-
-    public void setPayStatusBool(boolean payStatusBool) {
-        this.payStatusBool = payStatusBool;
-    }
-
     public RadioButton getPaidYes_radio() {
         return paidYes_radio;
     }
-
-
     public String getId() {
         return id;
     }
-
     public String getDateInserted() {
         return dateInserted;
     }
-
     public String getBalance() {
         return balance;
     }
-
     public String getPayStatus() {
         return payStatus;
     }
-
     public String getUser() {
         return user;
     }

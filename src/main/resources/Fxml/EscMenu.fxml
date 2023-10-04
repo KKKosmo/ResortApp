@@ -26,17 +26,15 @@
       </graphic>
    </Button>
    <HBox layoutX="14.0" layoutY="12.0" spacing="5.0">
-      <children>
-         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="USER: ">
-            <font>
-               <Font size="72.0" />
-            </font>
-         </Text>
-         <Text fx:id="user_txt" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="#">
-            <font>
-               <Font size="72.0" />
-            </font>
-         </Text>
-      </children>
+      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="USER: ">
+         <font>
+            <Font size="72.0"/>
+         </font>
+      </Text>
+      <Text fx:id="user_txt" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="#">
+         <font>
+            <Font size="72.0"/>
+         </font>
+      </Text>
    </HBox>
 </AnchorPane>

@@ -143,9 +143,7 @@ public class CreateController  implements Initializable{
     }
 
     private void checkBoxAddListener(CheckBox checkBox){
-        checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            Model.getInstance().getViewFactory().colorize();
-        });
+        checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> Model.getInstance().getViewFactory().colorize());
     }
     private RecordModel newRecordModel(){
         return new RecordModel(name_fld, pax_fld, vehicle_textFld, petsYes_radio, videokeYes_radio,

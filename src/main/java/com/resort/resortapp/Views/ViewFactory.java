@@ -13,7 +13,10 @@ import com.resort.resortapp.Controllers.ChangePwController;
 import com.resort.resortapp.Controllers.EditController;
 import com.resort.resortapp.Controllers.EscMenuController;
 import com.resort.resortapp.Controllers.TableController;
-import com.resort.resortapp.Models.*;
+import com.resort.resortapp.Models.DayModel;
+import com.resort.resortapp.Models.Model;
+import com.resort.resortapp.Models.RecordModel;
+import com.resort.resortapp.Models.sqliteModel;
 import com.resort.resortapp.Rooms;
 import com.itextpdf.layout.element.Cell;
 import javafx.animation.PauseTransition;
@@ -38,37 +41,31 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class ViewFactory {
     private AnchorPane escMenu;
-    private ZonedDateTime today;
     private Text yearText;
     private Text monthText;
-    private Text roomText;
     private FlowPane flowPane;
     private Stage stage;
     List<DayModel> onScreenCalendarDayModels = new ArrayList<>();
     List<LocalDate> onScreenLocalDates = new ArrayList<>();
     List<Node> listTableChildren;
-
     Scene table;
     GridPane listTable;
     List<CheckBox> roomCheckBoxes = new ArrayList<>();
 
     boolean editing = false;
     int editId = -1;
-    //    TODO listview settings
     Border borderUnselected = new Border(new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.SOLID, null, new BorderWidths(3)));
     Border normalBorder = new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, new BorderWidths(5)));
     EscMenuController escMenuController;
-    public void setCalendarVariables(FlowPane flowPane, Text yearText, Text monthText, Text roomText) {
+    public void setCalendarVariables(FlowPane flowPane, Text yearText, Text monthText) {
         this.flowPane = flowPane;
         this.yearText = yearText;
         this.monthText = monthText;
-        this.roomText = roomText;
     }
     public AnchorPane getEscMenu(Pane parentPane){
         if (escMenu == null) {
@@ -107,7 +104,7 @@ public class ViewFactory {
         tooltip.setShowDelay(Duration.millis(0));
         Tooltip.install(tableController.totalPayment_hBox, tooltip);
 
-        Model.getInstance().getViewFactory().notEditing();
+        notEditing();
         stage.setScene(table);
 
 
@@ -125,7 +122,7 @@ public class ViewFactory {
     public void setSceneLogin(){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Login.fxml"));
-            Model.getInstance().getViewFactory().notEditing();
+            notEditing();
             stage.setScene(new Scene(loader.load()));
         } catch (Exception e) {
             Model.getInstance().printLog(e);
@@ -141,7 +138,7 @@ public class ViewFactory {
 //            stage.setScene(new Scene(root));
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/EditHistory.fxml"));
-            Model.getInstance().getViewFactory().notEditing();
+            notEditing();
             stage.setScene(new Scene(loader.load()));
 
         } catch (Exception e) {
@@ -153,7 +150,7 @@ public class ViewFactory {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Create.fxml"));
 //                create = new Scene(loader.load());
-            Model.getInstance().getViewFactory().notEditing();
+            notEditing();
             stage.setScene(new Scene(loader.load()));
         } catch (Exception e) {
             Model.getInstance().printLog(e);
@@ -165,10 +162,11 @@ public class ViewFactory {
             AnchorPane childPane = FXMLLoader.load(getClass().getResource("/Fxml/Calendar.fxml"));
             pane.getChildren().add(childPane);
         } catch (IOException e) {
+            Model.getInstance().printLog(new RuntimeException(e));
             throw new RuntimeException(e);
         }
     }
-    public void fillFlowPaneMonths(Rooms rooms){
+    public void fillFlowPaneMonths(){
         if(editing && editId != -1){
 //            System.out.println("EDITING--------------------");
             Model.getInstance().setAvailablesForVisual(sqliteModel.getAvailableRoomsPerDayList(editId));
@@ -178,7 +176,6 @@ public class ViewFactory {
             Model.getInstance().setAvailablesForVisual(sqliteModel.getAvailableRoomsPerDayList());
         }
         flowPane.getChildren().clear();
-        //TODO clear daymodel list here?
         setCalendarGrid();
 
         int dateOffset = Model.getInstance().getDateOffset();
@@ -203,16 +200,18 @@ public class ViewFactory {
 //        System.out.println("CALENDAR DAY MODELS = " + onScreenCalendarDayModels.size());
 //        System.out.println("whole list = " + Model.getInstance().getAvailableRoomsPerDayWithinTheMonthsList().size());
         Set<String> roomsCheckBoxes = Rooms.manageCheckboxesSetAbbreviatedName(roomCheckBoxes);
+        int monthMaxDate = Model.getInstance().getMonthMaxDate();
+        int dateOffset = Model.getInstance().getDateOffset();
         if(roomsCheckBoxes.isEmpty()){
-            for(int i = 0; i < Model.getInstance().getMonthMaxDate(); i++){
-                StackPane temp = onScreenCalendarDayModels.get(i + Model.getInstance().getDateOffset()).getStackPane();
+            for(int i = 0; i < monthMaxDate; i++){
+                StackPane temp = onScreenCalendarDayModels.get(i + dateOffset).getStackPane();
                 temp.setStyle("-fx-background-color: transparent;");
             }
         }
         else{
 
-            for(int i = 0; i < Model.getInstance().getMonthMaxDate(); i++){
-                StackPane temp = onScreenCalendarDayModels.get(i + Model.getInstance().getDateOffset()).getStackPane();
+            for(int i = 0; i < monthMaxDate; i++){
+                StackPane temp = onScreenCalendarDayModels.get(i + dateOffset).getStackPane();
                 boolean available = true;
                 for (String room : roomsCheckBoxes) {
                     if(!Model.getInstance().getAvailableRoomsPerDayWithinTheMonthsList().get(i).contains(room)){
@@ -233,10 +232,11 @@ public class ViewFactory {
 //        System.out.println("HIGHLIGHTING");
         Set<Integer> indexes = new HashSet<>();
 
+
         for(LocalDate localDate : Model.getInstance().getSelectedLocalDates()){
 //            System.out.println(localDate);
-            if(Model.getInstance().getViewFactory().onScreenLocalDates.contains(localDate)){
-                int index = Model.getInstance().getViewFactory().onScreenLocalDates.indexOf(localDate);
+            if(onScreenLocalDates.contains(localDate)){
+                int index = onScreenLocalDates.indexOf(localDate);
                 indexes.add(index + Model.getInstance().getDateOffset());
             }
         }
@@ -250,13 +250,6 @@ public class ViewFactory {
             else{
                 temp.setBorder(borderUnselected);
             }
-        }
-    }
-    public void clear(){
-        for(int i = 0; i < 42; i++){
-            StackPane temp = onScreenCalendarDayModels.get(i).getStackPane();
-            temp.setBorder(normalBorder);
-            temp.setStyle("-fx-background-color: white;");
         }
     }
     public void setCalendarGrid(){
@@ -327,7 +320,7 @@ public class ViewFactory {
     }
     public void setSceneEdit(RecordModel recordModel){
         try {
-            Model.getInstance().getViewFactory().editing(Integer.parseInt(recordModel.getId()));
+            editing(Integer.parseInt(recordModel.getId()));
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Edit.fxml"));
             Parent root = loader.load();
 
@@ -421,9 +414,7 @@ public class ViewFactory {
                 rowButtonOnHover(editButton, i - startIndex);
                 rowButtonOnHover(deleteButton, i - startIndex);
 
-                editButton.setOnAction(actionEvent -> {
-                    setSceneEdit(recordModel);
-                });
+                editButton.setOnAction(actionEvent -> setSceneEdit(recordModel));
 
                 deleteButton.setOnAction(actionEvent -> {
                     if(showConfirmPopup("Are you sure you want to delete this booking? (ID = " + recordModel.getId() + ")")){
@@ -449,9 +440,7 @@ public class ViewFactory {
     }
 
     private void rowButtonOnHover(Button button, int index){
-        button.setOnMouseEntered(mouseEvent -> {
-            listTableChildren.get(index).setStyle("-fx-background-color: lightyellow;");
-        });
+        button.setOnMouseEntered(mouseEvent -> listTableChildren.get(index).setStyle("-fx-background-color: lightyellow;"));
 
         boolean isEvenRow = index % 2 == 0;
 
@@ -486,22 +475,6 @@ public class ViewFactory {
 //        }
     }
 
-
-    public boolean showDialog(Alert.AlertType type) {
-        Alert alert = new Alert(type);
-        alert.setTitle("Alert!");
-        alert.setContentText("This is an alert");
-        Optional<ButtonType> result = alert.showAndWait();
-
-        if(result.isEmpty()){
-            return false;
-        } else if(result.get() == ButtonType.OK){
-            return true;
-        } else if(result.get() == ButtonType.CANCEL){
-            return false;
-        }
-        return false;
-    }
     public void showSuccessPopup(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("");
@@ -657,16 +630,18 @@ public class ViewFactory {
 
 
 
+
                     if (Model.getInstance().getTableYearMonth() != null) {
-                        table.addCell(new Cell().add("Time Range: " + Model.getInstance().getTableYearMonth().format(DateTimeFormatter.ofPattern("MMM yyyy", Locale.US))).setBold().setFontSize(fontSize));
+//                        table.addCell(new Cell().add("Time Range: " + Model.getInstance().getTableYearMonth().format(DateTimeFormatter.ofPattern("MMM yyyy", Locale.US))).setBold().setFontSize(fontSize));
+                        table.addCell(createCellBold("Time Range: " + Model.getInstance().getTableYearMonth().format(DateTimeFormatter.ofPattern("MMM yyyy", Locale.US))));
                     }
                     else if(Model.getInstance().checkTableEdges()){
-                        table.addCell(new Cell().add("Time Range: " +
-                                        Model.getInstance().getTableStartDate() + " - " + Model.getInstance().getTableEndDate()).
-                                setBold().setFontSize(fontSize));
+//                        table.addCell(new Cell().add("Time Range: " + Model.getInstance().getTableStartDate() + " - " + Model.getInstance().getTableEndDate()).setBold().setFontSize(fontSize));
+                        table.addCell(createCellBold("Time Range: " + Model.getInstance().getTableStartDate() + " - " + Model.getInstance().getTableEndDate()));
                     }
                     else{
-                        table.addCell(new Cell().add("Time Range: ALL TIME").setBold().setFontSize(fontSize));
+//                        table.addCell(new Cell().add("Time Range: ALL TIME").setBold().setFontSize(fontSize));
+                        table.addCell(createCellBold("Time Range: ALL TIME"));
                     }
 
                     StringBuilder rooms;
@@ -680,13 +655,17 @@ public class ViewFactory {
                             rooms.append(string).append(" ");
                         }
                     }
-                    table.addCell(rooms.toString()).setBold().setFontSize(fontSize);
-                    table.addCell("Total Bookings: " + Model.getInstance().getRecordCount()).setBold().setFontSize(fontSize);
+//                    table.addCell(rooms.toString()).setBold().setFontSize(fontSize);
+                    table.addCell(createCellBold(rooms.toString()));
 
-                    table.addCell("Sorted by: " + Model.getInstance().getOrderCategory() + " " + (Model.getInstance().isASC() ? "ASC" : "DESC")).setBold().setFontSize(fontSize);
-                    table.addCell("Page " + currentPage + "/" + totalPages).setBold().setFontSize(fontSize);
-                    table.addCell("Total Payment Received: " + Model.getInstance().getTotalPayment() + " (" + Model.getInstance().getTotalUnpaid() + " UNPAID)").setBold().setFontSize(fontSize);
-
+//                    table.addCell("Sorted by: " + Model.getInstance().getOrderCategory() + " " + (Model.getInstance().isASC() ? "ASC" : "DESC")).setBold().setFontSize(fontSize);
+                    table.addCell(createCellBold("Sorted by: " + Model.getInstance().getOrderCategory() + " " + (Model.getInstance().isASC() ? "ASC" : "DESC")));
+//                    table.addCell("Total Bookings: " + Model.getInstance().getRecordCount()).setBold().setFontSize(fontSize);
+                    table.addCell(createCellBold("Total Bookings: " + Model.getInstance().getRecordCount()));
+//                    table.addCell("Page " + currentPage + "/" + totalPages).setBold().setFontSize(fontSize);
+                    table.addCell(createCellBold("Page " + currentPage + "/" + totalPages));
+//                    table.addCell("Total Payment Received: " + Model.getInstance().getTotalPayment() + " (" + Model.getInstance().getTotalUnpaid() + " UNPAID)").setBold().setFontSize(fontSize);
+                    table.addCell(createCellBold("Total Payment Received: " + Model.getInstance().getTotalPayment() + " (" + Model.getInstance().getTotalUnpaid() + " UNPAID)"));
 
                     document.add(table.setHorizontalAlignment(HorizontalAlignment.CENTER));
 
@@ -749,10 +728,12 @@ public class ViewFactory {
 
                     System.out.println(currentPage);
 
-                    int startIndex = Model.getInstance().getTableRowCount() * (currentPage - 1);
-                    int end = Math.min(startIndex + Model.getInstance().getTableRowCount(), Model.getInstance().getListRecordModels().size());
-                    System.out.println(Model.getInstance().getTableRowCount());
-                    System.out.println(startIndex + " - " + end);
+                    int tableRowCount = Model.getInstance().getTableRowCount();
+
+                    int startIndex = tableRowCount * (currentPage - 1);
+                    int end = Math.min(startIndex + tableRowCount, list.size());
+//                    System.out.println(tableRowCount);
+//                    System.out.println(startIndex + " - " + end);
 //                int end = Math.min(15 * currentPage, Model.getInstance().getTableRowCount());
                     for(int i = startIndex; i < end; i++){
                         for(int j = 0; j < 14; j++){
@@ -808,6 +789,7 @@ public class ViewFactory {
 //            }
 
             } catch (FileNotFoundException e) {
+                Model.getInstance().printLog(new RuntimeException(e));
                 throw new RuntimeException(e);
             }
         }

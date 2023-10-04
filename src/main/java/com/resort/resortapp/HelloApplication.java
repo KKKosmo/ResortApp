@@ -15,9 +15,7 @@ public class HelloApplication extends Application {
         Model.getInstance().initCalendarDates();
         Model.getInstance().getViewFactory().setSceneLogin();
 
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            Model.getInstance().closeLogger();
-        }));
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> Model.getInstance().closeLogger()));
 
         stage.setResizable(false);
         stage.show();
@@ -25,7 +23,6 @@ public class HelloApplication extends Application {
 
 
     public static void main(String[] args) {
-
         launch();
     }
 }
