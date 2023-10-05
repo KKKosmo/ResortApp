@@ -1,10 +1,8 @@
 if errors with sql, might be the plugins
 if seem odd, might be because i tried to remove duplicates in controllers where they setAvailablesFotVisuals
 
-DESIGN
-    button mouse appearances
-    structures
-    colors
+WATCH UI DESIGN VIDS
+TABLE FONT
 
 
 

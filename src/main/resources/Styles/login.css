@@ -1,16 +1,82 @@
-/* Default button styles */
-.toggle-button {
-    -fx-background-color: #f0f0f0; /* Default background color */
-    -fx-text-fill: black; /* Default text color */
-    -fx-font-weight: normal; /* Normal font weight for default buttons */
-    -fx-border-color: #ccc; /* Border color for default buttons */
-    -fx-border-width: 1px; /* Border width for default buttons */
-    -fx-padding: 5px 10px; /* Padding for buttons */
+#root {
+    -fx-background-color: #d6efff;
 }
 
-/* Selected button styles */
-.selected-button {
-    -fx-background-color: #007bff; /* Selected background color */
-    -fx-text-fill: white; /* Text color for the selected button */
-    -fx-font-weight: bold; /* Make text bold for selected button */
+#resort_name{
+    -fx-fill: #0076c4;
+    -fx-font: "Segoe Script";
 }
+
+.toggle-button {
+    -fx-background-color: #c0e6ff;
+    -fx-font-size: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2.5);
+}
+
+.toggle-button:hover {
+    -fx-rotate: 10deg; /* Rotate by 15 degrees on hover */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 5);
+    -fx-pref-width: 202;
+    -fx-pref-height: 226;
+}
+
+.toggle-button:selected {
+    -fx-background-color: #009aff;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 14);
+    -fx-pref-width: 212;
+    -fx-pref-height: 236;
+}
+
+
+.toggle-button:selected:hover {
+    -fx-background-color: #009aff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 14);
+    -fx-pref-width: 212;
+    -fx-pref-height: 236;
+}
+
+
+#password_field {
+    -fx-font-size: 20;
+    -fx-prompt-text-fill: #828282;
+    -fx-border-color: #d6efff;
+    -fx-background-insets: 0;
+}
+
+#password_field:focused {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 4);
+}
+
+#login_btn {
+    -fx-font-size: 20;
+    -fx-background-color: #5fc0ff;
+    -fx-pref-width: 176;
+    -fx-pref-height: 52;
+}
+
+#exit_btn {
+    -fx-font-size: 20;
+    -fx-background-color: #e35c69;
+}
+
+#login_btn:hover{
+    -fx-background-color: #009aff;
+}
+#exit_btn:hover{
+    -fx-background-color: #DC3545;
+}
+
+#changePw_btn, #forgotPw_btn{
+    -fx-font-size: 15;
+    -fx-background-color: #F9B872;
+}
+
+#changePw_btn:hover, #forgotPw_btn:hover{
+    -fx-background-color: #f79c3a;
+}
+
+.button{
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
+    -fx-background-radius: 30;
+    }

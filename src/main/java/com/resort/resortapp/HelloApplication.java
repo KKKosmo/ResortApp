@@ -4,6 +4,7 @@ import com.resort.resortapp.Models.Model;
 import com.resort.resortapp.Models.sqliteModel;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class HelloApplication extends Application {
     @Override

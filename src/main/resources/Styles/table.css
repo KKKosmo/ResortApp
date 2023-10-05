@@ -1,4 +1,41 @@
-.red-disabled-button {
-    -fx-background-color: red;
-    -fx-text-fill: white;
+#export_btn, #default_btn{
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
+    -fx-background-radius: 30;
+    -fx-background-insets: 0, 2, 2; /* Top, Right, Bottom insets */
+    -fx-background-color: #F9B872;
+    }
+
+#add_btn{
+    -fx-background-color: #00ff83;
+    }
+#history_btn{
+    -fx-background-color: #ffec00;
+    }
+
+#add_btn, #history_btn{
+    -fx-background-radius: 30 30 0 0;
+}
+
+
+#dates1, #dates2{
+    -fx-background-color: #c0e6ff;
+}
+#nextPage_btn, #prevPage_btn, #datesOuter, #roomPane, .colPane {
+    -fx-background-color: #5fc0ff;
+}
+#temp, .colPane:hover{
+    -fx-background-color: #009aff;
+}
+
+.lighter{
+    -fx-background-color: #eef8ff;
+}
+
+#parentPane, .darker, #info_pane{
+    -fx-background-color: #d6efff;
+}
+
+#burger_btn{
+    -fx-background-color: grey;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
 }

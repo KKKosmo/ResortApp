@@ -14,26 +14,26 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../Styles/login.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.resort.resortapp.Controllers.LoginController">
-   <ImageView fx:id="logo_img" fitHeight="100.0" fitWidth="100.0" layoutX="590.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../Styles/login.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.resort.resortapp.Controllers.LoginController">
+   <ImageView fx:id="logo_img" fitHeight="181.0" fitWidth="229.0" layoutX="550.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
       <viewport>
          <Rectangle2D />
       </viewport>
       <Image url="@../Images/csharp.png" />
    </ImageView>
-   <Text layoutX="538.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="J&amp;G Resort" textAlignment="CENTER" wrappingWidth="203.81787109375">
+   <Text fx:id="resort_name" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;Segoe Script&quot;; -fx-font-weight: bold;" text="J&amp;G Transient" textAlignment="CENTER" wrappingWidth="1280.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
       <font>
-         <Font size="31.0" />
+         <Font name="Arial Black" size="82.0" />
       </font>
    </Text>
-   <HBox layoutX="99.0" layoutY="320.0" spacing="10.0">
+   <HBox alignment="CENTER" layoutY="277.0" prefHeight="294.0" prefWidth="1280.0" spacing="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
       <ToggleButton fx:id="user1_btn" mnemonicParsing="false">
          <graphic>
             <VBox alignment="CENTER" spacing="5.0">
                <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                   <Image url="@../Images/user.png" />
                </ImageView>
-               <Text fx:id="user1_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="Glorifina" />
+               <Text fx:id="user1_txt" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;SansSerif&quot;;" text="Glorifina" />
             </VBox>
          </graphic>
          <toggleGroup>
@@ -49,7 +49,7 @@
                <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                   <Image url="@../Images/user.png" />
                </ImageView>
-               <Text fx:id="user2_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="Gianne" />
+               <Text fx:id="user2_txt" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;SansSerif&quot;;" text="Gianne" />
             </VBox>
          </graphic>
          <cursor>
@@ -62,7 +62,7 @@
                <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                   <Image url="@../Images/user.png" />
                </ImageView>
-               <Text fx:id="user3_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="Regina" />
+               <Text fx:id="user3_txt" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;SansSerif&quot;;" text="Regina" />
             </VBox>
          </graphic>
          <cursor>
@@ -75,7 +75,7 @@
                <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                   <Image url="@../Images/user.png" />
                </ImageView>
-               <Text fx:id="user4_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="Roy" />
+               <Text fx:id="user4_txt" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;SansSerif&quot;;" text="Roy" />
             </VBox>
          </graphic>
          <cursor>
@@ -88,7 +88,7 @@
                <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                   <Image url="@../Images/user.png" />
                </ImageView>
-               <Text fx:id="user5_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="Marvin" />
+               <Text fx:id="user5_txt" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;SansSerif&quot;;" text="Marvin" />
             </VBox>
          </graphic>
          <cursor>
@@ -101,7 +101,7 @@
                <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                   <Image url="@../Images/user.png" />
                </ImageView>
-               <Text fx:id="user6_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="Marie" />
+               <Text fx:id="user6_txt" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;SansSerif&quot;;" text="Marie" />
             </VBox>
          </graphic>
          <cursor>
@@ -109,20 +109,20 @@
          </cursor>
       </ToggleButton>
    </HBox>
-   <PasswordField fx:id="password_field" alignment="CENTER" layoutX="490.0" layoutY="599.0" maxHeight="30.0" maxWidth="500.0" prefHeight="30.0" prefWidth="300.0" promptText="PASSWORD" />
-   <Button fx:id="login_btn" alignment="CENTER" layoutX="552.0" layoutY="643.0" minHeight="25.0" minWidth="50.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="176.0" text="Log In">
+   <PasswordField fx:id="password_field" alignment="CENTER" layoutX="467.0" layoutY="579.0" maxHeight="58.0" maxWidth="500.0" prefHeight="58.0" prefWidth="346.0" promptText="PASSWORD" style="-fx-font-family: &quot;SansSerif&quot;;" />
+   <Button fx:id="login_btn" alignment="CENTER" contentDisplay="CENTER" layoutX="553.0" layoutY="653.0" minHeight="25.0" minWidth="50.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="176.0" style="-fx-font-family: &quot;SansSerif&quot;;" text="Log in">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor></Button>
-   <Button fx:id="exit_btn" layoutX="584.0" layoutY="729.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="112.0" text="Exit">
+   <Button fx:id="exit_btn" layoutX="573.0" layoutY="738.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="135.0" style="-fx-font-family: &quot;SansSerif&quot;;" text="Exit">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor></Button>
-   <Button fx:id="changePw_btn" layoutX="1156.0" layoutY="761.0" mnemonicParsing="false" text="Change Password">
+   <Button fx:id="changePw_btn" layoutX="1123.0" layoutY="741.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="143.0" style="-fx-font-family: &quot;SansSerif&quot;;" text="Change Password">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor></Button>
-   <Button fx:id="forgotPw_btn" layoutX="1156.0" layoutY="717.0" mnemonicParsing="false" text="Forgot Password?" underline="true">
+   <Button fx:id="forgotPw_btn" layoutX="1123.0" layoutY="675.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="143.0" style="-fx-font-family: &quot;SansSerif&quot;;" text="Forgot Password?" underline="true">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor></Button>

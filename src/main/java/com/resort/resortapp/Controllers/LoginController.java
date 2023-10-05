@@ -71,12 +71,12 @@ public class LoginController implements Initializable {
             }
         });
 
-        setButton(user1_btn);
-        setButton(user2_btn);
-        setButton(user3_btn);
-        setButton(user4_btn);
-        setButton(user5_btn);
-        setButton(user6_btn);
+//        setButton(user1_btn);
+//        setButton(user2_btn);
+//        setButton(user3_btn);
+//        setButton(user4_btn);
+//        setButton(user5_btn);
+//        setButton(user6_btn);
     }
 
     private boolean getUser(){
@@ -105,21 +105,23 @@ public class LoginController implements Initializable {
         return result;
     }
 
-    private void setButton(ToggleButton button) {
-        button.setOnAction(event -> {
-            if (!button.getStyleClass().contains("selected-button")) {
-                button.getStyleClass().add("selected-button");
-            } else {
-                button.getStyleClass().remove("selected-button");
-            }
+//    private void setButton(ToggleButton button) {
+//        button.setOnAction(event -> {
+//            if (!button.getStyleClass().contains("selected-button")) {
+//                button.getStyleClass().add("selected-button");
+//            } else {
+//                button.getStyleClass().remove("selected-button");
+//            }
+//
+//            group.getToggles().forEach(toggle -> {
+//                if (toggle != button) {
+//                    ((ToggleButton) toggle).getStyleClass().remove("selected-button");
+//                }
+//            });
+//
+////            System.out.println(group.getSelectedToggle());
+//        });
+//    }
 
-            group.getToggles().forEach(toggle -> {
-                if (toggle != button) {
-                    ((ToggleButton) toggle).getStyleClass().remove("selected-button");
-                }
-            });
 
-            System.out.println(group.getSelectedToggle());
-        });
-    }
 }

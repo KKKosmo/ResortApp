@@ -30,15 +30,18 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </Button>
-   <TextField fx:id="searchBar_fld" alignment="CENTER" layoutX="126.0" layoutY="97.0" prefHeight="25.0" prefWidth="365.0" promptText="SEARCH FOR A NAME" />
-   <Pane layoutX="510.0" layoutY="12.0" prefHeight="85.0" prefWidth="521.0" style="-fx-border-color: black;">
-      <Pane layoutX="230.0" layoutY="5.0" prefHeight="75.0" prefWidth="286.0" style="-fx-border-color: black;">
-         <DatePicker fx:id="startDate_datePicker" editable="false" focusTraversable="false" layoutX="8.0" layoutY="45.0" prefHeight="25.0" prefWidth="129.0">
+   <TextField fx:id="searchBar_fld" alignment="CENTER" layoutX="126.0" layoutY="79.0" prefHeight="38.0" prefWidth="365.0" promptText="SEARCH FOR A NAME">
+      <font>
+         <Font size="20.0" />
+      </font></TextField>
+   <Pane fx:id="datesOuter" layoutX="500.0" layoutY="12.0" prefHeight="85.0" prefWidth="520.0">
+      <Pane fx:id="dates2" layoutX="230.0" layoutY="5.0" prefHeight="75.0" prefWidth="286.0">
+         <DatePicker fx:id="startDate_datePicker" editable="false" focusTraversable="false" layoutX="8.0" layoutY="45.0" prefHeight="25.0" prefWidth="129.0" styleClass="date-picker">
             <cursor>
                <Cursor fx:constant="HAND" />
             </cursor>
          </DatePicker>
-         <DatePicker fx:id="endDate_datePicker" editable="false" focusTraversable="false" layoutX="148.0" layoutY="45.0" prefHeight="25.0" prefWidth="129.0">
+         <DatePicker fx:id="endDate_datePicker" editable="false" focusTraversable="false" layoutX="148.0" layoutY="45.0" prefHeight="25.0" prefWidth="129.0" styleClass="date-picker">
             <cursor>
                <Cursor fx:constant="HAND" />
             </cursor>
@@ -47,15 +50,23 @@
          <Text layoutX="188.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Date" textAlignment="CENTER" />
          <Text layoutX="72.0" layoutY="16.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECT BY SPECIFIC DATES" />
       </Pane>
-      <Pane layoutX="4.0" layoutY="5.0" prefHeight="75.0" prefWidth="149.0" style="-fx-border-color: black;">
-         <Text layoutX="7.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECT BY YEAR&amp;MONTH" />
+      <Pane fx:id="dates1" layoutX="4.0" layoutY="5.0" prefHeight="75.0" prefWidth="158.0">
+         <Text layoutX="-7.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECT BY YEAR&amp;MONTH" textAlignment="CENTER" wrappingWidth="170.0" />
          <ComboBox fx:id="yearMonth_box" layoutX="24.0" layoutY="45.0" prefHeight="25.0" prefWidth="102.0">
             <cursor>
                <Cursor fx:constant="HAND" />
             </cursor></ComboBox>
       </Pane>
-      <Text layoutX="182.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OR" />
+      <Text layoutX="189.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OR" />
    </Pane>
+   <Button fx:id="history_btn" layoutX="1192.0" layoutY="114.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="79.0">
+      <graphic>
+         <Label prefHeight="31.0" prefWidth="63.0" text="Edit History" textAlignment="CENTER" wrapText="true" />
+      </graphic>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
    <GridPane fx:id="gridPane" alignment="CENTER" gridLinesVisible="true" layoutX="9.0" layoutY="163.0" prefHeight="592.0" prefWidth="1262.0" style="-fx-background-color: #D8D8D8;">
       <columnConstraints>
          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="37.0" minWidth="37.0" prefWidth="37.0" />
@@ -92,21 +103,21 @@
          <RowConstraints minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
          <RowConstraints minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
       </rowConstraints>
-      <Region prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnSpan="16" />
-      <Region prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="16" GridPane.rowIndex="1" />
-      <Region prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnSpan="16" GridPane.rowIndex="2" />
-      <Region prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="16" GridPane.rowIndex="3" />
-      <Region prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnSpan="16" GridPane.rowIndex="4" />
-      <Region prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="16" GridPane.rowIndex="5" />
-      <Region prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnSpan="16" GridPane.rowIndex="6" />
-      <Region prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="16" GridPane.rowIndex="7" />
-      <Region prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnSpan="16" GridPane.rowIndex="8" />
-      <Region prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="16" GridPane.rowIndex="9" />
-      <Region prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnSpan="16" GridPane.rowIndex="10" />
-      <Region prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="16" GridPane.rowIndex="11" />
-      <Region prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnSpan="16" GridPane.rowIndex="12" />
-      <Region prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="16" GridPane.rowIndex="13" />
-      <Region prefHeight="37.0" prefWidth="191.0" style="-fx-background-color: white;" GridPane.columnSpan="16" GridPane.rowIndex="14" />
+      <Region prefHeight="200.0" prefWidth="200.0" styleClass="lighter" GridPane.columnSpan="16" />
+      <Region prefHeight="200.0" prefWidth="200.0" styleClass="darker" GridPane.columnSpan="16" GridPane.rowIndex="1" />
+      <Region prefHeight="200.0" prefWidth="200.0" styleClass="lighter" GridPane.columnSpan="16" GridPane.rowIndex="2" />
+      <Region prefHeight="200.0" prefWidth="200.0" styleClass="darker" GridPane.columnSpan="16" GridPane.rowIndex="3" />
+      <Region prefHeight="200.0" prefWidth="200.0" styleClass="lighter" GridPane.columnSpan="16" GridPane.rowIndex="4" />
+      <Region prefHeight="200.0" prefWidth="200.0" styleClass="darker" GridPane.columnSpan="16" GridPane.rowIndex="5" />
+      <Region prefHeight="200.0" prefWidth="200.0" styleClass="lighter" GridPane.columnSpan="16" GridPane.rowIndex="6" />
+      <Region prefHeight="200.0" prefWidth="200.0" styleClass="darker" GridPane.columnSpan="16" GridPane.rowIndex="7" />
+      <Region prefHeight="200.0" prefWidth="200.0" styleClass="lighter" GridPane.columnSpan="16" GridPane.rowIndex="8" />
+      <Region prefHeight="200.0" prefWidth="200.0" styleClass="darker" GridPane.columnSpan="16" GridPane.rowIndex="9" />
+      <Region prefHeight="200.0" prefWidth="200.0" styleClass="lighter" GridPane.columnSpan="16" GridPane.rowIndex="10" />
+      <Region prefHeight="200.0" prefWidth="200.0" styleClass="darker" GridPane.columnSpan="16" GridPane.rowIndex="11" />
+      <Region prefHeight="200.0" prefWidth="200.0" styleClass="lighter" GridPane.columnSpan="16" GridPane.rowIndex="12" />
+      <Region prefHeight="200.0" prefWidth="200.0" styleClass="darker" GridPane.columnSpan="16" GridPane.rowIndex="13" />
+      <Region prefHeight="37.0" prefWidth="191.0" styleClass="lighter" GridPane.columnSpan="16" GridPane.rowIndex="14" />
    </GridPane>
    <HBox layoutX="564.0" layoutY="766.0" spacing="5.0">
       <Button fx:id="prevPage_btn" mnemonicParsing="false" text="&lt;">
@@ -119,6 +130,10 @@
             <Cursor fx:constant="HAND" />
          </cursor></Button>
    </HBox>
+   <Button fx:id="add_btn" layoutX="9.0" layoutY="86.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="116.0" text="ADD">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor></Button>
    <GridPane fx:id="header" alignment="CENTER" gridLinesVisible="true" layoutX="9.0" layoutY="124.0" prefHeight="38.0" prefWidth="1182.0" style="-fx-background-color: #D8D8D8;" stylesheets="@../Styles/list.css">
       <columnConstraints>
          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="37.0" minWidth="37.0" prefWidth="37.0" />
@@ -139,7 +154,7 @@
       <rowConstraints>
          <RowConstraints minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
       </rowConstraints>
-      <HBox fx:id="id_pane" alignment="CENTER">
+      <HBox fx:id="id_pane" alignment="CENTER" styleClass="colPane">
          <Text stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="ID">
             <font>
                <Font name="System Bold" size="12.0" />
@@ -150,7 +165,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </HBox>
-      <HBox fx:id="timeCreated_pane" alignment="CENTER" GridPane.columnIndex="1">
+      <HBox fx:id="timeCreated_pane" alignment="CENTER" styleClass="colPane" GridPane.columnIndex="1">
          <Text stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="TIME CREATED" textAlignment="CENTER" wrappingWidth="56.802734375">
             <font>
                <Font name="System Bold" size="12.0" />
@@ -160,7 +175,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </HBox>
-      <HBox fx:id="name_pane" alignment="CENTER" prefHeight="38.0" prefWidth="281.0" GridPane.columnIndex="2">
+      <HBox fx:id="name_pane" alignment="CENTER" prefHeight="38.0" prefWidth="281.0" styleClass="colPane" GridPane.columnIndex="2">
          <Text stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
             <font>
                <Font name="System Bold" size="12.0" />
@@ -170,7 +185,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </HBox>
-      <HBox fx:id="pax_pane" alignment="CENTER" GridPane.columnIndex="3">
+      <HBox fx:id="pax_pane" alignment="CENTER" styleClass="colPane" GridPane.columnIndex="3">
          <Text stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Head Count" textAlignment="CENTER" wrappingWidth="38.36328125">
             <font>
                <Font name="System Bold" size="12.0" />
@@ -180,7 +195,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </HBox>
-      <HBox fx:id="vehicle_pane" alignment="CENTER" GridPane.columnIndex="4">
+      <HBox fx:id="vehicle_pane" alignment="CENTER" styleClass="colPane" GridPane.columnIndex="4">
          <Text stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Vehicle">
             <font>
                <Font name="System Bold" size="12.0" />
@@ -190,7 +205,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </HBox>
-      <HBox fx:id="pets_pane" alignment="CENTER" GridPane.columnIndex="5">
+      <HBox fx:id="pets_pane" alignment="CENTER" styleClass="colPane" GridPane.columnIndex="5">
          <Text stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Pets">
             <font>
                <Font name="System Bold" size="12.0" />
@@ -200,7 +215,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </HBox>
-      <HBox fx:id="videoke_pane" alignment="CENTER" GridPane.columnIndex="6">
+      <HBox fx:id="videoke_pane" alignment="CENTER" styleClass="colPane" GridPane.columnIndex="6">
          <Text stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Videoke">
             <font>
                <Font name="System Bold" size="12.0" />
@@ -210,7 +225,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </HBox>
-      <VBox alignment="CENTER" GridPane.columnIndex="7">
+      <VBox alignment="CENTER" styleClass="colPane" GridPane.columnIndex="7">
          <HBox fx:id="partialPay_pane" alignment="CENTER">
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Partial Payment">
                <font>
@@ -230,7 +245,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </VBox>
-      <HBox fx:id="balance_pane" alignment="CENTER" GridPane.columnIndex="8">
+      <HBox fx:id="balance_pane" alignment="CENTER" styleClass="colPane" GridPane.columnIndex="8">
          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Balance">
             <font>
                <Font name="System Bold" size="12.0" />
@@ -239,7 +254,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </HBox>
-      <HBox fx:id="checkIn_pane" alignment="CENTER" GridPane.columnIndex="10">
+      <HBox fx:id="checkIn_pane" alignment="CENTER" styleClass="colPane" GridPane.columnIndex="10">
          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Check In">
             <font>
                <Font name="System Bold" size="12.0" />
@@ -248,7 +263,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </HBox>
-      <HBox fx:id="checkOut_pane" alignment="CENTER" GridPane.columnIndex="11">
+      <HBox fx:id="checkOut_pane" alignment="CENTER" styleClass="colPane" GridPane.columnIndex="11">
          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Check Out">
             <font>
                <Font name="System Bold" size="12.0" />
@@ -257,7 +272,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </HBox>
-      <HBox fx:id="room_pane" alignment="CENTER" GridPane.columnIndex="12">
+      <HBox fx:id="room_pane" alignment="CENTER" styleClass="colPane" GridPane.columnIndex="12">
          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room">
             <font>
                <Font name="System Bold" size="12.0" />
@@ -266,7 +281,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </HBox>
-      <HBox fx:id="user_pane" alignment="CENTER" prefHeight="38.0" prefWidth="88.0" GridPane.columnIndex="13">
+      <HBox fx:id="user_pane" alignment="CENTER" prefHeight="38.0" prefWidth="88.0" styleClass="colPane" GridPane.columnIndex="13">
          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="User">
             <font>
                <Font name="System Bold" size="12.0" />
@@ -275,7 +290,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </HBox>
-      <HBox fx:id="status_pane" alignment="CENTER" GridPane.columnIndex="9">
+      <HBox fx:id="status_pane" alignment="CENTER" styleClass="colPane" GridPane.columnIndex="9">
          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Status">
             <font>
                <Font name="System Bold" size="12.0" />
@@ -285,47 +300,83 @@
          </cursor>
       </HBox>
    </GridPane>
-   <HBox alignment="CENTER" layoutX="1057.0" layoutY="17.0" prefHeight="94.0" prefWidth="167.0" spacing="10.0" style="-fx-border-color: black;">
-      <VBox alignment="CENTER" prefHeight="71.0" prefWidth="65.0" spacing="10.0">
-         <CheckBox fx:id="j_chkBox" mnemonicParsing="false" prefHeight="17.0" prefWidth="71.0" text="Room J">
+   <HBox fx:id="roomPane" alignment="CENTER" layoutX="1026.0" layoutY="13.0" prefHeight="94.0" prefWidth="193.0" spacing="10.0">
+      <VBox alignment="CENTER_LEFT" prefHeight="92.0" prefWidth="91.0" spacing="10.0">
+         <CheckBox fx:id="j_chkBox" mnemonicParsing="false" prefHeight="21.0" prefWidth="88.0" text="Room J">
             <cursor>
                <Cursor fx:constant="HAND" />
-            </cursor></CheckBox>
-         <CheckBox fx:id="g_chkBox" mnemonicParsing="false" text="Room G">
+            </cursor>
+            <font>
+               <Font size="15.0" />
+            </font></CheckBox>
+         <CheckBox fx:id="g_chkBox" mnemonicParsing="false" prefHeight="21.0" prefWidth="89.0" text="Room G">
             <cursor>
                <Cursor fx:constant="HAND" />
-            </cursor></CheckBox>
-         <CheckBox fx:id="a_chkBox" mnemonicParsing="false" prefHeight="17.0" prefWidth="73.0" text="ATTIC">
+            </cursor>
+            <font>
+               <Font size="15.0" />
+            </font></CheckBox>
+         <CheckBox fx:id="a_chkBox" mnemonicParsing="false" prefHeight="21.0" prefWidth="84.0" text="ATTIC">
             <cursor>
                <Cursor fx:constant="HAND" />
-            </cursor></CheckBox>
+            </cursor>
+            <font>
+               <Font size="15.0" />
+            </font></CheckBox>
       </VBox>
-      <VBox alignment="CENTER" spacing="10.0">
+      <VBox alignment="CENTER_LEFT" spacing="10.0">
          <CheckBox fx:id="k1_chkBox" mnemonicParsing="false" text="KUBO 1">
             <cursor>
                <Cursor fx:constant="HAND" />
-            </cursor></CheckBox>
+            </cursor>
+            <font>
+               <Font size="15.0" />
+            </font></CheckBox>
          <CheckBox fx:id="k2_chkBox" mnemonicParsing="false" text="KUBO 2">
             <cursor>
                <Cursor fx:constant="HAND" />
-            </cursor></CheckBox>
+            </cursor>
+            <font>
+               <Font size="15.0" />
+            </font></CheckBox>
       </VBox>
    </HBox>
-   <VBox layoutX="140.0" layoutY="30.0" prefHeight="49.0" prefWidth="179.0" spacing="5.0" style="-fx-border-color: black; -fx-padding: 5;">
+   <VBox fx:id="info_pane" layoutX="140.0" layoutY="18.0" prefHeight="49.0" prefWidth="179.0" spacing="5.0" style="-fx-padding: 5;">
       <opaqueInsets>
          <Insets />
       </opaqueInsets>
       <HBox alignment="CENTER_LEFT">
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Bookings: " />
-         <Text fx:id="totalBookings_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="#" />
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Bookings: ">
+            <font>
+               <Font size="14.0" />
+            </font></Text>
+         <Text fx:id="totalBookings_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="#">
+            <font>
+               <Font size="14.0" />
+            </font></Text>
       </HBox>
       <HBox fx:id="totalPayment_hBox" prefHeight="32.0" prefWidth="167.0">
          <FontAwesomeIconView glyphName="INFO_CIRCLE" />
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Payment: " />
-         <Text fx:id="totalPayment_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="#" />
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" (" />
-         <Text fx:id="unpaid_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="#" />
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" UNPAID)" />
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Payment: ">
+            <font>
+               <Font size="14.0" />
+            </font></Text>
+         <Text fx:id="totalPayment_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="#">
+            <font>
+               <Font size="14.0" />
+            </font></Text>
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" (">
+            <font>
+               <Font size="14.0" />
+            </font></Text>
+         <Text fx:id="unpaid_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="#">
+            <font>
+               <Font size="14.0" />
+            </font></Text>
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" UNPAID)">
+            <font>
+               <Font size="14.0" />
+            </font></Text>
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor>
@@ -337,23 +388,14 @@
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="of" />
       <Text fx:id="lastPage_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="#" />
    </HBox>
-   <Button fx:id="export_btn" layoutX="1177.0" layoutY="766.0" mnemonicParsing="false" text="Export to PDF">
-      <cursor>
-         <Cursor fx:constant="HAND" />
-      </cursor></Button>
-   <Button fx:id="history_btn" layoutX="1193.0" layoutY="113.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="80.0">
-      <graphic>
-         <Label prefHeight="41.0" prefWidth="80.0" text="Edit History" textAlignment="CENTER" wrapText="true" />
-      </graphic>
+   <Button fx:id="export_btn" layoutX="1052.0" layoutY="758.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="219.0" text="Export Summary Report to PDF" textAlignment="CENTER">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
-   </Button>
-   <Button fx:id="default_btn" layoutX="19.0" layoutY="16.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="62.0" text="Default Filters" textAlignment="CENTER" wrapText="true">
-      <cursor>
-         <Cursor fx:constant="HAND" />
-      </cursor></Button>
-   <Button fx:id="add_btn" layoutX="10.0" layoutY="95.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="ADD">
+      <font>
+         <Font size="14.0" />
+      </font></Button>
+   <Button fx:id="default_btn" layoutX="16.0" layoutY="13.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="102.0" text="Default Filters" textAlignment="CENTER" wrapText="true">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor></Button>

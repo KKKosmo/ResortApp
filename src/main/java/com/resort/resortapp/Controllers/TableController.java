@@ -50,7 +50,6 @@ public class TableController implements Initializable {
     public HBox room_pane;
     public HBox user_pane;
     public HBox status_pane;
-    public List<HBox> hBoxList;
     public Text currentPage_txt;
     public Text lastPage_txt;
     public CheckBox j_chkBox;
@@ -151,23 +150,6 @@ public class TableController implements Initializable {
         });
 
         add_btn.setOnAction(actionEvent -> Model.getInstance().getViewFactory().setSceneCreate());
-
-        hBoxList = new ArrayList<>();
-        hBoxList.add(id_pane);
-        hBoxList.add(timeCreated_pane);
-        hBoxList.add(name_pane);
-        hBoxList.add(pax_pane);
-        hBoxList.add(vehicle_pane);
-        hBoxList.add(pets_pane);
-        hBoxList.add(videoke_pane);
-        hBoxList.add(partialPay_pane);
-        hBoxList.add(fullPay_pane);
-        hBoxList.add(balance_pane);
-        hBoxList.add(checkIn_pane);
-        hBoxList.add(checkOut_pane);
-        hBoxList.add(room_pane);
-        hBoxList.add(user_pane);
-        hBoxList.add(status_pane);
 
         id_pane.setOnMouseClicked(event -> {
             if(Model.getInstance().getOrderCategory() != Model.OrderCategory.ID){
@@ -439,10 +421,6 @@ public class TableController implements Initializable {
             refreshPage();
         });
 
-        for(HBox hbox : hBoxList){
-            onHover(hbox);
-        }
-
         startDate_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             Model.getInstance().setTableStartDate(newValue);
             LocalDate endDateValue = endDate_datePicker.getValue();
@@ -632,10 +610,6 @@ public class TableController implements Initializable {
 
     public void setEscMenu(){
         escMenu =  Model.getInstance().getViewFactory().getEscMenu(parentPane);
-    }
-    private void onHover(HBox hBox){
-        hBox.setOnMouseEntered(event -> hBox.getStyleClass().add("pane"));
-        hBox.setOnMouseExited(event -> hBox.getStyleClass().remove("pane"));
     }
     
     private void refreshPage(){

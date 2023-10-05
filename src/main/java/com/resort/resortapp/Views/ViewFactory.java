@@ -416,9 +416,11 @@ public class ViewFactory {
             editButton.setCursor(Cursor.HAND);
             deleteButton.setCursor(Cursor.HAND);
 
-            rowButtonOnHover(editButton, i - startIndex);
-            rowButtonOnHover(deleteButton, i - startIndex);
             if(recordModel.getUser().equals(Model.getInstance().getUser())){
+                rowButtonOnHoverEdit(editButton, i - startIndex);
+                rowButtonOnHoverDelete(deleteButton, i - startIndex);
+                editButton.setStyle("-fx-background-color: lightyellow");
+                deleteButton.setStyle("-fx-background-color: #ff9895");
 
                 editButton.setOnAction(actionEvent -> setSceneEdit(recordModel));
 
@@ -453,7 +455,7 @@ public class ViewFactory {
         }
     }
 
-    private void rowButtonOnHover(Button button, int index){
+    private void rowButtonOnHoverEdit(Button button, int index){
         button.setOnMouseEntered(mouseEvent -> listTableChildren.get(index).setStyle("-fx-background-color: lightyellow;"));
 
         boolean isEvenRow = index % 2 == 0;
@@ -465,28 +467,19 @@ public class ViewFactory {
                 listTableChildren.get(index).setStyle("-fx-background-color: lightgrey;");
             }
         });
+    }
+    private void rowButtonOnHoverDelete(Button button, int index){
+        button.setOnMouseEntered(mouseEvent -> listTableChildren.get(index).setStyle("-fx-background-color: #ff9895;"));
 
-//        for (int i = 0; i < 15; i++) {
-////            Region region = (Region) listTable.getChildren().get(i);
-//            Region region = (Region) listTableChildren.get(i);
-//
-//            // Check if the row number is even or odd
-//            boolean isEvenRow = i % 2 == 0;
-//
-//            region.setOnMouseEntered(mouseEvent -> {
-//                // Change the background color to light yellow on hover
-//                region.setStyle("-fx-background-color: lightyellow;");
-//            });
-//
-//            region.setOnMouseExited(mouseEvent -> {
-//                // Restore the default background color when the mouse exits
-//                if (isEvenRow) {
-//                    region.setStyle("-fx-background-color: white;");
-//                } else {
-//                    region.setStyle("-fx-background-color: lightgrey;");
-//                }
-//            });
-//        }
+        boolean isEvenRow = index % 2 == 0;
+
+        button.setOnMouseExited(mouseEvent -> {
+            if (isEvenRow) {
+                listTableChildren.get(index).setStyle("-fx-background-color: white;");
+            } else {
+                listTableChildren.get(index).setStyle("-fx-background-color: lightgrey;");
+            }
+        });
     }
 
     public void showSuccessPopup(String message) {
