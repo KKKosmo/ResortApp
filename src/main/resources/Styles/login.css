@@ -1,27 +1,28 @@
 #root {
-    -fx-background-color: #d6efff;
+    -fx-background-color: linear-gradient(to bottom, #edf8ff, #a7ddff);
 }
-
 #resort_name{
     -fx-fill: #0076c4;
-    -fx-font: "Segoe Script";
+    -fx-font-family: "Segoe Script";
 }
 
 .toggle-button {
     -fx-background-color: #c0e6ff;
     -fx-font-size: 20;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2.5);
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
 }
 
 .toggle-button:hover {
-    -fx-rotate: 10deg; /* Rotate by 15 degrees on hover */
+    -fx-rotate: 20deg;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 5);
     -fx-pref-width: 202;
     -fx-pref-height: 226;
 }
 
 .toggle-button:selected {
-    -fx-background-color: #009aff;
+    -fx-background-color: #5fc0ff;
     -fx-font-weight: bold;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 14);
     -fx-pref-width: 212;
@@ -30,7 +31,7 @@
 
 
 .toggle-button:selected:hover {
-    -fx-background-color: #009aff;
+    -fx-background-color: #5fc0ff;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 14);
     -fx-pref-width: 212;
     -fx-pref-height: 236;
@@ -38,42 +39,49 @@
 
 
 #password_field {
-    -fx-font-size: 20;
-    -fx-prompt-text-fill: #828282;
     -fx-border-color: #d6efff;
     -fx-background-insets: 0;
+    -fx-background-radius: 30;
+    -fx-border-radius: 30;
+}
+
+#password_field:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 4);
+    -fx-border-radius: 30;
 }
 
 #password_field:focused {
+    -fx-border-color: black;
+    -fx-border-radius: 30;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 4);
 }
 
 #login_btn {
     -fx-font-size: 20;
-    -fx-background-color: #5fc0ff;
+    -fx-background-color: #85ceff;
     -fx-pref-width: 176;
     -fx-pref-height: 52;
 }
 
 #exit_btn {
     -fx-font-size: 20;
-    -fx-background-color: #e35c69;
+    -fx-background-color: #ff8894;
 }
 
 #login_btn:hover{
-    -fx-background-color: #009aff;
+    -fx-background-color: #5fc0ff;
 }
 #exit_btn:hover{
-    -fx-background-color: #DC3545;
+    -fx-background-color: #ff6372;
 }
 
 #changePw_btn, #forgotPw_btn{
     -fx-font-size: 15;
-    -fx-background-color: #F9B872;
+    -fx-background-color: #ffc485;
 }
 
 #changePw_btn:hover, #forgotPw_btn:hover{
-    -fx-background-color: #f79c3a;
+    -fx-background-color: #ffb86c;
 }
 
 .button{

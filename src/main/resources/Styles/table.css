@@ -1,31 +1,78 @@
 #export_btn, #default_btn{
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
     -fx-background-radius: 30;
-    -fx-background-insets: 0, 2, 2; /* Top, Right, Bottom insets */
-    -fx-background-color: #F9B872;
+    -fx-background-insets: 0, 2, 2; 
+    -fx-background-color: #ffc485;
     }
 
-#add_btn{
-    -fx-background-color: #00ff83;
-    }
-#history_btn{
-    -fx-background-color: #ffec00;
+#export_btn:hover, #default_btn:hover{
+    -fx-background-color: #ffb86c;
     }
 
 #add_btn, #history_btn{
     -fx-background-radius: 30 30 0 0;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
 }
+
+#add_btn{
+    -fx-background-color: rgb(182, 255, 182);
+    }
+
+#add_btn:hover{
+    -fx-background-color: rgb(132, 255, 132);
+    }
+#history_btn{
+    -fx-background-color: rgb(255, 255, 208);
+    }
+
+#history_btn:hover{
+    -fx-background-color: rgb(255, 255, 154);
+    }
 
 
 #dates1, #dates2{
     -fx-background-color: #c0e6ff;
+    -fx-background-radius: 30;
 }
-#nextPage_btn, #prevPage_btn, #datesOuter, #roomPane, .colPane {
-    -fx-background-color: #5fc0ff;
+#nextPage_btn, #prevPage_btn, #datesOuter, #roomPane{
+    -fx-background-color: #a1d9ff;
+    -fx-background-radius: 30;
 }
-#temp, .colPane:hover{
-    -fx-background-color: #009aff;
+
+.colPane {
+    -fx-background-color: #a1d9ff;
 }
+
+
+.colPane:hover{
+    -fx-background-color: #71c6ff;
+}
+#nextPage_btn, #prevPage_btn{
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
+}
+
+
+#nextPage_btn:hover, #prevPage_btn:hover{
+    -fx-background-color: #71c6ff;
+    -fx-background-radius: 5;
+    -fx-background-insets: 0, 0, 2; /* Top, Right, Bottom insets */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
+}
+#searchBar_fld{
+    -fx-background-insets: 0;
+    -fx-background-radius: 30 30 0 0;
+    }
+#page_fld{
+    -fx-background-insets: 0;
+    -fx-background-radius: 30;
+    }
+
+#page_fld:hover, #page_fld:focused, #searchBar_fld:hover, #searchBar_fld:focused{
+    -fx-background-radius: 5;
+    -fx-background-insets: 0, 0, 2; /* Top, Right, Bottom insets */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
+}
+
 
 .lighter{
     -fx-background-color: #eef8ff;
@@ -35,7 +82,19 @@
     -fx-background-color: #d6efff;
 }
 
+
 #burger_btn{
-    -fx-background-color: grey;
+    -fx-background-color: #9bd9ff;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
+}
+
+#burger_btn:hover{
+    -fx-background-color: #6ec7ff;
+}
+
+.edit{
+    -fx-background-color: lightyellow;
+}
+.delete{
+    -fx-background-color: #ffbfbd;
 }

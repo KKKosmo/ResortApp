@@ -1,0 +1,60 @@
+#pane{
+    -fx-background-color:  rgba(25, 28, 31, 0.937)
+}
+
+#list{
+    -fx-background-color: #b7e2ff;
+}
+#list:hover{
+    -fx-background-color: #84ceff;
+}
+
+#editHistory{
+    -fx-background-color: #fdffb7;
+}
+#editHistory:hover{
+    -fx-background-color: #fbff87;
+}
+
+#add{
+    -fx-background-color: #c5ffb7;
+}
+#add:hover{
+    -fx-background-color: #96ff7b;
+}
+
+#signOut{
+    -fx-background-color: #ffc69e;
+}
+#signOut:hover{
+    -fx-background-color: #ffb078;
+}
+
+#exit{
+    -fx-background-color: #ffa1a1;
+}
+#exit:hover{
+    -fx-background-color: #ff8787;
+}
+
+#burger{
+    -fx-background-color: #6ec7ff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
+}
+
+#burger:hover{
+    -fx-background-color: #9bd9ff;
+}
+#usertitle, #user_txt{
+    -fx-fill: #63c1ff;
+}
+
+.btn{
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
+    -fx-background-radius: 30;
+    -fx-background-insets: 0, 2, 2; /* Top, Right, Bottom insets */
+}
+.btn:hover{
+    -fx-border-color: black;
+    -fx-border-radius: 30;
+}

@@ -14,7 +14,7 @@ public class HelloApplication extends Application {
         Model.getInstance().getViewFactory().setStage(stage);
         stage.setTitle("J&G Resort App");
         Model.getInstance().initCalendarDates();
-        Model.getInstance().getViewFactory().setSceneLogin();
+        Model.getInstance().getViewFactory().setSceneCreate();
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> Model.getInstance().closeLogger()));
 

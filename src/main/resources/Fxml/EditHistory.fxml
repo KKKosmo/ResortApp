@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../Styles/editHistory.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.resort.resortapp.Controllers.EditHistoryController">
-    <Button fx:id="back_btn" layoutX="24.0" layoutY="24.0" mnemonicParsing="false">
+    <Button fx:id="back_btn" layoutX="1.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="42.0">
         <graphic>
           <FontAwesomeIconView glyphName="ARROW_LEFT" size="20" />
         </graphic>
@@ -17,7 +17,7 @@
          <Cursor fx:constant="HAND" />
       </cursor>
     </Button>
-   <TableView fx:id="tableview" layoutX="20.0" layoutY="70.0" prefHeight="708.0" prefWidth="1240.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+   <TableView fx:id="tableview" focusTraversable="false" layoutX="20.0" layoutY="70.0" prefHeight="708.0" prefWidth="1240.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
      <columns>
        <TableColumn fx:id="editId_col" editable="false" prefWidth="55.0" resizable="false" sortType="DESCENDING" text="Edit ID" />
          <TableColumn fx:id="dateTime_col" editable="false" prefWidth="133.0" resizable="false" sortType="DESCENDING" sortable="false" text="Date &amp; Time" />

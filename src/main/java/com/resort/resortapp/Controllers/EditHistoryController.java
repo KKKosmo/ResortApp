@@ -89,6 +89,7 @@ public class EditHistoryController implements Initializable {
         bookId_col.setCellFactory(integerCellFactory);
         user_col.setCellFactory(cellFactory);
 
+
         tableview.getItems().setAll(list);
         tableview.sort();
     }

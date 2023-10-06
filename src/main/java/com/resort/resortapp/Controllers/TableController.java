@@ -600,7 +600,7 @@ public class TableController implements Initializable {
         totalPayment_txt.setText(String.valueOf(Model.getInstance().getTotalPayment()));
         unpaid_txt.setText(String.valueOf(Model.getInstance().getTotalUnpaid()));
         lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
-        int initialPage = Math.max(0, Model.getInstance().getMaxPage());
+        int initialPage = Math.max(0, 1);
         page_fld.setText(String.valueOf(initialPage));
         currentPage_txt.setText(String.valueOf(initialPage));
         if(Model.getInstance().getTableYearMonth() != null){
@@ -616,7 +616,7 @@ public class TableController implements Initializable {
         sqliteModel.queryTableRecords();
         Model.getInstance().getViewFactory().insertListRows();
         lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
-        page_fld.setText("1");
+        page_fld.setText(String.valueOf(Math.max(0, 1)));
         totalBookings_txt.setText(String.valueOf(Model.getInstance().getRecordCount()));
         totalPayment_txt.setText(String.valueOf(Model.getInstance().getTotalPayment()));
         unpaid_txt.setText(String.valueOf(Model.getInstance().getTotalUnpaid()));

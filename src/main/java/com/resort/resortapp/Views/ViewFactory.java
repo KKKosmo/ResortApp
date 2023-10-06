@@ -60,8 +60,8 @@ public class ViewFactory {
 
     boolean editing = false;
     int editId = -1;
-    Border borderUnselected = new Border(new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.SOLID, null, new BorderWidths(3)));
-    Border normalBorder = new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, new BorderWidths(5)));
+    Border borderUnselected = new Border(new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.SOLID, new CornerRadii(30), new BorderWidths(3)));
+    Border normalBorder = new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(30), new BorderWidths(5)));
     EscMenuController escMenuController;
     public void setCalendarVariables(FlowPane flowPane, Text yearText, Text monthText) {
         this.flowPane = flowPane;
@@ -223,10 +223,10 @@ public class ViewFactory {
                     }
                 }
                 if(available){
-                    temp.setStyle("-fx-background-color: green;");
+                    temp.setStyle("-fx-background-radius: 30; -fx-background-color: #73c06a;");
                 }
                 else{
-                    temp.setStyle("-fx-background-color: red;");
+                    temp.setStyle("-fx-background-radius: 30; -fx-background-color: #c06a6a;");
                 }
             }
         }
@@ -284,8 +284,8 @@ public class ViewFactory {
 
                 if(dayModel.isWithinMonth()){
                     Text dateText = new Text(String.valueOf(dayModel.getGridDate()));
-                    dateText.setTranslateY(-(boxHeight / 2) * 0.75);
-                    dateText.setTranslateX((boxWidth / 2) * 0.75);
+                    dateText.setTranslateY(-(boxHeight / 2) * 0.70);
+                    dateText.setTranslateX((boxWidth / 2) * 0.70);
                     dayModel.setDayText(dateText);
 
                     stackPane.getChildren().add(dateText);
@@ -348,7 +348,8 @@ public class ViewFactory {
     }
     public void insertListRows(){
 //        System.out.println("INSERTING TABLE");
-        listTableChildren.removeIf(node -> listTableChildren.indexOf(node) > 15);
+        listTableChildren.removeIf(node -> listTableChildren.indexOf(node) > 14);
+
         List<RecordModel> list = Model.getInstance().getListRecordModels();
 //        System.out.println(list);
         int startIndex = Model.getInstance().getStartIndex();
@@ -411,23 +412,24 @@ public class ViewFactory {
             RecordModel recordModel = list.get(i);
 
             Button editButton = new Button("Edit");
-            Button deleteButton = new Button("X");
+            Button deleteButton = new Button("x");
 
             editButton.setCursor(Cursor.HAND);
             deleteButton.setCursor(Cursor.HAND);
 
+            deleteButton.prefHeight(1);
+
             if(recordModel.getUser().equals(Model.getInstance().getUser())){
                 rowButtonOnHoverEdit(editButton, i - startIndex);
                 rowButtonOnHoverDelete(deleteButton, i - startIndex);
-                editButton.setStyle("-fx-background-color: lightyellow");
-                deleteButton.setStyle("-fx-background-color: #ff9895");
+                editButton.setStyle("-fx-background-radius: 30; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2); -fx-background-color: lightyellow");
+                deleteButton.setStyle("-fx-background-radius: 30; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2); -fx-background-color: #ffbfbd");
 
                 editButton.setOnAction(actionEvent -> setSceneEdit(recordModel));
 
                 deleteButton.setOnAction(actionEvent -> {
                     if(showConfirmPopup("Are you sure you want to delete this booking? (ID = " + recordModel.getId() + ")")){
                         if(sqliteModel.deleteEntry(recordModel)){
-//                            listTableChildren.removeIf(node -> listTableChildren.indexOf(node) > 15);
                             setSceneTable(false);
                         }
                     }
@@ -436,12 +438,12 @@ public class ViewFactory {
 
             }
             else{
-                editButton.getStyleClass().add("red-disabled-button");
-                deleteButton.getStyleClass().add("red-disabled-button");
+                editButton.setStyle("-fx-background-radius: 30; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2); -fx-background-color: darkgrey");
+                deleteButton.setStyle("-fx-background-radius: 30; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2); -fx-background-color: darkgrey");
 
-                editButton.setOnAction(actionEvent -> Model.getInstance().getViewFactory().showErrorPopup("Error: You are not USER "+recordModel.getUser()+", cannot modify this booking"));
+                editButton.setOnAction(actionEvent -> showErrorPopup("Error: You are not USER "+recordModel.getUser()+", cannot modify this booking"));
 
-                deleteButton.setOnAction(actionEvent -> Model.getInstance().getViewFactory().showErrorPopup("Error: You are not USER "+recordModel.getUser()+", cannot modify this booking"));
+                deleteButton.setOnAction(actionEvent -> showErrorPopup("Error: You are not USER "+recordModel.getUser()+", cannot modify this booking"));
             }
             GridPane.setColumnIndex(editButton, 14);
             GridPane.setColumnIndex(deleteButton, 15);
@@ -456,30 +458,12 @@ public class ViewFactory {
     }
 
     private void rowButtonOnHoverEdit(Button button, int index){
-        button.setOnMouseEntered(mouseEvent -> listTableChildren.get(index).setStyle("-fx-background-color: lightyellow;"));
-
-        boolean isEvenRow = index % 2 == 0;
-
-        button.setOnMouseExited(mouseEvent -> {
-            if (isEvenRow) {
-                listTableChildren.get(index).setStyle("-fx-background-color: white;");
-            } else {
-                listTableChildren.get(index).setStyle("-fx-background-color: lightgrey;");
-            }
-        });
+        button.setOnMouseEntered(mouseEvent -> listTableChildren.get(index).getStyleClass().add("edit"));
+        button.setOnMouseExited(mouseEvent -> listTableChildren.get(index).getStyleClass().remove("edit"));
     }
     private void rowButtonOnHoverDelete(Button button, int index){
-        button.setOnMouseEntered(mouseEvent -> listTableChildren.get(index).setStyle("-fx-background-color: #ff9895;"));
-
-        boolean isEvenRow = index % 2 == 0;
-
-        button.setOnMouseExited(mouseEvent -> {
-            if (isEvenRow) {
-                listTableChildren.get(index).setStyle("-fx-background-color: white;");
-            } else {
-                listTableChildren.get(index).setStyle("-fx-background-color: lightgrey;");
-            }
-        });
+        button.setOnMouseEntered(mouseEvent -> listTableChildren.get(index).getStyleClass().add("delete"));
+        button.setOnMouseExited(mouseEvent -> listTableChildren.get(index).getStyleClass().remove("delete"));
     }
 
     public void showSuccessPopup(String message) {

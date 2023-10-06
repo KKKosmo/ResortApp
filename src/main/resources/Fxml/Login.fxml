@@ -109,7 +109,7 @@
          </cursor>
       </ToggleButton>
    </HBox>
-   <PasswordField fx:id="password_field" alignment="CENTER" layoutX="467.0" layoutY="579.0" maxHeight="58.0" maxWidth="500.0" prefHeight="58.0" prefWidth="346.0" promptText="PASSWORD" style="-fx-font-family: &quot;SansSerif&quot;;" />
+   <PasswordField fx:id="password_field" alignment="CENTER" layoutX="480.0" layoutY="579.0" maxHeight="58.0" maxWidth="500.0" prefHeight="58.0" prefWidth="322.0" promptText="PASSWORD" style="-fx-font-family: &quot;SansSerif&quot;;" />
    <Button fx:id="login_btn" alignment="CENTER" contentDisplay="CENTER" layoutX="553.0" layoutY="653.0" minHeight="25.0" minWidth="50.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="176.0" style="-fx-font-family: &quot;SansSerif&quot;;" text="Log in">
       <cursor>
          <Cursor fx:constant="HAND" />

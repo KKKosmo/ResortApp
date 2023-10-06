@@ -2,20 +2,23 @@ if errors with sql, might be the plugins
 if seem odd, might be because i tried to remove duplicates in controllers where they setAvailablesFotVisuals
 
 WATCH UI DESIGN VIDS
-TABLE FONT
+datepickers and checkboxes jfoenix
+FONTS
+NOTHING TOO BLACK OR WHITE, INCLUDING FLDS OR SUM
+ALERTS
 
 
 
-
-
-
-
+toggle button hover should be in code not css, with slow transition
+on searchbar esc, esc text field
 
 
 
 
 
 Would be nice but will not do due to time:
+    show hide settings
+
     recordModel should be split into different inheriting classes
     recordModel should have a constructor that would take in an sql resultSet
     recordModel is supposed to make the code more readable, but i have no time and its working so its not really implemented well.

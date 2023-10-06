@@ -13,12 +13,13 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="parentPane" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.resort.resortapp.Controllers.EditController">
-   <AnchorPane prefHeight="800.0" prefWidth="280.0" style="-fx-background-color: rgba(150, 150, 150, 0.8);" stylesheets="@../Styles/create.css">
-      <VBox alignment="CENTER" layoutY="28.0" prefHeight="708.0" prefWidth="280.0" spacing="15.0">
+<AnchorPane fx:id="parentPane" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../Styles/form.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.resort.resortapp.Controllers.EditController">
+   <AnchorPane fx:id="form_pane" prefHeight="800.0" prefWidth="280.0">
+      <VBox alignment="CENTER" layoutY="28.0" prefHeight="708.0" prefWidth="280.0" spacing="5.0">
          <VBox alignment="CENTER">
             <padding>
                <Insets left="25.0" right="25.0" />
@@ -31,7 +32,7 @@
                   <Insets />
                </VBox.margin>
             </Text>
-            <TextField fx:id="name_fld" alignment="CENTER" prefHeight="39.0" prefWidth="172.0" text="First Name Last Name">
+            <TextField fx:id="name_fld" alignment="CENTER" prefHeight="39.0" prefWidth="172.0" styleClass="fld" text="First Name Last Name">
                <font>
                   <Font size="16.0" />
                </font>
@@ -40,6 +41,7 @@
                </VBox.margin>
             </TextField>
          </VBox>
+         <Line endX="100.0" startX="-100.0" styleClass="line" />
          <VBox alignment="CENTER" prefHeight="38.0" prefWidth="280.0">
             <padding>
                <Insets left="75.0" right="75.0" />
@@ -52,7 +54,7 @@
                   <Font size="16.0" />
                </font>
             </Text>
-            <TextField fx:id="pax_fld" alignment="CENTER" prefHeight="0.0" prefWidth="123.0" text="5">
+            <TextField fx:id="pax_fld" alignment="CENTER" prefHeight="0.0" prefWidth="123.0" styleClass="fld" text="5">
                <font>
                   <Font size="16.0" />
                </font>
@@ -61,8 +63,9 @@
                </VBox.margin>
             </TextField>
          </VBox>
+         <Line endX="100.0" startX="-100.0" styleClass="line" />
          <HBox alignment="CENTER" prefHeight="91.0" prefWidth="98.0">
-            <VBox alignment="CENTER" prefHeight="123.0" prefWidth="460.0" spacing="15.0">
+            <VBox alignment="CENTER" prefHeight="123.0" prefWidth="460.0" spacing="5.0">
                <padding>
                   <Insets left="40.0" right="40.0" />
                </padding>
@@ -73,13 +76,14 @@
                      </font>
                   </Text>
                   <HBox alignment="CENTER" prefHeight="39.0" prefWidth="79.0" spacing="30.0">
-                     <TextField fx:id="vehicle_textFld" alignment="CENTER" prefHeight="35.0" prefWidth="56.0">
+                     <TextField fx:id="vehicle_textFld" alignment="CENTER" prefHeight="35.0" prefWidth="56.0" styleClass="fld">
                         <font>
                            <Font size="16.0" />
                         </font>
                      </TextField>
                   </HBox>
                </HBox>
+               <Line endX="100.0" startX="-100.0" styleClass="line" />
                <HBox prefHeight="27.0" prefWidth="211.0">
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pets">
                      <font>
@@ -108,6 +112,7 @@
                      </RadioButton>
                   </HBox>
                </HBox>
+               <Line endX="100.0" startX="-100.0" styleClass="line" />
                <HBox>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Videoke">
                      <font>
@@ -139,6 +144,7 @@
             </VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="105.0" prefWidth="157.0" spacing="6.0" />
          </HBox>
+         <Line endX="100.0" startX="-100.0" styleClass="line" />
          <HBox alignment="CENTER" prefHeight="57.0" prefWidth="410.0">
             <VBox alignment="CENTER">
                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Partial Payment">
@@ -146,7 +152,7 @@
                      <Font size="16.0" />
                   </font>
                </Text>
-               <TextField fx:id="partialPayment_fld" alignment="CENTER" prefHeight="25.0" prefWidth="90.0" text="5000">
+               <TextField fx:id="partialPayment_fld" alignment="CENTER" prefHeight="25.0" prefWidth="90.0" styleClass="fld" text="5000">
                   <font>
                      <Font size="16.0" />
                   </font>
@@ -161,7 +167,7 @@
                      <Font size="16.0" />
                   </font>
                </Text>
-               <TextField fx:id="fullPayment_fld" alignment="CENTER" prefHeight="25.0" prefWidth="90.0" text="10000">
+               <TextField fx:id="fullPayment_fld" alignment="CENTER" prefHeight="25.0" prefWidth="90.0" styleClass="fld" text="10000">
                   <font>
                      <Font size="16.0" />
                   </font>
@@ -171,6 +177,7 @@
                </TextField>
             </VBox>
          </HBox>
+         <Line endX="100.0" startX="-100.0" styleClass="line" />
          <HBox prefHeight="27.0" prefWidth="211.0">
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Paid" textAlignment="CENTER" wrappingWidth="108.5390625">
                <font>
@@ -199,6 +206,7 @@
                </RadioButton>
             </HBox>
          </HBox>
+         <Line endX="100.0" startX="-100.0" styleClass="line" />
          <VBox alignment="CENTER">
             <padding>
                <Insets left="50.0" right="50.0" />
@@ -213,6 +221,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor></DatePicker>
          </VBox>
+         <Line endX="100.0" startX="-100.0" styleClass="line" />
          <VBox alignment="CENTER">
             <VBox.margin>
                <Insets />
@@ -230,61 +239,70 @@
                   <Cursor fx:constant="HAND" />
                </cursor></DatePicker>
          </VBox>
-         <HBox alignment="CENTER" prefHeight="355.0" prefWidth="280.0">
-            <VBox alignment="CENTER" prefHeight="212.0" prefWidth="129.0" style="-fx-border-color: #000000;">
-               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room">
-                  <font>
-                     <Font size="16.0" />
-                  </font>
-               </Text>
-               <HBox alignment="CENTER" prefHeight="85.0" prefWidth="217.0">
-                  <VBox prefHeight="155.0" prefWidth="107.0" spacing="15.0">
-                     <CheckBox fx:id="roomG_ChkBox" mnemonicParsing="false" prefHeight="27.0" prefWidth="107.0" text="ROOM G">
+         <Line endX="100.0" startX="-100.0" styleClass="line" />
+         <HBox alignment="CENTER" prefHeight="197.0" prefWidth="281.0">
+            <children>
+               <VBox fx:id="room_pane" alignment="CENTER" prefHeight="0.0" prefWidth="129.0" spacing="10.0">
+                  <children>
+                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room" textAlignment="CENTER" wrappingWidth="66.1015625">
                         <font>
-                           <Font size="14.0" />
+                           <Font size="16.0" />
                         </font>
-                        <cursor>
-                           <Cursor fx:constant="HAND" />
-                        </cursor>
-                     </CheckBox>
-                     <CheckBox fx:id="roomJ_ChkBox" mnemonicParsing="false" prefHeight="20.0" prefWidth="125.0" text="ROOM J">
-                        <font>
-                           <Font size="14.0" />
-                        </font>
-                        <cursor>
-                           <Cursor fx:constant="HAND" />
-                        </cursor>
-                     </CheckBox>
-                     <CheckBox fx:id="attic_ChkBox" mnemonicParsing="false" prefHeight="20.0" prefWidth="115.0" text="ATTIC">
-                        <font>
-                           <Font size="14.0" />
-                        </font>
-                        <cursor>
-                           <Cursor fx:constant="HAND" />
-                        </cursor>
-                     </CheckBox>
-                     <CheckBox fx:id="kubo1_ChkBox" mnemonicParsing="false" prefHeight="20.0" prefWidth="125.0" text="KUBO 1">
-                        <font>
-                           <Font size="14.0" />
-                        </font>
-                        <cursor>
-                           <Cursor fx:constant="HAND" />
-                        </cursor>
-                     </CheckBox>
-                     <CheckBox fx:id="kubo2_ChkBox" mnemonicParsing="false" prefHeight="20.0" prefWidth="111.0" text="KUBO 2">
-                        <font>
-                           <Font size="14.0" />
-                        </font>
-                        <cursor>
-                           <Cursor fx:constant="HAND" />
-                        </cursor>
-                     </CheckBox>
-                  </VBox>
-               </HBox>
-            </VBox>
+                     </Text>
+                     <HBox alignment="CENTER" prefHeight="38.0" prefWidth="127.0">
+                        <children>
+                           <VBox alignment="CENTER_LEFT" prefHeight="140.0" prefWidth="86.0" spacing="10.0">
+                              <children>
+                                 <CheckBox fx:id="roomG_ChkBox" mnemonicParsing="false" prefHeight="27.0" prefWidth="107.0" text="ROOM G">
+                                    <font>
+                                       <Font size="14.0" />
+                                    </font>
+                                    <cursor>
+                                       <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                 </CheckBox>
+                                 <CheckBox fx:id="roomJ_ChkBox" mnemonicParsing="false" prefHeight="20.0" prefWidth="111.0" text="ROOM J">
+                                    <font>
+                                       <Font size="14.0" />
+                                    </font>
+                                    <cursor>
+                                       <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                 </CheckBox>
+                                 <CheckBox fx:id="attic_ChkBox" mnemonicParsing="false" prefHeight="20.0" prefWidth="111.0" text="ATTIC">
+                                    <font>
+                                       <Font size="14.0" />
+                                    </font>
+                                    <cursor>
+                                       <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                 </CheckBox>
+                                 <CheckBox fx:id="kubo1_ChkBox" mnemonicParsing="false" prefHeight="20.0" prefWidth="143.0" text="KUBO 1">
+                                    <font>
+                                       <Font size="14.0" />
+                                    </font>
+                                    <cursor>
+                                       <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                 </CheckBox>
+                                 <CheckBox fx:id="kubo2_ChkBox" mnemonicParsing="false" prefHeight="20.0" prefWidth="153.0" text="KUBO 2">
+                                    <font>
+                                       <Font size="14.0" />
+                                    </font>
+                                    <cursor>
+                                       <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                 </CheckBox>
+                              </children>
+                           </VBox>
+                        </children>
+                     </HBox>
+                  </children>
+               </VBox>
+            </children>
          </HBox>
       </VBox>
-      <Button fx:id="done_btn" layoutX="88.0" layoutY="741.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="DONE" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="92.0">
+      <Button fx:id="done_btn" layoutX="88.0" layoutY="741.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: rgb(255, 255, 195);" text="DONE" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="92.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
@@ -300,7 +318,7 @@
    </Button>
    <Button fx:id="back_btn" mnemonicParsing="false" prefHeight="35.0" prefWidth="42.0">
       <graphic>
-         <FontAwesomeIconView glyphName="ARROW_LEFT" />
+         <FontAwesomeIconView glyphName="ARROW_LEFT" size="20" />
       </graphic>
       <cursor>
          <Cursor fx:constant="HAND" />
