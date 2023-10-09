@@ -1,19 +1,15 @@
 if errors with sql, might be the plugins
 if seem odd, might be because i tried to remove duplicates in controllers where they setAvailablesFotVisuals
 
-WATCH UI DESIGN VIDS
-datepickers and checkboxes jfoenix
-FONTS
-NOTHING TOO BLACK OR WHITE, INCLUDING FLDS OR SUM
-ALERTS
-
-
-
 toggle button hover should be in code not css, with slow transition
 on searchbar esc, esc text field
 
+table start date should be after table end date
 
+see if long strings will mess up print and table
 
+change passsword -> confirm passwrod
+max page bug
 
 
 Would be nice but will not do due to time:

@@ -11,119 +11,129 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../Styles/login.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.resort.resortapp.Controllers.LoginController">
-   <ImageView fx:id="logo_img" fitHeight="181.0" fitWidth="229.0" layoutX="550.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
-      <viewport>
-         <Rectangle2D />
-      </viewport>
-      <Image url="@../Images/csharp.png" />
-   </ImageView>
-   <Text fx:id="resort_name" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;Segoe Script&quot;; -fx-font-weight: bold;" text="J&amp;G Transient" textAlignment="CENTER" wrappingWidth="1280.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-      <font>
-         <Font name="Arial Black" size="82.0" />
-      </font>
+   <children>
+      <ImageView fx:id="logo_img" fitHeight="184.0" fitWidth="184.0" layoutX="548.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="548.0" AnchorPane.rightAnchor="548.0">
+         <viewport>
+            <Rectangle2D />
+         </viewport>
+         <Image url="@../Images/csharp.png" />
+      </ImageView>
+      <Text fx:id="resort_name" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="J&amp;G Transient" textAlignment="CENTER" wrappingWidth="1280.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
    </Text>
-   <HBox alignment="CENTER" layoutY="277.0" prefHeight="294.0" prefWidth="1280.0" spacing="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-      <ToggleButton fx:id="user1_btn" mnemonicParsing="false">
-         <graphic>
-            <VBox alignment="CENTER" spacing="5.0">
-               <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-                  <Image url="@../Images/user.png" />
-               </ImageView>
-               <Text fx:id="user1_txt" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;SansSerif&quot;;" text="Glorifina" />
-            </VBox>
-         </graphic>
-         <toggleGroup>
-            <ToggleGroup fx:id="group" />
-         </toggleGroup>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </ToggleButton>
-      <ToggleButton fx:id="user2_btn" mnemonicParsing="false" toggleGroup="$group">
-         <graphic>
-            <VBox alignment="CENTER" spacing="5.0">
-               <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-                  <Image url="@../Images/user.png" />
-               </ImageView>
-               <Text fx:id="user2_txt" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;SansSerif&quot;;" text="Gianne" />
-            </VBox>
-         </graphic>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </ToggleButton>
-      <ToggleButton fx:id="user3_btn" mnemonicParsing="false" toggleGroup="$group">
-         <graphic>
-            <VBox alignment="CENTER" spacing="5.0">
-               <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-                  <Image url="@../Images/user.png" />
-               </ImageView>
-               <Text fx:id="user3_txt" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;SansSerif&quot;;" text="Regina" />
-            </VBox>
-         </graphic>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </ToggleButton>
-      <ToggleButton fx:id="user4_btn" mnemonicParsing="false" toggleGroup="$group">
-         <graphic>
-            <VBox alignment="CENTER" spacing="5.0">
-               <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-                  <Image url="@../Images/user.png" />
-               </ImageView>
-               <Text fx:id="user4_txt" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;SansSerif&quot;;" text="Roy" />
-            </VBox>
-         </graphic>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </ToggleButton>
-      <ToggleButton fx:id="user5_btn" mnemonicParsing="false" toggleGroup="$group">
-         <graphic>
-            <VBox alignment="CENTER" spacing="5.0">
-               <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-                  <Image url="@../Images/user.png" />
-               </ImageView>
-               <Text fx:id="user5_txt" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;SansSerif&quot;;" text="Marvin" />
-            </VBox>
-         </graphic>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </ToggleButton>
-      <ToggleButton fx:id="user6_btn" mnemonicParsing="false" toggleGroup="$group">
-         <graphic>
-            <VBox alignment="CENTER" spacing="5.0">
-               <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-                  <Image url="@../Images/user.png" />
-               </ImageView>
-               <Text fx:id="user6_txt" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;SansSerif&quot;;" text="Marie" />
-            </VBox>
-         </graphic>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </ToggleButton>
-   </HBox>
-   <PasswordField fx:id="password_field" alignment="CENTER" layoutX="480.0" layoutY="579.0" maxHeight="58.0" maxWidth="500.0" prefHeight="58.0" prefWidth="322.0" promptText="PASSWORD" style="-fx-font-family: &quot;SansSerif&quot;;" />
-   <Button fx:id="login_btn" alignment="CENTER" contentDisplay="CENTER" layoutX="553.0" layoutY="653.0" minHeight="25.0" minWidth="50.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="176.0" style="-fx-font-family: &quot;SansSerif&quot;;" text="Log in">
-      <cursor>
-         <Cursor fx:constant="HAND" />
-      </cursor></Button>
-   <Button fx:id="exit_btn" layoutX="573.0" layoutY="738.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="135.0" style="-fx-font-family: &quot;SansSerif&quot;;" text="Exit">
-      <cursor>
-         <Cursor fx:constant="HAND" />
-      </cursor></Button>
-   <Button fx:id="changePw_btn" layoutX="1123.0" layoutY="741.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="143.0" style="-fx-font-family: &quot;SansSerif&quot;;" text="Change Password">
-      <cursor>
-         <Cursor fx:constant="HAND" />
-      </cursor></Button>
-   <Button fx:id="forgotPw_btn" layoutX="1123.0" layoutY="675.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="143.0" style="-fx-font-family: &quot;SansSerif&quot;;" text="Forgot Password?" underline="true">
-      <cursor>
-         <Cursor fx:constant="HAND" />
-      </cursor></Button>
+      <HBox alignment="CENTER" layoutY="258.0" prefHeight="214.0" prefWidth="1280.0" spacing="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <ToggleButton fx:id="user1_btn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="176.0" prefWidth="144.0">
+            <graphic>
+               <VBox alignment="CENTER" prefHeight="156.0" prefWidth="116.0" spacing="8.0">
+                  <ImageView fitHeight="96.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true">
+                     <Image url="@../Images/user.png" />
+                  </ImageView>
+                  <Text fx:id="user1_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="Glorifina" />
+               </VBox>
+            </graphic>
+            <toggleGroup>
+               <ToggleGroup fx:id="group" />
+            </toggleGroup>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </ToggleButton>
+         <ToggleButton fx:id="user2_btn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="176.0" prefWidth="144.0" toggleGroup="$group">
+            <graphic>
+               <VBox alignment="CENTER" spacing="8.0">
+                  <ImageView fitHeight="96.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true">
+                     <Image url="@../Images/user.png" />
+                  </ImageView>
+                  <Text fx:id="user2_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="Gianne" />
+               </VBox>
+            </graphic>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </ToggleButton>
+         <ToggleButton fx:id="user3_btn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="176.0" prefWidth="144.0" toggleGroup="$group">
+            <graphic>
+               <VBox alignment="CENTER" prefHeight="168.0" prefWidth="123.0" spacing="8.0">
+                  <ImageView fitHeight="96.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true">
+                     <Image url="@../Images/user.png" />
+                  </ImageView>
+                  <Text fx:id="user3_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="Regina" />
+               </VBox>
+            </graphic>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </ToggleButton>
+         <ToggleButton fx:id="user4_btn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="176.0" prefWidth="144.0" toggleGroup="$group">
+            <graphic>
+               <VBox alignment="CENTER" prefWidth="144.0" spacing="8.0">
+                  <ImageView fitHeight="96.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true">
+                     <Image url="@../Images/user.png" />
+                  </ImageView>
+                  <Text fx:id="user4_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="Roy" />
+               </VBox>
+            </graphic>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </ToggleButton>
+         <ToggleButton fx:id="user5_btn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="176.0" prefWidth="144.0" toggleGroup="$group">
+            <graphic>
+               <VBox alignment="CENTER" spacing="8.0">
+                  <ImageView fitHeight="96.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true">
+                     <Image url="@../Images/user.png" />
+                  </ImageView>
+                  <Text fx:id="user5_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="Marvin" />
+               </VBox>
+            </graphic>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </ToggleButton>
+         <ToggleButton fx:id="user6_btn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="176.0" prefWidth="144.0" toggleGroup="$group">
+            <graphic>
+               <VBox alignment="CENTER" spacing="8.0">
+                  <ImageView fitHeight="96.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true">
+                     <Image url="@../Images/user.png" />
+                  </ImageView>
+                  <Text fx:id="user6_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="Marie" />
+               </VBox>
+            </graphic>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </ToggleButton>
+      </HBox>
+      <VBox alignment="CENTER" layoutY="489.0" spacing="12.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <PasswordField fx:id="password_field" alignment="CENTER" maxHeight="58.0" maxWidth="504.0" prefHeight="56.0" prefWidth="504.0" promptText="PASSWORD" />
+            <Button fx:id="login_btn" maxHeight="48.0" maxWidth="-Infinity" minHeight="48.0" minWidth="-Infinity" mnemonicParsing="false" prefHeight="48.0" prefWidth="176.0" text="Log in">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="exit_btn" maxHeight="48.0" maxWidth="-Infinity" minHeight="48.0" minWidth="-Infinity" mnemonicParsing="false" prefHeight="48.0" prefWidth="176.0" text="Exit">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+      </VBox>
+      <VBox layoutX="1097.0" layoutY="681.0" spacing="8.0" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="16.0">
+         <children>
+            <Button fx:id="forgotPw_btn" mnemonicParsing="false" prefHeight="48.0" prefWidth="168.0" text="Forgot Password?" underline="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="changePw_btn" mnemonicParsing="false" prefHeight="48.0" prefWidth="168.0" text="Change Password">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+      </VBox>
+   </children>
 </AnchorPane>

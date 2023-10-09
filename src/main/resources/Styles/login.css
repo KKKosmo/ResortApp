@@ -1,90 +1,138 @@
-#root {
-    -fx-background-color: linear-gradient(to bottom, #edf8ff, #a7ddff);
+@font-face {
+    font-family: 'Roboto';
+    src: url('Roboto-Regular.ttf');
 }
+
+#root {
+    -fx-background-color: #FFFFFF;
+}
+
+Text, .text, .text-field{
+    -fx-fill: #4E4E4E; 
+    -fx-font-family: "Roboto";
+}
+
+.password-field {
+    -fx-text-fill: #4E4E4E;
+}
+
+Text, .password-field{
+    -fx-font-size: 24px;
+}
+.text{
+    -fx-font-size: 20px;
+}
+
+
+/* #0BCCF4 accent*/
+
 #resort_name{
-    -fx-fill: #0076c4;
-    -fx-font-family: "Segoe Script";
+    -fx-fill: #2E2E2E;
+    -fx-font-size: 48;
+}
+
+#resort_name2{
+    -fx-fill: #2E2E2E;
+    -fx-font-size: 24;
 }
 
 .toggle-button {
-    -fx-background-color: #c0e6ff;
-    -fx-font-size: 20;
+    -fx-background-color: #caeaff;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2.5);
-    -fx-background-radius: 5;
-    -fx-border-radius: 5;
+    -fx-background-radius: 30;
+    -fx-border-radius: 30;
 }
+/* 160
+176 */
+
 
 .toggle-button:hover {
     -fx-rotate: 20deg;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 5);
-    -fx-pref-width: 202;
-    -fx-pref-height: 226;
+    -fx-pref-width: 152;
+    -fx-pref-height: 184;
 }
 
 .toggle-button:selected {
-    -fx-background-color: #5fc0ff;
+    -fx-background-color: #0BCCF4;
     -fx-font-weight: bold;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 14);
-    -fx-pref-width: 212;
-    -fx-pref-height: 236;
+    -fx-pref-width: 160;
+    -fx-pref-height: 192;
 }
 
 
 .toggle-button:selected:hover {
-    -fx-background-color: #5fc0ff;
+    -fx-background-color: #0bb6d9;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 14);
-    -fx-pref-width: 212;
-    -fx-pref-height: 236;
+    -fx-pref-width: 160;
+    -fx-pref-height: 192;
 }
 
 
-#password_field {
+.text-field {
     -fx-border-color: #d6efff;
     -fx-background-insets: 0;
     -fx-background-radius: 30;
     -fx-border-radius: 30;
 }
 
-#password_field:hover {
+.text-field:hover {
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 4);
     -fx-border-radius: 30;
 }
 
-#password_field:focused {
-    -fx-border-color: black;
+.text-field:focused {
+    -fx-border-color: #0BCCF4;
     -fx-border-radius: 30;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 4);
 }
 
-#login_btn {
-    -fx-font-size: 20;
-    -fx-background-color: #85ceff;
+#login_btn, #submit_btn {
+    -fx-background-color: #0BCCF4;
     -fx-pref-width: 176;
     -fx-pref-height: 52;
 }
-
-#exit_btn {
-    -fx-font-size: 20;
-    -fx-background-color: #ff8894;
+#login_btn:hover, #submit_btn:hover{
+    -fx-background-color: #0bb6d9;
 }
 
-#login_btn:hover{
-    -fx-background-color: #5fc0ff;
+#exit_btn, #cancel_btn{
+    -fx-background-color: #2E2E2E;
 }
-#exit_btn:hover{
-    -fx-background-color: #ff6372;
+
+#exit_btn .text, #cancel_btn .text{
+    -fx-fill: #C2C2C2;
+}
+
+#exit_btn:hover, #cancel_btn:hover{
+    -fx-background-color: #474747;
 }
 
 #changePw_btn, #forgotPw_btn{
-    -fx-font-size: 15;
-    -fx-background-color: #ffc485;
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #0BCCF4;
 }
 
+#changePw_btn .text, #forgotPw_btn .text{
+    -fx-font-size: 16px;
+}
+
+
 #changePw_btn:hover, #forgotPw_btn:hover{
-    -fx-background-color: #ffb86c;
+    -fx-background-color: #e5e5e5;
+    -fx-border-color: #0bb6d9;
 }
 
 .button{
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
     -fx-background-radius: 30;
+    -fx-border-radius: 30;
+    -fx-border-width: 4px;
+    -fx-background-insets: 0, 0, 2;
     }
+
+.image-view{
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+}

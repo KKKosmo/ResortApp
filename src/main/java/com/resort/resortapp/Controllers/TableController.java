@@ -114,6 +114,7 @@ public class TableController implements Initializable {
             }
         });
 
+
         if(!Model.getInstance().isASC() && Model.getInstance().getOrderCategory() != Model.OrderCategory.ID){
             if (Model.getInstance().isASC()) {
                 sort_icon.setGlyphName("SORT_UP");
@@ -588,6 +589,7 @@ public class TableController implements Initializable {
 
         sqliteModel.queryTableRecords();
         Model.getInstance().getViewFactory().insertListRows();
+        lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
 
     }
 
@@ -606,6 +608,8 @@ public class TableController implements Initializable {
         if(Model.getInstance().getTableYearMonth() != null){
             yearMonth_box.setValue(Model.getInstance().getTableYearMonth().format(DateTimeFormatter.ofPattern("MMM yyyy", Locale.US)));
         }
+
+        System.out.println(currentPage_txt.getFont().getFamily());
     }
 
     public void setEscMenu(){

@@ -1,57 +1,89 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('Roboto-Regular.ttf');
+}
+
+
+Text, .text, .text-field{
+    -fx-font-family: "Roboto";
+}
+
+
+/* darkest */
+Text, .button .text{
+    -fx-fill: #2E2E2E;
+}
+
+/* medium dark */
+.text-field{
+    -fx-text-fill: #4E4E4E;
+}
+.text{
+    -fx-fill: #4E4E4E;
+}
+
+
+
 #form_pane{
-    -fx-background-color:  linear-gradient(to bottom, #d4eeff, #a4daff);
+    -fx-background-color:  #ffffff;
 }
 
 #burger_btn, #back_btn{
-    -fx-background-color: #9bd9ff;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
+    -fx-background-color: transparent;
+    -fx-background-radius: 30;
 }
 
 #burger_btn:hover, #back_btn:hover{
-    -fx-background-color: #6ec7ff;
+    -fx-background-color: #E2E2E2;
 }
 
 
-#done_btn, #clr_btn{
-    -fx-background-radius: 30;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
-    -fx-background-insets: 0, 0, 2; /* Top, Right, Bottom insets */
-}
 
 #done_btn{
-    -fx-background-color: #c0ffc2;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
+    -fx-background-radius: 30;
+    -fx-background-color: #2E2E2E;
     }
 
+#done_btn .text{
+    -fx-fill: #E2E2E2;
+}
+
 #done_btn:hover{
-    -fx-background-color: lightgreen;
-    -fx-border-color: black;
-    -fx-border-radius: 30;
+    -fx-background-color: #474747;
     }
+
 #clr_btn{
-    -fx-background-color: rgb(255, 255, 208);
+    -fx-background-insets: 2, 0, 2;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-border-width: 4px;
+    -fx-border-color: #2E2E2E;
+    -fx-background-color: #FFFFFF;
     }
 
 #clr_btn:hover{
-    -fx-background-color: rgb(255, 255, 154);
-    -fx-border-color: black;
-    -fx-border-radius: 30;
+    -fx-border-color: #474747;
+    -fx-background-color: #e5e5e5;
     }
+
+
 
 
 .fld{
-    -fx-border-color: #c0e6ff;
+    -fx-border-color: transparent;
     -fx-background-insets: 0;
     -fx-background-radius: 30;
+    -fx-border-radius: 30;
+    -fx-border-color: #0BCCF4;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 4);
     }
 .fld:hover {
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 4);
-    -fx-border-radius: 30;
+    -fx-effect: dropshadow(three-pass-box, #0a8ca6, 5, 0, 0, 4);
 }
-
 .fld:focused {
-    -fx-border-color: black;
-    -fx-border-radius: 30;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 4);
+    -fx-effect: dropshadow(three-pass-box, #0BCCF4, 5, 0, 0, 4);
 }
 
 
@@ -60,13 +92,123 @@
 
 
 .line{
-    -fx-stroke: rgb(126, 151, 168)
+    -fx-stroke: #E2E2E2;
 }
 
 #room_pane{
-    -fx-background-color: #d1ecff;
+    -fx-background-color: #ffffff;
     -fx-border-color: #ffffff;
     -fx-background-insets: 0;
     -fx-background-radius: 30;
     -fx-border-radius: 30;
+}
+
+.radio-button{
+    -fx-background-radius: 30;
+    -fx-background-color: #0BCCF4;
+    -fx-padding: 0 0 2 0;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 4);
+}
+.radio-button:hover{
+    -fx-background-color: #0bb6d9;
+}
+
+
+
+
+
+.date-picker .arrow-button {
+    -fx-background-color: #0BCCF4;
+    -fx-background-radius: 0 30 30 0;
+}
+
+.date-picker .arrow-button:hover {
+    -fx-background-color: #0bb6d9;
+}
+
+
+.date-picker .text-field {
+    -fx-background-radius: 30 0 0 30;
+    -fx-cursor: default;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.date-picker{
+    -fx-background-color: transparent;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2); 
+}
+
+
+/*-----------------------------------------
+Customize popup content
+-------------------------------------------*/
+.date-picker .cell {
+    -fx-background-color: white;
+  }
+   
+  .date-picker .cell:hover {
+    -fx-background-color: #E2E2E2;
+  }
+   
+  .date-picker .cell:focused {
+    -fx-background-color: #C2C2C2;
+  }
+
+
+
+  
+/*-----------------------------------------
+Customize the selected cell
+-------------------------------------------*/
+  .date-picker-popup {
+    -fx-border-color: transparent;
+  }
+   
+  .date-picker-popup .month-year-pane {
+    -fx-background-color: white;
+  }
+   
+
+  .date-picker-popup .spinner .button .left-arrow,
+  .date-picker-popup .spinner .button .right-arrow {
+    -fx-padding: 4; /* Add padding to make the buttons larger */
+    -fx-background-color: #0BCCF4;
+    -fx-border-color: transparent;
+    -fx-effect: null; /* Remove any hover effect */
+    -fx-background-insets: 0;
+    -fx-alignment: center; /* Center the content within the button */
+  }
+  
+  .date-picker-popup .spinner .button {
+    -fx-background-radius: 30px; /* Adjust the radius value to control the roundness */
+    -fx-border-radius: 30px;
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+}  
+
+.date-picker-popup .spinner .button:hover {
+    -fx-background-radius: 30px; /* Adjust the radius value to control the roundness */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2); 
+    -fx-border-radius: 30px;
+    -fx-border-color: transparent;
+    -fx-background-color: #E2E2E2;
+}
+
+
+
+
+.check-box{
+    -fx-background-color: #0BCCF4;
+    -fx-background-radius: 30;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
+
+}
+
+.check-box:hover, .combo-box:hover{
+    -fx-background-color: #0bb6d9;
+}
+
+.check-box {
+    -fx-padding: 0 0 1 10; /* Adjust the left padding to move the checkmark box */
 }

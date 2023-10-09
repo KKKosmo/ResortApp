@@ -19,6 +19,7 @@ import com.resort.resortapp.Models.RecordModel;
 import com.resort.resortapp.Models.sqliteModel;
 import com.resort.resortapp.Rooms;
 import com.itextpdf.layout.element.Cell;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -31,6 +32,7 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -60,8 +62,8 @@ public class ViewFactory {
 
     boolean editing = false;
     int editId = -1;
-    Border borderUnselected = new Border(new BorderStroke(Color.LIGHTGREY, BorderStrokeStyle.SOLID, new CornerRadii(30), new BorderWidths(3)));
-    Border normalBorder = new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(30), new BorderWidths(5)));
+    Border borderUnselected = new Border(new BorderStroke(Paint.valueOf("6E6E6E"), BorderStrokeStyle.SOLID, new CornerRadii(30), new BorderWidths(3)));
+    Border normalBorder = new Border(new BorderStroke(Paint.valueOf("2E2E2E"), BorderStrokeStyle.SOLID, new CornerRadii(30), new BorderWidths(5)));
     EscMenuController escMenuController;
     public void setCalendarVariables(FlowPane flowPane, Text yearText, Text monthText) {
         this.flowPane = flowPane;
@@ -105,6 +107,7 @@ public class ViewFactory {
 
         Tooltip tooltip = new Tooltip("IF NOT PAID, THEN THE PARTIAL PAYMENT INSTEAD OF THE FULL PAYMENT GETS ADDED TO THE TOTAL PAYMENT");
         tooltip.setShowDelay(Duration.millis(0));
+        tooltip.setStyle("-fx-background-color: #E2E2E2; -fx-text-fill: #000000; -fx-font-size: 12;");
         Tooltip.install(tableController.totalPayment_hBox, tooltip);
 
         notEditing();
@@ -364,6 +367,7 @@ public class ViewFactory {
                 label.setText(recordList.get(j));
                 label.setTextAlignment(TextAlignment.CENTER);
 
+//                label.setFont(Font.);
 
                 GridPane.setRowIndex(label, i - startIndex);
                 GridPane.setColumnIndex(label, j);
@@ -411,19 +415,36 @@ public class ViewFactory {
 
             RecordModel recordModel = list.get(i);
 
-            Button editButton = new Button("Edit");
-            Button deleteButton = new Button("x");
+            Button editButton = new Button();
+            Button deleteButton = new Button();
+
+            FontAwesomeIconView editIcon = new FontAwesomeIconView();
+            editIcon.setGlyphName("EDIT");
+            FontAwesomeIconView deleteIcon = new FontAwesomeIconView();
+            deleteIcon.setGlyphName("TIMES");
+            editIcon.setGlyphSize(16);
+            deleteIcon.setGlyphSize(16);
+
+            editButton.setGraphic(editIcon);
+            deleteButton.setGraphic(deleteIcon);
 
             editButton.setCursor(Cursor.HAND);
             deleteButton.setCursor(Cursor.HAND);
 
-            deleteButton.prefHeight(1);
+            rowButtonOnHoverEdit(editButton, i - startIndex);
+            rowButtonOnHoverDelete(deleteButton, i - startIndex);
+
+            editButton.getStyleClass().add("rowButton");
+            deleteButton.getStyleClass().add("rowButton");
+
+            editButton.setPrefHeight(32);
+            editButton.setPrefWidth(32);
+            deleteButton.setPrefHeight(32);
+            deleteButton.setPrefWidth(32);
 
             if(recordModel.getUser().equals(Model.getInstance().getUser())){
-                rowButtonOnHoverEdit(editButton, i - startIndex);
-                rowButtonOnHoverDelete(deleteButton, i - startIndex);
-                editButton.setStyle("-fx-background-radius: 30; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2); -fx-background-color: lightyellow");
-                deleteButton.setStyle("-fx-background-radius: 30; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2); -fx-background-color: #ffbfbd");
+                editIcon.setFill(Paint.valueOf("#0BCCF4"));
+                deleteIcon.setFill(Paint.valueOf("#0BCCF4"));
 
                 editButton.setOnAction(actionEvent -> setSceneEdit(recordModel));
 
@@ -438,8 +459,8 @@ public class ViewFactory {
 
             }
             else{
-                editButton.setStyle("-fx-background-radius: 30; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2); -fx-background-color: darkgrey");
-                deleteButton.setStyle("-fx-background-radius: 30; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2); -fx-background-color: darkgrey");
+                editIcon.setFill(Paint.valueOf("#6E6E6E"));
+                deleteIcon.setFill(Paint.valueOf("#6E6E6E"));
 
                 editButton.setOnAction(actionEvent -> showErrorPopup("Error: You are not USER "+recordModel.getUser()+", cannot modify this booking"));
 
@@ -470,18 +491,39 @@ public class ViewFactory {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("");
         alert.setContentText(message);
+        alert.getDialogPane().getStylesheets().add(getClass().getResource("/Styles/alert.css").toExternalForm());
         alert.showAndWait();
     }
     public void showErrorPopup(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("");
         alert.setContentText(message);
+        alert.getDialogPane().getStylesheets().add(getClass().getResource("/Styles/alert.css").toExternalForm());
         alert.showAndWait();
     }
     public boolean showConfirmPopup(String message) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("");
         alert.setContentText(message);
+
+        Button cancelButton = (Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL);
+        cancelButton.setStyle(
+                "-fx-background-color: #2E2E2E; -fx-text-fill: #C2C2C2; -fx-cursor: hand;"
+        );
+
+        cancelButton.setOnMouseEntered(e -> {
+            cancelButton.setStyle(
+                    "-fx-background-color: #474747; -fx-text-fill: #C2C2C2; -fx-cursor: hand;"
+            );
+        });
+
+        cancelButton.setOnMouseExited(e -> {
+            cancelButton.setStyle(
+                    "-fx-background-color: #2E2E2E; -fx-text-fill: #C2C2C2; -fx-cursor: hand;"
+            );
+        });
+
+        alert.getDialogPane().getStylesheets().add(getClass().getResource("/Styles/alert.css").toExternalForm());
         Optional<ButtonType> result = alert.showAndWait();
 
         if(result.isEmpty()){
@@ -493,6 +535,9 @@ public class ViewFactory {
         VBox root = new VBox();
 
         Label label = new Label("A file (" + filename + ") has been exported as: " + filePath);
+        label.getStyleClass().add("myHeader");
+        label.setWrapText(true);
+        label.setMaxWidth(520);
         root.getChildren().add(label);
 
         Hyperlink openExplorerLink = new Hyperlink("Click to open in explorer");
@@ -503,6 +548,7 @@ public class ViewFactory {
                 Model.getInstance().printLog(e);
             }
         });
+        openExplorerLink.getStyleClass().add("hyperlink");
         root.getChildren().add(openExplorerLink);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -514,16 +560,17 @@ public class ViewFactory {
 
 
         Text text = new Text(contentText);
-        text.setWrappingWidth(500);
+        text.setWrappingWidth(504);
+        text.getStyleClass().add("myContent");
         root.getChildren().add(text);
 
 
-        Button copyEmailButton = new Button("Copy Developer's Email");
+        Button copyEmailButton = new Button("Copy Email");
         HBox emailBox = new HBox(copyEmailButton);
         root.getChildren().add(emailBox);
 
         Label copySuccessLabel = new Label("Email copied!");
-        copySuccessLabel.setStyle("-fx-text-fill: green; -fx-font-weight: bold");
+        copySuccessLabel.setStyle("-fx-text-fill: #2E2E2E;");
         copySuccessLabel.setVisible(false);
         root.getChildren().add(copySuccessLabel);
 
@@ -540,8 +587,25 @@ public class ViewFactory {
             visiblePause.play();
         });
 
+        copyEmailButton.setStyle(
+                "-fx-background-insets: 2, 0, 2; -fx-border-radius: 30; -fx-background-radius: 30; -fx-border-width: 2px; -fx-border-color: #2E2E2E; -fx-background-color: #FFFFFF; -fx-cursor: hand;"
+        );
+
+        copyEmailButton.setOnMouseEntered(e -> {
+            copyEmailButton.setStyle(
+                    "-fx-background-insets: 2, 0, 2; -fx-border-radius: 30; -fx-background-radius: 30; -fx-border-width: 2px; -fx-border-color: #474747; -fx-background-color: #e5e5e5; -fx-cursor: hand;"
+            );
+        });
+
+        copyEmailButton.setOnMouseExited(e -> {
+            copyEmailButton.setStyle(
+                    "-fx-background-insets: 2, 0, 2; -fx-border-radius: 30; -fx-background-radius: 30; -fx-border-width: 2px; -fx-border-color: #2E2E2E; -fx-background-color: #FFFFFF; -fx-cursor: hand;"
+            );
+        });
+
 
         alert.getDialogPane().setContent(root);
+        alert.getDialogPane().getStylesheets().add(getClass().getResource("/Styles/alert.css").toExternalForm());
         alert.showAndWait();
     }
 
@@ -549,6 +613,9 @@ public class ViewFactory {
         VBox root = new VBox();
 
         Label label = new Label("A file (" + filename + ") has been exported as: " + filePath);
+        label.getStyleClass().add("myHeader");
+        label.setWrapText(true);
+        label.setMaxWidth(520);
         root.getChildren().add(label);
 
         Hyperlink openExplorerLink = new Hyperlink("Click to open in explorer");
@@ -559,6 +626,7 @@ public class ViewFactory {
                 Model.getInstance().printLog(e);
             }
         });
+        openExplorerLink.getStyleClass().add("hyperlink");
         root.getChildren().add(openExplorerLink);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -566,6 +634,7 @@ public class ViewFactory {
         alert.setHeaderText(null);
 
         alert.getDialogPane().setContent(root);
+        alert.getDialogPane().getStylesheets().add(getClass().getResource("/Styles/alert.css").toExternalForm());
         alert.showAndWait();
     }
 
@@ -665,12 +734,12 @@ public class ViewFactory {
                     float[] columnWidthsInPoints = {
                             45.8f, //id
                             90.4f, //date
-                            215.2f, //name
+                            208.2f, //name
                             35.2f, //pax
                             41.7f, //vehicle
                             30.9f, //pets
                             42.7f, //videoke
-                            125.0f, //payment
+                            132.0f, //payment
                             55.8f, //balance
                             44.4f, //status
                             100.5f, //checkin
@@ -798,6 +867,18 @@ public class ViewFactory {
                 .setTextAlignment(com.itextpdf.layout.property.TextAlignment.CENTER)
                 .setVerticalAlignment(VerticalAlignment.MIDDLE)
                 .setBold();
+
+//        Text textElement = new Text(text)
+//                .setFontSize(fontSize)
+//                .setTextAlignment(TextAlignment.CENTER)
+//                .setVerticalAlignment(VerticalAlignment.MIDDLE)
+//                .setBold()
+
+        // Create a Cell and add the Text element to it
+//        Cell cell = new Cell().add(textElement);
+//
+//        return cell;
+
     }
     public void editing(int id){
         editId = id;

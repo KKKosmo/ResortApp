@@ -3,8 +3,8 @@ package com.resort.resortapp;
 import com.resort.resortapp.Models.Model;
 import com.resort.resortapp.Models.sqliteModel;
 import javafx.application.Application;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class HelloApplication extends Application {
     @Override
@@ -14,7 +14,8 @@ public class HelloApplication extends Application {
         Model.getInstance().getViewFactory().setStage(stage);
         stage.setTitle("J&G Resort App");
         Model.getInstance().initCalendarDates();
-        Model.getInstance().getViewFactory().setSceneCreate();
+//        Model.getInstance().getViewFactory().setSceneTable(true)
+        Model.getInstance().getViewFactory().setSceneLogin();
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> Model.getInstance().closeLogger()));
 

@@ -283,8 +283,9 @@ public class Model {
     public void setListRecordModels(List<RecordModel> listRecordModels) {
         tableRecordModels = listRecordModels;
         maxPage = (int) Math.ceil((float) listRecordModels.size() / getTableRowCount());
+
+//        System.out.println("+_++++++++++++++++MAX PAGE = " + maxPage);
         endIndex = Math.min(startIndex + getTableRowCount(), tableRecordModels.size());
-//        System.out.println("PLSW ORD");
     }
     public void setCurrentPage(int currentPage) {
         this.currentPage = currentPage;

@@ -48,7 +48,7 @@ public class LoginController implements Initializable {
                         if(Model.getInstance().getViewFactory().getEscMenuController() != null){
                             Model.getInstance().getViewFactory().getEscMenuController().setUser(currentUser);
                         }
-                        Model.getInstance().getViewFactory().setSceneTable(false);
+                        Model.getInstance().getViewFactory().setSceneTable(true);
                     }
                     else{
                         Model.getInstance().getViewFactory().showErrorPopup("Error: INCORRECT PASSWORD FOR USER " + currentUser);

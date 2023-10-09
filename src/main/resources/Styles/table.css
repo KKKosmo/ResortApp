@@ -1,100 +1,303 @@
-#export_btn, #default_btn{
+@font-face {
+    font-family: 'Roboto';
+    src: url('Roboto-Regular.ttf');
+}
+
+#parentPane{
+    -fx-background-color: #FFFFFF;
+}
+
+Text, .text, .text-field{
+    -fx-font-family: "Roboto";
+}
+
+
+Text, .button .text{
+    -fx-fill: #2E2E2E;
+}
+.text-field, .myCheckbox{
+    -fx-text-fill: #2E2E2E;
+}
+.text{
+    -fx-fill: #4E4E4E;
+}
+
+
+#default_btn{
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
     -fx-background-radius: 30;
-    -fx-background-insets: 0, 2, 2; 
-    -fx-background-color: #ffc485;
-    }
+    -fx-background-color: #2E2E2E;
+}
+#default_btn .text{
+    -fx-fill: #E2E2E2;
+}
+#default_btn:hover{
+    -fx-background-color: #474747;
+}
 
-#export_btn:hover, #default_btn:hover{
-    -fx-background-color: #ffb86c;
-    }
-
-#add_btn, #history_btn{
-    -fx-background-radius: 30 30 0 0;
+#add_btn, #history_btn, #export_btn{
+    -fx-background-insets: 2, 0, 2;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-border-width: 4px;
 }
 
 #add_btn{
-    -fx-background-color: rgb(182, 255, 182);
-    }
-
+    -fx-border-color: #0BCCF4;
+    -fx-background-color: #FFFFFF;
+}
 #add_btn:hover{
-    -fx-background-color: rgb(132, 255, 132);
-    }
+    -fx-border-color: #0bb6d9;
+    -fx-background-color: #e5e5e5;
+}
+
 #history_btn{
-    -fx-background-color: rgb(255, 255, 208);
-    }
+    -fx-border-color: #2E2E2E;
+    -fx-background-color: #FFFFFF;
+}
 
 #history_btn:hover{
-    -fx-background-color: rgb(255, 255, 154);
-    }
-
-
-#dates1, #dates2{
-    -fx-background-color: #c0e6ff;
-    -fx-background-radius: 30;
+    -fx-border-color: #474747;
+    -fx-background-color: #e5e5e5;
 }
-#nextPage_btn, #prevPage_btn, #datesOuter, #roomPane{
-    -fx-background-color: #a1d9ff;
+
+#export_btn{
+    -fx-border-color: #4E4E4E;
+    -fx-background-color: #FFFFFF;
+}
+
+
+#export_btn:hover{
+    -fx-border-color: #474747;
+    -fx-background-color: #e5e5e5;
+}
+    
+
+
+/* #dates1, #dates2, #roomPane{
+    -fx-background-color: #E2E2E2;
     -fx-background-radius: 30;
+} */
+
+/* #datesOuter{
+    -fx-background-color: #C2C2C2;
+    -fx-background-radius: 30;
+} */
+
+.check-box, .combo-box{
+    -fx-background-color: #0BCCF4;
+    -fx-background-radius: 30;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
+
+}
+
+.check-box:hover, .combo-box:hover{
+    -fx-background-color: #0bb6d9;
+}
+
+.check-box {
+    -fx-padding: 0 0 1 10; /* Adjust the left padding to move the checkmark box */
+}
+
+.combo-box .list-view .list-cell:hover {
+    /* -fx-background-color: #E2E2E2; */
+    -fx-background-color: #eaf7ff;
+}
+
+.combo-box .list-view .list-cell:selected {
+    /* -fx-background-color: #C2C2C2; */
+    -fx-background-color: #caeaff;
 }
 
 .colPane {
-    -fx-background-color: #a1d9ff;
+    /* -fx-background-color: #C2C2C2; */
+    -fx-background-color: #E2E2E2;
 }
-
 
 .colPane:hover{
-    -fx-background-color: #71c6ff;
-}
-#nextPage_btn, #prevPage_btn{
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
+    /* -fx-background-color: #71c6ff; */
+    -fx-background-color: #C2C2C2;
 }
 
+/* .odd{
+    -fx-background-color: #ffffff;
+}
+
+.even{
+    -fx-background-color: #eaf7ff;
+} */
+.odd, .even{
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #6E6E6E;
+    -fx-background-color: transparent;
+}
+
+#nextPage_btn, #prevPage_btn{
+    /* -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2); */
+    /* -fx-background-color: #0BCCF4; */
+    -fx-background-color: transparent;
+    -fx-background-radius: 30;
+}
 
 #nextPage_btn:hover, #prevPage_btn:hover{
-    -fx-background-color: #71c6ff;
-    -fx-background-radius: 5;
-    -fx-background-insets: 0, 0, 2; /* Top, Right, Bottom insets */
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
+    /* -fx-background-color: #0bb6d9; */
+    -fx-background-color: #E2E2E2;
 }
+
+#nextPage_btn:pressed, #prevPage_btn:pressed {
+    -fx-background-color: #C2C2C2;
+    -fx-border-color: #A2A2A2; 
+    -fx-border-width: 1px; 
+    -fx-border-radius: 30px; 
+}
+
 #searchBar_fld{
-    -fx-background-insets: 0;
     -fx-background-radius: 30 30 0 0;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
+    -fx-border-radius: 30 30 0 0;
+    -fx-border-color: #0BCCF4;
     }
+
+#searchBar_fld:hover{
+    -fx-effect: dropshadow(three-pass-box, #0a8ca6, 5, 0, 0, 4);
+    -fx-background-radius: 20 20 0 0;
+    -fx-border-radius: 20 20 0 0;
+}
+#searchBar_fld:focused{
+    -fx-effect: dropshadow(three-pass-box, #0BCCF4, 5, 0, 0, 4);
+    -fx-background-radius: 5 5 0 0;
+    -fx-border-radius: 5 5 0 0;
+}
+
+
 #page_fld{
     -fx-background-insets: 0;
     -fx-background-radius: 30;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
+    -fx-border-radius: 30;
+    -fx-border-color: #0BCCF4;
     }
 
-#page_fld:hover, #page_fld:focused, #searchBar_fld:hover, #searchBar_fld:focused{
-    -fx-background-radius: 5;
-    -fx-background-insets: 0, 0, 2; /* Top, Right, Bottom insets */
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
+#page_fld:hover{
+    -fx-effect: dropshadow(three-pass-box, #0a8ca6, 5, 0, 0, 4);
+}
+#page_fld:focused{
+    -fx-effect: dropshadow(three-pass-box, #0BCCF4, 5, 0, 0, 4);
 }
 
 
-.lighter{
-    -fx-background-color: #eef8ff;
-}
 
-#parentPane, .darker, #info_pane{
-    -fx-background-color: #d6efff;
-}
+/* 
+#info_pane{
+    -fx-background-radius: 30;
+    -fx-background-color: #E2E2E2;
+} */
 
 
 #burger_btn{
-    -fx-background-color: #9bd9ff;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
+    -fx-background-color: transparent;
+    -fx-background-radius: 30;
 }
 
 #burger_btn:hover{
-    -fx-background-color: #6ec7ff;
+    -fx-background-color: #E2E2E2;
 }
 
 .edit{
-    -fx-background-color: lightyellow;
+    -fx-background-color: #0BCCF4;
 }
 .delete{
-    -fx-background-color: #ffbfbd;
+    -fx-background-color: #0BCCF4;
+}
+
+.rowButton{
+    -fx-background-radius: 30; 
+    -fx-background-color: transparent;
+}
+
+.rowButton:hover{
+    -fx-background-color: #E2E2E2;
+}
+
+
+
+
+
+.date-picker .arrow-button {
+    -fx-background-color: #0BCCF4;
+    -fx-background-radius: 0 30 30 0;
+}
+
+.date-picker .arrow-button:hover {
+    -fx-background-color: #0bb6d9;
+}
+
+
+.date-picker .text-field {
+    -fx-background-radius: 30 0 0 30;
+    -fx-cursor: default;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.date-picker{
+    -fx-background-color: transparent;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2); 
+}
+
+
+/*-----------------------------------------
+Customize popup content
+-------------------------------------------*/
+.date-picker .cell {
+    -fx-background-color: white;
+  }
+   
+  .date-picker .cell:hover {
+    -fx-background-color: #E2E2E2;
+  }
+   
+  .date-picker .cell:focused {
+    -fx-background-color: #C2C2C2;
+  }
+
+
+
+  
+/*-----------------------------------------
+Customize the selected cell
+-------------------------------------------*/
+  .date-picker-popup {
+    -fx-border-color: transparent;
+  }
+   
+  .date-picker-popup .month-year-pane {
+    -fx-background-color: white;
+  }
+   
+
+  .date-picker-popup .spinner .button .left-arrow,
+  .date-picker-popup .spinner .button .right-arrow {
+    -fx-padding: 4; /* Add padding to make the buttons larger */
+    -fx-background-color: #0BCCF4;
+    -fx-border-color: transparent;
+    -fx-effect: null; /* Remove any hover effect */
+    -fx-background-insets: 0;
+    -fx-alignment: center; /* Center the content within the button */
+  }
+  
+  .date-picker-popup .spinner .button {
+    -fx-background-radius: 30px; /* Adjust the radius value to control the roundness */
+    -fx-border-radius: 30px;
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+}  
+
+.date-picker-popup .spinner .button:hover {
+    -fx-background-radius: 30px; /* Adjust the radius value to control the roundness */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2); 
+    -fx-border-radius: 30px;
+    -fx-border-color: transparent;
+    -fx-background-color: #E2E2E2;
 }

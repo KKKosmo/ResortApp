@@ -1,10 +1,12 @@
 #parent{
-    -fx-background-color: #ddf1ff;
+    -fx-background-color: #FFFFFF;
+    -fx-border-width: 0 0 0 2;
+    -fx-border-color: #E2E2E2;
 }
 
 #flowPane{
     /* -fx-background-color:  linear-gradient(to bottom, #f3faff, #d2edff); */
-    -fx-background-color: #ddf1ff;
+    -fx-background-color: #FFFFFF;
 }
 
 #temp{
@@ -15,16 +17,16 @@
 
 
 #next_month_btn, #prev_month_btn{
-    -fx-background-color: #a1d9ff;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
+    /* -fx-background-color: #0BCCF4; */
+    -fx-background-color: transparent;
     -fx-background-radius: 30;
 }
 
 
 #next_month_btn:hover, #prev_month_btn:hover{
-    -fx-background-color: #71c6ff;
+    /* -fx-background-color: #0bb6d9; */
     -fx-background-insets: 0, 0, 2; /* Top, Right, Bottom insets */
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
+    -fx-background-color: #E2E2E2;
 }
 
 .day{

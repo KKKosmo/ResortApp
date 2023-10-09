@@ -19,11 +19,8 @@
 
 <AnchorPane fx:id="parentPane" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../Styles/form.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.resort.resortapp.Controllers.EditController">
    <AnchorPane fx:id="form_pane" prefHeight="800.0" prefWidth="280.0">
-      <VBox alignment="CENTER" layoutY="28.0" prefHeight="708.0" prefWidth="280.0" spacing="5.0">
-         <VBox alignment="CENTER">
-            <padding>
-               <Insets left="25.0" right="25.0" />
-            </padding>
+      <VBox alignment="TOP_CENTER" layoutY="48.0" minWidth="280.0" prefHeight="707.0" prefWidth="280.0" spacing="4.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="49.0">
+         <VBox alignment="CENTER" prefHeight="56.0" spacing="4.0">
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
                <font>
                   <Font size="16.0" />
@@ -32,20 +29,17 @@
                   <Insets />
                </VBox.margin>
             </Text>
-            <TextField fx:id="name_fld" alignment="CENTER" prefHeight="39.0" prefWidth="172.0" styleClass="fld" text="First Name Last Name">
-               <font>
-                  <Font size="16.0" />
-               </font>
+            <HBox alignment="CENTER" prefWidth="280.0">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
-            </TextField>
+               <children>
+                  <TextField fx:id="name_fld" alignment="CENTER" prefHeight="32.0" prefWidth="200.0" styleClass="fld" text="First Name Last Name" />
+               </children>
+            </HBox>
          </VBox>
          <Line endX="100.0" startX="-100.0" styleClass="line" />
-         <VBox alignment="CENTER" prefHeight="38.0" prefWidth="280.0">
-            <padding>
-               <Insets left="75.0" right="75.0" />
-            </padding>
+         <VBox alignment="CENTER" prefHeight="56.0" prefWidth="281.0" spacing="4.0">
             <VBox.margin>
                <Insets />
             </VBox.margin>
@@ -54,58 +48,45 @@
                   <Font size="16.0" />
                </font>
             </Text>
-            <TextField fx:id="pax_fld" alignment="CENTER" prefHeight="0.0" prefWidth="123.0" styleClass="fld" text="5">
-               <font>
-                  <Font size="16.0" />
-               </font>
+            <HBox alignment="CENTER">
                <VBox.margin>
                   <Insets left="35.0" right="35.0" />
                </VBox.margin>
-            </TextField>
+               <children>
+                  <TextField fx:id="pax_fld" alignment="CENTER" prefHeight="32.0" prefWidth="56.0" styleClass="fld" />
+               </children>
+            </HBox>
          </VBox>
          <Line endX="100.0" startX="-100.0" styleClass="line" />
-         <HBox alignment="CENTER" prefHeight="91.0" prefWidth="98.0">
-            <VBox alignment="CENTER" prefHeight="123.0" prefWidth="460.0" spacing="5.0">
-               <padding>
-                  <Insets left="40.0" right="40.0" />
-               </padding>
-               <HBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="329.0">
+         <HBox alignment="CENTER" prefHeight="136.0" prefWidth="281.0">
+            <VBox alignment="CENTER" prefHeight="146.0" prefWidth="281.0" spacing="4.0">
+               <HBox alignment="CENTER" prefHeight="55.0" prefWidth="167.0" spacing="4.0">
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Vehicle Count">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Text>
-                  <HBox alignment="CENTER" prefHeight="39.0" prefWidth="79.0" spacing="30.0">
-                     <TextField fx:id="vehicle_textFld" alignment="CENTER" prefHeight="35.0" prefWidth="56.0" styleClass="fld">
-                        <font>
-                           <Font size="16.0" />
-                        </font>
-                     </TextField>
+                  <HBox alignment="CENTER" prefHeight="38.0" prefWidth="58.0" spacing="30.0">
+                     <TextField fx:id="vehicle_textFld" alignment="CENTER" prefHeight="32.0" prefWidth="56.0" styleClass="fld" />
                   </HBox>
                </HBox>
                <Line endX="100.0" startX="-100.0" styleClass="line" />
-               <HBox prefHeight="27.0" prefWidth="211.0">
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pets">
+               <HBox alignment="CENTER" prefHeight="32.0" prefWidth="200.0">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pets" wrappingWidth="64.046875">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Text>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="274.0" spacing="20.0">
-                     <RadioButton fx:id="petsNo_radio" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="No">
+                  <HBox alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="139.0" spacing="8.0">
+                     <RadioButton fx:id="petsNo_radio" mnemonicParsing="false" prefHeight="24.0" prefWidth="64.0" text="No">
                         <toggleGroup>
-                           <ToggleGroup fx:id="pets1" />
+                           <ToggleGroup fx:id="pets" />
                         </toggleGroup>
-                        <font>
-                           <Font size="16.0" />
-                        </font>
                         <cursor>
                            <Cursor fx:constant="HAND" />
                         </cursor>
                      </RadioButton>
-                     <RadioButton fx:id="petsYes_radio" mnemonicParsing="false" prefHeight="25.0" prefWidth="53.0" text="Yes" toggleGroup="$pets1">
-                        <font>
-                           <Font size="16.0" />
-                        </font>
+                     <RadioButton fx:id="petsYes_radio" mnemonicParsing="false" prefHeight="24.0" prefWidth="64.0" text="Yes" toggleGroup="$pets">
                         <cursor>
                            <Cursor fx:constant="HAND" />
                         </cursor>
@@ -113,28 +94,22 @@
                   </HBox>
                </HBox>
                <Line endX="100.0" startX="-100.0" styleClass="line" />
-               <HBox>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Videoke">
+               <HBox alignment="CENTER" prefHeight="32.0" prefWidth="200.0">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Videoke" wrappingWidth="66.2734375">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Text>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="231.0" spacing="20.0">
-                     <RadioButton fx:id="videokeNo_radio" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="No">
+                  <HBox alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="137.0" spacing="8.0">
+                     <RadioButton fx:id="videokeNo_radio" mnemonicParsing="false" prefHeight="24.0" prefWidth="64.0" text="No">
                         <toggleGroup>
-                           <ToggleGroup fx:id="videoke1" />
+                           <ToggleGroup fx:id="videoke" />
                         </toggleGroup>
-                        <font>
-                           <Font size="16.0" />
-                        </font>
                         <cursor>
                            <Cursor fx:constant="HAND" />
                         </cursor>
                      </RadioButton>
-                     <RadioButton fx:id="videokeYes_radio" mnemonicParsing="false" prefHeight="25.0" prefWidth="53.0" text="Yes" toggleGroup="$videoke1">
-                        <font>
-                           <Font size="16.0" />
-                        </font>
+                     <RadioButton fx:id="videokeYes_radio" mnemonicParsing="false" prefHeight="24.0" prefWidth="64.0" text="Yes" toggleGroup="$videoke">
                         <cursor>
                            <Cursor fx:constant="HAND" />
                         </cursor>
@@ -142,53 +117,43 @@
                   </HBox>
                </HBox>
             </VBox>
-            <VBox alignment="CENTER_LEFT" prefHeight="105.0" prefWidth="157.0" spacing="6.0" />
          </HBox>
          <Line endX="100.0" startX="-100.0" styleClass="line" />
-         <HBox alignment="CENTER" prefHeight="57.0" prefWidth="410.0">
-            <VBox alignment="CENTER">
-               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Partial Payment">
+         <HBox alignment="CENTER" prefHeight="56.0" prefWidth="249.0" spacing="4.0">
+            <VBox alignment="CENTER" prefHeight="57.0" prefWidth="128.0" spacing="4.0">
+               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Partial Payment" textAlignment="CENTER">
                   <font>
                      <Font size="16.0" />
                   </font>
                </Text>
-               <TextField fx:id="partialPayment_fld" alignment="CENTER" prefHeight="25.0" prefWidth="90.0" styleClass="fld" text="5000">
-                  <font>
-                     <Font size="16.0" />
-                  </font>
+               <TextField fx:id="partialPayment_fld" alignment="CENTER" prefHeight="32.0" prefWidth="22.0" styleClass="fld" text="5000">
                   <VBox.margin>
-                     <Insets left="20.0" right="20.0" />
+                     <Insets />
                   </VBox.margin>
                </TextField>
             </VBox>
-            <VBox alignment="CENTER">
-               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Full Payment">
+            <VBox alignment="CENTER" prefHeight="63.0" prefWidth="128.0" spacing="4.0">
+               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Full Payment" textAlignment="CENTER" wrappingWidth="99.3125">
                   <font>
                      <Font size="16.0" />
                   </font>
                </Text>
-               <TextField fx:id="fullPayment_fld" alignment="CENTER" prefHeight="25.0" prefWidth="90.0" styleClass="fld" text="10000">
-                  <font>
-                     <Font size="16.0" />
-                  </font>
+               <TextField fx:id="fullPayment_fld" alignment="CENTER" prefHeight="32.0" prefWidth="104.0" styleClass="fld" text="10000">
                   <VBox.margin>
-                     <Insets left="20.0" right="20.0" />
+                     <Insets />
                   </VBox.margin>
                </TextField>
             </VBox>
          </HBox>
          <Line endX="100.0" startX="-100.0" styleClass="line" />
-         <HBox prefHeight="27.0" prefWidth="211.0">
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Paid" textAlignment="CENTER" wrappingWidth="108.5390625">
+         <HBox alignment="CENTER" prefHeight="24.0" prefWidth="249.0" spacing="8.0">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Paid" textAlignment="RIGHT" wrappingWidth="34.5390625">
                <font>
                   <Font size="16.0" />
                </font>
             </Text>
-            <HBox alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="134.0">
-               <RadioButton fx:id="paidNo_radio" mnemonicParsing="false" prefHeight="27.0" prefWidth="64.0" text="No">
-                  <font>
-                     <Font size="16.0" />
-                  </font>
+            <HBox alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="142.0" spacing="8.0">
+               <RadioButton fx:id="paidNo_radio" mnemonicParsing="false" prefHeight="24.0" prefWidth="64.0" text="No">
                   <toggleGroup>
                      <ToggleGroup fx:id="paid" />
                   </toggleGroup>
@@ -196,10 +161,7 @@
                      <Cursor fx:constant="HAND" />
                   </cursor>
                </RadioButton>
-               <RadioButton fx:id="paidYes_radio" mnemonicParsing="false" prefHeight="27.0" prefWidth="62.0" text="Yes" toggleGroup="$paid">
-                  <font>
-                     <Font size="16.0" />
-                  </font>
+               <RadioButton fx:id="paidYes_radio" mnemonicParsing="false" prefHeight="24.0" prefWidth="64.0" text="Yes" toggleGroup="$paid">
                   <cursor>
                      <Cursor fx:constant="HAND" />
                   </cursor>
@@ -207,118 +169,90 @@
             </HBox>
          </HBox>
          <Line endX="100.0" startX="-100.0" styleClass="line" />
-         <VBox alignment="CENTER">
-            <padding>
-               <Insets left="50.0" right="50.0" />
-            </padding>
+         <VBox alignment="CENTER" prefHeight="48.0" prefWidth="281.0" spacing="4.0">
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Check In">
                <font>
                   <Font size="16.0" />
                </font>
             </Text>
-            <DatePicker fx:id="checkIn_datePicker" editable="false" prefHeight="25.0" prefWidth="125.0">
+            <DatePicker fx:id="checkIn_datePicker" editable="false" prefHeight="24.0" prefWidth="120.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></DatePicker>
          </VBox>
          <Line endX="100.0" startX="-100.0" styleClass="line" />
-         <VBox alignment="CENTER">
+         <VBox alignment="CENTER" prefHeight="48.0" spacing="4.0">
             <VBox.margin>
                <Insets />
             </VBox.margin>
-            <padding>
-               <Insets left="50.0" right="50.0" />
-            </padding>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Check Out">
                <font>
                   <Font size="16.0" />
                </font>
             </Text>
-            <DatePicker fx:id="checkOut_datePicker" editable="false" prefWidth="125.0">
+            <DatePicker fx:id="checkOut_datePicker" editable="false" prefHeight="24.0" prefWidth="120.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></DatePicker>
          </VBox>
          <Line endX="100.0" startX="-100.0" styleClass="line" />
-         <HBox alignment="CENTER" prefHeight="197.0" prefWidth="281.0">
-            <children>
-               <VBox fx:id="room_pane" alignment="CENTER" prefHeight="0.0" prefWidth="129.0" spacing="10.0">
-                  <children>
-                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room" textAlignment="CENTER" wrappingWidth="66.1015625">
-                        <font>
-                           <Font size="16.0" />
-                        </font>
-                     </Text>
-                     <HBox alignment="CENTER" prefHeight="38.0" prefWidth="127.0">
-                        <children>
-                           <VBox alignment="CENTER_LEFT" prefHeight="140.0" prefWidth="86.0" spacing="10.0">
-                              <children>
-                                 <CheckBox fx:id="roomG_ChkBox" mnemonicParsing="false" prefHeight="27.0" prefWidth="107.0" text="ROOM G">
-                                    <font>
-                                       <Font size="14.0" />
-                                    </font>
-                                    <cursor>
-                                       <Cursor fx:constant="HAND" />
-                                    </cursor>
-                                 </CheckBox>
-                                 <CheckBox fx:id="roomJ_ChkBox" mnemonicParsing="false" prefHeight="20.0" prefWidth="111.0" text="ROOM J">
-                                    <font>
-                                       <Font size="14.0" />
-                                    </font>
-                                    <cursor>
-                                       <Cursor fx:constant="HAND" />
-                                    </cursor>
-                                 </CheckBox>
-                                 <CheckBox fx:id="attic_ChkBox" mnemonicParsing="false" prefHeight="20.0" prefWidth="111.0" text="ATTIC">
-                                    <font>
-                                       <Font size="14.0" />
-                                    </font>
-                                    <cursor>
-                                       <Cursor fx:constant="HAND" />
-                                    </cursor>
-                                 </CheckBox>
-                                 <CheckBox fx:id="kubo1_ChkBox" mnemonicParsing="false" prefHeight="20.0" prefWidth="143.0" text="KUBO 1">
-                                    <font>
-                                       <Font size="14.0" />
-                                    </font>
-                                    <cursor>
-                                       <Cursor fx:constant="HAND" />
-                                    </cursor>
-                                 </CheckBox>
-                                 <CheckBox fx:id="kubo2_ChkBox" mnemonicParsing="false" prefHeight="20.0" prefWidth="153.0" text="KUBO 2">
-                                    <font>
-                                       <Font size="14.0" />
-                                    </font>
-                                    <cursor>
-                                       <Cursor fx:constant="HAND" />
-                                    </cursor>
-                                 </CheckBox>
-                              </children>
-                           </VBox>
-                        </children>
-                     </HBox>
-                  </children>
-               </VBox>
-            </children>
+         <HBox alignment="TOP_CENTER" prefHeight="184.0" prefWidth="281.0">
+            <VBox fx:id="room_pane" alignment="TOP_CENTER" prefHeight="184.0" prefWidth="111.0" spacing="4.0">
+               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room" textAlignment="CENTER" wrappingWidth="66.1015625">
+                  <font>
+                     <Font size="16.0" />
+                  </font>
+               </Text>
+               <HBox alignment="CENTER" prefHeight="161.0" prefWidth="154.0">
+                  <VBox alignment="CENTER_LEFT" prefHeight="158.0" prefWidth="104.0" spacing="8.0">
+                     <CheckBox fx:id="roomG_ChkBox" mnemonicParsing="false" prefHeight="24.0" prefWidth="111.0" text="ROOM G">
+                        <cursor>
+                           <Cursor fx:constant="HAND" />
+                        </cursor>
+                     </CheckBox>
+                     <CheckBox fx:id="roomJ_ChkBox" mnemonicParsing="false" prefHeight="24.0" prefWidth="111.0" text="ROOM J">
+                        <cursor>
+                           <Cursor fx:constant="HAND" />
+                        </cursor>
+                     </CheckBox>
+                     <CheckBox fx:id="attic_ChkBox" mnemonicParsing="false" prefHeight="24.0" prefWidth="111.0" text="ATTIC">
+                        <cursor>
+                           <Cursor fx:constant="HAND" />
+                        </cursor>
+                     </CheckBox>
+                     <CheckBox fx:id="kubo1_ChkBox" mnemonicParsing="false" prefHeight="24.0" prefWidth="143.0" text="KUBO 1">
+                        <cursor>
+                           <Cursor fx:constant="HAND" />
+                        </cursor>
+                     </CheckBox>
+                     <CheckBox fx:id="kubo2_ChkBox" mnemonicParsing="false" prefHeight="24.0" prefWidth="153.0" text="KUBO 2">
+                        <cursor>
+                           <Cursor fx:constant="HAND" />
+                        </cursor>
+                     </CheckBox>
+                  </VBox>
+               </HBox>
+            </VBox>
          </HBox>
       </VBox>
-      <Button fx:id="done_btn" layoutX="88.0" layoutY="741.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: rgb(255, 255, 195);" text="DONE" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="92.0">
+      <Button fx:id="done_btn" layoutX="102.0" layoutY="746.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" text="DONE" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="102.0" AnchorPane.rightAnchor="102.0">
          <cursor>
             <Cursor fx:constant="HAND" />
-         </cursor></Button>
+         </cursor>
+      </Button>
+      <Button fx:id="back_btn" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="4.0">
+         <graphic>
+            <FontAwesomeIconView fill="#2e2e2e" glyphName="ARROW_LEFT" size="20" />
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
    </AnchorPane>
    <FlowPane fx:id="month_pane" alignment="CENTER" layoutX="280.0" prefHeight="800.0" prefWidth="1000.0" />
-   <Button fx:id="burger_btn" layoutX="1236.0" layoutY="10.0" mnemonicParsing="false">
+   <Button fx:id="burger_btn" layoutX="1236.0" layoutY="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="8.0">
       <graphic>
-         <FontAwesomeIconView glyphName="BARS" size="20" />
-      </graphic>
-      <cursor>
-         <Cursor fx:constant="HAND" />
-      </cursor>
-   </Button>
-   <Button fx:id="back_btn" mnemonicParsing="false" prefHeight="35.0" prefWidth="42.0">
-      <graphic>
-         <FontAwesomeIconView glyphName="ARROW_LEFT" size="20" />
+         <FontAwesomeIconView fill="#2e2e2e" glyphName="BARS" size="20" />
       </graphic>
       <cursor>
          <Cursor fx:constant="HAND" />
