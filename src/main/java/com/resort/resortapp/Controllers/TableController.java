@@ -149,6 +149,18 @@ public class TableController implements Initializable {
                 burger_btn.fire();
             }
         });
+        searchBar_fld.getParent().setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                parentPane.requestFocus();
+                event.consume();
+            }
+        });
+        page_fld.getParent().setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                parentPane.requestFocus();
+                event.consume();
+            }
+        });
 
         add_btn.setOnAction(actionEvent -> Model.getInstance().getViewFactory().setSceneCreate());
 
@@ -462,28 +474,30 @@ public class TableController implements Initializable {
         nextPage_btn.setOnAction(actionEvent -> page_fld.setText(String.valueOf(Model.getInstance().getCurrentPage()+1)));
         page_fld.textProperty().addListener((observable, oldValue, newValue) -> {
             if(!newValue.isEmpty()){
-                if (!newValue.matches("\\d*")) {
-                    page_fld.setText(newValue.replaceAll("\\D", ""));
-                }
-                else{
-                    int temp = Integer.parseInt(newValue);
-                    if(Model.getInstance().getMaxPage() == 0){
-                        page_fld.setText("0");
-                        currentPage_txt.setText("0");
-                        lastPage_txt.setText("0");
+                if(!newValue.equals(oldValue)){
+                    if (!newValue.matches("\\d*")) {
+                        page_fld.setText(newValue.replaceAll("\\D", ""));
                     }
                     else{
-                        if(temp < 1){
-                            temp = 1;
-                            page_fld.setText(String.valueOf(temp));
-                        } else if (temp > Model.getInstance().getMaxPage()) {
-                            temp = Model.getInstance().getMaxPage();
-                            page_fld.setText(String.valueOf(temp));
+                        int temp = Integer.parseInt(newValue);
+                        if(Model.getInstance().getMaxPage() == 0){
+                            page_fld.setText("0");
+                            currentPage_txt.setText("0");
+                            lastPage_txt.setText("0");
                         }
                         else{
-                            currentPage_txt.setText(String.valueOf(temp));
-                            Model.getInstance().setCurrentPage(temp);
-                            Model.getInstance().getViewFactory().insertListRows();
+                            if(temp < 1){
+                                temp = 1;
+                                page_fld.setText(String.valueOf(temp));
+                            } else if (temp > Model.getInstance().getMaxPage()) {
+                                temp = Model.getInstance().getMaxPage();
+                                page_fld.setText(String.valueOf(temp));
+                            }
+                            else{
+                                currentPage_txt.setText(String.valueOf(temp));
+                                Model.getInstance().setCurrentPage(temp);
+                                Model.getInstance().getViewFactory().insertListRows();
+                            }
                         }
                     }
                 }
@@ -548,6 +562,8 @@ public class TableController implements Initializable {
             refreshPage();
         });
 
+
+
         default_btn.setOnAction(actionEvent -> {
             if(Model.getInstance().getViewFactory().showConfirmPopup("Do you really want to reset the settings?")){
                 clear();
@@ -586,11 +602,14 @@ public class TableController implements Initializable {
         //searchbar
         searchBar_fld.setText("");
 
-
+        Model.getInstance().setTableYearMonth(null);
         sqliteModel.queryTableRecords();
         Model.getInstance().getViewFactory().insertListRows();
         lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
-
+        page_fld.setText("1");
+        totalBookings_txt.setText(String.valueOf(Model.getInstance().getRecordCount()));
+        totalPayment_txt.setText(String.valueOf(Model.getInstance().getTotalPayment()));
+        unpaid_txt.setText(String.valueOf(Model.getInstance().getTotalUnpaid()));
     }
 
     public void myInit(){
@@ -601,10 +620,10 @@ public class TableController implements Initializable {
         totalBookings_txt.setText(String.valueOf(Model.getInstance().getRecordCount()));
         totalPayment_txt.setText(String.valueOf(Model.getInstance().getTotalPayment()));
         unpaid_txt.setText(String.valueOf(Model.getInstance().getTotalUnpaid()));
+
         lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
-        int initialPage = Math.max(0, 1);
-        page_fld.setText(String.valueOf(initialPage));
-        currentPage_txt.setText(String.valueOf(initialPage));
+        page_fld.setText("1");
+
         if(Model.getInstance().getTableYearMonth() != null){
             yearMonth_box.setValue(Model.getInstance().getTableYearMonth().format(DateTimeFormatter.ofPattern("MMM yyyy", Locale.US)));
         }
@@ -619,8 +638,10 @@ public class TableController implements Initializable {
     private void refreshPage(){
         sqliteModel.queryTableRecords();
         Model.getInstance().getViewFactory().insertListRows();
+
         lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
-        page_fld.setText(String.valueOf(Math.max(0, 1)));
+        page_fld.setText("1");
+
         totalBookings_txt.setText(String.valueOf(Model.getInstance().getRecordCount()));
         totalPayment_txt.setText(String.valueOf(Model.getInstance().getTotalPayment()));
         unpaid_txt.setText(String.valueOf(Model.getInstance().getTotalUnpaid()));

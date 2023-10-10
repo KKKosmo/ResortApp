@@ -23,19 +23,27 @@ Text, .button .text{
 }
 
 
-#default_btn{
+#export_btn{
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
     -fx-background-radius: 30;
     -fx-background-color: #2E2E2E;
 }
-#default_btn .text{
+#export_btn .text{
     -fx-fill: #E2E2E2;
 }
-#default_btn:hover{
+#export_btn:hover{
     -fx-background-color: #474747;
 }
+#add_btn{
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
+    -fx-background-radius: 30;
+    -fx-background-color: #0BCCF4;
+}
+#add_btn:hover{
+    -fx-background-color: #0bb6d9;
+}
 
-#add_btn, #history_btn, #export_btn{
+#default_btn, #history_btn{
     -fx-background-insets: 2, 0, 2;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
     -fx-border-radius: 30;
@@ -43,11 +51,11 @@ Text, .button .text{
     -fx-border-width: 4px;
 }
 
-#add_btn{
+#default_btn{
     -fx-border-color: #0BCCF4;
     -fx-background-color: #FFFFFF;
 }
-#add_btn:hover{
+#default_btn:hover{
     -fx-border-color: #0bb6d9;
     -fx-background-color: #e5e5e5;
 }
@@ -57,18 +65,8 @@ Text, .button .text{
     -fx-background-color: #FFFFFF;
 }
 
+
 #history_btn:hover{
-    -fx-border-color: #474747;
-    -fx-background-color: #e5e5e5;
-}
-
-#export_btn{
-    -fx-border-color: #4E4E4E;
-    -fx-background-color: #FFFFFF;
-}
-
-
-#export_btn:hover{
     -fx-border-color: #474747;
     -fx-background-color: #e5e5e5;
 }
@@ -86,18 +84,27 @@ Text, .button .text{
 } */
 
 .check-box, .combo-box{
-    -fx-background-color: #0BCCF4;
+    -fx-background-color: #E2E2E2;
     -fx-background-radius: 30;
+
+
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
 
 }
 
 .check-box:hover, .combo-box:hover{
-    -fx-background-color: #0bb6d9;
+    -fx-background-color: #C2C2C2;
 }
 
 .check-box {
     -fx-padding: 0 0 1 10; /* Adjust the left padding to move the checkmark box */
+}
+
+.check-box:selected {
+    -fx-background-color: #0BCCF4;
+}
+.check-box:selected:hover{
+    -fx-background-color: #0bb6d9;
 }
 
 .combo-box .list-view .list-cell:hover {
@@ -112,12 +119,22 @@ Text, .button .text{
 
 .colPane {
     /* -fx-background-color: #C2C2C2; */
-    -fx-background-color: #E2E2E2;
+    -fx-background-color: #FFFFFF;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #4E4E4E;
 }
 
 .colPane:hover{
     /* -fx-background-color: #71c6ff; */
-    -fx-background-color: #C2C2C2;
+    -fx-background-color: #E2E2E2;
+}
+.colPane2 {
+    -fx-background-color: #FFFFFF;
+}
+
+.colPane2:hover{
+    /* -fx-background-color: #71c6ff; */
+    -fx-background-color: #E2E2E2;
 }
 
 /* .odd{
@@ -138,6 +155,7 @@ Text, .button .text{
     /* -fx-background-color: #0BCCF4; */
     -fx-background-color: transparent;
     -fx-background-radius: 30;
+    -fx-border-radius: 30px; 
 }
 
 #nextPage_btn:hover, #prevPage_btn:hover{
@@ -149,34 +167,29 @@ Text, .button .text{
     -fx-background-color: #C2C2C2;
     -fx-border-color: #A2A2A2; 
     -fx-border-width: 1px; 
-    -fx-border-radius: 30px; 
 }
 
 #searchBar_fld{
-    -fx-background-radius: 30 30 0 0;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
-    -fx-border-radius: 30 30 0 0;
-    -fx-border-color: #0BCCF4;
+    -fx-background-color: #FFFFFF;
+    -fx-border-width: 1;
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-border-color: #6E6E6E;
     }
 
 #searchBar_fld:hover{
     -fx-effect: dropshadow(three-pass-box, #0a8ca6, 5, 0, 0, 4);
-    -fx-background-radius: 20 20 0 0;
-    -fx-border-radius: 20 20 0 0;
 }
 #searchBar_fld:focused{
     -fx-effect: dropshadow(three-pass-box, #0BCCF4, 5, 0, 0, 4);
-    -fx-background-radius: 5 5 0 0;
-    -fx-border-radius: 5 5 0 0;
 }
 
 
 #page_fld{
     -fx-background-insets: 0;
     -fx-background-radius: 30;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
     -fx-border-radius: 30;
-    -fx-border-color: #0BCCF4;
+    -fx-border-color: #6E6E6E;
     }
 
 #page_fld:hover{
@@ -273,7 +286,7 @@ Customize the selected cell
   }
    
   .date-picker-popup .month-year-pane {
-    -fx-background-color: white;
+    -fx-background-color: #FFFFFF;
   }
    
 

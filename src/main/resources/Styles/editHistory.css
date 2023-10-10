@@ -13,16 +13,16 @@ Text, .text, .text-field {
 
 Text{
     -fx-fill: #2E2E2E;
-    -fx-font-size: 16px; 
+    -fx-font-size: 12px; 
 }
 .table-view .column-header .label {
     -fx-text-fill: #2E2E2E;
-    -fx-font-size: 16px; 
+    -fx-font-size: 12px; 
 }
 
 .table-row-cell {
     -fx-text-background-color: #4E4E4E;
-    -fx-font-size: 12px; 
+    -fx-font-size: 16px; 
 }
 
 .table-view {
@@ -43,8 +43,10 @@ Text{
 }
 
 .table-view .column-header {
-    -fx-background-color: #E2E2E2;
     -fx-pref-height: 32px; /* Change to your desired header height */
+    -fx-background-color: #FFFFFF;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #4E4E4E;
 }
 
 .table-view .column-header.sortable {

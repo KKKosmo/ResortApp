@@ -35,7 +35,11 @@ public class EscMenuController implements Initializable {
             pane.setVisible(false);
             Model.getInstance().getViewFactory().setSceneLogin();
         });
-        exit.setOnAction(actionEvent -> Platform.exit());
+        exit.setOnAction(actionEvent -> {
+            if(Model.getInstance().getViewFactory().showConfirmPopup("Are you sure you want to exit?")){
+                Platform.exit();
+            }
+        });
         editHistory.setOnAction(actionEvent -> {
             pane.setVisible(false);
             Model.getInstance().getViewFactory().setSceneEditHistory();

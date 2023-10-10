@@ -2,6 +2,7 @@ package com.resort.resortapp.Controllers;
 
 import com.resort.resortapp.Models.Model;
 import com.resort.resortapp.Models.sqliteModel;
+import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -10,7 +11,9 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -36,6 +39,7 @@ public class LoginController implements Initializable {
     public Button forgotPw_btn;
     public Text user6_txt;
     public ToggleButton user6_btn;
+    public AnchorPane root;
     String currentUser;
 
     @Override
@@ -63,13 +67,29 @@ public class LoginController implements Initializable {
             }
         });
         forgotPw_btn.setOnAction(event -> sqliteModel.forgotPw());
-        exit_btn.setOnAction(actionEvent -> Platform.exit());
+        exit_btn.setOnAction(actionEvent -> {
+            if(Model.getInstance().getViewFactory().showConfirmPopup("Are you sure you want to exit?")){
+                Platform.exit();
+            }
+        });
 
         password_field.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 login_btn.fire();
             }
+            if (event.getCode() == KeyCode.ESCAPE) {
+                root.requestFocus();
+                event.consume();
+            }
         });
+
+        root.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                exit_btn.fire();
+            }
+        });
+
+
 
 //        setButton(user1_btn);
 //        setButton(user2_btn);
@@ -106,20 +126,19 @@ public class LoginController implements Initializable {
     }
 
 //    private void setButton(ToggleButton button) {
-//        button.setOnAction(event -> {
-//            if (!button.getStyleClass().contains("selected-button")) {
-//                button.getStyleClass().add("selected-button");
-//            } else {
-//                button.getStyleClass().remove("selected-button");
-//            }
+//        RotateTransition rotateTransition = new RotateTransition(Duration.millis(100), button);
+//        rotateTransition.setByAngle(20); // Rotate by 20 degrees
+//        rotateTransition.setCycleCount(1);
 //
-//            group.getToggles().forEach(toggle -> {
-//                if (toggle != button) {
-//                    ((ToggleButton) toggle).getStyleClass().remove("selected-button");
-//                }
-//            });
+//        // Handle hover events
+//        button.setOnMouseEntered(event -> {
+//            rotateTransition.setRate(1.0); // Normal speed
+//            rotateTransition.play();
+//        });
 //
-////            System.out.println(group.getSelectedToggle());
+//        button.setOnMouseExited(event -> {
+//            rotateTransition.setRate(-1.0); // Reverse speed
+//            rotateTransition.play();
 //        });
 //    }
 

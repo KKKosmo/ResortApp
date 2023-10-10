@@ -44,7 +44,7 @@
                <PasswordField fx:id="oldPassword_fld" alignment="CENTER" maxHeight="47.0" maxWidth="500.0" prefHeight="47.0" prefWidth="305.0" promptText="OLD PASSWORD" />
                <VBox alignment="CENTER" spacing="8.0">
                   <PasswordField fx:id="newPassword_fld" alignment="CENTER" maxHeight="30.0" maxWidth="500.0" prefHeight="30.0" prefWidth="300.0" promptText="NEW PASSWORD" />
-                  <PasswordField fx:id="confirmNewPassword_fld" alignment="CENTER" maxHeight="30.0" maxWidth="500.0" prefHeight="30.0" prefWidth="300.0" promptText="CONFIRM NEW  PASSWORD" />
+                  <PasswordField fx:id="confirmNewPassword_fld" alignment="CENTER" maxHeight="30.0" maxWidth="500.0" prefHeight="30.0" prefWidth="300.0" promptText="RE-ENTER NEW  PASSWORD" />
                </VBox>
             </children>
          </VBox>

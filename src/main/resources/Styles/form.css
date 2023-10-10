@@ -72,12 +72,10 @@ Text, .button .text{
 
 
 .fld{
-    -fx-border-color: transparent;
     -fx-background-insets: 0;
     -fx-background-radius: 30;
     -fx-border-radius: 30;
-    -fx-border-color: #0BCCF4;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 4);
+    -fx-border-color: #6E6E6E;
     }
 .fld:hover {
     -fx-effect: dropshadow(three-pass-box, #0a8ca6, 5, 0, 0, 4);
@@ -105,11 +103,20 @@ Text, .button .text{
 
 .radio-button{
     -fx-background-radius: 30;
-    -fx-background-color: #0BCCF4;
-    -fx-padding: 0 0 2 0;
+    -fx-background-color: #E2E2E2;
+    -fx-padding: 0 0 1 10;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 4);
 }
+
+
 .radio-button:hover{
+    -fx-background-color: #C2C2C2;
+}
+
+.radio-button:selected{
+    -fx-background-color: #0BCCF4;
+}
+.radio-button:selected:hover{
     -fx-background-color: #0bb6d9;
 }
 
@@ -199,16 +206,19 @@ Customize the selected cell
 
 
 .check-box{
-    -fx-background-color: #0BCCF4;
+    -fx-background-color: #E2E2E2;
     -fx-background-radius: 30;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
-
+    -fx-padding: 0 0 1 10;
 }
 
-.check-box:hover, .combo-box:hover{
+.check-box:hover{
+    -fx-background-color: #C2C2C2;
+}
+
+.check-box:selected {
+    -fx-background-color: #0BCCF4;
+}
+.check-box:selected:hover{
     -fx-background-color: #0bb6d9;
-}
-
-.check-box {
-    -fx-padding: 0 0 1 10; /* Adjust the left padding to move the checkmark box */
 }

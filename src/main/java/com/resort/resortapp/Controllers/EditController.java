@@ -73,6 +73,12 @@ public class EditController implements Initializable {
         textFieldAddListener(partialPayment_fld);
         textFieldAddListener(fullPayment_fld);
         textFieldAddListener(vehicle_textFld);
+
+        textFieldAddEsc(name_fld);
+        textFieldAddEsc(pax_fld);
+        textFieldAddEsc(vehicle_textFld);
+        textFieldAddEsc(partialPayment_fld);
+        textFieldAddEsc(fullPayment_fld);
     }
 
     public void updateRecord(){
@@ -94,6 +100,14 @@ public class EditController implements Initializable {
         textField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 textField.setText(newValue.replaceAll("\\D", ""));
+            }
+        });
+    }
+    private void textFieldAddEsc(TextField textField){
+        textField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ESCAPE || event.getCode() == KeyCode.ENTER) {
+                parentPane.requestFocus();
+                event.consume();
             }
         });
     }

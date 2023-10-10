@@ -37,7 +37,7 @@ Text, .password-field{
 }
 
 .toggle-button {
-    -fx-background-color: #caeaff;
+    -fx-background-color: #E2E2E2;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2.5);
     -fx-background-radius: 30;
     -fx-border-radius: 30;
@@ -47,7 +47,8 @@ Text, .password-field{
 
 
 .toggle-button:hover {
-    -fx-rotate: 20deg;
+    /* -fx-rotate: 20deg; */
+    -fx-background-color: #C2C2C2;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 5);
     -fx-pref-width: 152;
     -fx-pref-height: 184;
@@ -71,21 +72,18 @@ Text, .password-field{
 
 
 .text-field {
-    -fx-border-color: #d6efff;
+    -fx-border-color: #6E6E6E;
     -fx-background-insets: 0;
     -fx-background-radius: 30;
     -fx-border-radius: 30;
 }
 
 .text-field:hover {
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 4);
-    -fx-border-radius: 30;
+    -fx-effect: dropshadow(three-pass-box, #0a8ca6, 5, 0, 0, 4);
 }
 
 .text-field:focused {
-    -fx-border-color: #0BCCF4;
-    -fx-border-radius: 30;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 4);
+    -fx-effect: dropshadow(three-pass-box, #0BCCF4, 5, 0, 0, 4);
 }
 
 #login_btn, #submit_btn {

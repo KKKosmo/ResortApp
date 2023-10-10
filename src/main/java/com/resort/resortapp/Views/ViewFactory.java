@@ -366,8 +366,8 @@ public class ViewFactory {
                 label.setAlignment(Pos.CENTER);
                 label.setText(recordList.get(j));
                 label.setTextAlignment(TextAlignment.CENTER);
-
-//                label.setFont(Font.);
+//                label.setWrapText(true);
+//                label.setPrefWidth(280);
 
                 GridPane.setRowIndex(label, i - startIndex);
                 GridPane.setColumnIndex(label, j);
@@ -443,8 +443,8 @@ public class ViewFactory {
             deleteButton.setPrefWidth(32);
 
             if(recordModel.getUser().equals(Model.getInstance().getUser())){
-                editIcon.setFill(Paint.valueOf("#0BCCF4"));
-                deleteIcon.setFill(Paint.valueOf("#0BCCF4"));
+                editIcon.setFill(Paint.valueOf("#2E2E2E"));
+                deleteIcon.setFill(Paint.valueOf("#2E2E2E"));
 
                 editButton.setOnAction(actionEvent -> setSceneEdit(recordModel));
 
@@ -459,12 +459,11 @@ public class ViewFactory {
 
             }
             else{
-                editIcon.setFill(Paint.valueOf("#6E6E6E"));
-                deleteIcon.setFill(Paint.valueOf("#6E6E6E"));
+                editIcon.setFill(Paint.valueOf("#adadad"));
+                deleteIcon.setFill(Paint.valueOf("#adadad"));
 
-                editButton.setOnAction(actionEvent -> showErrorPopup("Error: You are not USER "+recordModel.getUser()+", cannot modify this booking"));
-
-                deleteButton.setOnAction(actionEvent -> showErrorPopup("Error: You are not USER "+recordModel.getUser()+", cannot modify this booking"));
+                editButton.setOnAction(actionEvent -> showErrorPopup("Error: You are not user "+recordModel.getUser()+", cannot modify this booking"));
+                deleteButton.setOnAction(actionEvent -> showErrorPopup("Error: You are not user "+recordModel.getUser()+", cannot modify this booking"));
             }
             GridPane.setColumnIndex(editButton, 14);
             GridPane.setColumnIndex(deleteButton, 15);

@@ -3,6 +3,7 @@ package com.resort.resortapp;
 import com.resort.resortapp.Models.Model;
 import com.resort.resortapp.Models.sqliteModel;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -18,6 +19,12 @@ public class HelloApplication extends Application {
         Model.getInstance().getViewFactory().setSceneLogin();
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> Model.getInstance().closeLogger()));
+        stage.setOnCloseRequest(event -> {
+            event.consume();
+                if (Model.getInstance().getViewFactory().showConfirmPopup("Are you sure you want to exit?")) {
+                    Platform.exit();
+                }
+        });
 
         stage.setResizable(false);
         stage.show();

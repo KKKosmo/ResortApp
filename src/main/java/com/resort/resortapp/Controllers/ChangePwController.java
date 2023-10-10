@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
@@ -20,6 +21,7 @@ public class ChangePwController implements Initializable {
     public Button cancel_btn;
     public PasswordField oldPassword_fld;
     public PasswordField confirmNewPassword_fld;
+    public AnchorPane root;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -50,6 +52,16 @@ public class ChangePwController implements Initializable {
         oldPassword_fld.getParent().setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 submit_btn.fire();
+            }
+            if (event.getCode() == KeyCode.ESCAPE) {
+                root.requestFocus();
+                event.consume();
+            }
+        });
+
+        root.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                cancel_btn.fire();
             }
         });
     }

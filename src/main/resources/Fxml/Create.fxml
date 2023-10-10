@@ -18,7 +18,18 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="parentPane" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../Styles/form.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.resort.resortapp.Controllers.CreateController">
+   <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
    <AnchorPane fx:id="form_pane" prefHeight="800.0" prefWidth="280.0">
+      <Button fx:id="done_btn" layoutX="164.0" layoutY="752.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" text="DONE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="clr_btn" layoutX="52.0" layoutY="752.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" text="CLEAR" textAlignment="CENTER">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
       <VBox alignment="TOP_CENTER" layoutY="41.0" minWidth="280.0" prefHeight="707.0" prefWidth="280.0" spacing="4.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="41.0">
          <VBox alignment="CENTER" prefHeight="56.0" spacing="4.0">
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
@@ -217,23 +228,9 @@
             </VBox>
          </HBox>
       </VBox>
-      <HBox layoutX="45.0" layoutY="740.0" spacing="32.0" AnchorPane.bottomAnchor="4.0">
-         <children>
-            <Button fx:id="clr_btn" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" text="CLEAR" textAlignment="CENTER">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Button fx:id="done_btn" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" text="DONE">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-         </children>
-      </HBox>
-      <Button fx:id="back_btn" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="4.0">
+      <Button fx:id="back_btn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" textAlignment="CENTER" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="4.0">
          <graphic>
-            <FontAwesomeIconView fill="#2e2e2e" glyphName="ARROW_LEFT" size="20" />
+            <FontAwesomeIconView fill="#2e2e2e" glyphName="ARROW_LEFT" size="20" textAlignment="CENTER" />
          </graphic>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -241,9 +238,9 @@
       </Button>
    </AnchorPane>
    <FlowPane fx:id="month_pane" alignment="CENTER" layoutX="280.0" prefHeight="800.0" prefWidth="1000.0" />
-   <Button fx:id="burger_btn" layoutX="1236.0" layoutY="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="8.0">
+   <Button fx:id="burger_btn" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="1236.0" layoutY="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" textAlignment="CENTER" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="8.0">
       <graphic>
-         <FontAwesomeIconView fill="#2e2e2e" glyphName="BARS" size="20" />
+         <FontAwesomeIconView fill="#2e2e2e" glyphName="BARS" size="20" textAlignment="CENTER" />
       </graphic>
       <cursor>
          <Cursor fx:constant="HAND" />

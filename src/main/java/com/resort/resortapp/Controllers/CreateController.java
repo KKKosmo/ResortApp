@@ -75,6 +75,12 @@ public class CreateController  implements Initializable{
         textFieldAddListener(fullPayment_fld);
         textFieldAddListener(vehicle_textFld);
 
+        textFieldAddEsc(name_fld);
+        textFieldAddEsc(pax_fld);
+        textFieldAddEsc(vehicle_textFld);
+        textFieldAddEsc(payment_fld);
+        textFieldAddEsc(fullPayment_fld);
+
         checkIn_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue != null){
                 Model.getInstance().setSelectedLeftDate(String.valueOf(newValue));
@@ -112,6 +118,7 @@ public class CreateController  implements Initializable{
         for (CheckBox checkBox : roomCheckBoxes){
             checkBoxAddListener(checkBox);
         }
+        parentPane.requestFocus();
     }
     private void insertRecord(){
         if(sqliteModel.insertRecord(newRecordModel(), available)){
@@ -138,6 +145,14 @@ public class CreateController  implements Initializable{
         textField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 textField.setText(newValue.replaceAll("\\D", ""));
+            }
+        });
+    }
+    private void textFieldAddEsc(TextField textField){
+        textField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ESCAPE || event.getCode() == KeyCode.ENTER) {
+                parentPane.requestFocus();
+                event.consume();
             }
         });
     }

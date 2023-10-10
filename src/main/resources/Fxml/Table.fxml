@@ -25,10 +25,11 @@
          <VBox alignment="TOP_CENTER" prefHeight="96.0" prefWidth="103.0" spacing="8.0">
             <children>
                <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="YEAR &amp; MONTH" textAlignment="CENTER" wrappingWidth="117.0" />
-               <JFXComboBox fx:id="yearMonth_box" focusColor="#ffffff00" prefHeight="26.0" prefWidth="116.0" style="-fx-font-size: 12;" unFocusColor="#ffffff00">
+               <JFXComboBox fx:id="yearMonth_box" focusColor="#ffffff00" prefHeight="24.0" prefWidth="112.0" style="-fx-font-size: 12;" unFocusColor="#ffffff00">
                   <cursor>
                      <Cursor fx:constant="HAND" />
-                  </cursor></JFXComboBox>
+                  </cursor>
+               </JFXComboBox>
             </children>
          </VBox>
          <VBox alignment="TOP_CENTER" prefHeight="69.0" prefWidth="266.0" spacing="8.0">
@@ -39,7 +40,7 @@
                      <VBox alignment="CENTER" spacing="8.0">
                         <children>
                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date" textAlignment="CENTER" />
-                           <DatePicker fx:id="startDate_datePicker" editable="false" focusTraversable="false" prefHeight="26.0" prefWidth="129.0" style="-fx-font-size: 12;" styleClass="date-picker">
+                           <DatePicker fx:id="startDate_datePicker" editable="false" focusTraversable="false" prefHeight="24.0" prefWidth="128.0" style="-fx-font-size: 12;" styleClass="date-picker">
                               <cursor>
                                  <Cursor fx:constant="HAND" />
                               </cursor>
@@ -49,7 +50,7 @@
                      <VBox alignment="CENTER" spacing="8.0">
                         <children>
                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="End Date" textAlignment="CENTER" />
-                           <DatePicker fx:id="endDate_datePicker" editable="false" focusTraversable="false" prefHeight="26.0" prefWidth="129.0" style="-fx-font-size: 12;" styleClass="date-picker">
+                           <DatePicker fx:id="endDate_datePicker" editable="false" focusTraversable="false" prefHeight="24.0" prefWidth="128.0" style="-fx-font-size: 12;" styleClass="date-picker">
                               <cursor>
                                  <Cursor fx:constant="HAND" />
                               </cursor>
@@ -65,7 +66,7 @@
                <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="Room" />
                <HBox fx:id="roomPane" alignment="CENTER" prefHeight="75.0" prefWidth="185.0" spacing="8.0">
                   <VBox alignment="CENTER_LEFT" prefHeight="101.0" prefWidth="86.0" spacing="8.0">
-                     <CheckBox fx:id="j_chkBox" mnemonicParsing="false" prefHeight="20.0" prefWidth="85.0" style="-fx-font-size: 12;" styleClass="myCheckbox" text="Room J" textAlignment="CENTER">
+                     <CheckBox fx:id="j_chkBox" mnemonicParsing="false" prefHeight="16.0" prefWidth="88.0" style="-fx-font-size: 12;" styleClass="myCheckbox" text="ROOM J" textAlignment="CENTER">
                         <cursor>
                            <Cursor fx:constant="HAND" />
                         </cursor>
@@ -73,24 +74,24 @@
                            <Insets />
                         </opaqueInsets>
                      </CheckBox>
-                     <CheckBox fx:id="g_chkBox" mnemonicParsing="false" prefHeight="20.0" prefWidth="85.0" style="-fx-font-size: 12;" styleClass="myCheckbox" text="Room G">
+                     <CheckBox fx:id="g_chkBox" mnemonicParsing="false" prefHeight="16.0" prefWidth="88.0" style="-fx-font-size: 12;" styleClass="myCheckbox" text="ROOM G">
                         <cursor>
                            <Cursor fx:constant="HAND" />
                         </cursor>
                      </CheckBox>
-                     <CheckBox fx:id="a_chkBox" mnemonicParsing="false" prefHeight="20.0" prefWidth="85.0" style="-fx-font-size: 12;" styleClass="myCheckbox" text="ATTIC" textAlignment="CENTER">
+                     <CheckBox fx:id="a_chkBox" mnemonicParsing="false" prefHeight="16.0" prefWidth="88.0" style="-fx-font-size: 12;" styleClass="myCheckbox" text="ATTIC" textAlignment="CENTER">
                         <cursor>
                            <Cursor fx:constant="HAND" />
                         </cursor>
                      </CheckBox>
                   </VBox>
                   <VBox alignment="CENTER_LEFT" prefHeight="101.0" prefWidth="87.0" spacing="8.0">
-                     <CheckBox fx:id="k1_chkBox" mnemonicParsing="false" prefHeight="20.0" prefWidth="85.0" style="-fx-font-size: 12;" styleClass="myCheckbox" text="KUBO 1">
+                     <CheckBox fx:id="k1_chkBox" mnemonicParsing="false" prefHeight="16.0" prefWidth="88.0" style="-fx-font-size: 12;" styleClass="myCheckbox" text="KUBO 1">
                         <cursor>
                            <Cursor fx:constant="HAND" />
                         </cursor>
                      </CheckBox>
-                     <CheckBox fx:id="k2_chkBox" mnemonicParsing="false" prefHeight="20.0" prefWidth="85.0" style="-fx-font-size: 12;" styleClass="myCheckbox" text="KUBO 2">
+                     <CheckBox fx:id="k2_chkBox" mnemonicParsing="false" prefHeight="16.0" prefWidth="88.0" style="-fx-font-size: 12;" styleClass="myCheckbox" text="KUBO 2">
                         <cursor>
                            <Cursor fx:constant="HAND" />
                         </cursor>
@@ -101,7 +102,7 @@
          </VBox>
          <VBox alignment="BOTTOM_CENTER">
             <children>
-               <Button fx:id="default_btn" mnemonicParsing="false" prefHeight="32.0" prefWidth="129.0" style="-fx-font-size: 16;" text="Default Filters" textAlignment="CENTER" wrapText="true">
+               <Button fx:id="default_btn" mnemonicParsing="false" prefHeight="80.0" prefWidth="96.0" style="-fx-font-size: 16;" text="Default Filters" textAlignment="CENTER" wrapText="true">
                   <cursor>
                      <Cursor fx:constant="HAND" />
                   </cursor>
@@ -110,14 +111,14 @@
          </VBox>
       </children>
    </HBox>
-   <VBox alignment="CENTER" layoutX="7.0" layoutY="8.0" spacing="8.0">
+   <VBox alignment="CENTER" layoutX="14.0" layoutY="8.0" spacing="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="8.0">
       <children>
          <Button fx:id="history_btn" mnemonicParsing="false" prefHeight="40.0" prefWidth="156.0" style="-fx-font-size: 16;" text="EVENT HISTORY">
             <cursor>
                <Cursor fx:constant="HAND" />
             </cursor>
          </Button>
-         <Button fx:id="add_btn" mnemonicParsing="false" prefHeight="40.0" prefWidth="117.0" style="-fx-font-size: 16;" text="ADD">
+         <Button fx:id="add_btn" mnemonicParsing="false" prefHeight="40.0" prefWidth="156.0" style="-fx-font-size: 16;" text="ADD">
             <cursor>
                <Cursor fx:constant="HAND" />
             </cursor>
@@ -160,7 +161,7 @@
          <RowConstraints minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
          <RowConstraints minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
       </rowConstraints>
-      <Region prefHeight="40.0" prefWidth="1253.0" style="-fx-background-radius: 0 30 0 0;" styleClass="odd" GridPane.columnSpan="16" />
+      <Region prefHeight="40.0" prefWidth="1253.0" style="-fx-background-radius: 0 20 0 0;" styleClass="odd" GridPane.columnSpan="16" />
       <Region prefHeight="200.0" prefWidth="200.0" styleClass="even" GridPane.columnSpan="16" GridPane.rowIndex="1" />
       <Region prefHeight="200.0" prefWidth="200.0" styleClass="odd" GridPane.columnSpan="16" GridPane.rowIndex="2" />
       <Region prefHeight="200.0" prefWidth="200.0" styleClass="even" GridPane.columnSpan="16" GridPane.rowIndex="3" />
@@ -176,16 +177,16 @@
       <Region prefHeight="200.0" prefWidth="200.0" styleClass="even" GridPane.columnSpan="16" GridPane.rowIndex="13" />
       <Region prefHeight="37.0" prefWidth="191.0" styleClass="odd" GridPane.columnSpan="16" GridPane.rowIndex="14" />
    </GridPane>
-   <HBox alignment="CENTER" layoutX="576.0" layoutY="767.0" prefHeight="25.0" prefWidth="129.0" spacing="5.0">
-      <Button fx:id="prevPage_btn" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0">
+   <HBox alignment="CENTER" layoutX="576.0" layoutY="754.0" prefHeight="47.0" prefWidth="129.0" spacing="5.0">
+      <Button fx:id="prevPage_btn" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
          <graphic>
             <FontAwesomeIconView fill="#2e2e2e" glyphName="ANGLE_LEFT" size="16" />
          </graphic></Button>
-      <TextField fx:id="page_fld" alignment="CENTER" prefHeight="24.0" prefWidth="24.0" text="1" />
-      <Button fx:id="nextPage_btn" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0">
+      <TextField fx:id="page_fld" alignment="CENTER" prefHeight="32.0" prefWidth="32.0" text="1" />
+      <Button fx:id="nextPage_btn" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -193,10 +194,6 @@
             <FontAwesomeIconView fill="#2e2e2e" glyphName="ANGLE_RIGHT" selectionEnd="0" size="16" />
          </graphic></Button>
    </HBox>
-   <TextField fx:id="searchBar_fld" alignment="CENTER" layoutX="168.0" layoutY="85.0" prefHeight="40.0" prefWidth="280.0" promptText="SEARCH FOR A NAME" style="-fx-font-size: 16;">
-      <font>
-         <Font size="16.0" />
-      </font></TextField>
    <GridPane fx:id="header" alignment="CENTER" layoutX="9.0" layoutY="122.0" prefHeight="40.0" prefWidth="1182.0">
       <columnConstraints>
          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="48.0" minWidth="48.0" prefWidth="48.0" />
@@ -238,7 +235,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </HBox>
-      <HBox fx:id="name_pane" alignment="CENTER" prefHeight="38.0" prefWidth="239.0" styleClass="colPane" GridPane.columnIndex="2">
+      <HBox fx:id="name_pane" alignment="CENTER" prefHeight="38.0" prefWidth="240.0" styleClass="colPane" GridPane.columnIndex="2">
          <Text stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
             <font>
                <Font name="System Bold" size="12.0" />
@@ -279,7 +276,7 @@
          </cursor>
       </HBox>
       <HBox fx:id="videoke_pane" alignment="CENTER" styleClass="colPane" GridPane.columnIndex="6">
-         <Text stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Videoke">
+         <Text stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Videoke" textAlignment="CENTER" wrappingWidth="42.955078125">
             <font>
                <Font name="System Bold" size="12.0" />
             </font>
@@ -288,8 +285,8 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </HBox>
-      <VBox alignment="CENTER" style="-fx-background-color: #E2E2E2;" GridPane.columnIndex="7">
-         <HBox fx:id="partialPay_pane" alignment="CENTER" prefHeight="19.0" prefWidth="104.0" styleClass="colPane">
+      <VBox alignment="CENTER" style="-fx-background-color: #FFFFFF; -fx-border-color: #4E4E4E; -fx-border-width: 0 0 1 0;" GridPane.columnIndex="7">
+         <HBox fx:id="partialPay_pane" alignment="CENTER" prefHeight="19.0" prefWidth="104.0" styleClass="colPane2">
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Partial Payment" wrappingWidth="84.591796875">
                <font>
                   <Font name="System Bold" size="12.0" />
@@ -297,7 +294,7 @@
             </Text>
          </HBox>
          <Line endX="96.0" startX="12.0" />
-         <HBox fx:id="fullPay_pane" alignment="CENTER" prefHeight="19.0" prefWidth="104.0" styleClass="colPane">
+         <HBox fx:id="fullPay_pane" alignment="CENTER" prefHeight="19.0" prefWidth="104.0" styleClass="colPane2">
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Full Payment">
                <font>
                   <Font name="System Bold" size="12.0" />
@@ -363,7 +360,17 @@
          </cursor>
       </HBox>
    </GridPane>
-   <VBox fx:id="info_pane" alignment="CENTER_LEFT" layoutX="175.0" layoutY="8.0" prefHeight="53.0" prefWidth="301.0" spacing="5.0" style="-fx-padding: 5;">
+   <HBox fx:id="searchBarCont" alignment="CENTER_LEFT" layoutX="168.0" layoutY="74.0" prefHeight="40.0" prefWidth="280.0" spacing="8.0">
+      <children>
+         <FontAwesomeIconView fill="#6e6e6e" glyphName="SEARCH" size="24" />
+         <TextField fx:id="searchBar_fld" alignment="CENTER" prefHeight="40.0" prefWidth="280.0" promptText="SEARCH FOR A NAME" style="-fx-font-size: 16;">
+            <font>
+               <Font size="16.0" />
+            </font>
+         </TextField>
+      </children>
+   </HBox>
+   <VBox fx:id="info_pane" alignment="CENTER_LEFT" layoutX="177.0" layoutY="8.0" prefHeight="53.0" prefWidth="301.0" spacing="5.0" style="-fx-padding: 5;">
       <opaqueInsets>
          <Insets />
       </opaqueInsets>
@@ -404,7 +411,7 @@
          </cursor>
       </HBox>
    </VBox>
-   <HBox layoutX="697.0" layoutY="774.0" spacing="5.0">
+   <HBox layoutX="697.0" layoutY="771.0" spacing="5.0">
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Page" />
       <Text fx:id="currentPage_txt" strokeType="OUTSIDE" strokeWidth="0.0" text="1" wrappingWidth="6.73828125" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="of" />
