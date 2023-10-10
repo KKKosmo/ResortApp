@@ -25,8 +25,8 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <VBox alignment="TOP_CENTER" layoutY="48.0" minWidth="280.0" prefHeight="707.0" prefWidth="280.0" spacing="4.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="49.0">
-         <VBox alignment="CENTER" prefHeight="56.0" spacing="4.0">
+      <VBox alignment="TOP_CENTER" layoutY="48.0" minWidth="280.0" prefHeight="673.0" prefWidth="280.0" spacing="8.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="48.0">
+         <VBox alignment="CENTER" spacing="4.0">
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
                <font>
                   <Font size="16.0" />
@@ -35,17 +35,17 @@
                   <Insets />
                </VBox.margin>
             </Text>
-            <HBox alignment="CENTER" prefWidth="280.0">
+            <HBox alignment="CENTER">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
                <children>
-                  <TextField fx:id="name_fld" alignment="CENTER" prefHeight="32.0" prefWidth="200.0" styleClass="fld" text="First Name Last Name" />
+                  <TextField fx:id="name_fld" alignment="CENTER" minHeight="32.0" prefHeight="32.0" prefWidth="200.0" styleClass="fld" text="First Name Last Name" />
                </children>
             </HBox>
          </VBox>
          <Line endX="100.0" startX="-100.0" styleClass="line" />
-         <VBox alignment="CENTER" prefHeight="56.0" prefWidth="281.0" spacing="4.0">
+         <VBox alignment="CENTER" spacing="4.0">
             <VBox.margin>
                <Insets />
             </VBox.margin>
@@ -59,14 +59,14 @@
                   <Insets left="35.0" right="35.0" />
                </VBox.margin>
                <children>
-                  <TextField fx:id="pax_fld" alignment="CENTER" prefHeight="32.0" prefWidth="56.0" styleClass="fld" />
+                  <TextField fx:id="pax_fld" alignment="CENTER" minHeight="32.0" prefHeight="32.0" prefWidth="56.0" styleClass="fld" />
                </children>
             </HBox>
          </VBox>
          <Line endX="100.0" startX="-100.0" styleClass="line" />
-         <HBox alignment="CENTER" prefHeight="136.0" prefWidth="281.0">
-            <VBox alignment="CENTER" prefHeight="146.0" prefWidth="281.0" spacing="4.0">
-               <HBox alignment="CENTER" prefHeight="55.0" prefWidth="167.0" spacing="4.0">
+         <HBox alignment="CENTER">
+            <VBox alignment="TOP_CENTER" spacing="4.0">
+               <HBox alignment="CENTER" spacing="4.0">
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Vehicle Count">
                      <font>
                         <Font size="16.0" />
@@ -77,7 +77,7 @@
                   </HBox>
                </HBox>
                <Line endX="100.0" startX="-100.0" styleClass="line" />
-               <HBox alignment="CENTER" prefHeight="32.0" prefWidth="200.0">
+               <HBox alignment="CENTER">
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pets" wrappingWidth="64.046875">
                      <font>
                         <Font size="16.0" />
@@ -100,7 +100,7 @@
                   </HBox>
                </HBox>
                <Line endX="100.0" startX="-100.0" styleClass="line" />
-               <HBox alignment="CENTER" prefHeight="32.0" prefWidth="200.0">
+               <HBox alignment="CENTER">
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Videoke" wrappingWidth="66.2734375">
                      <font>
                         <Font size="16.0" />
@@ -125,26 +125,26 @@
             </VBox>
          </HBox>
          <Line endX="100.0" startX="-100.0" styleClass="line" />
-         <HBox alignment="CENTER" prefHeight="56.0" prefWidth="249.0" spacing="4.0">
-            <VBox alignment="CENTER" prefHeight="57.0" prefWidth="128.0" spacing="4.0">
+         <HBox alignment="CENTER" spacing="8.0">
+            <VBox alignment="CENTER" spacing="4.0">
                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Partial Payment" textAlignment="CENTER">
                   <font>
                      <Font size="16.0" />
                   </font>
                </Text>
-               <TextField fx:id="partialPayment_fld" alignment="CENTER" prefHeight="32.0" prefWidth="22.0" styleClass="fld" text="5000">
+               <TextField fx:id="partialPayment_fld" alignment="CENTER" minHeight="32.0" minWidth="120.0" prefHeight="32.0" prefWidth="120.0" styleClass="fld" text="5000">
                   <VBox.margin>
                      <Insets />
                   </VBox.margin>
                </TextField>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="63.0" prefWidth="128.0" spacing="4.0">
+            <VBox alignment="CENTER" spacing="4.0">
                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Full Payment" textAlignment="CENTER" wrappingWidth="99.3125">
                   <font>
                      <Font size="16.0" />
                   </font>
                </Text>
-               <TextField fx:id="fullPayment_fld" alignment="CENTER" prefHeight="32.0" prefWidth="104.0" styleClass="fld" text="10000">
+               <TextField fx:id="fullPayment_fld" alignment="CENTER" minHeight="32.0" minWidth="120.0" prefHeight="32.0" prefWidth="120.0" styleClass="fld" text="10000">
                   <VBox.margin>
                      <Insets />
                   </VBox.margin>
@@ -152,14 +152,14 @@
             </VBox>
          </HBox>
          <Line endX="100.0" startX="-100.0" styleClass="line" />
-         <HBox alignment="CENTER" prefHeight="24.0" prefWidth="249.0" spacing="8.0">
+         <HBox alignment="CENTER" spacing="8.0">
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Paid" textAlignment="RIGHT" wrappingWidth="34.5390625">
                <font>
                   <Font size="16.0" />
                </font>
             </Text>
-            <HBox alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="142.0" spacing="8.0">
-               <RadioButton fx:id="paidNo_radio" mnemonicParsing="false" prefHeight="24.0" prefWidth="64.0" text="No">
+            <HBox alignment="CENTER_RIGHT" spacing="8.0">
+               <RadioButton fx:id="paidNo_radio" minHeight="24.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="64.0" text="No">
                   <toggleGroup>
                      <ToggleGroup fx:id="paid" />
                   </toggleGroup>
@@ -167,7 +167,7 @@
                      <Cursor fx:constant="HAND" />
                   </cursor>
                </RadioButton>
-               <RadioButton fx:id="paidYes_radio" mnemonicParsing="false" prefHeight="24.0" prefWidth="64.0" text="Yes" toggleGroup="$paid">
+               <RadioButton fx:id="paidYes_radio" minHeight="24.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="64.0" text="Yes" toggleGroup="$paid">
                   <cursor>
                      <Cursor fx:constant="HAND" />
                   </cursor>
@@ -175,7 +175,7 @@
             </HBox>
          </HBox>
          <Line endX="100.0" startX="-100.0" styleClass="line" />
-         <VBox alignment="CENTER" prefHeight="48.0" prefWidth="281.0" spacing="4.0">
+         <VBox alignment="CENTER" spacing="4.0">
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Check In">
                <font>
                   <Font size="16.0" />
@@ -187,7 +187,7 @@
                </cursor></DatePicker>
          </VBox>
          <Line endX="100.0" startX="-100.0" styleClass="line" />
-         <VBox alignment="CENTER" prefHeight="48.0" spacing="4.0">
+         <VBox alignment="CENTER" spacing="4.0">
             <VBox.margin>
                <Insets />
             </VBox.margin>
@@ -202,40 +202,49 @@
                </cursor></DatePicker>
          </VBox>
          <Line endX="100.0" startX="-100.0" styleClass="line" />
-         <HBox alignment="TOP_CENTER" prefHeight="184.0" prefWidth="281.0">
-            <VBox fx:id="room_pane" alignment="TOP_CENTER" prefHeight="184.0" prefWidth="111.0" spacing="4.0">
+         <HBox alignment="TOP_CENTER">
+            <VBox fx:id="room_pane" alignment="TOP_CENTER" spacing="4.0">
                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room" textAlignment="CENTER" wrappingWidth="66.1015625">
                   <font>
                      <Font size="16.0" />
                   </font>
                </Text>
-               <HBox alignment="CENTER" prefHeight="161.0" prefWidth="154.0">
-                  <VBox alignment="CENTER_LEFT" prefHeight="158.0" prefWidth="104.0" spacing="8.0">
-                     <CheckBox fx:id="roomG_ChkBox" mnemonicParsing="false" prefHeight="24.0" prefWidth="111.0" text="ROOM G">
+               <HBox alignment="CENTER" spacing="8.0">
+                  <VBox alignment="CENTER" spacing="4.0">
+                     <CheckBox fx:id="roomG_ChkBox" mnemonicParsing="false" prefHeight="24.0" prefWidth="104.0" text="ROOM G">
                         <cursor>
                            <Cursor fx:constant="HAND" />
                         </cursor>
                      </CheckBox>
-                     <CheckBox fx:id="roomJ_ChkBox" mnemonicParsing="false" prefHeight="24.0" prefWidth="111.0" text="ROOM J">
+                     <CheckBox fx:id="roomJ_ChkBox" mnemonicParsing="false" prefHeight="24.0" prefWidth="104.0" text="ROOM J">
                         <cursor>
                            <Cursor fx:constant="HAND" />
                         </cursor>
                      </CheckBox>
-                     <CheckBox fx:id="attic_ChkBox" mnemonicParsing="false" prefHeight="24.0" prefWidth="111.0" text="ATTIC">
+                     <CheckBox fx:id="attic_ChkBox" mnemonicParsing="false" prefHeight="24.0" prefWidth="104.0" text="ATTIC">
                         <cursor>
                            <Cursor fx:constant="HAND" />
                         </cursor>
                      </CheckBox>
-                     <CheckBox fx:id="kubo1_ChkBox" mnemonicParsing="false" prefHeight="24.0" prefWidth="143.0" text="KUBO 1">
-                        <cursor>
-                           <Cursor fx:constant="HAND" />
-                        </cursor>
-                     </CheckBox>
-                     <CheckBox fx:id="kubo2_ChkBox" mnemonicParsing="false" prefHeight="24.0" prefWidth="153.0" text="KUBO 2">
-                        <cursor>
-                           <Cursor fx:constant="HAND" />
-                        </cursor>
-                     </CheckBox>
+                  </VBox>
+                  <VBox alignment="CENTER" spacing="4.0">
+                     <children>
+                        <CheckBox fx:id="kubo1_ChkBox" mnemonicParsing="false" prefHeight="24.0" prefWidth="104.0" text="KUBO 1">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </CheckBox>
+                        <CheckBox fx:id="kubo2_ChkBox" mnemonicParsing="false" prefHeight="24.0" prefWidth="104.0" text="KUBO 2">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </CheckBox>
+                        <CheckBox fx:id="e_ChkBox" mnemonicParsing="false" prefHeight="24.0" prefWidth="104.0" text="EXCLUSIVE">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </CheckBox>
+                     </children>
                   </VBox>
                </HBox>
             </VBox>

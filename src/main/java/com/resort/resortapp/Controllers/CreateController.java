@@ -26,7 +26,6 @@ public class CreateController  implements Initializable{
     public Button clr_btn;
     public TextField name_fld;
     public TextField pax_fld;
-    public TextField payment_fld;
     public DatePicker checkOut_datePicker;
     public DatePicker checkIn_datePicker;
     public FlowPane month_pane;
@@ -40,6 +39,7 @@ public class CreateController  implements Initializable{
     public TextField vehicle_textFld;
     public TextField fullPayment_fld;
     public Button back_btn;
+    public TextField partialPayment_fld;
     Set<String> available;
     public AnchorPane escMenu;
     List<CheckBox> roomCheckBoxes = new ArrayList<>();
@@ -71,14 +71,14 @@ public class CreateController  implements Initializable{
                 clearForm();
         });
         textFieldAddListener(pax_fld);
-        textFieldAddListener(payment_fld);
+        textFieldAddListener(partialPayment_fld);
         textFieldAddListener(fullPayment_fld);
         textFieldAddListener(vehicle_textFld);
 
         textFieldAddEsc(name_fld);
         textFieldAddEsc(pax_fld);
         textFieldAddEsc(vehicle_textFld);
-        textFieldAddEsc(payment_fld);
+        textFieldAddEsc(partialPayment_fld);
         textFieldAddEsc(fullPayment_fld);
 
         checkIn_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -133,7 +133,7 @@ public class CreateController  implements Initializable{
         petsYes_radio.setSelected(false);
         petsNo_radio.setSelected(false);
         vehicle_textFld.clear();
-        payment_fld.clear();
+        partialPayment_fld.clear();
         fullPayment_fld.clear();
         checkIn_datePicker.setValue(null);
         checkOut_datePicker.setValue(null);
@@ -162,6 +162,6 @@ public class CreateController  implements Initializable{
     }
     private RecordModel newRecordModel(){
         return new RecordModel(name_fld, pax_fld, vehicle_textFld, petsYes_radio, videokeYes_radio,
-                payment_fld, fullPayment_fld, checkIn_datePicker, checkOut_datePicker, roomCheckBoxes);
+                partialPayment_fld, fullPayment_fld, checkIn_datePicker, checkOut_datePicker, roomCheckBoxes);
     }
 }
