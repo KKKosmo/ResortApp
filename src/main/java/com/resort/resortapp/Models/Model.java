@@ -35,7 +35,7 @@ public class Model {
 
     List<LocalDate> selectedLocalDates;
 
-    private List<Set<String>> availableRoomsPerDayWithinTheMonthsList;
+    private List<List<String>> availableRoomsPerDayWithinTheMonthsList;
 
 
     private List<RecordModel> tableRecordModels;
@@ -43,7 +43,7 @@ public class Model {
     private LocalDate tableStartDate;
     private LocalDate tableEndDate;
     private YearMonth tableYearMonth;
-    private int currentPage = 1;
+    private int currentPage = 0;
     private int maxPage;
     private int startIndex;
     private int endIndex;
@@ -88,6 +88,7 @@ public class Model {
     private boolean tableAFilter = false;
     private boolean tableK1Filter = false;
     private boolean tableK2Filter = false;
+    private boolean tableEFilter = false;
     private String user;
     Logger logger = Logger.getLogger("ResortApp");
     String logFilePath = "error.log";
@@ -239,11 +240,11 @@ public class Model {
         return selectedLocalDates;
     }
 
-    public List<Set<String>> getAvailableRoomsPerDayWithinTheMonthsList() {
+    public List<List<String>> getAvailableRoomsPerDayWithinTheMonthsList() {
         return availableRoomsPerDayWithinTheMonthsList;
     }
 
-    public void setAvailablesForVisual(List<Set<String>> availableRoomsPerDayWithinTheMonthsList) {
+    public void setAvailablesForVisual(List<List<String>> availableRoomsPerDayWithinTheMonthsList) {
         this.availableRoomsPerDayWithinTheMonthsList = availableRoomsPerDayWithinTheMonthsList;
     }
 
@@ -293,6 +294,10 @@ public class Model {
         this.endIndex = Math.min(startIndex + getTableRowCount(), tableRecordModels.size());
 //        System.out.println("SETTING CURRENT OPAEG");
 //
+    }
+
+    public List<RecordModel> getTableRecordModels() {
+        return tableRecordModels;
     }
 
     public int getMaxPage() {
@@ -422,6 +427,14 @@ public class Model {
 
     public void setTableK2Filter(boolean tableK2Filter) {
         this.tableK2Filter = tableK2Filter;
+    }
+
+    public boolean isTableEFilter() {
+        return tableEFilter;
+    }
+
+    public void setTableEFilter(boolean tableEFilter) {
+        this.tableEFilter = tableEFilter;
     }
 
     public LocalDate getCalendarLeftDate() {

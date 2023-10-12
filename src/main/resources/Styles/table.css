@@ -109,12 +109,12 @@ Text, .button .text{
 
 .combo-box .list-view .list-cell:hover {
     /* -fx-background-color: #E2E2E2; */
-    -fx-background-color: #eaf7ff;
+    -fx-background-color: #E2E2E2;
 }
 
 .combo-box .list-view .list-cell:selected {
     /* -fx-background-color: #C2C2C2; */
-    -fx-background-color: #caeaff;
+    -fx-background-color: #0BCCF4;
 }
 
 .colPane {
@@ -178,7 +178,7 @@ Text, .button .text{
     }
 
 #searchBar_fld:hover{
-    -fx-effect: dropshadow(three-pass-box, #0a8ca6, 5, 0, 0, 4);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 4);
 }
 #searchBar_fld:focused{
     -fx-effect: dropshadow(three-pass-box, #0BCCF4, 5, 0, 0, 4);
@@ -193,7 +193,7 @@ Text, .button .text{
     }
 
 #page_fld:hover{
-    -fx-effect: dropshadow(three-pass-box, #0a8ca6, 5, 0, 0, 4);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 4);
 }
 #page_fld:focused{
     -fx-effect: dropshadow(three-pass-box, #0BCCF4, 5, 0, 0, 4);
@@ -265,16 +265,15 @@ Customize popup content
 -------------------------------------------*/
 .date-picker .cell {
     -fx-background-color: white;
-  }
+}
    
-  .date-picker .cell:hover {
+.date-picker .cell:hover {
     -fx-background-color: #E2E2E2;
-  }
-   
-  .date-picker .cell:focused {
-    -fx-background-color: #C2C2C2;
-  }
+}
 
+.date-picker .cell:focused {
+    -fx-background-color: #0BCCF4;
+}
 
 
   
@@ -313,4 +312,13 @@ Customize the selected cell
     -fx-border-radius: 30px;
     -fx-border-color: transparent;
     -fx-background-color: #E2E2E2;
+}
+
+/* #yearMonthBox, #roomBox, #specificDateBox{
+    -fx-border-color: #6E6E6E;
+    -fx-border-radius: 30;
+} */
+
+.myLine{
+    -fx-stroke: #b8b8b8
 }

@@ -191,7 +191,7 @@ public class ViewFactory {
         for(int i = 0; i < monthMaxDate; i++){
             Text temp = onScreenCalendarDayModels.get(i + dateOffset).getRoomsText();
             StringBuilder desc = new StringBuilder();
-            Set<String> set = Model.getInstance().getAvailableRoomsPerDayWithinTheMonthsList().get(i);
+            List<String> set = Model.getInstance().getAvailableRoomsPerDayWithinTheMonthsList().get(i);
             for(String string : set){
                 desc.append(Rooms.abbvToDisplay(string)).append("\n");
             }
@@ -202,7 +202,7 @@ public class ViewFactory {
 
     }
     public void colorize(){
-//        System.out.println("IN COLORIZE");
+        System.out.println("IN COLORIZE++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 //        System.out.println("CALENDAR DAY MODELS = " + onScreenCalendarDayModels.size());
 //        System.out.println("whole list = " + Model.getInstance().getAvailableRoomsPerDayWithinTheMonthsList().size());
         Set<String> roomsCheckBoxes = Rooms.manageCheckboxesSetAbbreviatedName(roomCheckBoxes);
@@ -293,7 +293,7 @@ public class ViewFactory {
 
                     stackPane.getChildren().add(dateText);
                     Text totalText = new Text("");
-                    totalText.setTranslateY(boxHeight * 0.1);
+                    totalText.setTranslateY(boxHeight * 0.075);
                     stackPane.getChildren().add(totalText);
                     dayModel.setRoomsText(totalText);
 
@@ -462,8 +462,8 @@ public class ViewFactory {
                 editIcon.setFill(Paint.valueOf("#adadad"));
                 deleteIcon.setFill(Paint.valueOf("#adadad"));
 
-                editButton.setOnAction(actionEvent -> showErrorPopup("Error: You are not user "+recordModel.getUser()+", cannot modify this booking"));
-                deleteButton.setOnAction(actionEvent -> showErrorPopup("Error: You are not user "+recordModel.getUser()+", cannot modify this booking"));
+                editButton.setOnAction(actionEvent -> showErrorPopup("You are not user "+recordModel.getUser()+", cannot modify this booking"));
+                deleteButton.setOnAction(actionEvent -> showErrorPopup("You are not user "+recordModel.getUser()+", cannot modify this booking"));
             }
             GridPane.setColumnIndex(editButton, 14);
             GridPane.setColumnIndex(deleteButton, 15);
@@ -507,18 +507,20 @@ public class ViewFactory {
 
         Button cancelButton = (Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL);
         cancelButton.setStyle(
-                "-fx-background-color: #2E2E2E; -fx-text-fill: #C2C2C2; -fx-cursor: hand;"
+                "-fx-background-color: #FFFFFF; -fx-border-color: #2E2E2E; -fx-cursor: hand; -fx-border-radius: 30;"
         );
+
 
         cancelButton.setOnMouseEntered(e -> {
             cancelButton.setStyle(
-                    "-fx-background-color: #474747; -fx-text-fill: #C2C2C2; -fx-cursor: hand;"
+                    "-fx-background-color: #e5e5e5; -fx-border-color: #474747; -fx-cursor: hand; -fx-border-radius: 30;"
             );
         });
 
+
         cancelButton.setOnMouseExited(e -> {
             cancelButton.setStyle(
-                    "-fx-background-color: #2E2E2E; -fx-text-fill: #C2C2C2; -fx-cursor: hand;"
+                    "-fx-background-color: #FFFFFF; -fx-border-color: #2E2E2E; -fx-cursor: hand; -fx-border-radius: 30;"
             );
         });
 
@@ -611,10 +613,10 @@ public class ViewFactory {
     public void showReportLocation(String filename, String filePath){
         VBox root = new VBox();
 
-        Label label = new Label("A file (" + filename + ") has been exported as: " + filePath);
+        Label label = new Label("A report summary PDF (" + filename + ") has been exported as: " + filePath);
         label.getStyleClass().add("myHeader");
         label.setWrapText(true);
-        label.setMaxWidth(520);
+        label.setMaxWidth(560);
         root.getChildren().add(label);
 
         Hyperlink openExplorerLink = new Hyperlink("Click to open in explorer");
@@ -658,7 +660,7 @@ public class ViewFactory {
         int totalPages = Model.getInstance().getMaxPage();
 
         if(totalPages == 0){
-            showErrorPopup("ERROR: Cannot export a report with no content.");
+            showErrorPopup("Cannot export a report with no content.");
         }
         else{
             try {
@@ -705,24 +707,33 @@ public class ViewFactory {
 
                     StringBuilder rooms;
 
-                    if(Model.getInstance().getTableRooms().isEmpty()){
+                    Set<String> tableRooms = Model.getInstance().getTableRooms();
+
+                    if(tableRooms.isEmpty()){
                         rooms = new StringBuilder("All rooms");
                     }
                     else{
-                        rooms = new StringBuilder("Rooms : ");
-                        for (String string : Model.getInstance().getTableRooms()){
-                            rooms.append(string).append(" ");
+                        if(tableRooms.size()>1){
+                            rooms = new StringBuilder("Rooms: ");
+                        }else{
+                            rooms = new StringBuilder("Room: ");
                         }
+
+
+                        for (String string : tableRooms){
+                            rooms.append(string).append(", ");
+                        }
+                        rooms.delete(rooms.length() - 2, rooms.length());
                     }
 //                    table.addCell(rooms.toString()).setBold().setFontSize(fontSize);
                     table.addCell(createCellBold(rooms.toString()));
 
 //                    table.addCell("Sorted by: " + Model.getInstance().getOrderCategory() + " " + (Model.getInstance().isASC() ? "ASC" : "DESC")).setBold().setFontSize(fontSize);
                     table.addCell(createCellBold("Sorted by: " + Model.getInstance().getOrderCategory() + " " + (Model.getInstance().isASC() ? "ASC" : "DESC")));
-//                    table.addCell("Total Bookings: " + Model.getInstance().getRecordCount()).setBold().setFontSize(fontSize);
-                    table.addCell(createCellBold("Total Bookings: " + Model.getInstance().getRecordCount()));
 //                    table.addCell("Page " + currentPage + "/" + totalPages).setBold().setFontSize(fontSize);
                     table.addCell(createCellBold("Page " + currentPage + "/" + totalPages));
+//                    table.addCell("Total Bookings: " + Model.getInstance().getRecordCount()).setBold().setFontSize(fontSize);
+                    table.addCell(createCellBold("Total Bookings: " + Model.getInstance().getRecordCount()));
 //                    table.addCell("Total Payment Received: " + Model.getInstance().getTotalPayment() + " (" + Model.getInstance().getTotalUnpaid() + " UNPAID)").setBold().setFontSize(fontSize);
                     table.addCell(createCellBold("Total Payment Received: " + Model.getInstance().getTotalPayment() + " (" + Model.getInstance().getTotalUnpaid() + " UNPAID)"));
 
@@ -822,8 +833,30 @@ public class ViewFactory {
                                 body.addCell(rowPayment.setHorizontalAlignment(HorizontalAlignment.CENTER));
 
 
-                            } else if (j == 2) {
-                                body.addCell(createCell(recordList.get(j)));
+                            }
+                            else if (j == 2) {
+                                Cell cell = new Cell()
+                                        .setWidth(208.2f)
+                                        .setFontSize(fontSize)
+                                        .setTextAlignment(com.itextpdf.layout.property.TextAlignment.CENTER)
+                                        .setVerticalAlignment(VerticalAlignment.MIDDLE);
+
+                                String text = recordList.get(j);
+                                Paragraph paragraph = new Paragraph();
+
+                                if (text.length() > 20) {
+                                    paragraph.setFontSize(8f); // Set the font size to 8 if there are more than 20 characters
+                                } else {
+                                    paragraph.setFontSize(fontSize);
+                                }
+
+                                for (char letter : text.toCharArray()) {
+                                    String letterText = String.valueOf(letter);
+                                    paragraph.add(letterText);
+                                }
+
+                                cell.add(paragraph);
+                                body.addCell(cell);
                             }
                             else{
                                 body.addCell(createCell(recordList.get(j)));

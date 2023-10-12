@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class HelloApplication extends Application {
     @Override
@@ -25,7 +26,7 @@ public class HelloApplication extends Application {
                     Platform.exit();
                 }
         });
-
+        stage.initStyle(StageStyle.DECORATED);
         stage.setResizable(false);
         stage.show();
     }

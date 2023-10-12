@@ -27,7 +27,7 @@
             </styleClass></TableColumn>
          <TableColumn fx:id="dateTime_col" editable="false" prefWidth="192.0" resizable="false" sortType="DESCENDING" sortable="false" text="Date &amp; Time" />
        <TableColumn fx:id="bookId_col" editable="false" prefWidth="104.0" resizable="false" sortType="DESCENDING" styleClass="sortable" text="Book ID" />
-         <TableColumn fx:id="user_col" editable="false" minWidth="0.0" prefWidth="72.0" resizable="false" styleClass="sortable" text="User" />
+         <TableColumn fx:id="user_col" editable="false" minWidth="0.0" prefWidth="88.0" resizable="false" styleClass="sortable" text="User" />
          <TableColumn fx:id="changes_col" editable="false" maxWidth="10000.0" prefWidth="2750.0" sortable="false" styleClass="rightEdge" />
      </columns>
       <cursor>

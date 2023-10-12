@@ -29,7 +29,7 @@ public class ChangePwController implements Initializable {
         submit_btn.setOnAction(actionEvent -> {
             if(sqliteModel.auth(user_txt.getText(), oldPassword_fld.getText())){
                 if(newPassword_fld.getText().isEmpty()){
-                    Model.getInstance().getViewFactory().showErrorPopup("Error: NEW PASSWORD CANNOT BE EMPTY.");
+                    Model.getInstance().getViewFactory().showErrorPopup("NEW PASSWORD CANNOT BE EMPTY.");
                 }
                 else{
                     if(newPassword_fld.getText().equals(confirmNewPassword_fld.getText())){
@@ -39,12 +39,12 @@ public class ChangePwController implements Initializable {
                         }
                     }
                     else{
-                        Model.getInstance().getViewFactory().showErrorPopup("Error: NEW PASSWORD FIELDS DO NOT MATCH.");
+                        Model.getInstance().getViewFactory().showErrorPopup("NEW PASSWORD FIELDS DO NOT MATCH.");
                     }
                 }
             }
             else{
-                Model.getInstance().getViewFactory().showErrorPopup("Error: OLD PASSWORD IS INCORRECT.");
+                Model.getInstance().getViewFactory().showErrorPopup("OLD PASSWORD IS INCORRECT.");
             }
         });
 

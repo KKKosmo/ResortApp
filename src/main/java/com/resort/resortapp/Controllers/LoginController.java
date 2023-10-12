@@ -55,7 +55,7 @@ public class LoginController implements Initializable {
                         Model.getInstance().getViewFactory().setSceneTable(true);
                     }
                     else{
-                        Model.getInstance().getViewFactory().showErrorPopup("Error: INCORRECT PASSWORD FOR USER " + currentUser);
+                        Model.getInstance().getViewFactory().showErrorPopup("INCORRECT PASSWORD FOR USER " + currentUser);
                     }
                 }
             }
@@ -119,7 +119,7 @@ public class LoginController implements Initializable {
         else if(group.getSelectedToggle() == user6_btn){
                 currentUser = user6_txt.getText();
         } else {
-            Model.getInstance().getViewFactory().showErrorPopup("Error: NO USER SELECTED");
+            Model.getInstance().getViewFactory().showErrorPopup("NO USER SELECTED");
             result = false;
         }
         return result;

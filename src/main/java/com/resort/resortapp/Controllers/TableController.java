@@ -4,6 +4,9 @@ import com.resort.resortapp.Models.Model;
 import com.resort.resortapp.Models.sqliteModel;
 import com.resort.resortapp.Rooms;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.beans.value.ChangeListener;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
@@ -66,6 +69,8 @@ public class TableController implements Initializable {
     public Button history_btn;
     public Button add_btn;
     public ComboBox<String> yearMonth_box;
+    public CheckBox e_chkBox;
+    DateTimeFormatter monthYearFormatter = DateTimeFormatter.ofPattern("MMM yyyy", Locale.US);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -79,6 +84,7 @@ public class TableController implements Initializable {
         a_chkBox.setSelected(Model.getInstance().isTableAFilter());
         k1_chkBox.setSelected(Model.getInstance().isTableK1Filter());
         k2_chkBox.setSelected(Model.getInstance().isTableK2Filter());
+        e_chkBox.setSelected(Model.getInstance().isTableEFilter());
 
         searchBar_fld.setText(Model.getInstance().getNameFilter());
 
@@ -93,8 +99,6 @@ public class TableController implements Initializable {
 
         LocalDate startDate = currentDate.plusMonths(3);
 
-        DateTimeFormatter monthYearFormatter = DateTimeFormatter.ofPattern("MMM yyyy", Locale.US);
-
         while (startDate.isAfter(YearMonth.of(2023, 9).atEndOfMonth())) {
             String monthYearString = startDate.format(monthYearFormatter);
             yearMonth_box.getItems().add(monthYearString);
@@ -103,16 +107,7 @@ public class TableController implements Initializable {
 
         yearMonth_box.getItems().add("Sep 2023");
 
-        yearMonth_box.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue != null){
-                YearMonth yearMonth = YearMonth.parse(newValue, monthYearFormatter);
-                System.out.println(yearMonth);
-                startDate_datePicker.setValue(null);
-                endDate_datePicker.setValue(null);
-                startDate_datePicker.setValue(yearMonth.atDay(1));
-                endDate_datePicker.setValue(yearMonth.atEndOfMonth());
-            }
-        });
+        yearMonth_box.valueProperty().addListener(yearMonthListener);
 
 
         if(!Model.getInstance().isASC() && Model.getInstance().getOrderCategory() != Model.OrderCategory.ID){
@@ -434,40 +429,9 @@ public class TableController implements Initializable {
             refreshPage();
         });
 
-        startDate_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
-            Model.getInstance().setTableStartDate(newValue);
-            LocalDate endDateValue = endDate_datePicker.getValue();
-            if(newValue != null && endDateValue != null){
-                if(newValue.withDayOfMonth(1).equals(newValue)
-                &&
-                newValue.withDayOfMonth(newValue.lengthOfMonth()).equals(endDateValue)){
-                    Model.getInstance().setTableYearMonth(YearMonth.of(newValue.getYear(), newValue.getMonthValue()));
-                }
-                else{
-                    yearMonth_box.setValue(null);
-                    Model.getInstance().setTableYearMonth(null);
-                }
-                refreshPage();
-            }
-        });
+        startDate_datePicker.valueProperty().addListener(startDateListener);
 
-        endDate_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
-            Model.getInstance().setTableEndDate(newValue);
-            LocalDate startDateValue = startDate_datePicker.getValue();
-            if(startDateValue != null && newValue != null){
-                if(newValue.withDayOfMonth(newValue.lengthOfMonth()).equals(newValue)
-                &&
-                newValue.withDayOfMonth(1).equals(startDateValue)
-                ){
-                    Model.getInstance().setTableYearMonth(YearMonth.of(newValue.getYear(), newValue.getMonthValue()));
-                }
-                else{
-                    yearMonth_box.setValue(null);
-                    Model.getInstance().setTableYearMonth(null);
-                }
-                refreshPage();
-            }
-        });
+        endDate_datePicker.valueProperty().addListener(endDateListener);
 
 
         prevPage_btn.setOnAction(actionEvent -> page_fld.setText(String.valueOf(Model.getInstance().getCurrentPage()-1)));
@@ -505,62 +469,15 @@ public class TableController implements Initializable {
         });
 
 
-        j_chkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue){
-                Model.getInstance().getTableRooms().add(Rooms.ROOM_J.getAbbreviatedName());
-            }
-            else{
-                Model.getInstance().getTableRooms().remove(Rooms.ROOM_J.getAbbreviatedName());
-            }
-            Model.getInstance().setTableJFilter(newValue);
-            refreshPage();
+        j_chkBox.selectedProperty().addListener(jCheckBoxListener);
+        g_chkBox.selectedProperty().addListener(gCheckBoxListener);
+        a_chkBox.selectedProperty().addListener(aCheckBoxListener);
+        k1_chkBox.selectedProperty().addListener(k1CheckBoxListener);
+        k2_chkBox.selectedProperty().addListener(k2CheckBoxListener);
 
-        });
-        g_chkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue){
-                Model.getInstance().getTableRooms().add(Rooms.ROOM_G.getAbbreviatedName());
-            }
-            else{
-                Model.getInstance().getTableRooms().remove(Rooms.ROOM_G.getAbbreviatedName());
-            }
-            Model.getInstance().setTableGFilter(newValue);
-            refreshPage();
-        });
-        a_chkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue){
-                Model.getInstance().getTableRooms().add(Rooms.ATTIC.getAbbreviatedName());
-            }
-            else{
-                Model.getInstance().getTableRooms().remove(Rooms.ATTIC.getAbbreviatedName());
-            }
-            Model.getInstance().setTableAFilter(newValue);
-            refreshPage();
-        });
-        k1_chkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue){
-                Model.getInstance().getTableRooms().add(Rooms.KUBO_1.getAbbreviatedName());
-            }
-            else{
-                Model.getInstance().getTableRooms().remove(Rooms.KUBO_1.getAbbreviatedName());
-            }
-            Model.getInstance().setTableK1Filter(newValue);
-            refreshPage();
-        });
-        k2_chkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue){
-                Model.getInstance().getTableRooms().add(Rooms.KUBO_2.getAbbreviatedName());
-            }
-            else{
-                Model.getInstance().getTableRooms().remove(Rooms.KUBO_2.getAbbreviatedName());
-            }
-            Model.getInstance().setTableK2Filter(newValue);
-            refreshPage();
-        });
+        e_chkBox.selectedProperty().addListener(eCheckBoxListener);
 
-        searchBar_fld.textProperty().addListener((observable, oldValue, newValue) -> {
-            Model.getInstance().setNameFilter(newValue);
-            refreshPage();
-        });
+        searchBar_fld.textProperty().addListener(searchBarListener);
 
 
 
@@ -575,10 +492,145 @@ public class TableController implements Initializable {
         history_btn.setOnAction(actionEvent -> Model.getInstance().getViewFactory().setSceneEditHistory());
     }
 
+    ChangeListener<Boolean> jCheckBoxListener = (observable, oldValue, newValue) -> {
+        if (newValue) {
+            Model.getInstance().getTableRooms().add(Rooms.ROOM_J.getAbbreviatedName());
+            untoggleExclusive();
+        } else {
+            Model.getInstance().getTableRooms().remove(Rooms.ROOM_J.getAbbreviatedName());
+        }
+        Model.getInstance().setTableJFilter(newValue);
+        refreshPage();
+    };
+    ChangeListener<Boolean> gCheckBoxListener = (observable, oldValue, newValue) -> {
+        if (newValue) {
+            Model.getInstance().getTableRooms().add(Rooms.ROOM_G.getAbbreviatedName());
+            untoggleExclusive();
+        } else {
+            Model.getInstance().getTableRooms().remove(Rooms.ROOM_G.getAbbreviatedName());
+        }
+        Model.getInstance().setTableGFilter(newValue);
+        refreshPage();
+    };
+    ChangeListener<Boolean> aCheckBoxListener = (observable, oldValue, newValue) -> {
+        if (newValue) {
+            Model.getInstance().getTableRooms().add(Rooms.ATTIC.getAbbreviatedName());
+            untoggleExclusive();
+        } else {
+            Model.getInstance().getTableRooms().remove(Rooms.ATTIC.getAbbreviatedName());
+        }
+        Model.getInstance().setTableAFilter(newValue);
+        refreshPage();
+    };
+    ChangeListener<Boolean> k1CheckBoxListener = (observable, oldValue, newValue) -> {
+        if (newValue) {
+            Model.getInstance().getTableRooms().add(Rooms.KUBO_1.getAbbreviatedName());
+            untoggleExclusive();
+        } else {
+            Model.getInstance().getTableRooms().remove(Rooms.KUBO_1.getAbbreviatedName());
+        }
+        Model.getInstance().setTableK1Filter(newValue);
+        refreshPage();
+    };
+    ChangeListener<Boolean> k2CheckBoxListener = (observable, oldValue, newValue) -> {
+        if (newValue) {
+            Model.getInstance().getTableRooms().add(Rooms.KUBO_2.getAbbreviatedName());
+            untoggleExclusive();
+        } else {
+            Model.getInstance().getTableRooms().remove(Rooms.KUBO_2.getAbbreviatedName());
+        }
+        Model.getInstance().setTableK2Filter(newValue);
+        refreshPage();
+    };
+    ChangeListener<Boolean> eCheckBoxListener = (observable, oldValue, newValue) -> {
+        if(newValue){
+            Model.getInstance().getTableRooms().clear();
+            Model.getInstance().getTableRooms().add(Rooms.EXCLUSIVE.getAbbreviatedName());
+            toggleExclusive(j_chkBox, jCheckBoxListener);
+            toggleExclusive(g_chkBox, gCheckBoxListener);
+            toggleExclusive(a_chkBox, aCheckBoxListener);
+            toggleExclusive(k1_chkBox, k1CheckBoxListener);
+            toggleExclusive(k2_chkBox, k2CheckBoxListener);
+        }
+        else{
+            Model.getInstance().getTableRooms().remove(Rooms.EXCLUSIVE.getAbbreviatedName());
+        }
+        Model.getInstance().setTableEFilter(newValue);
+        refreshPage();
+    };
+
+    public void toggleExclusive(CheckBox checkBox, ChangeListener<Boolean> listener){
+        checkBox.selectedProperty().removeListener(listener);
+        checkBox.setSelected(false);
+        checkBox.selectedProperty().addListener(listener);
+    }
+
+    public void untoggleExclusive(){
+        e_chkBox.selectedProperty().removeListener(eCheckBoxListener);
+        Model.getInstance().getTableRooms().remove(Rooms.EXCLUSIVE.getAbbreviatedName());
+        e_chkBox.setSelected(false);
+        e_chkBox.selectedProperty().addListener(eCheckBoxListener);
+    }
+
+    ChangeListener<LocalDate> startDateListener = (observable, oldValue, newValue) -> {
+        Model.getInstance().setTableStartDate(newValue);
+        LocalDate endDateValue = endDate_datePicker.getValue();
+        if(newValue != null && endDateValue != null){
+            if(newValue.withDayOfMonth(1).equals(newValue)
+                    &&
+                    newValue.withDayOfMonth(newValue.lengthOfMonth()).equals(endDateValue)){
+                Model.getInstance().setTableYearMonth(YearMonth.of(newValue.getYear(), newValue.getMonthValue()));
+            }
+            else{
+                yearMonth_box.setValue(null);
+                Model.getInstance().setTableYearMonth(null);
+            }
+            refreshPage();
+        }
+    };
+
+    ChangeListener<LocalDate> endDateListener = (observable, oldValue, newValue) -> {
+        Model.getInstance().setTableEndDate(newValue);
+        LocalDate startDateValue = startDate_datePicker.getValue();
+        if(startDateValue != null && newValue != null){
+            if(newValue.withDayOfMonth(newValue.lengthOfMonth()).equals(newValue)
+                    &&
+                    newValue.withDayOfMonth(1).equals(startDateValue)
+            ){
+                Model.getInstance().setTableYearMonth(YearMonth.of(newValue.getYear(), newValue.getMonthValue()));
+            }
+            else{
+                yearMonth_box.setValue(null);
+                Model.getInstance().setTableYearMonth(null);
+            }
+            refreshPage();
+        }
+    };
+
+    ChangeListener<String> yearMonthListener = (observable, oldValue, newValue) -> {
+        if(newValue != null){
+            YearMonth yearMonth = YearMonth.parse(newValue, monthYearFormatter);
+            System.out.println(yearMonth);
+            startDate_datePicker.setValue(null);
+            endDate_datePicker.setValue(null);
+            startDate_datePicker.setValue(yearMonth.atDay(1));
+            endDate_datePicker.setValue(yearMonth.atEndOfMonth());
+        }
+    };
+
+    ChangeListener<String> searchBarListener = (observable, oldValue, newValue) -> {
+        Model.getInstance().setNameFilter(newValue);
+        refreshPage();
+    };
+
+
+
     public void clear(){
         //sort
         if(Model.getInstance().getOrderCategory() != Model.OrderCategory.ID){
-            id_pane.getChildren().add(sort_icon);
+            if(!id_pane.getChildren().contains(sort_icon)){
+                id_pane.getChildren().add(sort_icon);
+            }
             Model.getInstance().setOrderCategory(Model.OrderCategory.ID);
         }
         Model.getInstance().setASC(false);
@@ -586,30 +638,69 @@ public class TableController implements Initializable {
 
 
         //date
+        startDate_datePicker.valueProperty().removeListener(startDateListener);
+        Model.getInstance().setTableStartDate(null);
         startDate_datePicker.setValue(null);
+        startDate_datePicker.valueProperty().addListener(startDateListener);
+
+        endDate_datePicker.valueProperty().removeListener(endDateListener);
+        Model.getInstance().setTableEndDate(null);
         endDate_datePicker.setValue(null);
+        endDate_datePicker.valueProperty().addListener(endDateListener);
+
+        yearMonth_box.valueProperty().removeListener(yearMonthListener);
+        Model.getInstance().setTableYearMonth(null);
         yearMonth_box.setValue(null);
+        yearMonth_box.valueProperty().addListener(yearMonthListener);
 
 
         //rooms
+        j_chkBox.selectedProperty().removeListener(jCheckBoxListener);
+        Model.getInstance().getTableRooms().remove(Rooms.ROOM_J.getAbbreviatedName());
         j_chkBox.setSelected(false);
+        j_chkBox.selectedProperty().addListener(jCheckBoxListener);
+
+        g_chkBox.selectedProperty().removeListener(gCheckBoxListener);
+        Model.getInstance().getTableRooms().remove(Rooms.ROOM_G.getAbbreviatedName());
         g_chkBox.setSelected(false);
+        g_chkBox.selectedProperty().addListener(gCheckBoxListener);
+
+        a_chkBox.selectedProperty().removeListener(aCheckBoxListener);
+        Model.getInstance().getTableRooms().remove(Rooms.ATTIC.getAbbreviatedName());
         a_chkBox.setSelected(false);
+        a_chkBox.selectedProperty().addListener(aCheckBoxListener);
+
+        k1_chkBox.selectedProperty().removeListener(k1CheckBoxListener);
+        Model.getInstance().getTableRooms().remove(Rooms.KUBO_1.getAbbreviatedName());
         k1_chkBox.setSelected(false);
+        k1_chkBox.selectedProperty().addListener(k1CheckBoxListener);
+
+        k2_chkBox.selectedProperty().removeListener(k2CheckBoxListener);
+        Model.getInstance().getTableRooms().remove(Rooms.KUBO_2.getAbbreviatedName());
         k2_chkBox.setSelected(false);
+        k2_chkBox.selectedProperty().addListener(k2CheckBoxListener);
+
+        e_chkBox.selectedProperty().removeListener(eCheckBoxListener);
+        Model.getInstance().getTableRooms().remove(Rooms.EXCLUSIVE.getAbbreviatedName());
+        e_chkBox.setSelected(false);
+        e_chkBox.selectedProperty().addListener(eCheckBoxListener);
 
 
         //searchbar
+        searchBar_fld.textProperty().removeListener(searchBarListener);
+        Model.getInstance().setNameFilter("");
         searchBar_fld.setText("");
+        searchBar_fld.textProperty().addListener(searchBarListener);
 
-        Model.getInstance().setTableYearMonth(null);
-        sqliteModel.queryTableRecords();
-        Model.getInstance().getViewFactory().insertListRows();
-        lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
-        page_fld.setText("1");
-        totalBookings_txt.setText(String.valueOf(Model.getInstance().getRecordCount()));
-        totalPayment_txt.setText(String.valueOf(Model.getInstance().getTotalPayment()));
-        unpaid_txt.setText(String.valueOf(Model.getInstance().getTotalUnpaid()));
+//        Model.getInstance().setTableYearMonth(null);
+//        sqliteModel.queryTableRecords();
+//        Model.getInstance().getViewFactory().insertListRows();
+//        lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
+//        page_fld.setText("1");
+//        totalBookings_txt.setText(String.valueOf(Model.getInstance().getRecordCount()));
+//        totalPayment_txt.setText(String.valueOf(Model.getInstance().getTotalPayment()));
+//        unpaid_txt.setText(String.valueOf(Model.getInstance().getTotalUnpaid()));
+        refreshPage();
     }
 
     public void myInit(){
@@ -621,8 +712,14 @@ public class TableController implements Initializable {
         totalPayment_txt.setText(String.valueOf(Model.getInstance().getTotalPayment()));
         unpaid_txt.setText(String.valueOf(Model.getInstance().getTotalUnpaid()));
 
-        lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
-        page_fld.setText("1");
+        int maxPage = Model.getInstance().getMaxPage();
+        if(maxPage > 0){
+            page_fld.setText("1");
+        }
+        else{
+            page_fld.setText("0");
+        }
+        lastPage_txt.setText(String.valueOf(maxPage));
 
         if(Model.getInstance().getTableYearMonth() != null){
             yearMonth_box.setValue(Model.getInstance().getTableYearMonth().format(DateTimeFormatter.ofPattern("MMM yyyy", Locale.US)));
@@ -639,8 +736,17 @@ public class TableController implements Initializable {
         sqliteModel.queryTableRecords();
         Model.getInstance().getViewFactory().insertListRows();
 
-        lastPage_txt.setText(String.valueOf(Model.getInstance().getMaxPage()));
-        page_fld.setText("1");
+//        if(Model.getInstance().getTableRecordModels().size() > 0){
+//
+//        }
+        int maxPage = Model.getInstance().getMaxPage();
+        if(maxPage > 0){
+            page_fld.setText("1");
+        }
+        else{
+            page_fld.setText("0");
+        }
+        lastPage_txt.setText(String.valueOf(maxPage));
 
         totalBookings_txt.setText(String.valueOf(Model.getInstance().getRecordCount()));
         totalPayment_txt.setText(String.valueOf(Model.getInstance().getTotalPayment()));

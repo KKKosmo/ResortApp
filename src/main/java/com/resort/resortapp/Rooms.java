@@ -2,33 +2,25 @@ package com.resort.resortapp;
 
 import javafx.scene.control.CheckBox;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 public enum Rooms{
-    ALL_ROOMS("all", 32),
-    ROOM_J("j", 6),
-    ROOM_G("g", 9),
-    ATTIC("attic", 7),
-    KUBO_1("k1", 5),
-    KUBO_2("k2", 5);
+    ALL_ROOMS("all"),
+    ROOM_J("j"),
+    ROOM_G("g"),
+    ATTIC("attic"),
+    KUBO_1("k1"),
+    KUBO_2("k2"),
+    EXCLUSIVE("exclusive");
 
     final String abbreviatedName;
-    final int pax;
 
 
-    Rooms(String abbreviatedName, int pax) {
+    Rooms(String abbreviatedName) {
         this.abbreviatedName = abbreviatedName;
-        this.pax = pax;
     }
 
-
-    public int getPax() {
-        return pax;
-    }
 
     public String getDisplayName() {
         return this.name().replace("_", " ");
@@ -68,7 +60,15 @@ public enum Rooms{
             result.add(room.getAbbreviatedName());
         }
         result.remove("all");
+        return result;
+    }
+    public static List<String> getRoomAbbreviateNamesList(){
+        List<String> result = new ArrayList<>();
 
+        for(Rooms room : values()){
+            result.add(room.getAbbreviatedName());
+        }
+        result.remove("all");
         return result;
     }
     public static Set<String> getRoomDisplayNameSet(){
@@ -99,6 +99,9 @@ public enum Rooms{
         if(roomCheckboxes.get(4).isSelected()){
             sb.append(KUBO_2.getAbbreviatedName()).append(", ");
         }
+        if(roomCheckboxes.get(5).isSelected()){
+            sb.append(EXCLUSIVE.getAbbreviatedName()).append(", ");
+        }
         if (!sb.isEmpty()) {
             sb.delete(sb.length() - 2, sb.length());
         }
@@ -123,6 +126,9 @@ public enum Rooms{
         if(roomCheckboxes.get(4).isSelected()){
             result.add(KUBO_2.getDisplayName());
         }
+        if(roomCheckboxes.get(5).isSelected()){
+            result.add(EXCLUSIVE.getDisplayName());
+        }
         return result;
     }
     public static Set<String> manageCheckboxesSetAbbreviatedName(List<CheckBox> roomCheckboxes){
@@ -142,6 +148,9 @@ public enum Rooms{
         }
         if(roomCheckboxes.get(4).isSelected()){
             result.add(KUBO_2.getAbbreviatedName());
+        }
+        if(roomCheckboxes.get(5).isSelected()){
+            result.add(EXCLUSIVE.getAbbreviatedName());
         }
         return result;
     }
@@ -167,6 +176,9 @@ public enum Rooms{
         }
         if(roomSet.contains(Rooms.KUBO_2.getAbbreviatedName())){
             roomCheckBoxes.get(4).setSelected(true);
+        }
+        if(roomSet.contains(Rooms.EXCLUSIVE.getAbbreviatedName())){
+            roomCheckBoxes.get(5).setSelected(true);
         }
     }
 }

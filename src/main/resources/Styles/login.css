@@ -50,7 +50,7 @@ Text, .password-field{
     /* -fx-rotate: 20deg; */
     -fx-background-color: #C2C2C2;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 5);
-    -fx-pref-width: 152;
+    -fx-pref-width: 168;
     -fx-pref-height: 184;
 }
 
@@ -58,7 +58,7 @@ Text, .password-field{
     -fx-background-color: #0BCCF4;
     -fx-font-weight: bold;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 14);
-    -fx-pref-width: 160;
+    -fx-pref-width: 176;
     -fx-pref-height: 192;
 }
 
@@ -66,7 +66,7 @@ Text, .password-field{
 .toggle-button:selected:hover {
     -fx-background-color: #0bb6d9;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 14);
-    -fx-pref-width: 160;
+    -fx-pref-width: 176;
     -fx-pref-height: 192;
 }
 
@@ -79,7 +79,7 @@ Text, .password-field{
 }
 
 .text-field:hover {
-    -fx-effect: dropshadow(three-pass-box, #0a8ca6, 5, 0, 0, 4);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 4);
 }
 
 .text-field:focused {
@@ -95,31 +95,28 @@ Text, .password-field{
     -fx-background-color: #0bb6d9;
 }
 
-#exit_btn, #cancel_btn{
-    -fx-background-color: #2E2E2E;
-}
-
-#exit_btn .text, #cancel_btn .text{
-    -fx-fill: #C2C2C2;
-}
-
-#exit_btn:hover, #cancel_btn:hover{
-    -fx-background-color: #474747;
-}
-
-#changePw_btn, #forgotPw_btn{
+#exit_btn{
     -fx-background-color: #FFFFFF;
     -fx-border-color: #0BCCF4;
 }
 
-#changePw_btn .text, #forgotPw_btn .text{
-    -fx-font-size: 16px;
-}
-
-
-#changePw_btn:hover, #forgotPw_btn:hover{
+#exit_btn:hover{
     -fx-background-color: #e5e5e5;
     -fx-border-color: #0bb6d9;
+}
+
+#changePw_btn, #forgotPw_btn, #cancel_btn{
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #2E2E2E;
+}
+
+#changePw_btn:hover, #forgotPw_btn:hover, #cancel_btn:hover{
+    -fx-background-color: #e5e5e5;
+    -fx-border-color: #474747;
+}
+
+#changePw_btn .text, #forgotPw_btn .text{
+    -fx-font-size: 16px;
 }
 
 .button{

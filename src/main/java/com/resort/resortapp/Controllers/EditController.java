@@ -3,6 +3,7 @@ package com.resort.resortapp.Controllers;
 import com.resort.resortapp.Models.Model;
 import com.resort.resortapp.Models.RecordModel;
 import com.resort.resortapp.Models.sqliteModel;
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
@@ -38,6 +39,7 @@ public class EditController implements Initializable {
     public CheckBox kubo2_ChkBox;
     public TextField vehicle_textFld;
     public Button back_btn;
+    public CheckBox e_ChkBox;
     private Set<String> available;
     private int id;
     private boolean payStatus;
@@ -54,6 +56,7 @@ public class EditController implements Initializable {
         roomCheckBoxes.add(attic_ChkBox);
         roomCheckBoxes.add(kubo1_ChkBox);
         roomCheckBoxes.add(kubo2_ChkBox);
+        roomCheckBoxes.add(e_ChkBox);
         Model.getInstance().getViewFactory().setRoomCheckBoxes(roomCheckBoxes);
 
         escMenu =  Model.getInstance().getViewFactory().getEscMenu(parentPane);
@@ -159,15 +162,50 @@ public class EditController implements Initializable {
             }
         });
 
-        for (CheckBox checkBox : roomCheckBoxes){
-            checkBoxAddListener(checkBox);
-        }
+        checkBoxAddListener();
+        e_ChkBox.selectedProperty().addListener(exclusiveCheckBoxListener);
 
         initRecordModel = newRecordModel();
    }
+    ChangeListener<Boolean> checkBoxListener = (observable, oldValue, newValue) -> {
+        if(newValue){
+            untoggleExclusive();
+        }
+        Model.getInstance().getViewFactory().colorize();
+    };
 
-    private void checkBoxAddListener(CheckBox checkBox){
-        checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> Model.getInstance().getViewFactory().colorize());
+    public void untoggleExclusive(){
+        e_ChkBox.selectedProperty().removeListener(exclusiveCheckBoxListener);
+        e_ChkBox.setSelected(false);
+        e_ChkBox.selectedProperty().addListener(exclusiveCheckBoxListener);
+    }
+    ChangeListener<Boolean> exclusiveCheckBoxListener = (observable, oldValue, newValue) -> {
+        if(newValue){
+            checkBoxRemoveListener();
+            roomJ_ChkBox.setSelected(false);
+            roomG_ChkBox.setSelected(false);
+            attic_ChkBox.setSelected(false);
+            kubo1_ChkBox.setSelected(false);
+            kubo2_ChkBox.setSelected(false);
+            checkBoxAddListener();
+        }
+        Model.getInstance().getViewFactory().colorize();
+    };
+
+
+    private void checkBoxAddListener(){
+        roomJ_ChkBox.selectedProperty().addListener(checkBoxListener);
+        roomG_ChkBox.selectedProperty().addListener(checkBoxListener);
+        attic_ChkBox.selectedProperty().addListener(checkBoxListener);
+        kubo1_ChkBox.selectedProperty().addListener(checkBoxListener);
+        kubo2_ChkBox.selectedProperty().addListener(checkBoxListener);
+    }
+    private void checkBoxRemoveListener(){
+        roomJ_ChkBox.selectedProperty().removeListener(checkBoxListener);
+        roomG_ChkBox.selectedProperty().removeListener(checkBoxListener);
+        attic_ChkBox.selectedProperty().removeListener(checkBoxListener);
+        kubo1_ChkBox.selectedProperty().removeListener(checkBoxListener);
+        kubo2_ChkBox.selectedProperty().removeListener(checkBoxListener);
     }
 
     private RecordModel newRecordModel(){

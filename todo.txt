@@ -1,12 +1,15 @@
 if errors with sql, might be the plugins
 if seem odd, might be because i tried to remove duplicates in controllers where they setAvailablesFotVisuals
 
-exclusive room implementation in code
-
-unit test, lots of data
-    see if long strings will mess up print and table
+pdf name wrap
+app icon
+logo
+how to update?
+test stress loading
 
 Would be nice but will not do due to time:
+	extra button click responsivity
+	
     table date pickers order should not matter for user
 
     show hide settings
@@ -21,6 +24,10 @@ Would be nice but will not do due to time:
     dont init list everytime
 
     encrypt key
+
+    when clicked on calendar, go to table with those values
+
+    can i add a lil more personality maybe
 
 Will be needed for future?:
     if query more than 100 or sum, split into 2
