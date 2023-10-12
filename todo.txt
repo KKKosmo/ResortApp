@@ -1,7 +1,7 @@
 if errors with sql, might be the plugins
 if seem odd, might be because i tried to remove duplicates in controllers where they setAvailablesFotVisuals
 
-pdf name wrap
+optimize imports
 app icon
 logo
 how to update?

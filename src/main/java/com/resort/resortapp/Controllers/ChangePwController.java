@@ -3,12 +3,10 @@ package com.resort.resortapp.Controllers;
 import com.resort.resortapp.Models.Model;
 import com.resort.resortapp.Models.sqliteModel;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
 import java.net.URL;

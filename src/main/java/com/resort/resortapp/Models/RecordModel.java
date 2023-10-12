@@ -174,17 +174,17 @@ public class RecordModel {
 
 
 
-    public void printStringFields() {
-        System.out.println("Name: " + this.name);
-        System.out.println("Pax: " + this.pax);
-        System.out.println("Vehicle: " + this.vehicle);
-        System.out.println("Pets: " + this.pets);
-        System.out.println("Videoke: " + this.videoke);
-        System.out.println("Payment: " + this.partialPayment);
-        System.out.println("Check-In: " + this.checkIn);
-        System.out.println("Check-Out: " + this.checkOut);
-        System.out.println("Rooms: " + this.rooms);
-    }
+//    public void printStringFields() {
+//        System.out.println("Name: " + this.name);
+//        System.out.println("Pax: " + this.pax);
+//        System.out.println("Vehicle: " + this.vehicle);
+//        System.out.println("Pets: " + this.pets);
+//        System.out.println("Videoke: " + this.videoke);
+//        System.out.println("Payment: " + this.partialPayment);
+//        System.out.println("Check-In: " + this.checkIn);
+//        System.out.println("Check-Out: " + this.checkOut);
+//        System.out.println("Rooms: " + this.rooms);
+//    }
     public String checkDifferences(RecordModel arg){
 
         StringBuilder sb = new StringBuilder();

@@ -27,10 +27,27 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
@@ -45,7 +62,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
+import java.util.Set;
 
 public class ViewFactory {
     private AnchorPane escMenu;
@@ -511,18 +533,14 @@ public class ViewFactory {
         );
 
 
-        cancelButton.setOnMouseEntered(e -> {
-            cancelButton.setStyle(
-                    "-fx-background-color: #e5e5e5; -fx-border-color: #474747; -fx-cursor: hand; -fx-border-radius: 30;"
-            );
-        });
+        cancelButton.setOnMouseEntered(e -> cancelButton.setStyle(
+                "-fx-background-color: #e5e5e5; -fx-border-color: #474747; -fx-cursor: hand; -fx-border-radius: 30;"
+        ));
 
 
-        cancelButton.setOnMouseExited(e -> {
-            cancelButton.setStyle(
-                    "-fx-background-color: #FFFFFF; -fx-border-color: #2E2E2E; -fx-cursor: hand; -fx-border-radius: 30;"
-            );
-        });
+        cancelButton.setOnMouseExited(e -> cancelButton.setStyle(
+                "-fx-background-color: #FFFFFF; -fx-border-color: #2E2E2E; -fx-cursor: hand; -fx-border-radius: 30;"
+        ));
 
         alert.getDialogPane().getStylesheets().add(getClass().getResource("/Styles/alert.css").toExternalForm());
         Optional<ButtonType> result = alert.showAndWait();
@@ -592,17 +610,13 @@ public class ViewFactory {
                 "-fx-background-insets: 2, 0, 2; -fx-border-radius: 30; -fx-background-radius: 30; -fx-border-width: 2px; -fx-border-color: #2E2E2E; -fx-background-color: #FFFFFF; -fx-cursor: hand;"
         );
 
-        copyEmailButton.setOnMouseEntered(e -> {
-            copyEmailButton.setStyle(
-                    "-fx-background-insets: 2, 0, 2; -fx-border-radius: 30; -fx-background-radius: 30; -fx-border-width: 2px; -fx-border-color: #474747; -fx-background-color: #e5e5e5; -fx-cursor: hand;"
-            );
-        });
+        copyEmailButton.setOnMouseEntered(e -> copyEmailButton.setStyle(
+                "-fx-background-insets: 2, 0, 2; -fx-border-radius: 30; -fx-background-radius: 30; -fx-border-width: 2px; -fx-border-color: #474747; -fx-background-color: #e5e5e5; -fx-cursor: hand;"
+        ));
 
-        copyEmailButton.setOnMouseExited(e -> {
-            copyEmailButton.setStyle(
-                    "-fx-background-insets: 2, 0, 2; -fx-border-radius: 30; -fx-background-radius: 30; -fx-border-width: 2px; -fx-border-color: #2E2E2E; -fx-background-color: #FFFFFF; -fx-cursor: hand;"
-            );
-        });
+        copyEmailButton.setOnMouseExited(e -> copyEmailButton.setStyle(
+                "-fx-background-insets: 2, 0, 2; -fx-border-radius: 30; -fx-background-radius: 30; -fx-border-width: 2px; -fx-border-color: #2E2E2E; -fx-background-color: #FFFFFF; -fx-cursor: hand;"
+        ));
 
 
         alert.getDialogPane().setContent(root);

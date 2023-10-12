@@ -2,7 +2,6 @@ package com.resort.resortapp.Controllers;
 
 import com.resort.resortapp.Models.Model;
 import com.resort.resortapp.Models.sqliteModel;
-import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -13,7 +12,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
