@@ -4,6 +4,7 @@ import com.resort.resortapp.Models.Model;
 import com.resort.resortapp.Models.sqliteModel;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -25,6 +26,11 @@ public class HelloApplication extends Application {
                     Platform.exit();
                 }
         });
+        Image icon16 = new Image(getClass().getResourceAsStream("/Images/logo.png"));
+        Image icon32 = new Image(getClass().getResourceAsStream("/Images/logo.png"));
+        Image icon64 = new Image(getClass().getResourceAsStream("/Images/logo.png"));
+
+        stage.getIcons().addAll(icon16, icon32, icon64);
         stage.initStyle(StageStyle.DECORATED);
         stage.setResizable(false);
         stage.show();

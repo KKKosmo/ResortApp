@@ -1,16 +1,32 @@
 if errors with sql, might be the plugins
 if seem odd, might be because i tried to remove duplicates in controllers where they setAvailablesFotVisuals
 
-optimize imports
-app icon
-logo
-how to update?
+on clear, datemonth all
+
+add filter and to report:
+    user
+    name
+
+partial payment can be 0
+creating fully paid
+FORM editing creating
+created important details
+edit display names
+table date pickers order should not matter for user
+
+total counting, sometimes the report from a month can overlap in another month
+
+should i delete system prints
+see partial paymern full payment overlapping
+
 test stress loading
 
 Would be nice but will not do due to time:
+    filter, show status only paid/unpaid, pets/noPets, etc.
+
+    how to make it ok when installing in program files
+
 	extra button click responsivity
-	
-    table date pickers order should not matter for user
 
     show hide settings
 

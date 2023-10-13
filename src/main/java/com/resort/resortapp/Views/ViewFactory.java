@@ -407,6 +407,7 @@ public class ViewFactory {
                     Line line = new Line();
                     line.setStartX(47.82231140136719);
                     line.setEndX(100.61520385742188);
+                    line.setStroke(Paint.valueOf("#4E4E4E"));
 
                     Label temp = new Label();
                     temp.setAlignment(Pos.CENTER);

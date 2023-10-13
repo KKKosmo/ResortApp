@@ -70,6 +70,7 @@ public class TableController implements Initializable {
     public Button add_btn;
     public ComboBox<String> yearMonth_box;
     public CheckBox e_chkBox;
+    public Button dateClear_btn;
     DateTimeFormatter monthYearFormatter = DateTimeFormatter.ofPattern("MMM yyyy", Locale.US);
 
     @Override
@@ -98,6 +99,9 @@ public class TableController implements Initializable {
         LocalDate currentDate = LocalDate.now();
 
         LocalDate startDate = currentDate.plusMonths(3);
+
+        yearMonth_box.getItems().add("ALL");
+        yearMonth_box.setValue("ALL");
 
         while (startDate.isAfter(YearMonth.of(2023, 9).atEndOfMonth())) {
             String monthYearString = startDate.format(monthYearFormatter);
@@ -487,6 +491,16 @@ public class TableController implements Initializable {
             }
         });
 
+        dateClear_btn.setOnAction(actionEvent -> {
+            if(startDate_datePicker.getValue() != null){
+                startDate_datePicker.setValue(null);
+            }
+            else if(endDate_datePicker.getValue() != null){
+                endDate_datePicker.setValue(null);
+            }
+            yearMonth_box.setValue("ALL");
+        });
+
         export_btn.setOnAction(actionEvent -> Model.getInstance().getViewFactory().generateReportPDF());
 
         history_btn.setOnAction(actionEvent -> Model.getInstance().getViewFactory().setSceneEditHistory());
@@ -576,16 +590,22 @@ public class TableController implements Initializable {
         Model.getInstance().setTableStartDate(newValue);
         LocalDate endDateValue = endDate_datePicker.getValue();
         if(newValue != null && endDateValue != null){
-            if(newValue.withDayOfMonth(1).equals(newValue)
-                    &&
-                    newValue.withDayOfMonth(newValue.lengthOfMonth()).equals(endDateValue)){
-                Model.getInstance().setTableYearMonth(YearMonth.of(newValue.getYear(), newValue.getMonthValue()));
+            if(newValue.isAfter(endDateValue)){
+                Model.getInstance().getViewFactory().showErrorPopup("Start date should not be after end date.");
+                startDate_datePicker.setValue(oldValue);
             }
             else{
-                yearMonth_box.setValue(null);
-                Model.getInstance().setTableYearMonth(null);
+                if(newValue.withDayOfMonth(1).equals(newValue)
+                        &&
+                        newValue.withDayOfMonth(newValue.lengthOfMonth()).equals(endDateValue)){
+                    Model.getInstance().setTableYearMonth(YearMonth.of(newValue.getYear(), newValue.getMonthValue()));
+                }
+                else{
+                    yearMonth_box.setValue(null);
+                    Model.getInstance().setTableYearMonth(null);
+                }
+                refreshPage();
             }
-            refreshPage();
         }
     };
 
@@ -593,28 +613,39 @@ public class TableController implements Initializable {
         Model.getInstance().setTableEndDate(newValue);
         LocalDate startDateValue = startDate_datePicker.getValue();
         if(startDateValue != null && newValue != null){
-            if(newValue.withDayOfMonth(newValue.lengthOfMonth()).equals(newValue)
-                    &&
-                    newValue.withDayOfMonth(1).equals(startDateValue)
-            ){
-                Model.getInstance().setTableYearMonth(YearMonth.of(newValue.getYear(), newValue.getMonthValue()));
+            if(startDateValue.isAfter(newValue)){
+                Model.getInstance().getViewFactory().showErrorPopup("Start date should not be after end date.");
+                endDate_datePicker.setValue(oldValue);
             }
             else{
-                yearMonth_box.setValue(null);
-                Model.getInstance().setTableYearMonth(null);
+                if(newValue.withDayOfMonth(newValue.lengthOfMonth()).equals(newValue)
+                        &&
+                        newValue.withDayOfMonth(1).equals(startDateValue)
+                ){
+                    Model.getInstance().setTableYearMonth(YearMonth.of(newValue.getYear(), newValue.getMonthValue()));
+                }
+                else{
+                    yearMonth_box.setValue(null);
+                    Model.getInstance().setTableYearMonth(null);
+                }
+                refreshPage();
             }
-            refreshPage();
         }
     };
 
     ChangeListener<String> yearMonthListener = (observable, oldValue, newValue) -> {
         if(newValue != null){
-            YearMonth yearMonth = YearMonth.parse(newValue, monthYearFormatter);
-            System.out.println(yearMonth);
             startDate_datePicker.setValue(null);
             endDate_datePicker.setValue(null);
-            startDate_datePicker.setValue(yearMonth.atDay(1));
-            endDate_datePicker.setValue(yearMonth.atEndOfMonth());
+            if(newValue.equals("ALL")){
+                Model.getInstance().setTableYearMonth(null);
+                refreshPage();
+            }
+            else{
+                YearMonth yearMonth = YearMonth.parse(newValue, monthYearFormatter);
+                startDate_datePicker.setValue(yearMonth.atDay(1));
+                endDate_datePicker.setValue(yearMonth.atEndOfMonth());
+            }
         }
     };
 
@@ -650,7 +681,7 @@ public class TableController implements Initializable {
 
         yearMonth_box.valueProperty().removeListener(yearMonthListener);
         Model.getInstance().setTableYearMonth(null);
-        yearMonth_box.setValue(null);
+        yearMonth_box.setValue("ALL");
         yearMonth_box.valueProperty().addListener(yearMonthListener);
 
 

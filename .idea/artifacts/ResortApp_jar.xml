@@ -3,29 +3,30 @@
     <output-path>$PROJECT_DIR$/out/artifacts/ResortApp_jar</output-path>
     <root id="archive" name="ResortApp.jar">
       <element id="module-output" name="ResortApp" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/itextpdf/hyph/7.0.4/hyph-7.0.4.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-base/20.0.1/javafx-base-20.0.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/20.0.1/javafx-fxml-20.0.1-win.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.13/slf4j-api-1.7.13.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/itextpdf/kernel/7.0.4/kernel-7.0.4.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/itextpdf/pdfa/7.0.4/pdfa-7.0.4.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/xerial/sqlite-jdbc/3.36.0.3/sqlite-jdbc-3.36.0.3.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/20.0.1/javafx-graphics-20.0.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/20.0.1/javafx-controls-20.0.1-win.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/20.0.1/javafx-fxml-20.0.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/20.0.1/javafx-controls-20.0.1.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/itextpdf/barcodes/7.0.4/barcodes-7.0.4.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/itextpdf/io/7.0.4/io-7.0.4.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-base/20.0.1/javafx-base-20.0.1-win.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/de/jensd/fontawesomefx-commons/9.1.2/fontawesomefx-commons-9.1.2.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/itextpdf/forms/7.0.4/forms-7.0.4.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/itextpdf/sign/7.0.4/sign-7.0.4.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/20.0.1/javafx-graphics-20.0.1-win.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/itextpdf/layout/7.0.4/layout-7.0.4.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/itextpdf/font-asian/7.0.4/font-asian-7.0.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/itextpdf/sign/7.0.4/sign-7.0.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/20.0.1/javafx-fxml-20.0.1-win.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/itextpdf/hyph/7.0.4/hyph-7.0.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/itextpdf/kernel/7.0.4/kernel-7.0.4.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-media/20.0.1/javafx-media-20.0.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/de/jensd/fontawesomefx-fontawesome/4.7.0-9.1.2/fontawesomefx-fontawesome-4.7.0-9.1.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/itextpdf/font-asian/7.0.4/font-asian-7.0.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/itextpdf/forms/7.0.4/forms-7.0.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/20.0.1/javafx-controls-20.0.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.13/slf4j-api-1.7.13.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/itextpdf/io/7.0.4/io-7.0.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/20.0.1/javafx-controls-20.0.1-win.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/xerial/sqlite-jdbc/3.36.0.3/sqlite-jdbc-3.36.0.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/20.0.1/javafx-fxml-20.0.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/itextpdf/layout/7.0.4/layout-7.0.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../jfoenix-9.0.10.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-base/20.0.1/javafx-base-20.0.1.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-media/20.0.1/javafx-media-20.0.1-win.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/de/jensd/fontawesomefx-fontawesome/4.7.0-9.1.2/fontawesomefx-fontawesome-4.7.0-9.1.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/de/jensd/fontawesomefx-commons/9.1.2/fontawesomefx-commons-9.1.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/itextpdf/pdfa/7.0.4/pdfa-7.0.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/20.0.1/javafx-graphics-20.0.1.jar" path-in-jar="/" />
       <element id="file-copy" path="$PROJECT_DIR$/../../javafx-sdk-20.0.2/bin/api-ms-win-core-console-l1-1-0.dll" />
       <element id="file-copy" path="$PROJECT_DIR$/../../javafx-sdk-20.0.2/bin/api-ms-win-core-console-l1-2-0.dll" />
       <element id="file-copy" path="$PROJECT_DIR$/../../javafx-sdk-20.0.2/bin/api-ms-win-core-datetime-l1-1-0.dll" />
@@ -85,29 +86,6 @@
       <element id="file-copy" path="$PROJECT_DIR$/../../javafx-sdk-20.0.2/bin/ucrtbase.dll" />
       <element id="file-copy" path="$PROJECT_DIR$/../../javafx-sdk-20.0.2/bin/vcruntime140.dll" />
       <element id="file-copy" path="$PROJECT_DIR$/../../javafx-sdk-20.0.2/bin/vcruntime140_1.dll" />
-      <element id="library" level="project" name="Maven: org.openjfx:javafx-controls:20.0.1" />
-      <element id="library" level="project" name="Maven: org.openjfx:javafx-controls:win:20.0.1" />
-      <element id="library" level="project" name="Maven: org.openjfx:javafx-fxml:20.0.1" />
-      <element id="library" level="project" name="Maven: org.openjfx:javafx-fxml:win:20.0.1" />
-      <element id="library" level="project" name="Maven: org.openjfx:javafx-base:20.0.1" />
-      <element id="library" level="project" name="Maven: org.openjfx:javafx-base:win:20.0.1" />
-      <element id="library" level="project" name="Maven: org.openjfx:javafx-graphics:20.0.1" />
-      <element id="library" level="project" name="Maven: org.openjfx:javafx-graphics:win:20.0.1" />
-      <element id="library" level="project" name="Maven: org.openjfx:javafx-media:20.0.1" />
-      <element id="library" level="project" name="Maven: org.openjfx:javafx-media:win:20.0.1" />
-      <element id="library" level="project" name="Maven: de.jensd:fontawesomefx-fontawesome:4.7.0-9.1.2" />
-      <element id="library" level="project" name="Maven: de.jensd:fontawesomefx-commons:9.1.2" />
-      <element id="library" level="project" name="Maven: org.xerial:sqlite-jdbc:3.36.0.3" />
-      <element id="library" level="project" name="Maven: com.itextpdf:barcodes:7.0.4" />
-      <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.13" />
-      <element id="library" level="project" name="Maven: com.itextpdf:font-asian:7.0.4" />
-      <element id="library" level="project" name="Maven: com.itextpdf:forms:7.0.4" />
-      <element id="library" level="project" name="Maven: com.itextpdf:hyph:7.0.4" />
-      <element id="library" level="project" name="Maven: com.itextpdf:io:7.0.4" />
-      <element id="library" level="project" name="Maven: com.itextpdf:kernel:7.0.4" />
-      <element id="library" level="project" name="Maven: com.itextpdf:layout:7.0.4" />
-      <element id="library" level="project" name="Maven: com.itextpdf:pdfa:7.0.4" />
-      <element id="library" level="project" name="Maven: com.itextpdf:sign:7.0.4" />
     </root>
   </artifact>
 </component>

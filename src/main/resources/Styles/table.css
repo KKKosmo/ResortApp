@@ -51,11 +51,25 @@ Text, .button .text{
     -fx-border-width: 4px;
 }
 
+#dateClear_btn{
+    -fx-background-insets: 2, 0, 2;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-border-width: 2px;
+    -fx-border-color: #0BCCF4;
+    -fx-background-color: #FFFFFF;
+}
+
 #default_btn{
     -fx-border-color: #0BCCF4;
     -fx-background-color: #FFFFFF;
 }
-#default_btn:hover{
+#dateClear_btn:hover:pressed {
+    -fx-background-color: #E2E2E2;
+    -fx-border-color: #A2A2A2;
+}
+#default_btn:hover, #dateClear_btn:hover{
     -fx-border-color: #0bb6d9;
     -fx-background-color: #e5e5e5;
 }
@@ -129,7 +143,7 @@ Text, .button .text{
     -fx-background-color: #E2E2E2;
 }
 .colPane2 {
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: transparent;
 }
 
 .colPane2:hover{
