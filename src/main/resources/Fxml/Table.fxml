@@ -36,16 +36,20 @@
    </HBox>
    <HBox alignment="BOTTOM_LEFT" layoutX="168.0" layoutY="12.5" spacing="8.0">
       <children>
-         <HBox fx:id="searchBarCont" alignment="BOTTOM_CENTER" prefHeight="40.0" prefWidth="280.0" spacing="8.0">
+         <VBox alignment="BOTTOM_CENTER">
             <children>
-               <FontAwesomeIconView fill="#6e6e6e" glyphName="SEARCH" size="24" />
-               <TextField fx:id="searchBar_fld" alignment="CENTER" prefHeight="40.0" prefWidth="280.0" promptText="SEARCH FOR A NAME" style="-fx-font-size: 16;">
-                  <font>
-                     <Font size="16.0" />
-                  </font>
-               </TextField>
+               <HBox fx:id="searchBarCont" alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="280.0" spacing="8.0">
+                  <children>
+                     <FontAwesomeIconView fill="#6e6e6e" glyphName="SEARCH" size="24" />
+                     <TextField fx:id="searchBar_fld" alignment="CENTER" prefHeight="40.0" prefWidth="280.0" promptText="SEARCH FOR A NAME" style="-fx-font-size: 16;">
+                        <font>
+                           <Font size="16.0" />
+                        </font>
+                     </TextField>
+                  </children>
+               </HBox>
             </children>
-         </HBox>
+         </VBox>
          <Line endY="96.0" startY="8.0" styleClass="myLine" />
          <VBox fx:id="yearMonthBox" alignment="BOTTOM_CENTER" spacing="8.0">
             <children>

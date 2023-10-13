@@ -575,7 +575,7 @@ public class ViewFactory {
         alert.setTitle("Password Retrieval Instructions");
         alert.setHeaderText(null);
 
-        String contentText = "\nTo retrieve the password, please send the file (" + filename + ") via email (manilalouisangel2@gmail.com) to the developer and wait for further instructions.\n\n" +
+        String contentText = "\nTo retrieve the password, please send the file (" + filename + ") via email to the developer (manilalouisangel2@gmail.com) and wait for further instructions.\n\n" +
                 "You can also contact me for support at Facebook: Louis Manila\n\n";
 
 

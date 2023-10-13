@@ -32,7 +32,7 @@
             </cursor>
          </Button>
       </HBox>
-      <VBox alignment="TOP_CENTER" minWidth="280.0" prefHeight="673.0" prefWidth="280.0" spacing="8.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="48.0">
+      <VBox alignment="TOP_CENTER" minWidth="280.0" prefHeight="673.0" prefWidth="280.0" spacing="8.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="64.0">
          <VBox alignment="CENTER" spacing="4.0">
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
                <font>
@@ -229,12 +229,12 @@
                         <children>
                            <VBox alignment="CENTER" spacing="4.0">
                               <children>
-                                 <CheckBox fx:id="roomG_ChkBox" mnemonicParsing="false" prefHeight="24.0" prefWidth="104.0" text="ROOM G">
+                                 <CheckBox fx:id="roomJ_ChkBox" mnemonicParsing="false" prefHeight="24.0" prefWidth="104.0" text="ROOM J">
                                     <cursor>
                                        <Cursor fx:constant="HAND" />
                                     </cursor>
                                  </CheckBox>
-                                 <CheckBox fx:id="roomJ_ChkBox" mnemonicParsing="false" prefHeight="24.0" prefWidth="104.0" text="ROOM J">
+                                 <CheckBox fx:id="roomG_ChkBox" mnemonicParsing="false" prefHeight="24.0" prefWidth="104.0" text="ROOM G">
                                     <cursor>
                                        <Cursor fx:constant="HAND" />
                                     </cursor>
@@ -272,6 +272,11 @@
             </children>
          </HBox>
       </VBox>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CREATING" textAlignment="CENTER" wrappingWidth="280.0" AnchorPane.topAnchor="5.0">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Text>
       <Button fx:id="back_btn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" textAlignment="CENTER" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="4.0">
          <graphic>
             <FontAwesomeIconView fill="#2e2e2e" glyphName="ARROW_LEFT" size="20" textAlignment="CENTER" />

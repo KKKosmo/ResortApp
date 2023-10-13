@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class RecordModel {
@@ -222,7 +223,24 @@ public class RecordModel {
             sb.append("\n").append("Check-Out: ").append(this.checkOut).append(" -> ").append(arg.checkOut);
         }
         if (!this.rooms.equals(arg.rooms)) {
-            sb.append("\n").append("Rooms: ").append(this.rooms).append(" -> ").append(arg.rooms);
+            StringBuilder myRooms = new StringBuilder();
+            StringBuilder otherRooms = new StringBuilder();
+
+            String[] myRoomList = this.rooms.split(", ");
+
+            for(String room : myRoomList){
+                myRooms.append(Rooms.abbvToDisplay(room)).append(", ");
+            }
+
+            myRooms.delete(myRooms.length()-2, myRooms.length());
+
+            String[] otherRoomList = arg.rooms.split(", ");
+            for(String room : otherRoomList){
+                otherRooms.append(Rooms.abbvToDisplay(room)).append(", ");
+            }
+            otherRooms.delete(otherRooms.length()-2, otherRooms.length());
+
+            sb.append("\n").append("Room/s: ").append(myRooms).append(" -> ").append(otherRooms);
         }
         if (sb.isEmpty()) {
             return "\nThere are no changes";

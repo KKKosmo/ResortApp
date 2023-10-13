@@ -23,12 +23,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class sqliteModel {
     static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -397,10 +392,10 @@ public class sqliteModel {
         String currentDate = LocalDateTime.now().format(formatter);
         int paxInt = Integer.parseInt(paxString);
         boolean paid = false;
-        if(paxInt <= 0){
-            Model.getInstance().getViewFactory().showErrorPopup("Number of people must be more than 0.");
-            return false;
-        }
+//        if(paxInt <= 0){
+//            Model.getInstance().getViewFactory().showErrorPopup("Number of people must be more than 0.");
+//            return false;
+//        }
         double partial_paymentDouble = Double.parseDouble(partial_paymentString);
         double fullPaymentDouble = Double.parseDouble(fullPaymentString);
         if(partial_paymentDouble > fullPaymentDouble){
@@ -436,11 +431,14 @@ public class sqliteModel {
             PreparedStatement pStmt = openDB().prepareStatement(sql);
             pStmt.executeUpdate();
 
+
             pStmt.close();
             closeDB();
 
             String changes = "CREATED BOOKING: ";
-            changes += "Time Created = " + currentDate;
+            changes += "Time Created = " + LocalDateTime.parse(currentDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd h:mm a"));
+
+
             changes += ", Name = " + name;
             changes += ", Pax = " + paxString;
             changes += ", Vehicle Count = " + vehicle;
@@ -452,10 +450,10 @@ public class sqliteModel {
             changes += ", Pay Status = " + paid;
             changes += ", Check In = " + checkIn;
             changes += ", Check Out = " + checkOut;
-            changes += ", Rooms = " + roomUnformatted;
+            changes += ", Room/s = " + roomUnformatted;
 
             sql = String.format("INSERT INTO edit (record_id, edit_timestamp, summary, user) SELECT (MAX(id)), '%s', '%s', '%s' FROM main;",
-                    LocalDateTime.now().format(formatter),
+                    currentDate,
                     changes,
                     user
             );
@@ -468,7 +466,20 @@ public class sqliteModel {
             pStmt.close();
             closeDB();
 
-            Model.getInstance().getViewFactory().showSuccessPopup("Successfully inserted a record.");
+            Model.getInstance().getViewFactory().showSuccessPopup("Successfully created a booking.\n" +
+                    "\nTime Created = " + LocalDateTime.parse(currentDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd h:mm a")) +
+                    "\nName = " + name +
+                    "\nNumber of heads = " + paxString +
+                    "\nVehicle Count = " + vehicle +
+                    "\nPets = " + (pets ? "Yes" : "No") +
+                    "\nVideoke = " + (videoke ? "Yes" : "No") +
+                    "\nPartial Payment = " + partial_paymentDouble +
+                    "\nFull Payment = " + fullPaymentDouble +
+                    "\nBalance = " + (fullPaymentDouble - partial_paymentDouble) +
+                    "\nPay Status = " + (paid ? "PAID" : "UNPAID") +
+                    "\nCheck In = " + checkIn +
+                    "\nCheck Out = " + checkOut +
+                    "\nRoom/s = " + roomUnformatted);
             return true;
         } catch (SQLException e) {
             Model.getInstance().printLog(e);
@@ -573,10 +584,10 @@ public class sqliteModel {
 
         int paxInt = Integer.parseInt(paxString);
 
-        if(paxInt <= 0){
-            Model.getInstance().getViewFactory().showErrorPopup("Number of people must be more than 0.");
-            return false;
-        }
+//        if(paxInt <= 0){
+//            Model.getInstance().getViewFactory().showErrorPopup("Number of people must be more than 0.");
+//            return false;
+//        }
 
         double partial_paymentDouble = Double.parseDouble(partial_paymentString);
         double fullPaymentDouble = Double.parseDouble(fullPaymentString);
@@ -643,7 +654,7 @@ public class sqliteModel {
             pStmt.close();
             closeDB();
 
-            Model.getInstance().getViewFactory().showSuccessPopup("Successfully updated this record.");
+            Model.getInstance().getViewFactory().showSuccessPopup("Successfully updated this booking.");
             return true;
         } catch (SQLException e) {
             Model.getInstance().printLog(e);
@@ -787,7 +798,7 @@ public class sqliteModel {
             changes += ", Pay Status = " + recordModel.getPayStatus();
             changes += ", Check In = " + recordModel.getCheckIn();
             changes += ", Check Out = " + recordModel.getCheckOut();
-            changes += ", Rooms = " + recordModel.getRooms();
+            changes += ", Room/s = " + recordModel.getRooms();
 
 
             sql = String.format("INSERT INTO edit (record_id, edit_timestamp, summary, user) VALUES ('%d', '%s', '%s', '%s');",
@@ -805,7 +816,7 @@ public class sqliteModel {
             pStmt.close();
             closeDB();
 
-            Model.getInstance().getViewFactory().showSuccessPopup("Row successfully deleted.");
+            Model.getInstance().getViewFactory().showSuccessPopup("Booking successfully deleted.");
             return true;
         } catch (SQLException e) {
             Model.getInstance().printLog(e);
