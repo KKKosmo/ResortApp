@@ -68,6 +68,7 @@ Text, .button .text{
 #dateClear_btn:hover:pressed {
     -fx-background-color: #E2E2E2;
     -fx-border-color: #A2A2A2;
+    -fx-effect: none;
 }
 #default_btn:hover, #dateClear_btn:hover{
     -fx-border-color: #0bb6d9;
@@ -151,17 +152,17 @@ Text, .button .text{
     -fx-background-color: #E2E2E2;
 }
 
-/* .odd{
+.odd{
     -fx-background-color: #ffffff;
 }
 
 .even{
-    -fx-background-color: #eaf7ff;
-} */
+    -fx-background-color: #e7f6ff;
+}
 .odd, .even{
     -fx-border-width: 0 0 1 0;
     -fx-border-color: #6E6E6E;
-    -fx-background-color: transparent;
+    /* -fx-background-color: transparent; */
 }
 
 #nextPage_btn, #prevPage_btn{

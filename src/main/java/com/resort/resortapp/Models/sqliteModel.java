@@ -53,11 +53,11 @@ public class sqliteModel {
     }
 
     public static void sqlInit(){
-        System.out.println("sqlInit");
+        //System.out.println("sqlInit");
         String folder = "data";
         File srcFolder = new File(folder);
         if (!srcFolder.exists()) {
-            System.out.println("making sql folder");
+            //System.out.println("making sql folder");
             srcFolder.mkdir();
         }
 
@@ -65,7 +65,7 @@ public class sqliteModel {
         File databaseFile = new File(databasePath);
 
         if (!databaseFile.exists()) {
-            System.out.println("making sql file");
+            //System.out.println("making sql file");
             try {
                 Connection connection = DriverManager.getConnection("jdbc:sqlite:" + databasePath);
                 Statement statement = connection.createStatement();
@@ -166,7 +166,7 @@ public class sqliteModel {
 
 
     public static List<List<String>> getAvailableRoomsPerDayList(){
-        System.out.println("getAvailableRoomsPerDayList------------");
+        //System.out.println("getAvailableRoomsPerDayList------------");
         List<List<String>> result = new ArrayList<>();
 
         LocalDate resultStartDate = Model.getInstance().getCalendarLeftDate();
@@ -178,7 +178,7 @@ public class sqliteModel {
 
         try {
             String sql = "SELECT id, checkIn, checkOut, room FROM main where checkIn <= '" + resultEndDate + "' AND checkOut >= '" + resultStartDate + "';";
-            System.out.println(sql);
+            //System.out.println(sql);
             PreparedStatement pStmt = openDB().prepareStatement(sql);
             ResultSet resultSet = pStmt.executeQuery();
             while(resultSet.next()){
@@ -231,7 +231,7 @@ public class sqliteModel {
         return result;
     }
     public static List<List<String>> getAvailableRoomsPerDayList(int id){
-        System.out.println("getAvailableRoomsPerDayList(int id)");
+        //System.out.println("getAvailableRoomsPerDayList(int id)");
         List<List<String>> result = new ArrayList<>();
 
         LocalDate resultStartDate = Model.getInstance().getCalendarLeftDate();
@@ -243,7 +243,7 @@ public class sqliteModel {
 
         try {
         String sql = "SELECT checkIn, checkOut, room FROM main where checkIn <= '" + resultEndDate + "' AND checkOut >= '" + resultStartDate + "' AND not id = "+id+";";
-            System.out.println(sql);
+            //System.out.println(sql);
             PreparedStatement pStmt = openDB().prepareStatement(sql);
             ResultSet resultSet = pStmt.executeQuery();
             while(resultSet.next()){
@@ -298,7 +298,7 @@ public class sqliteModel {
 
 
     public static boolean insertRecord(RecordModel recordModel, Set<String> available){
-        System.out.println("insertRecord");
+        //System.out.println("insertRecord");
 
         String name = recordModel.getName();
         String paxString = recordModel.getPax();
@@ -426,7 +426,7 @@ public class sqliteModel {
                         "VALUES ('%s','%s', %d, %d, %b, %b, %.2f, %.2f, %b, '%s', '%s', '%s', '%s');",
                 currentDate, name, paxInt, Integer.parseInt(vehicle), pets, videoke, partial_paymentDouble, fullPaymentDouble, paid, checkIn, checkOut, roomUnformatted, user);
 
-        System.out.println("sql = " + sql);
+        //System.out.println("sql = " + sql);
         try {
             PreparedStatement pStmt = openDB().prepareStatement(sql);
             pStmt.executeUpdate();
@@ -458,7 +458,7 @@ public class sqliteModel {
                     user
             );
 
-            System.out.println("sql = " + sql);
+            //System.out.println("sql = " + sql);
 
             pStmt = openDB().prepareStatement(sql);
             pStmt.executeUpdate();
@@ -487,7 +487,7 @@ public class sqliteModel {
         }
     }
     public static boolean updateRecord(RecordModel recordModel, Set<String> available, String changes){
-        System.out.println("updateRecord");
+        //System.out.println("updateRecord");
         String name = recordModel.getName();
         String paxString = recordModel.getPax();
         String vehicle = recordModel.getVehicle();
@@ -631,7 +631,7 @@ public class sqliteModel {
                             "WHERE id = '%d';",
                     name, paxInt, Integer.parseInt(vehicle), pets, videoke, partial_paymentDouble, fullPaymentDouble, paid, checkIn, checkOut, roomUnformatted, recordModel.getIdInt());
 
-            System.out.println("sql = " + sql);
+            //System.out.println("sql = " + sql);
 
             PreparedStatement pStmt = openDB().prepareStatement(sql);
             pStmt.executeUpdate();
@@ -646,7 +646,7 @@ public class sqliteModel {
                     Model.getInstance().getUser()
             );
 
-            System.out.println("sql = " + sql);
+            //System.out.println("sql = " + sql);
 
             pStmt = openDB().prepareStatement(sql);
             pStmt.executeUpdate();
@@ -662,7 +662,7 @@ public class sqliteModel {
         }
     }
     public static void queryTableRecords(){
-        System.out.println("queryTableRecords");
+        //System.out.println("queryTableRecords");
         List<RecordModel> result = new ArrayList<>();
         StringBuilder roomFilter = new StringBuilder();
         for(String string : Model.getInstance().getTableRooms()){
@@ -695,7 +695,10 @@ public class sqliteModel {
         String sql;
 
         if(Model.getInstance().checkTableEdges()){
-            sql = String.format("SELECT *, (full_payment - partial_payment) as balance FROM main WHERE checkIn <= '%s' AND checkOut >='%s' %s%sORDER BY %s %s;",
+//            sql = String.format("SELECT *, (full_payment - partial_payment) as balance FROM main WHERE checkIn <= '%s' AND checkOut >='%s' %s%sORDER BY %s %s;",
+//                    tableEndDate, tableStartDate, roomFilter, nameFilter,
+//                    orderCategoryString, direction);
+            sql = String.format("SELECT *, (full_payment - partial_payment) as balance FROM main WHERE checkIn <= '%s' AND checkIn >='%s' %s%sORDER BY %s %s;",
                     tableEndDate, tableStartDate, roomFilter, nameFilter,
                     orderCategoryString, direction);
         }
@@ -709,7 +712,7 @@ public class sqliteModel {
                     roomFilter, nameFilter, orderCategoryString, direction);
         }
 
-        System.out.println(sql);
+        //System.out.println(sql);
         try {
             PreparedStatement pStmt = openDB().prepareStatement(sql);
             ResultSet resultSet = pStmt.executeQuery();
@@ -738,10 +741,17 @@ public class sqliteModel {
             closeDB();
 
             if(Model.getInstance().checkTableEdges()){
+//                sql = String.format("SELECT COUNT(*) as totalCount, " +
+//                                "SUM(CASE WHEN paid = 1 THEN full_payment ELSE (full_payment - partial_payment) END) as totalPayment, " +
+//                                "SUM(CASE WHEN paid = 0 THEN 1 ELSE 0 END) as totalUnpaid " +
+//                                "FROM main WHERE checkIn <= '%s' AND checkOut >= '%s' %s%s " +
+//                                "ORDER BY %s %s;",
+//                        tableEndDate, tableStartDate, roomFilter, nameFilter,
+//                        orderCategoryString, direction);
                 sql = String.format("SELECT COUNT(*) as totalCount, " +
                                 "SUM(CASE WHEN paid = 1 THEN full_payment ELSE (full_payment - partial_payment) END) as totalPayment, " +
                                 "SUM(CASE WHEN paid = 0 THEN 1 ELSE 0 END) as totalUnpaid " +
-                                "FROM main WHERE checkIn <= '%s' AND checkOut >= '%s' %s%s " +
+                                "FROM main WHERE checkIn <= '%s' AND checkIn >='%s' %s%s " +
                                 "ORDER BY %s %s;",
                         tableEndDate, tableStartDate, roomFilter, nameFilter,
                         orderCategoryString, direction);
@@ -755,7 +765,7 @@ public class sqliteModel {
                         roomFilter, nameFilter, orderCategoryString, direction);
             }
 
-            System.out.println(sql);
+            //System.out.println(sql);
 
             pStmt = openDB().prepareStatement(sql);
             resultSet = pStmt.executeQuery();
@@ -775,11 +785,11 @@ public class sqliteModel {
         Model.getInstance().setListRecordModels(result);
     }
     public static boolean deleteEntry(RecordModel recordModel){
-        System.out.println("deleteEntry");
+        //System.out.println("deleteEntry");
         int id = recordModel.getIdInt();
         try {
             String sql = String.format("DELETE FROM main WHERE id = %d", id);
-            System.out.println("sql = " + sql);
+            //System.out.println("sql = " + sql);
             PreparedStatement pStmt = openDB().prepareStatement(sql);
             pStmt.executeUpdate();
             pStmt.close();
@@ -808,7 +818,7 @@ public class sqliteModel {
                     Model.getInstance().getUser()
             );
 
-            System.out.println("sql = " + sql);
+            //System.out.println("sql = " + sql);
 
             pStmt = openDB().prepareStatement(sql);
             pStmt.executeUpdate();
@@ -825,11 +835,11 @@ public class sqliteModel {
         }
     }
     public static List<EditHistoryModel> getEditHistory() {
-        System.out.println("getEditHistory");
+        //System.out.println("getEditHistory");
         List<EditHistoryModel> result = new ArrayList<>();
         try {
             String sql = "SELECT * FROM edit";
-            System.out.println("sql = " + sql);
+            //System.out.println("sql = " + sql);
             PreparedStatement pStmt = openDB().prepareStatement(sql);
             ResultSet resultSet = pStmt.executeQuery();
             while(resultSet.next()){
@@ -857,11 +867,11 @@ public class sqliteModel {
         return result;
     }
     public static Set<String> getAvailablesForFunction(LocalDate leftEdge, LocalDate rightEdge){
-        System.out.println("getAvailablesForFunction");
+        //System.out.println("getAvailablesForFunction");
         Set<String> result = Rooms.getRoomAbbreviateNamesSet();
         try {
             String sql = "SELECT room FROM main where checkIn <= '" + rightEdge + "' AND checkOut >= '" + leftEdge + "';";
-            System.out.println(sql);
+            //System.out.println(sql);
             PreparedStatement pStmt = openDB().prepareStatement(sql);
             ResultSet resultSet = pStmt.executeQuery();
             while(resultSet.next()){
@@ -880,11 +890,11 @@ public class sqliteModel {
         return result;
     }
     public static Set<String> getAvailablesForFunction(LocalDate leftEdge, LocalDate rightEdge, int id){
-        System.out.println("getAvailablesForFunction(id)");
+        //System.out.println("getAvailablesForFunction(id)");
         Set<String> result = Rooms.getRoomAbbreviateNamesSet();
         try {
             String sql = "SELECT checkIn, checkOut, room FROM main where checkIn <= '" + rightEdge + "' AND checkOut >= '" + leftEdge + "' AND not id = "+id+";";
-            System.out.println(sql);
+            //System.out.println(sql);
             PreparedStatement pStmt = openDB().prepareStatement(sql);
             ResultSet resultSet = pStmt.executeQuery();
             while(resultSet.next()){
@@ -909,7 +919,7 @@ public class sqliteModel {
         boolean result = false;
         try {
             String sql = "SELECT password from users WHERE username = '"+username+"';";
-            System.out.println(sql);
+            //System.out.println(sql);
             PreparedStatement pStmt = openDB().prepareStatement(sql);
             ResultSet resultSet = pStmt.executeQuery();
             while(resultSet.next()){
@@ -996,7 +1006,7 @@ public class sqliteModel {
     public static void forgotPw() {
         try {
             String sql = "SELECT * FROM users";
-            System.out.println(sql);
+            //System.out.println(sql);
 
             PreparedStatement pStmt = openDB().prepareStatement(sql);
             ResultSet resultSet = pStmt.executeQuery();
@@ -1036,7 +1046,7 @@ public class sqliteModel {
         int result = 0;
         try {
             String sql = "SELECT max(id) as id FROM report";
-            System.out.println(sql);
+            //System.out.println(sql);
             PreparedStatement pStmt = openDB().prepareStatement(sql);
             ResultSet resultSet = pStmt.executeQuery();
             if (resultSet.next()) {

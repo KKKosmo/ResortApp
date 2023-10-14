@@ -131,7 +131,7 @@ public class EditController implements Initializable {
 
         available = sqliteModel.getAvailablesForFunction(checkIn_datePicker.getValue(), checkOut_datePicker.getValue(), id);
 
-        System.out.println(available);
+        //System.out.println(available);
 
         Model.getInstance().setSelectedLeftDate(recordModel.getCheckIn());
         Model.getInstance().setSelectedRightDate(recordModel.getCheckOut());

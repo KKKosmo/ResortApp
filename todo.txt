@@ -1,28 +1,27 @@
 if errors with sql, might be the plugins
 if seem odd, might be because i tried to remove duplicates in controllers where they setAvailablesFotVisuals
 
-add filter and to report:
-    user
-    name
-
-total counting, sometimes the report from a month can overlap in another month
-
-comment out system pritns
-
 see partial paymern full payment overlapping
-check if words are user friendly
 test stress loading
 
-instruct payment full paid
+say to not install in program files
+say that if fully paid initially, put partial payment the same as full payment
 
 Would be nice but will not do due to time:
-    filter, show status only paid/unpaid, pets/noPets, etc.
+    can i add a lil more personality maybe
+
+    check if words are user friendly
 
     how to make it ok when installing in program files
 
 	extra button click responsivity
-
     show hide settings
+
+    add filter and to report:
+        user
+        name? prolly not
+
+    filter, show status only paid/unpaid, pets/noPets, etc.
 
     recordModel should be split into different inheriting classes
     recordModel should have a constructor that would take in an sql resultSet
@@ -36,8 +35,6 @@ Would be nice but will not do due to time:
     encrypt key
 
     when clicked on calendar, go to table with those values
-
-    can i add a lil more personality maybe
 
 Will be needed for future?:
     if query more than 100 or sum, split into 2

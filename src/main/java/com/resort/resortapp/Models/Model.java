@@ -136,7 +136,7 @@ public class Model {
         viewFactory.fillFlowPaneMonths();
     }
     public void nextMonth() {
-        System.out.println("NEXXING");
+        //System.out.println("NEXXING");
         dateFocus = dateFocus.plusMonths(1);
         setCalendarLeftDate(dateFocus);
         setCalendarRightDate(dateFocus);
@@ -147,7 +147,7 @@ public class Model {
         }
     }
     public void prevMonth() {
-        System.out.println("PREVVING");
+        //System.out.println("PREVVING");
         dateFocus = dateFocus.minusMonths(1);
         setCalendarLeftDate(dateFocus);
         setCalendarRightDate(dateFocus);

@@ -756,7 +756,7 @@ public class TableController implements Initializable {
             yearMonth_box.setValue(Model.getInstance().getTableYearMonth().format(DateTimeFormatter.ofPattern("MMM yyyy", Locale.US)));
         }
 
-        System.out.println(currentPage_txt.getFont().getFamily());
+        //System.out.println(currentPage_txt.getFont().getFamily());
     }
 
     public void setEscMenu(){

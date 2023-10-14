@@ -190,37 +190,37 @@ public class RecordModel {
 
         StringBuilder sb = new StringBuilder();
         if(!this.name.equals(arg.name)){
-            sb.append("\n").append("Name: ").append(this.name).append(" -> ").append(arg.name);
+            sb.append("\n").append("NAME: ").append(this.name).append(" -> ").append(arg.name);
         }
         if (!this.pax.equals(arg.pax)) {
-            sb.append("\n").append("Pax: ").append(this.pax).append(" -> ").append(arg.pax);
+            sb.append("\n").append("HEAD COUNT: ").append(this.pax).append(" -> ").append(arg.pax);
         }
         if (!this.vehicle.equals(arg.vehicle)) {
-            sb.append("\n").append("Vehicle: ").append(this.vehicle).append(" -> ").append(arg.vehicle);
+            sb.append("\n").append("VEHICLE COUNT: ").append(this.vehicle).append(" -> ").append(arg.vehicle);
         }
         if (!this.pets.equals(arg.pets)) {
-            sb.append("\n").append("Pets: ").append(this.pets).append(" -> ").append(arg.pets);
+            sb.append("\n").append("PETS: ").append(this.pets).append(" -> ").append(arg.pets);
         }
         if (!this.videoke.equals(arg.videoke)) {
-            sb.append("\n").append("Videoke: ").append(this.videoke).append(" -> ").append(arg.videoke);
+            sb.append("\n").append("VIDEOKE: ").append(this.videoke).append(" -> ").append(arg.videoke);
         }
         if (!this.partialPayment.equals(arg.partialPayment)) {
-            sb.append("\n").append("Partial Payment: ").append(this.partialPayment).append(" -> ").append(arg.partialPayment);
+            sb.append("\n").append("PARTIAL PAYMENT: ").append(this.partialPayment).append(" -> ").append(arg.partialPayment);
         }
         if (!this.fullPayment.equals(arg.fullPayment)) {
-            sb.append("\n").append("Full Payment: ").append(this.fullPayment).append(" -> ").append(arg.fullPayment);
+            sb.append("\n").append("FULL PAYMENT: ").append(this.fullPayment).append(" -> ").append(arg.fullPayment);
         }
         if (!this.payStatus.equals(arg.payStatus)) {
-            sb.append("\n").append("Pay Status: ").append(this.payStatus).append(" -> ").append(arg.payStatus);
+            sb.append("\n").append("PAY STATUS: ").append(this.payStatus).append(" -> ").append(arg.payStatus);
         }
 //        if (!this.payStatus.equals(arg.payStatus)) {
 //            sb.append("\n").append("Pay Status: ").append(this.payStatus).append(" -> ").append(arg.payStatus);
 //        }
         if (!this.checkIn.equals(arg.checkIn)) {
-            sb.append("\n").append("Check-In: ").append(this.checkIn).append(" -> ").append(arg.checkIn);
+            sb.append("\n").append("CHECK-IN: ").append(this.checkIn).append(" -> ").append(arg.checkIn);
         }
         if (!this.checkOut.equals(arg.checkOut)) {
-            sb.append("\n").append("Check-Out: ").append(this.checkOut).append(" -> ").append(arg.checkOut);
+            sb.append("\n").append("CHECK-OUT: ").append(this.checkOut).append(" -> ").append(arg.checkOut);
         }
         if (!this.rooms.equals(arg.rooms)) {
             StringBuilder myRooms = new StringBuilder();
@@ -240,7 +240,7 @@ public class RecordModel {
             }
             otherRooms.delete(otherRooms.length()-2, otherRooms.length());
 
-            sb.append("\n").append("Room/s: ").append(myRooms).append(" -> ").append(otherRooms);
+            sb.append("\n").append("ROOM/s: ").append(myRooms).append(" -> ").append(otherRooms);
         }
         if (sb.isEmpty()) {
             return "\nThere are no changes";

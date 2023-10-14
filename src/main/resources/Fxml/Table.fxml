@@ -21,131 +21,122 @@
 
 <AnchorPane fx:id="parentPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../Styles/table.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.resort.resortapp.Controllers.TableController">
    <HBox layoutX="91.0" layoutY="759.0" spacing="8.0" AnchorPane.bottomAnchor="4.0" AnchorPane.rightAnchor="12.0">
-      <children>
-         <Button fx:id="history_btn" mnemonicParsing="false" prefHeight="40.0" prefWidth="156.0" style="-fx-font-size: 16;" text="EVENT HISTORY">
-            <cursor>
-               <Cursor fx:constant="HAND" />
-            </cursor>
-         </Button>
-         <Button fx:id="add_btn" mnemonicParsing="false" prefHeight="40.0" prefWidth="156.0" style="-fx-font-size: 16;" text="ADD">
-            <cursor>
-               <Cursor fx:constant="HAND" />
-            </cursor>
-         </Button>
-      </children>
+      <Button fx:id="history_btn" mnemonicParsing="false" prefHeight="40.0" prefWidth="156.0" style="-fx-font-size: 16;"
+              text="EVENT HISTORY">
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </Button>
+      <Button fx:id="add_btn" mnemonicParsing="false" prefHeight="40.0" prefWidth="156.0" style="-fx-font-size: 16;"
+              text="ADD">
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </Button>
    </HBox>
    <HBox alignment="BOTTOM_LEFT" layoutX="168.0" layoutY="12.5" spacing="8.0">
-      <children>
-         <VBox alignment="BOTTOM_CENTER">
-            <children>
-               <HBox fx:id="searchBarCont" alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="280.0" spacing="8.0">
-                  <children>
-                     <FontAwesomeIconView fill="#6e6e6e" glyphName="SEARCH" size="24" />
-                     <TextField fx:id="searchBar_fld" alignment="CENTER" prefHeight="40.0" prefWidth="280.0" promptText="SEARCH FOR A NAME" style="-fx-font-size: 16;">
-                        <font>
-                           <Font size="16.0" />
-                        </font>
-                     </TextField>
-                  </children>
-               </HBox>
-            </children>
-         </VBox>
-         <Line endY="96.0" startY="8.0" styleClass="myLine" />
-         <VBox fx:id="yearMonthBox" alignment="BOTTOM_CENTER" spacing="8.0">
-            <children>
-               <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="YEAR &amp; MONTH" textAlignment="CENTER" wrappingWidth="117.0" />
-               <JFXComboBox fx:id="yearMonth_box" focusColor="#ffffff00" prefHeight="24.0" prefWidth="112.0" style="-fx-font-size: 12;" unFocusColor="#ffffff00">
+      <VBox alignment="BOTTOM_CENTER">
+         <HBox fx:id="searchBarCont" alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="280.0" spacing="8.0">
+            <FontAwesomeIconView fill="#6e6e6e" glyphName="SEARCH" size="24"/>
+            <TextField fx:id="searchBar_fld" alignment="CENTER" prefHeight="40.0" prefWidth="280.0"
+                       promptText="SEARCH FOR A NAME" style="-fx-font-size: 16;">
+               <font>
+                  <Font size="16.0"/>
+               </font>
+            </TextField>
+         </HBox>
+      </VBox>
+      <Line endY="96.0" startY="8.0" styleClass="myLine"/>
+      <VBox fx:id="yearMonthBox" alignment="BOTTOM_CENTER" spacing="8.0">
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="YEAR &amp; MONTH"
+               textAlignment="CENTER" wrappingWidth="117.0"/>
+         <JFXComboBox fx:id="yearMonth_box" focusColor="#ffffff00" prefHeight="24.0" prefWidth="112.0" style="-fx-font-size: 12;" unFocusColor="#ffffff00">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </JFXComboBox>
+      </VBox>
+      <Line endY="80.0" startY="8.0" styleClass="myLine"/>
+      <VBox fx:id="specificDateBox" alignment="BOTTOM_CENTER" spacing="8.0">
+         <HBox alignment="CENTER" spacing="16.0">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="SPECIFIC DATES"
+                  textAlignment="CENTER"/>
+            <Button fx:id="dateClear_btn" mnemonicParsing="false" text="CLEAR"/>
+         </HBox>
+         <HBox spacing="8.0">
+            <VBox alignment="CENTER" spacing="8.0">
+               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date" textAlignment="CENTER"/>
+               <DatePicker fx:id="startDate_datePicker" editable="false" focusTraversable="false"
+                           prefHeight="24.0" prefWidth="120.0" style="-fx-font-size: 12;"
+                           styleClass="date-picker">
                   <cursor>
-                     <Cursor fx:constant="HAND" />
+                     <Cursor fx:constant="HAND"/>
                   </cursor>
-               </JFXComboBox>
-            </children>
-         </VBox>
-         <Line endY="80.0" startY="8.0" styleClass="myLine" />
-         <VBox fx:id="specificDateBox" alignment="BOTTOM_CENTER" spacing="8.0">
-            <children>
-               <HBox alignment="CENTER" spacing="16.0">
-                  <children>
-                     <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="SPECIFIC DATES" textAlignment="CENTER" />
-                     <Button fx:id="dateClear_btn" mnemonicParsing="false" text="CLEAR" />
-                  </children>
-               </HBox>
-               <HBox spacing="8.0">
-                  <children>
-                     <VBox alignment="CENTER" spacing="8.0">
-                        <children>
-                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date" textAlignment="CENTER" />
-                           <DatePicker fx:id="startDate_datePicker" editable="false" focusTraversable="false" prefHeight="24.0" prefWidth="120.0" style="-fx-font-size: 12;" styleClass="date-picker">
-                              <cursor>
-                                 <Cursor fx:constant="HAND" />
-                              </cursor>
-                           </DatePicker>
-                        </children>
-                     </VBox>
-                     <VBox alignment="CENTER" spacing="8.0">
-                        <children>
-                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="End Date" textAlignment="CENTER" />
-                           <DatePicker fx:id="endDate_datePicker" editable="false" focusTraversable="false" prefHeight="24.0" prefWidth="120.0" style="-fx-font-size: 12;" styleClass="date-picker">
-                              <cursor>
-                                 <Cursor fx:constant="HAND" />
-                              </cursor>
-                           </DatePicker>
-                        </children>
-                     </VBox>
-                  </children>
-               </HBox>
-            </children>
-         </VBox>
-         <Line endY="96.0" startY="8.0" styleClass="myLine" />
-         <VBox fx:id="roomBox" alignment="BOTTOM_CENTER" spacing="8.0">
-            <children>
-               <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="Room" />
-               <HBox fx:id="roomPane" alignment="CENTER" spacing="8.0">
-                  <VBox alignment="CENTER_LEFT" spacing="8.0">
-                     <CheckBox fx:id="j_chkBox" mnemonicParsing="false" prefHeight="24.0" prefWidth="104.0" style="-fx-font-size: 12;" styleClass="myCheckbox" text="ROOM J" textAlignment="CENTER">
-                        <cursor>
-                           <Cursor fx:constant="HAND" />
-                        </cursor>
-                        <opaqueInsets>
-                           <Insets />
-                        </opaqueInsets>
-                     </CheckBox>
-                     <CheckBox fx:id="g_chkBox" mnemonicParsing="false" prefHeight="24.0" prefWidth="104.0" style="-fx-font-size: 12;" styleClass="myCheckbox" text="ROOM G">
-                        <cursor>
-                           <Cursor fx:constant="HAND" />
-                        </cursor>
-                     </CheckBox>
-                  </VBox>
-                  <VBox alignment="CENTER_LEFT" spacing="8.0">
-                     <CheckBox fx:id="k1_chkBox" mnemonicParsing="false" prefHeight="24.0" prefWidth="104.0" style="-fx-font-size: 12;" styleClass="myCheckbox" text="KUBO 1">
-                        <cursor>
-                           <Cursor fx:constant="HAND" />
-                        </cursor>
-                     </CheckBox>
-                     <CheckBox fx:id="k2_chkBox" mnemonicParsing="false" prefHeight="24.0" prefWidth="104.0" style="-fx-font-size: 12;" styleClass="myCheckbox" text="KUBO 2">
-                        <cursor>
-                           <Cursor fx:constant="HAND" />
-                        </cursor>
-                     </CheckBox>
-                  </VBox>
-                  <VBox alignment="CENTER_LEFT" spacing="8.0">
-                     <children>
-                        <CheckBox fx:id="a_chkBox" mnemonicParsing="false" prefHeight="24.0" prefWidth="104.0" style="-fx-font-size: 12;" styleClass="myCheckbox" text="ATTIC" textAlignment="CENTER">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </CheckBox>
-                        <CheckBox fx:id="e_chkBox" mnemonicParsing="false" prefHeight="24.0" prefWidth="104.0" style="-fx-font-size: 12;" styleClass="myCheckbox" text="EXCLUSIVE">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </CheckBox>
-                     </children>
-                  </VBox>
-               </HBox>
-            </children>
-         </VBox>
-      </children>
+               </DatePicker>
+            </VBox>
+            <VBox alignment="CENTER" spacing="8.0">
+               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="End Date" textAlignment="CENTER"/>
+               <DatePicker fx:id="endDate_datePicker" editable="false" focusTraversable="false"
+                           prefHeight="24.0" prefWidth="120.0" style="-fx-font-size: 12;"
+                           styleClass="date-picker">
+                  <cursor>
+                     <Cursor fx:constant="HAND"/>
+                  </cursor>
+               </DatePicker>
+            </VBox>
+         </HBox>
+      </VBox>
+      <Line endY="96.0" startY="8.0" styleClass="myLine"/>
+      <VBox fx:id="roomBox" alignment="BOTTOM_CENTER" spacing="8.0">
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" text="Room"/>
+         <HBox fx:id="roomPane" alignment="CENTER" spacing="8.0">
+            <VBox alignment="CENTER_LEFT" spacing="8.0">
+               <CheckBox fx:id="j_chkBox" mnemonicParsing="false" prefHeight="24.0" prefWidth="104.0"
+                         style="-fx-font-size: 12;" styleClass="myCheckbox" text="ROOM J" textAlignment="CENTER">
+                  <cursor>
+                     <Cursor fx:constant="HAND"/>
+                  </cursor>
+                  <opaqueInsets>
+                     <Insets/>
+                  </opaqueInsets>
+               </CheckBox>
+               <CheckBox fx:id="g_chkBox" mnemonicParsing="false" prefHeight="24.0" prefWidth="104.0"
+                         style="-fx-font-size: 12;" styleClass="myCheckbox" text="ROOM G">
+                  <cursor>
+                     <Cursor fx:constant="HAND"/>
+                  </cursor>
+               </CheckBox>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" spacing="8.0">
+               <CheckBox fx:id="k1_chkBox" mnemonicParsing="false" prefHeight="24.0" prefWidth="104.0"
+                         style="-fx-font-size: 12;" styleClass="myCheckbox" text="KUBO 1">
+                  <cursor>
+                     <Cursor fx:constant="HAND"/>
+                  </cursor>
+               </CheckBox>
+               <CheckBox fx:id="k2_chkBox" mnemonicParsing="false" prefHeight="24.0" prefWidth="104.0"
+                         style="-fx-font-size: 12;" styleClass="myCheckbox" text="KUBO 2">
+                  <cursor>
+                     <Cursor fx:constant="HAND"/>
+                  </cursor>
+               </CheckBox>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" spacing="8.0">
+               <CheckBox fx:id="a_chkBox" mnemonicParsing="false" prefHeight="24.0" prefWidth="104.0"
+                         style="-fx-font-size: 12;" styleClass="myCheckbox" text="ATTIC" textAlignment="CENTER">
+                  <cursor>
+                     <Cursor fx:constant="HAND"/>
+                  </cursor>
+               </CheckBox>
+               <CheckBox fx:id="e_chkBox" mnemonicParsing="false" prefHeight="24.0" prefWidth="104.0"
+                         style="-fx-font-size: 12;" styleClass="myCheckbox" text="EXCLUSIVE">
+                  <cursor>
+                     <Cursor fx:constant="HAND"/>
+                  </cursor>
+               </CheckBox>
+            </VBox>
+         </HBox>
+      </VBox>
    </HBox>
    <HBox layoutX="3.0" layoutY="5.0" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="8.0" />
    <GridPane fx:id="gridPane" alignment="CENTER" layoutX="9.0" layoutY="163.0" prefHeight="592.0" prefWidth="1262.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0">
@@ -389,36 +380,38 @@
       </cursor>
    </Button>
    <HBox layoutX="12.0" layoutY="756.0" spacing="8.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="12.0">
-      <children>
-         <Button fx:id="export_btn" mnemonicParsing="false" prefHeight="40.0" prefWidth="272.0" style="-fx-font-size: 16;" text="Export Summary Report to PDF" textAlignment="CENTER">
+      <Button fx:id="export_btn" mnemonicParsing="false" prefHeight="40.0" prefWidth="272.0" style="-fx-font-size: 16;"
+              text="Export Summary Report to PDF" textAlignment="CENTER">
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+         <font>
+            <Font size="14.0"/>
+         </font>
+      </Button>
+      <VBox fx:id="info_pane" alignment="BOTTOM_RIGHT" prefHeight="1.0" prefWidth="294.0" spacing="2.0"
+            style="-fx-padding: 5;">
+         <opaqueInsets>
+            <Insets/>
+         </opaqueInsets>
+         <HBox alignment="BOTTOM_LEFT" prefHeight="19.0" prefWidth="149.0">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="Total Bookings: "/>
+            <Text fx:id="totalBookings_txt" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="#"
+                  wrappingWidth="168.388671875"/>
+         </HBox>
+         <HBox fx:id="totalPayment_hBox" alignment="BOTTOM_LEFT" prefHeight="32.0" prefWidth="167.0">
+            <FontAwesomeIconView fill="#2e2e2e" glyphName="INFO_CIRCLE" size="12"/>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="Total Payment: "/>
+            <Text fx:id="totalPayment_txt" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="#"/>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text=" ("/>
+            <Text fx:id="unpaid_txt" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="#"/>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text=" UNPAID)"
+                  wrappingWidth="50.009765625"/>
             <cursor>
-               <Cursor fx:constant="HAND" />
+               <Cursor fx:constant="DEFAULT"/>
             </cursor>
-            <font>
-               <Font size="14.0" />
-            </font>
-         </Button>
-         <VBox fx:id="info_pane" alignment="BOTTOM_RIGHT" prefHeight="1.0" prefWidth="294.0" spacing="2.0" style="-fx-padding: 5;">
-            <opaqueInsets>
-               <Insets />
-            </opaqueInsets>
-            <HBox alignment="BOTTOM_LEFT" prefHeight="19.0" prefWidth="149.0">
-               <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="Total Bookings: " />
-               <Text fx:id="totalBookings_txt" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="#" wrappingWidth="168.388671875" />
-            </HBox>
-            <HBox fx:id="totalPayment_hBox" alignment="BOTTOM_LEFT" prefHeight="32.0" prefWidth="167.0">
-               <FontAwesomeIconView fill="#2e2e2e" glyphName="INFO_CIRCLE" size="12" />
-               <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="Total Payment: " />
-               <Text fx:id="totalPayment_txt" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="#" />
-               <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text=" (" />
-               <Text fx:id="unpaid_txt" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text="#" />
-               <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 12;" text=" UNPAID)" wrappingWidth="50.009765625" />
-               <cursor>
-                  <Cursor fx:constant="DEFAULT" />
-               </cursor>
-            </HBox>
-         </VBox>
-      </children>
+         </HBox>
+      </VBox>
    </HBox>
    <HBox alignment="BOTTOM_LEFT" layoutX="697.0" layoutY="771.0" spacing="5.0">
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Page" />

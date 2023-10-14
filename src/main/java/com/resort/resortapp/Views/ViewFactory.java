@@ -224,7 +224,7 @@ public class ViewFactory {
 
     }
     public void colorize(){
-        System.out.println("IN COLORIZE++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        //System.out.println("IN COLORIZE++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 //        System.out.println("CALENDAR DAY MODELS = " + onScreenCalendarDayModels.size());
 //        System.out.println("whole list = " + Model.getInstance().getAvailableRoomsPerDayWithinTheMonthsList().size());
         Set<String> roomsCheckBoxes = Rooms.manageCheckboxesSetAbbreviatedName(roomCheckBoxes);
@@ -797,7 +797,7 @@ public class ViewFactory {
                             .setBorderRight(new SolidBorder(com.itextpdf.kernel.color.Color.WHITE, 0f))
                             .setBorderTop(new SolidBorder(com.itextpdf.kernel.color.Color.BLACK, 1f)));
 
-                    body.addCell(headerPayment);
+                    body.addCell(headerPayment.setHorizontalAlignment(HorizontalAlignment.CENTER));
 
 
 
@@ -811,7 +811,7 @@ public class ViewFactory {
 
                     List<RecordModel> list = Model.getInstance().getListRecordModels();
 
-                    System.out.println(currentPage);
+                    //System.out.println(currentPage);
 
                     int tableRowCount = Model.getInstance().getTableRowCount();
 

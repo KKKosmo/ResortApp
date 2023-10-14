@@ -4,5 +4,12 @@
     <inspection_tool class="AutoCloseableResource" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="METHOD_MATCHER_CONFIG" value="java.util.Formatter,format,java.io.Writer,append,com.google.common.base.Preconditions,checkNotNull,org.hibernate.Session,close,java.io.PrintWriter,printf,java.io.PrintStream,printf,com.resort.resortapp.Models.sqliteModel,openDB" />
     </inspection_tool>
+    <inspection_tool class="MisspelledHeader" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="CUSTOM_HEADERS">
+        <header value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;" />
+        <header value="&lt;/assembly&gt;" />
+        <header value="&lt;assembly xmlns=&quot;urn" />
+      </option>
+    </inspection_tool>
   </profile>
 </component>
