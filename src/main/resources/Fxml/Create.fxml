@@ -75,31 +75,31 @@
          <Line endX="100.0" startX="-100.0" styleClass="line" />
          <HBox alignment="CENTER">
             <children>
-               <VBox alignment="TOP_CENTER" spacing="4.0">
+               <VBox alignment="TOP_CENTER" spacing="8.0">
                   <children>
-                     <HBox alignment="CENTER" spacing="4.0">
+                     <VBox alignment="CENTER" spacing="4.0">
                         <children>
                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Vehicle Count">
                               <font>
                                  <Font size="16.0" />
                               </font>
                            </Text>
-                           <HBox alignment="CENTER" prefHeight="38.0" prefWidth="58.0" spacing="30.0">
+                           <HBox alignment="CENTER" spacing="30.0">
                               <children>
                                  <TextField fx:id="vehicle_textFld" alignment="CENTER" prefHeight="32.0" prefWidth="56.0" styleClass="fld" />
                               </children>
                            </HBox>
                         </children>
-                     </HBox>
+                     </VBox>
                      <Line endX="100.0" startX="-100.0" styleClass="line" />
                      <HBox alignment="CENTER">
                         <children>
-                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pets" wrappingWidth="64.046875">
+                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pets" wrappingWidth="64.0">
                               <font>
                                  <Font size="16.0" />
                               </font>
                            </Text>
-                           <HBox alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="139.0" spacing="8.0">
+                           <HBox alignment="CENTER_RIGHT" spacing="8.0">
                               <children>
                                  <RadioButton fx:id="petsNo_radio" mnemonicParsing="false" prefHeight="24.0" prefWidth="64.0" text="No">
                                     <toggleGroup>
@@ -121,12 +121,12 @@
                      <Line endX="100.0" startX="-100.0" styleClass="line" />
                      <HBox alignment="CENTER">
                         <children>
-                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Videoke" wrappingWidth="66.2734375">
+                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Videoke" wrappingWidth="64.0">
                               <font>
                                  <Font size="16.0" />
                               </font>
                            </Text>
-                           <HBox alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="137.0" spacing="8.0">
+                           <HBox alignment="CENTER_RIGHT" spacing="8.0">
                               <children>
                                  <RadioButton fx:id="videokeNo_radio" mnemonicParsing="false" prefHeight="24.0" prefWidth="64.0" text="No">
                                     <toggleGroup>

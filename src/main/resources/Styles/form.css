@@ -24,7 +24,7 @@ Text, .button .text{
 
 
 #form_pane{
-    -fx-background-color:  #ffffff;
+    -fx-background-color:  #f7f9fc;
 }
 
 #burger_btn, #back_btn{
@@ -74,6 +74,7 @@ Text, .button .text{
     -fx-background-insets: 0;
     -fx-background-radius: 30;
     -fx-border-radius: 30;
+    -fx-background-color: #FFFFFF;
     -fx-border-color: #6E6E6E;
     }
 .fld:hover {
@@ -93,11 +94,9 @@ Text, .button .text{
 }
 
 #room_pane{
-    -fx-background-color: #ffffff;
-    -fx-border-color: #ffffff;
+    -fx-background-color: transparent;
     -fx-background-insets: 0;
     -fx-background-radius: 30;
-    -fx-border-radius: 30;
 }
 
 .radio-button{

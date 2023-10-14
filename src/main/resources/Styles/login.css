@@ -13,6 +13,7 @@ Text, .text, .text-field{
 }
 
 .password-field {
+    -fx-background-color: #FFFFFF;
     -fx-text-fill: #4E4E4E;
 }
 

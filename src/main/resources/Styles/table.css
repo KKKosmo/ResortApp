@@ -201,6 +201,7 @@ Text, .button .text{
 
 
 #page_fld{
+    -fx-background-color: #FFFFFF;
     -fx-background-insets: 0;
     -fx-background-radius: 30;
     -fx-border-radius: 30;
