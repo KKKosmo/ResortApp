@@ -1,6 +1,10 @@
 if errors with sql, might be the plugins
 if seem odd, might be because i tried to remove duplicates in controllers where they setAvailablesFotVisuals
 
+
+checkbox for deleting
+in forms, a single date should highlight already
+
 test stress loading
 
 say to not install in program files
@@ -36,4 +40,4 @@ Would be nice but will not do due to time:
     when clicked on calendar, go to table with those values
 
 Will be needed for future?:
-    if query more than 100 or sum, split into 2
+    if query more than 100 or sum, split into 2, or lazy loading

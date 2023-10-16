@@ -318,7 +318,7 @@ public class sqliteModel {
             return false;
         }
         if (paxString.isEmpty()){
-            Model.getInstance().getViewFactory().showErrorPopup("Number of persons is empty.");
+            Model.getInstance().getViewFactory().showErrorPopup("Head count is empty.");
             return false;
         }
         if(vehicle.isEmpty()){
@@ -409,7 +409,7 @@ public class sqliteModel {
                 paid = true;
             }
         if(paxInt > 99){
-                Model.getInstance().getViewFactory().showErrorPopup("No. of person should be less than 100.");
+                Model.getInstance().getViewFactory().showErrorPopup("Head count should be less than 100.");
                 return false;
             }
         if(Integer.parseInt(vehicle) > 99){
@@ -436,21 +436,19 @@ public class sqliteModel {
             closeDB();
 
             String changes = "CREATED BOOKING: ";
-            changes += "Time Created = " + LocalDateTime.parse(currentDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd h:mm a"));
-
-
-            changes += ", Name = " + name;
-            changes += ", Pax = " + paxString;
-            changes += ", Vehicle Count = " + vehicle;
-            changes += ", Pets = " + pets;
-            changes += ", Videoke = " + videoke;
-            changes += ", Partial Payment = " + partial_paymentDouble;
-            changes += ", Full Payment = " + fullPaymentDouble;
-            changes += ", Balance = " + (fullPaymentDouble - partial_paymentDouble);
-            changes += ", Pay Status = " + paid;
-            changes += ", Check In = " + checkIn;
-            changes += ", Check Out = " + checkOut;
-            changes += ", Room/s = " + roomUnformatted;
+            changes += "TIME CREATED: " + LocalDateTime.parse(currentDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd h:mm a"));
+            changes += ", NAME: " + name;
+            changes += ", HEAD COUNT: " + paxString;
+            changes += ", VEHICLE COUNT: " + vehicle;
+            changes += ", PETS: " + pets;
+            changes += ", VIDEOKE: " + videoke;
+            changes += ", PARTIAL PAYMENT: " + partial_paymentDouble;
+            changes += ", FULL PAYMENT: " + fullPaymentDouble;
+            changes += ", BALANCE: " + (fullPaymentDouble - partial_paymentDouble);
+            changes += ", PAY STATUS: " + paid;
+            changes += ", ROOM/s: " + roomUnformatted;
+            changes += ", CHECK IN: " + checkIn;
+            changes += ", CHECK OUT: " + checkOut;
 
             sql = String.format("INSERT INTO edit (record_id, edit_timestamp, summary, user) SELECT (MAX(id)), '%s', '%s', '%s' FROM main;",
                     currentDate,
@@ -467,19 +465,19 @@ public class sqliteModel {
             closeDB();
 
             Model.getInstance().getViewFactory().showSuccessPopup("Successfully created a booking.\n" +
-                    "\nTime Created = " + LocalDateTime.parse(currentDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd h:mm a")) +
-                    "\nName = " + name +
-                    "\nNumber of heads = " + paxString +
-                    "\nVehicle Count = " + vehicle +
-                    "\nPets = " + (pets ? "Yes" : "No") +
-                    "\nVideoke = " + (videoke ? "Yes" : "No") +
-                    "\nPartial Payment = " + partial_paymentDouble +
-                    "\nFull Payment = " + fullPaymentDouble +
-                    "\nBalance = " + (fullPaymentDouble - partial_paymentDouble) +
-                    "\nPay Status = " + (paid ? "PAID" : "UNPAID") +
-                    "\nCheck In = " + checkIn +
-                    "\nCheck Out = " + checkOut +
-                    "\nRoom/s = " + roomUnformatted);
+                    "\nTIME CREATED: " + LocalDateTime.parse(currentDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd h:mm a")) +
+                    "\nNAME: " + name +
+                    "\nHEAD COUNT: " + paxString +
+                    "\nVEHICLE COUNT: " + vehicle +
+                    "\nPETS: " + (pets ? "Yes" : "No") +
+                    "\nVIDEOKE: " + (videoke ? "Yes" : "No") +
+                    "\nPARTIAL PAYMENT: " + partial_paymentDouble +
+                    "\nFULL PAYMENT: " + fullPaymentDouble +
+                    "\nBALANCE: " + (fullPaymentDouble - partial_paymentDouble) +
+                    "\nPAY STATUS: " + (paid ? "paid" : "unpaid") +
+                    "\nROOM/s: " + roomUnformatted +
+                    "\nCHECK IN: " + checkIn +
+                    "\nCHECK OUT: " + checkOut);
             return true;
         } catch (SQLException e) {
             Model.getInstance().printLog(e);
@@ -506,7 +504,7 @@ public class sqliteModel {
             return false;
         }
         if (paxString.isEmpty()){
-            Model.getInstance().getViewFactory().showErrorPopup("Number of persons is empty.");
+            Model.getInstance().getViewFactory().showErrorPopup("Head count is empty.");
             return false;
         }
         if(vehicle.isEmpty()){
@@ -603,7 +601,7 @@ public class sqliteModel {
             paid = true;
         }
         if(paxInt > 99){
-            Model.getInstance().getViewFactory().showErrorPopup("No. of person should be less than 100.");
+            Model.getInstance().getViewFactory().showErrorPopup("Head count should be less than 100.");
             return false;
         }
         if(Integer.parseInt(vehicle) > 99){
@@ -796,19 +794,19 @@ public class sqliteModel {
             closeDB();
 
             String changes = "DELETED BOOKING: ";
-            changes += "Time Created = " + recordModel.getDateInserted();
-            changes += ", Name = " + recordModel.getName();
-            changes += ", Pax = " + recordModel.getPax();
-            changes += ", Vehicle = " + recordModel.getVehicle();
-            changes += ", Pets = " + recordModel.getPets();
-            changes += ", Videoke = " + recordModel.getVideoke();
-            changes += ", Partial Payment = " + recordModel.getPartialPayment();
-            changes += ", Full Payment = " + recordModel.getFullPayment();
-            changes += ", Balance = " + recordModel.getBalance();
-            changes += ", Pay Status = " + recordModel.getPayStatus();
-            changes += ", Check In = " + recordModel.getCheckIn();
-            changes += ", Check Out = " + recordModel.getCheckOut();
-            changes += ", Room/s = " + recordModel.getRooms();
+            changes += "TIME CREATED: " + recordModel.getDateInserted();
+            changes += ", NAME: " + recordModel.getName();
+            changes += ", HEAD COUNT: " + recordModel.getPax();
+            changes += ", VEHICLE COUNT: " + recordModel.getVehicle();
+            changes += ", PETS: " + recordModel.getPets();
+            changes += ", VIDEOKE: " + recordModel.getVideoke();
+            changes += ", PARTIAL PAYMENT: " + recordModel.getPartialPayment();
+            changes += ", FULL PAYMENT: " + recordModel.getFullPayment();
+            changes += ", BALANCE: " + recordModel.getBalance();
+            changes += ", PAY STATUS: " + recordModel.getPayStatus();
+            changes += ", ROOM/s: " + recordModel.getRooms();
+            changes += ", CHECK IN: " + recordModel.getCheckIn();
+            changes += ", CHECK OUT: " + recordModel.getCheckOut();
 
 
             sql = String.format("INSERT INTO edit (record_id, edit_timestamp, summary, user) VALUES ('%d', '%s', '%s', '%s');",
@@ -826,7 +824,7 @@ public class sqliteModel {
             pStmt.close();
             closeDB();
 
-            Model.getInstance().getViewFactory().showSuccessPopup("Booking successfully deleted.");
+            Model.getInstance().getViewFactory().showSuccessPopup("Successfully deleted this booking.");
             return true;
         } catch (SQLException e) {
             Model.getInstance().printLog(e);

@@ -153,14 +153,14 @@ Text, .button .text{
 }
 
 .odd{
-    -fx-background-color: #ffffff;
+    -fx-background-color: transparent;
 }
 
 .even{
     -fx-background-color: #e7f6ff;
 }
 .odd, .even{
-    -fx-border-width: 0 0 1 0;
+    -fx-border-width: 0 0 0.8 0;
     -fx-border-color: #6E6E6E;
     /* -fx-background-color: transparent; */
 }

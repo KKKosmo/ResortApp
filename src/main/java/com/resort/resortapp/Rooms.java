@@ -11,12 +11,12 @@ import java.util.Set;
 
 public enum Rooms{
     ALL_ROOMS("all"),
-    ROOM_J("j"),
-    ROOM_G("g"),
-    ATTIC("attic"),
-    KUBO_1("k1"),
-    KUBO_2("k2"),
-    EXCLUSIVE("exclusive");
+    ROOM_J("J"),
+    ROOM_G("G"),
+    ATTIC("A"),
+    KUBO_1("K1"),
+    KUBO_2("K2"),
+    EXCLUSIVE("Exclusive");
 
     final String abbreviatedName;
 
