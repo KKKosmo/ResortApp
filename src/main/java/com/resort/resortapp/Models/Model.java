@@ -136,7 +136,6 @@ public class Model {
         viewFactory.fillFlowPaneMonths();
     }
     public void nextMonth() {
-        //System.out.println("NEXXING");
         dateFocus = dateFocus.plusMonths(1);
         setCalendarLeftDate(dateFocus);
         setCalendarRightDate(dateFocus);
@@ -145,9 +144,25 @@ public class Model {
         if(selectedLocalDates != null){
             Model.getInstance().getViewFactory().highlight();
         }
+        else{
+            if(selectedLeftDate != null) {
+                if (dateFocus.getMonth() == selectedLeftDate.getMonth() && dateFocus.getYear() == selectedLeftDate.getYear()) {
+                    int slot = selectedLeftDate.getDayOfMonth() + Model.getInstance().getDateOffset() - 1;
+                    Model.getInstance().getViewFactory().highlightSingular(slot);
+                }
+            }
+            else if(selectedRightDate != null){
+                if(dateFocus.getMonth() == selectedRightDate.getMonth() && dateFocus.getYear() == selectedRightDate.getYear()){
+                    int slot = selectedRightDate.getDayOfMonth() + Model.getInstance().getDateOffset() - 1;
+                    Model.getInstance().getViewFactory().highlightSingular(slot);
+                }
+            }
+            else{
+                Model.getInstance().getViewFactory().highlightSingular(-1);
+            }
+        }
     }
     public void prevMonth() {
-        //System.out.println("PREVVING");
         dateFocus = dateFocus.minusMonths(1);
         setCalendarLeftDate(dateFocus);
         setCalendarRightDate(dateFocus);
@@ -155,6 +170,23 @@ public class Model {
         getViewFactory().colorize();
         if(selectedLocalDates != null){
             Model.getInstance().getViewFactory().highlight();
+        }
+        else{
+            if(selectedLeftDate != null) {
+                if (dateFocus.getMonth() == selectedLeftDate.getMonth() && dateFocus.getYear() == selectedLeftDate.getYear()) {
+                    int slot = selectedLeftDate.getDayOfMonth() + Model.getInstance().getDateOffset() - 1;
+                    Model.getInstance().getViewFactory().highlightSingular(slot);
+                }
+            }
+            else if(selectedRightDate != null){
+                if(dateFocus.getMonth() == selectedRightDate.getMonth() && dateFocus.getYear() == selectedRightDate.getYear()){
+                    int slot = selectedRightDate.getDayOfMonth() + Model.getInstance().getDateOffset() - 1;
+                    Model.getInstance().getViewFactory().highlightSingular(slot);
+                }
+            }
+            else{
+                Model.getInstance().getViewFactory().highlightSingular(-1);
+            }
         }
     }
 
@@ -229,15 +261,29 @@ public class Model {
 //    }
 
     public void setSelectedLeftDate(String selectedLeftDate) {
-        this.selectedLeftDate = LocalDate.parse(selectedLeftDate);
+        if(selectedLeftDate != null){
+            this.selectedLeftDate = LocalDate.parse(selectedLeftDate);
+        }
+        else{
+            this.selectedLeftDate = null;
+        }
     }
 
     public void setSelectedRightDate(String selectedRightDate) {
-        this.selectedRightDate = LocalDate.parse(selectedRightDate);
+        if(selectedRightDate != null) {
+            this.selectedRightDate = LocalDate.parse(selectedRightDate);
+        }
+        else{
+            this.selectedRightDate = null;
+        }
     }
 
     public List<LocalDate> getSelectedLocalDates() {
         return selectedLocalDates;
+    }
+
+    public void setSelectedLocalDates(List<LocalDate> selectedLocalDates) {
+        this.selectedLocalDates = selectedLocalDates;
     }
 
     public List<List<String>> getAvailableRoomsPerDayWithinTheMonthsList() {

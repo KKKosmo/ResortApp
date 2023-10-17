@@ -3,7 +3,6 @@ if seem odd, might be because i tried to remove duplicates in controllers where 
 
 
 checkbox for deleting
-in forms, a single date should highlight already
 
 test stress loading
 

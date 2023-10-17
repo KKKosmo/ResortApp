@@ -101,6 +101,14 @@ public class CreateController  implements Initializable{
                     }
                     Model.getInstance().setSelected();
                 }
+                else{
+                    int slot = newValue.getDayOfMonth() + Model.getInstance().getDateOffset() - 1;
+                    Model.getInstance().getViewFactory().highlightSingular(slot);
+                }
+            }
+            else{
+                Model.getInstance().setSelectedLeftDate(null);
+                Model.getInstance().getViewFactory().highlightSingular(-1);
             }
         });
         checkOut_datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -116,6 +124,14 @@ public class CreateController  implements Initializable{
                     }
                     Model.getInstance().setSelected();
                 }
+                else{
+                    int slot = newValue.getDayOfMonth() + Model.getInstance().getDateOffset() - 1;
+                    Model.getInstance().getViewFactory().highlightSingular(slot);
+                }
+            }
+            else{
+                Model.getInstance().setSelectedRightDate(null);
+                Model.getInstance().getViewFactory().highlightSingular(-1);
             }
         });
 
@@ -144,6 +160,9 @@ public class CreateController  implements Initializable{
         fullPayment_fld.clear();
         checkIn_datePicker.setValue(null);
         checkOut_datePicker.setValue(null);
+        Model.getInstance().setSelectedLocalDates(null);
+        Model.getInstance().setSelectedLeftDate(null);
+        Model.getInstance().setSelectedRightDate(null);
         for (CheckBox checkBox: roomCheckBoxes) {
             checkBox.setSelected(false);
         }

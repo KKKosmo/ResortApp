@@ -22,6 +22,7 @@ import com.itextpdf.layout.element.Cell;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
@@ -257,26 +258,47 @@ public class ViewFactory {
         }
     }
     public void highlight(){
+        List<LocalDate> selectedLocalDates = Model.getInstance().getSelectedLocalDates();
+        if(selectedLocalDates != null){
 //        System.out.println("HIGHLIGHTING");
-        Set<Integer> indexes = new HashSet<>();
-
-
-        for(LocalDate localDate : Model.getInstance().getSelectedLocalDates()){
+            Set<Integer> indexes = new HashSet<>();
+            for(LocalDate localDate : selectedLocalDates){
 //            System.out.println(localDate);
-            if(onScreenLocalDates.contains(localDate)){
-                int index = onScreenLocalDates.indexOf(localDate);
-                indexes.add(index + Model.getInstance().getDateOffset());
+                if(onScreenLocalDates.contains(localDate)){
+                    int index = onScreenLocalDates.indexOf(localDate);
+                    indexes.add(index + Model.getInstance().getDateOffset());
+                }
+            }
+
+            for(int i = 0; i < 42; i++){
+                StackPane temp = onScreenCalendarDayModels.get(i).getStackPane();
+
+                if(indexes.contains(i)){
+                    temp.setBorder(normalBorder);
+                }
+                else{
+                    temp.setBorder(borderUnselected);
+                }
             }
         }
-
-        for(int i = 0; i < 42; i++){
-            StackPane temp = onScreenCalendarDayModels.get(i).getStackPane();
-
-            if(indexes.contains(i)){
-                temp.setBorder(normalBorder);
+    }
+    public void highlightSingular(int slot){
+        if(slot == -1){
+            for(int i = 0; i < 42; i++){
+                StackPane temp = onScreenCalendarDayModels.get(i).getStackPane();
+                    temp.setBorder(borderUnselected);
             }
-            else{
-                temp.setBorder(borderUnselected);
+        }
+        else{
+            for(int i = 0; i < 42; i++){
+                StackPane temp = onScreenCalendarDayModels.get(i).getStackPane();
+
+                if(i == slot){
+                    temp.setBorder(normalBorder);
+                }
+                else{
+                    temp.setBorder(borderUnselected);
+                }
             }
         }
     }
@@ -380,7 +402,7 @@ public class ViewFactory {
         int startIndex = Model.getInstance().getStartIndex();
         int endIndex = Model.getInstance().getInitEndIndex();
 
-
+        Insets margin = new Insets(0, 0, 0.8, 0);
         for(int i = startIndex; i < endIndex; i++){
             for(int j = 0; j < 14; j++){
                 List<String> recordList = list.get(i).getList();
@@ -393,6 +415,7 @@ public class ViewFactory {
 
                 GridPane.setRowIndex(label, i - startIndex);
                 GridPane.setColumnIndex(label, j);
+                label.setPadding(margin);
                 listTable.getChildren().add(label);
                 if (j == 1) {
                     label.setMaxWidth(65.1796875);
@@ -413,10 +436,13 @@ public class ViewFactory {
                     temp.setAlignment(Pos.CENTER);
                     temp.setText(recordList.get(14));
                     temp.setTextAlignment(TextAlignment.CENTER);
-
+                    label.setPadding(Insets.EMPTY);
                     vbox.getChildren().addAll(label, line, temp);
                     GridPane.setRowIndex(vbox, i - startIndex);
                     GridPane.setColumnIndex(vbox, j);
+//                    System.out.println(vbox.insetsProperty());
+                    GridPane.setMargin(vbox, margin);
+//                    System.out.println(vbox.insetsProperty());
                     listTable.getChildren().add(vbox);
                 }
 //                else if(j == 8){
@@ -440,6 +466,7 @@ public class ViewFactory {
 
             Button editButton = new Button();
             Button deleteButton = new Button();
+
 
             FontAwesomeIconView editIcon = new FontAwesomeIconView();
             editIcon.setGlyphName("EDIT");
@@ -472,7 +499,7 @@ public class ViewFactory {
                 editButton.setOnAction(actionEvent -> setSceneEdit(recordModel));
 
                 deleteButton.setOnAction(actionEvent -> {
-                    if(showConfirmPopup("Are you sure you want to delete this booking? (ID = " + recordModel.getId() + ")")){
+                    if(showConfirmPopup("Are you sure you want to delete this booking? (ID: " + recordModel.getId() + ")")){
                         if(sqliteModel.deleteEntry(recordModel)){
                             setSceneTable(false);
                         }
@@ -494,9 +521,10 @@ public class ViewFactory {
             GridPane.setRowIndex(editButton, i - startIndex);
             GridPane.setRowIndex(deleteButton, i - startIndex);
 
+            GridPane.setMargin(editButton, margin);
+            GridPane.setMargin(deleteButton, margin);
+
             listTable.getChildren().addAll(editButton, deleteButton);
-
-
         }
     }
 
@@ -512,6 +540,7 @@ public class ViewFactory {
     public void showSuccessPopup(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("");
+        alert.setHeaderText("Success");
         alert.setContentText(message);
         alert.getDialogPane().getStylesheets().add(getClass().getResource("/Styles/alert.css").toExternalForm());
         alert.showAndWait();
