@@ -663,8 +663,13 @@ public class sqliteModel {
         //System.out.println("queryTableRecords");
         List<RecordModel> result = new ArrayList<>();
         StringBuilder roomFilter = new StringBuilder();
-        for(String string : Model.getInstance().getTableRooms()){
-            roomFilter.append("AND room LIKE '%").append(string).append("%' ");
+
+        if(!Model.getInstance().getTableRooms().isEmpty()){
+            for(String string : Model.getInstance().getTableRooms()){
+                roomFilter.append("OR room LIKE '%").append(string).append("%' ");
+            }
+            roomFilter.replace(0, 3, "AND (");
+            roomFilter.append(") ");
         }
 
         String nameFilter;
@@ -710,7 +715,7 @@ public class sqliteModel {
                     roomFilter, nameFilter, orderCategoryString, direction);
         }
 
-        //System.out.println(sql);
+//        System.out.println(sql);
         try {
             PreparedStatement pStmt = openDB().prepareStatement(sql);
             ResultSet resultSet = pStmt.executeQuery();

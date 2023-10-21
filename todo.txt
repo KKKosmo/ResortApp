@@ -1,3 +1,9 @@
+map
+
+partial payment 0
+
+see pw
+
 if errors with sql, might be the plugins
 if seem odd, might be because i tried to remove duplicates in controllers where they setAvailablesFotVisuals
 
@@ -8,6 +14,7 @@ test stress loading
 
 say to not install in program files
 say that if fully paid initially, put partial payment the same as full payment
+explain how the date selection works
 
 Would be nice but will not do due to time:
     can i add a lil more personality maybe
