@@ -445,7 +445,7 @@ public class sqliteModel {
             changes += ", PARTIAL PAYMENT: " + partial_paymentDouble;
             changes += ", FULL PAYMENT: " + fullPaymentDouble;
             changes += ", BALANCE: " + (fullPaymentDouble - partial_paymentDouble);
-            changes += ", PAY STATUS: " + paid;
+            changes += ", PAY STATUS: " + (paid ? "paid" : "unpaid");
             changes += ", ROOM/s: " + roomUnformatted;
             changes += ", CHECK IN: " + checkIn;
             changes += ", CHECK OUT: " + checkOut;
@@ -850,6 +850,20 @@ public class sqliteModel {
                 int recordId = resultSet.getInt("record_id");
                 String editTimestamp = resultSet.getString("edit_timestamp");
                 String summary = resultSet.getString("summary");
+
+                if(!Model.getInstance().isAdmin()){
+                    if (summary.startsWith("CREATED BOOKING") || summary.startsWith("DELETED BOOKING")){
+                        summary = summary
+                                .replaceAll(" PARTIAL PAYMENT: [0-9.]+,", "")
+                                .replaceAll(" FULL PAYMENT: [0-9.]+,", "")
+                                .replaceAll(" BALANCE: [0-9.]+,", "");
+                    }
+                    else{
+                        summary = summary.replaceAll(" FULL PAYMENT: \\d+ ⟶ \\d+", " FULL PAYMENT: changed")
+                                .replaceAll(" PARTIAL PAYMENT: \\d+ ⟶ \\d+", " PARTIAL PAYMENT: changed");
+                    }
+                }
+
                 String user = resultSet.getString("user");
 
 

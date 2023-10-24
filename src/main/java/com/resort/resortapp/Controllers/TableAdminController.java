@@ -25,7 +25,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class TableController implements Initializable {
+public class TableAdminController implements Initializable {
     public TextField page_fld;
     public Button nextPage_btn;
     public Button prevPage_btn;

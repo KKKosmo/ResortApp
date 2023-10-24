@@ -14,6 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -47,6 +48,12 @@ public class LoginController implements Initializable {
                 if(getUser()){
                     if(sqliteModel.auth(currentUser, password_field.getText())){
                         Model.getInstance().setUser(currentUser);
+                        if(Objects.equals(currentUser, "Glorifina")){
+                            Model.getInstance().setAdmin(true);
+                        }
+                        else{
+                            Model.getInstance().setAdmin(false);
+                        }
                         if(Model.getInstance().getViewFactory().getEscMenuController() != null){
                             Model.getInstance().getViewFactory().getEscMenuController().setUser(currentUser);
                         }

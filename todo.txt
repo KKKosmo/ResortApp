@@ -1,5 +1,16 @@
 map
 
+show web preview
+only admins can see report, totals, and payment numbers
+    report button
+    table columns
+    edit form
+    event history
+
+created booking pay status readability
+
+hide all payment stuff from non admins, so in forms and shit, in history, use stringbuilder to say "changed payment" instead of specifics?
+
 partial payment 0
 
 see pw
@@ -15,6 +26,9 @@ test stress loading
 say to not install in program files
 say that if fully paid initially, put partial payment the same as full payment
 explain how the date selection works
+explain total payment
+ask for suggestions
+dont forget to edit pay status
 
 Would be nice but will not do due to time:
     can i add a lil more personality maybe

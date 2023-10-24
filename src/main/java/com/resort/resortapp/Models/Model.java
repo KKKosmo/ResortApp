@@ -90,6 +90,7 @@ public class Model {
     private boolean tableK2Filter = false;
     private boolean tableEFilter = false;
     private String user;
+    private boolean admin;
     Logger logger = Logger.getLogger("ResortApp");
     String logFilePath = "error.log";
     FileHandler fileHandler;
@@ -519,6 +520,13 @@ public class Model {
         this.user = user;
     }
 
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
 
     public YearMonth getTableYearMonth() {
         return tableYearMonth;
