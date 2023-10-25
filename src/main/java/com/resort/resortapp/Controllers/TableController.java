@@ -25,7 +25,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class TableAdminController implements Initializable {
+public class TableController implements Initializable {
     public TextField page_fld;
     public Button nextPage_btn;
     public Button prevPage_btn;
@@ -71,11 +71,15 @@ public class TableAdminController implements Initializable {
     public ComboBox<String> yearMonth_box;
     public CheckBox e_chkBox;
     public Button dateClear_btn;
+    public HBox summaryCont;
     DateTimeFormatter monthYearFormatter = DateTimeFormatter.ofPattern("MMM yyyy", Locale.US);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 //        System.out.println("INITIALIZE");
+        if(!Model.getInstance().isAdmin()){
+            summaryCont.setVisible(false);
+        }
         Model.getInstance().getViewFactory().setListTable(gridPane);
 //        myInit();
 

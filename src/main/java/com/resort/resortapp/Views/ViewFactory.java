@@ -104,13 +104,7 @@ public class ViewFactory {
         return escMenu;
     }
     public void setSceneTable(boolean def) {
-        FXMLLoader loader;
-        if(Model.getInstance().isAdmin()){
-             loader = new FXMLLoader(getClass().getResource("/Fxml/TableAdmin.fxml"));
-        }
-        else{
-            loader = new FXMLLoader(getClass().getResource("/Fxml/TableNonAdmin.fxml"));
-        }
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Table.fxml"));
         Parent root = null;
         try {
             root = loader.load();
@@ -127,27 +121,17 @@ public class ViewFactory {
         table = new Scene(root);
 
 
-        if(Model.getInstance().isAdmin()){
-            TableAdminController tableController = loader.getController();
-            tableController.myInit();
-            tableController.setEscMenu();
-            if(def)
-                tableController.clear();
+        TableController tableController = loader.getController();
+        tableController.myInit();
+        tableController.setEscMenu();
+        if(def)
+            tableController.clear();
 
 
-            Tooltip tooltip = new Tooltip("IF NOT PAID, THEN THE PARTIAL PAYMENT INSTEAD OF THE FULL PAYMENT GETS ADDED TO THE TOTAL PAYMENT");
-            tooltip.setShowDelay(Duration.millis(0));
-            tooltip.setStyle("-fx-background-color: #E2E2E2; -fx-text-fill: #000000; -fx-font-size: 12;");
-            Tooltip.install(tableController.totalPayment_hBox, tooltip);
-        }
-        else{
-            TableNonAdminController tableController = loader.getController();
-            tableController.myInit();
-            tableController.setEscMenu();
-            if(def)
-                tableController.clear();
-        }
-
+        Tooltip tooltip = new Tooltip("IF NOT PAID, THEN THE PARTIAL PAYMENT INSTEAD OF THE FULL PAYMENT GETS ADDED TO THE TOTAL PAYMENT");
+        tooltip.setShowDelay(Duration.millis(0));
+        tooltip.setStyle("-fx-background-color: #E2E2E2; -fx-text-fill: #000000; -fx-font-size: 12;");
+        Tooltip.install(tableController.totalPayment_hBox, tooltip);
 
 
         notEditing();
@@ -421,28 +405,62 @@ public class ViewFactory {
 
         Insets margin = new Insets(0, 0, 0.8, 0);
 
-        if(Model.getInstance().isAdmin()){
-            for(int i = startIndex; i < endIndex; i++){
-                for(int j = 0; j < 14; j++){
-                    List<String> recordList = list.get(i).getList();
-                    Label label = new Label();
-                    label.setAlignment(Pos.CENTER);
-                    label.setText(recordList.get(j));
-                    label.setTextAlignment(TextAlignment.CENTER);
+        for(int i = startIndex; i < endIndex; i++){
+            for(int j = 0; j < 14; j++){
+                List<String> recordList = list.get(i).getList();
+                Label label = new Label();
+                label.setAlignment(Pos.CENTER);
+                label.setText(recordList.get(j));
+                label.setTextAlignment(TextAlignment.CENTER);
 //                label.setWrapText(true);
 //                label.setPrefWidth(280);
 
-                    GridPane.setRowIndex(label, i - startIndex);
-                    GridPane.setColumnIndex(label, j);
-                    label.setPadding(margin);
-                    listTable.getChildren().add(label);
-                    if (j == 1) {
-                        label.setMaxWidth(65.1796875);
-                        label.setWrapText(true);
-                    } else if (j == 12) {
-                        label.setMaxWidth(49.669921875);
-                        label.setWrapText(true);
-                    } else if (j == 7) {
+                GridPane.setRowIndex(label, i - startIndex);
+                GridPane.setColumnIndex(label, j);
+                label.setPadding(margin);
+                listTable.getChildren().add(label);
+                if (j == 1) {
+                    label.setMaxWidth(65.1796875);
+                    label.setWrapText(true);
+                } else if (j == 12) {
+                    label.setMaxWidth(49.669921875);
+                    label.setWrapText(true);
+                }
+
+                if(!Model.getInstance().isAdmin()){
+                    if(recordList.get(9).equals("UNPAID")){
+                        if (j == 7) {
+                            VBox vbox = new VBox();
+                            vbox.setAlignment(Pos.CENTER);
+
+                            Line line = new Line();
+                            line.setStartX(47.82231140136719);
+                            line.setEndX(100.61520385742188);
+                            line.setStroke(Paint.valueOf("#4E4E4E"));
+
+                            Label temp = new Label();
+                            temp.setAlignment(Pos.CENTER);
+                            temp.setText(recordList.get(14));
+                            temp.setTextAlignment(TextAlignment.CENTER);
+                            label.setPadding(Insets.EMPTY);
+                            vbox.getChildren().addAll(label, line, temp);
+                            GridPane.setRowIndex(vbox, i - startIndex);
+                            GridPane.setColumnIndex(vbox, j);
+                            GridPane.setMargin(vbox, margin);
+                            listTable.getChildren().add(vbox);
+                        }
+                    }
+                    else{
+                        if (j == 7) {
+                            label.setText("PAID");
+                        }
+                        else if(j == 8){
+                            label.setText("PAID");
+                        }
+                    }
+                }
+                else{
+                    if (j == 7) {
                         VBox vbox = new VBox();
                         vbox.setAlignment(Pos.CENTER);
 
@@ -459,210 +477,78 @@ public class ViewFactory {
                         vbox.getChildren().addAll(label, line, temp);
                         GridPane.setRowIndex(vbox, i - startIndex);
                         GridPane.setColumnIndex(vbox, j);
-//                    System.out.println(vbox.insetsProperty());
                         GridPane.setMargin(vbox, margin);
-//                    System.out.println(vbox.insetsProperty());
                         listTable.getChildren().add(vbox);
                     }
-//                else if(j == 8){
-//                    VBox vbox = new VBox();
-//                    vbox.setAlignment(Pos.CENTER);
-//
-//                    Label temp = new Label();
-//                    temp.setAlignment(Pos.CENTER);
-//                    temp.setText(recordList.get(14));
-//                    temp.setTextAlignment(TextAlignment.CENTER);
-//
-//                    vbox.getChildren().addAll(label, temp);
-//                    GridPane.setRowIndex(vbox, i);
-//                    GridPane.setColumnIndex(vbox, j);
-//                    gridPane.getChildren().add(vbox);
-//                }
                 }
-
-
-                RecordModel recordModel = list.get(i);
-
-                Button editButton = new Button();
-                Button deleteButton = new Button();
-
-
-                FontAwesomeIconView editIcon = new FontAwesomeIconView();
-                editIcon.setGlyphName("EDIT");
-                FontAwesomeIconView deleteIcon = new FontAwesomeIconView();
-                deleteIcon.setGlyphName("TIMES");
-                editIcon.setGlyphSize(16);
-                deleteIcon.setGlyphSize(16);
-
-                editButton.setGraphic(editIcon);
-                deleteButton.setGraphic(deleteIcon);
-
-                editButton.setCursor(Cursor.HAND);
-                deleteButton.setCursor(Cursor.HAND);
-
-                rowButtonOnHoverEdit(editButton, i - startIndex);
-                rowButtonOnHoverDelete(deleteButton, i - startIndex);
-
-                editButton.getStyleClass().add("rowButton");
-                deleteButton.getStyleClass().add("rowButton");
-
-                editButton.setPrefHeight(32);
-                editButton.setPrefWidth(32);
-                deleteButton.setPrefHeight(32);
-                deleteButton.setPrefWidth(32);
-
-                if(recordModel.getUser().equals(Model.getInstance().getUser())){
-                    editIcon.setFill(Paint.valueOf("#2E2E2E"));
-                    deleteIcon.setFill(Paint.valueOf("#2E2E2E"));
-
-                    editButton.setOnAction(actionEvent -> setSceneEdit(recordModel));
-
-                    deleteButton.setOnAction(actionEvent -> {
-                        if(showConfirmPopup("Are you sure you want to delete this booking? (ID: " + recordModel.getId() + ")")){
-                            if(sqliteModel.deleteEntry(recordModel)){
-                                setSceneTable(false);
-                            }
-                        }
-                    });
-
-
-                }
-                else{
-                    editIcon.setFill(Paint.valueOf("#adadad"));
-                    deleteIcon.setFill(Paint.valueOf("#adadad"));
-
-                    editButton.setOnAction(actionEvent -> showErrorPopup("You are not user "+recordModel.getUser()+", cannot modify this booking"));
-                    deleteButton.setOnAction(actionEvent -> showErrorPopup("You are not user "+recordModel.getUser()+", cannot modify this booking"));
-                }
-                GridPane.setColumnIndex(editButton, 14);
-                GridPane.setColumnIndex(deleteButton, 15);
-
-
-
-                GridPane.setRowIndex(editButton, i - startIndex);
-                GridPane.setRowIndex(deleteButton, i - startIndex);
-
-                GridPane.setMargin(editButton, margin);
-                GridPane.setMargin(deleteButton, margin);
-
-                listTable.getChildren().addAll(editButton, deleteButton);
             }
-        }
-        else{
-            for(int i = startIndex; i < endIndex; i++){
-                for(int j = 0; j < 12; j++){
-                    List<String> recordList = list.get(i).getList();
-                    Label label = new Label();
-                    label.setAlignment(Pos.CENTER);
 
 
-                    if (j > 6) {
-                        label.setText(recordList.get(j+2));
-                    }
-                    else{
-                        label.setText(recordList.get(j));
-                    }
+            RecordModel recordModel = list.get(i);
+
+            Button editButton = new Button();
+            Button deleteButton = new Button();
 
 
-                    label.setTextAlignment(TextAlignment.CENTER);
-//                label.setWrapText(true);
-//                label.setPrefWidth(280);
+            FontAwesomeIconView editIcon = new FontAwesomeIconView();
+            editIcon.setGlyphName("EDIT");
+            FontAwesomeIconView deleteIcon = new FontAwesomeIconView();
+            deleteIcon.setGlyphName("TIMES");
+            editIcon.setGlyphSize(16);
+            deleteIcon.setGlyphSize(16);
 
-                    GridPane.setRowIndex(label, i - startIndex);
-                    GridPane.setColumnIndex(label, j);
-                    label.setPadding(margin);
-                    listTable.getChildren().add(label);
-                    if (j == 1) {
-                        label.setMaxWidth(65.1796875);
-                        label.setWrapText(true);
-                    } else if (j == 10) {
-                        label.setMaxWidth(49.669921875);
-                        label.setWrapText(true);
-                    }
+            editButton.setGraphic(editIcon);
+            deleteButton.setGraphic(deleteIcon);
 
-//                else if(j == 8){
-//                    VBox vbox = new VBox();
-//                    vbox.setAlignment(Pos.CENTER);
-//
-//                    Label temp = new Label();
-//                    temp.setAlignment(Pos.CENTER);
-//                    temp.setText(recordList.get(14));
-//                    temp.setTextAlignment(TextAlignment.CENTER);
-//
-//                    vbox.getChildren().addAll(label, temp);
-//                    GridPane.setRowIndex(vbox, i);
-//                    GridPane.setColumnIndex(vbox, j);
-//                    gridPane.getChildren().add(vbox);
-//                }
-                }
+            editButton.setCursor(Cursor.HAND);
+            deleteButton.setCursor(Cursor.HAND);
 
+            rowButtonOnHoverEdit(editButton, i - startIndex);
+            rowButtonOnHoverDelete(deleteButton, i - startIndex);
 
-                RecordModel recordModel = list.get(i);
+            editButton.getStyleClass().add("rowButton");
+            deleteButton.getStyleClass().add("rowButton");
 
-                Button editButton = new Button();
-                Button deleteButton = new Button();
+            editButton.setPrefHeight(32);
+            editButton.setPrefWidth(32);
+            deleteButton.setPrefHeight(32);
+            deleteButton.setPrefWidth(32);
 
+            if(recordModel.getUser().equals(Model.getInstance().getUser())){
+                editIcon.setFill(Paint.valueOf("#2E2E2E"));
+                deleteIcon.setFill(Paint.valueOf("#2E2E2E"));
 
-                FontAwesomeIconView editIcon = new FontAwesomeIconView();
-                editIcon.setGlyphName("EDIT");
-                FontAwesomeIconView deleteIcon = new FontAwesomeIconView();
-                deleteIcon.setGlyphName("TIMES");
-                editIcon.setGlyphSize(16);
-                deleteIcon.setGlyphSize(16);
+                editButton.setOnAction(actionEvent -> setSceneEdit(recordModel));
 
-                editButton.setGraphic(editIcon);
-                deleteButton.setGraphic(deleteIcon);
-
-                editButton.setCursor(Cursor.HAND);
-                deleteButton.setCursor(Cursor.HAND);
-
-                rowButtonOnHoverEdit(editButton, i - startIndex);
-                rowButtonOnHoverDelete(deleteButton, i - startIndex);
-
-                editButton.getStyleClass().add("rowButton");
-                deleteButton.getStyleClass().add("rowButton");
-
-                editButton.setPrefHeight(32);
-                editButton.setPrefWidth(32);
-                deleteButton.setPrefHeight(32);
-                deleteButton.setPrefWidth(32);
-
-                if(recordModel.getUser().equals(Model.getInstance().getUser())){
-                    editIcon.setFill(Paint.valueOf("#2E2E2E"));
-                    deleteIcon.setFill(Paint.valueOf("#2E2E2E"));
-
-                    editButton.setOnAction(actionEvent -> setSceneEdit(recordModel));
-
-                    deleteButton.setOnAction(actionEvent -> {
-                        if(showConfirmPopup("Are you sure you want to delete this booking? (ID: " + recordModel.getId() + ")")){
-                            if(sqliteModel.deleteEntry(recordModel)){
-                                setSceneTable(false);
-                            }
+                deleteButton.setOnAction(actionEvent -> {
+                    if(showConfirmPopup("Are you sure you want to delete this booking? (ID: " + recordModel.getId() + ")")){
+                        if(sqliteModel.deleteEntry(recordModel)){
+                            setSceneTable(false);
                         }
-                    });
+                    }
+                });
 
 
-                }
-                else{
-                    editIcon.setFill(Paint.valueOf("#adadad"));
-                    deleteIcon.setFill(Paint.valueOf("#adadad"));
-
-                    editButton.setOnAction(actionEvent -> showErrorPopup("You are not user "+recordModel.getUser()+", cannot modify this booking"));
-                    deleteButton.setOnAction(actionEvent -> showErrorPopup("You are not user "+recordModel.getUser()+", cannot modify this booking"));
-                }
-                GridPane.setColumnIndex(editButton, 12);
-                GridPane.setColumnIndex(deleteButton, 13);
-
-
-
-                GridPane.setRowIndex(editButton, i - startIndex);
-                GridPane.setRowIndex(deleteButton, i - startIndex);
-
-                GridPane.setMargin(editButton, margin);
-                GridPane.setMargin(deleteButton, margin);
-
-                listTable.getChildren().addAll(editButton, deleteButton);
             }
+            else{
+                editIcon.setFill(Paint.valueOf("#adadad"));
+                deleteIcon.setFill(Paint.valueOf("#adadad"));
+
+                editButton.setOnAction(actionEvent -> showErrorPopup("You are not user "+recordModel.getUser()+", cannot modify this booking"));
+                deleteButton.setOnAction(actionEvent -> showErrorPopup("You are not user "+recordModel.getUser()+", cannot modify this booking"));
+            }
+            GridPane.setColumnIndex(editButton, 14);
+            GridPane.setColumnIndex(deleteButton, 15);
+
+
+
+            GridPane.setRowIndex(editButton, i - startIndex);
+            GridPane.setRowIndex(deleteButton, i - startIndex);
+
+            GridPane.setMargin(editButton, margin);
+            GridPane.setMargin(deleteButton, margin);
+
+            listTable.getChildren().addAll(editButton, deleteButton);
         }
     }
 

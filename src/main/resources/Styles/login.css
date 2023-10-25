@@ -106,14 +106,19 @@ Text, .password-field{
     -fx-border-color: #0bb6d9;
 }
 
-#changePw_btn, #forgotPw_btn, #cancel_btn{
+#changePw_btn, #forgotPw_btn, #cancel_btn, #seePw{
     -fx-background-color: #FFFFFF;
     -fx-border-color: #2E2E2E;
 }
 
-#changePw_btn:hover, #forgotPw_btn:hover, #cancel_btn:hover{
+#changePw_btn:hover, #forgotPw_btn:hover, #cancel_btn:hover, #seePw:hover{
     -fx-background-color: #e5e5e5;
     -fx-border-color: #474747;
+}
+
+#seePw:pressed{
+    -fx-background-color: #e5e5e5;
+    -fx-border-color: #0bb6d9;
 }
 
 #changePw_btn .text, #forgotPw_btn .text{

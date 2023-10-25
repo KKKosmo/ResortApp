@@ -39,21 +39,29 @@ public class LoginController implements Initializable {
     public Text user6_txt;
     public ToggleButton user6_btn;
     public AnchorPane root;
+    public Button seePw;
     String currentUser;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        seePw.setOnMousePressed(event -> {
+            password_field.setPromptText(password_field.getText());
+            password_field.clear();
+        });
+        seePw.setOnMouseReleased(event -> {
+            password_field.setText(password_field.getPromptText());
+            password_field.setPromptText("PASSWORD");
+        });
+
+
         login_btn.setOnAction(event ->
             {
                 if(getUser()){
                     if(sqliteModel.auth(currentUser, password_field.getText())){
                         Model.getInstance().setUser(currentUser);
-                        if(Objects.equals(currentUser, "Glorifina")){
-                            Model.getInstance().setAdmin(true);
-                        }
-                        else{
-                            Model.getInstance().setAdmin(false);
-                        }
+
+                        Model.getInstance().setAdmin(Objects.equals(currentUser, "Glorifina") || Objects.equals(currentUser, "Roy"));
+
                         if(Model.getInstance().getViewFactory().getEscMenuController() != null){
                             Model.getInstance().getViewFactory().getEscMenuController().setUser(currentUser);
                         }

@@ -597,9 +597,6 @@ public class sqliteModel {
 //                paid = Model.getInstance().getViewFactory().showConfirmPopup("Confirm: Partial payment is the same as full payment, do you want to consider it as paid?");
 //            }
         }
-        if (partial_paymentDouble == fullPaymentDouble) {
-            paid = true;
-        }
         if(paxInt > 99){
             Model.getInstance().getViewFactory().showErrorPopup("Head count should be less than 100.");
             return false;
