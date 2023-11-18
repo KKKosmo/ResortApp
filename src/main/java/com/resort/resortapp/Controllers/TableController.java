@@ -499,9 +499,10 @@ public class TableController implements Initializable {
             if(startDate_datePicker.getValue() != null){
                 startDate_datePicker.setValue(null);
             }
-            else if(endDate_datePicker.getValue() != null){
+            if(endDate_datePicker.getValue() != null){
                 endDate_datePicker.setValue(null);
             }
+            yearMonth_box.setValue(null);
             yearMonth_box.setValue("ALL");
         });
 

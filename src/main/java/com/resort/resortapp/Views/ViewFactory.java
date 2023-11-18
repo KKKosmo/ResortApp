@@ -209,9 +209,8 @@ public class ViewFactory {
         setCalendarGrid();
 
         int dateOffset = Model.getInstance().getDateOffset();
-
+        Model.getInstance().setCalendarRightDate(Model.getInstance().getDateFocus());
         int monthMaxDate = Model.getInstance().getCalendarRightDate().getDayOfMonth();
-
         for(int i = 0; i < monthMaxDate; i++){
             Text temp = onScreenCalendarDayModels.get(i + dateOffset).getRoomsText();
             StringBuilder desc = new StringBuilder();
@@ -220,8 +219,13 @@ public class ViewFactory {
                 desc.append(Rooms.abbvToDisplay(string)).append("\n");
             }
 
-            temp.setText(desc.toString());
-            temp.setTextAlignment(TextAlignment.CENTER);
+//            if(temp == null){
+//                System.out.println(i + " ========================================");
+//            }
+//            else{
+                temp.setText(desc.toString());
+                temp.setTextAlignment(TextAlignment.CENTER);
+//            }
         }
 
     }
