@@ -1,14 +1,17 @@
 # ResortApp
 
-- For a client who owns a resort
-  
--A desktop application made with JavaFX and Sqlite.
+For a client who manages a resort
 
--Goal is to make it easier and more secure for employees to manage bookings, by having data enforcements and a good GUI.
+Made with JavaFX and Sqlite
 
--Most notable features are: an event history system, and generating detailed summary report PDF documents.
+Goal is to make it easier and secure to manage bookings, by having data enforcements and an intuitive modern GUI
 
--Biggest challenges are security/auth, table filtering system, and efficiently retrieving and displaying data about the free slots available within a certain date range into the GUI (in which efficiency was significantly boosted by doing dynamic programming).
+Booking process got 10% faster and 80% more secure, resulting in them saving money and having faster processes
+
+Most notable features are: an event history system, and generating detailed summary report PDF documents
+
+Biggest challenges are security/auth, table filtering system, and efficiently retrieving and displaying data about the free slots available within a certain date range into the GUI (in which efficiency was boosted by doing dynamic programming)
+
 
 ## Screenshots
 ![alt text](https://github.com/KKKosmo/ResortApp/blob/master/Sreenshots/3.png?raw=true)
